@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Crest</string>
+	<string>$(SEI_PRODUCT_NAME)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -78,7 +78,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Crest</string>
+	<string>$(SEI_PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -100,7 +100,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CrestCloudKitContainerIdentifier</key>
-	<string>iCloud.com.pauldavis.crest</string>
+	<string>iCloud.$(SEI_BUNDLE_ID)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
 	<key>LSMinimumSystemVersion</key>
@@ -131,13 +131,15 @@
 		<string>NSUserActivityTypeBrowsingWeb</string>
 	</array>
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/pauljoda/Crest/updates/appcast.xml</string>
+	<string>$(SEI_UPDATE_FEED_BASE_URL)/appcast.xml</string>
 	<key>SUEnableAutomaticChecks</key>
-	<true/>
+	<false/>
 	<key>SUScheduledCheckInterval</key>
 	<real>3600</real>
 	<key>SUAutomaticallyUpdate</key>
-	<true/>
+	<false/>
+	<key>SeiUpdateFeedBaseURL</key>
+	<string>$(SEI_UPDATE_FEED_BASE_URL)</string>
 	<key>CrestDefaultUpdateChannel</key>
 	<string>$(CREST_DEFAULT_UPDATE_CHANNEL)</string>
 	<key>SUPublicEDKey</key>

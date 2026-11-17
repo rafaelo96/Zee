@@ -3,10 +3,10 @@ configs:
   Debug: debug
   Release: release
 configFiles:
-  Debug: Config/Version.xcconfig
-  Release: Config/Version.xcconfig
+  Debug: Config/Sei.xcconfig
+  Release: Config/Sei.xcconfig
 options:
-  bundleIdPrefix: com.pauldavis
+  bundleIdPrefix: dev.sei
   deploymentTarget:
     iOS: "26.1"
     macOS: "26.1"
@@ -15,7 +15,7 @@ settings:
   base:
     ARCHS: arm64
     CODE_SIGN_STYLE: Automatic
-    DEVELOPMENT_TEAM: 3U2R97HLXF
+    DEVELOPMENT_TEAM: "$(SEI_DEVELOPMENT_TEAM)"
     DEVELOPMENT_LANGUAGE: en
     ENABLE_HARDENED_RUNTIME: YES
     MACOSX_DEPLOYMENT_TARGET: "26.1"
@@ -146,10 +146,10 @@ targetTemplates:
       - sdk: Security.framework
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.pauldavis.crest.chromium-ui
+        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).chromium-ui"
         PRODUCT_MODULE_NAME: CrestChromiumUI
         GENERATE_INFOPLIST_FILE: YES
-        ASSETCATALOG_COMPILER_APPICON_NAME: Crest
+        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
         ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: ${hostCompilationConditions}
         SWIFT_OBJC_BRIDGING_HEADER: "$(PROJECT_DIR)/CrestEngines/Chromium/Apple/CrestChromiumHost.h"
@@ -231,9 +231,9 @@ targets:
         PROVISIONING_PROFILE_SPECIFIER: "$(CREST_PROVISIONING_PROFILE_SPECIFIER)"
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: CrestMac/Configuration/Crest-Info.plist
-        ASSETCATALOG_COMPILER_APPICON_NAME: Crest
+        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
         ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
-        CREST_NATIVE_CORE_BUNDLE_IDENTIFIER: com.pauldavis.crest.native-core
+        CREST_NATIVE_CORE_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).native-core"
         PRODUCT_BUNDLE_IDENTIFIER: "$(CREST_NATIVE_CORE_BUNDLE_IDENTIFIER)"
         PRODUCT_MODULE_NAME: Crest
         PRODUCT_NAME: CrestNativeCore
@@ -289,7 +289,7 @@ targets:
       - target: CrestNativeCore
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.pauldavis.crest.native-core.tests
+        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).native-core.tests"
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited)"
         SWIFT_INCLUDE_PATHS: "$(PROJECT_DIR)/CrestContracts/include"
         GENERATE_INFOPLIST_FILE: YES
@@ -341,12 +341,12 @@ targets:
         PROVISIONING_PROFILE_SPECIFIER: "$(CREST_PROVISIONING_PROFILE_SPECIFIER)"
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: CrestMac/Configuration/Crest-Info.plist
-        ASSETCATALOG_COMPILER_APPICON_NAME: Crest
+        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
         ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
-        CREST_MAC_BUNDLE_IDENTIFIER: com.pauldavis.crest
+        CREST_MAC_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID)"
         PRODUCT_BUNDLE_IDENTIFIER: "$(CREST_MAC_BUNDLE_IDENTIFIER)"
         PRODUCT_MODULE_NAME: Crest
-        PRODUCT_NAME: Crest
+        PRODUCT_NAME: "$(SEI_PRODUCT_NAME)"
         CREST_DEFAULT_UPDATE_CHANNEL: development
   # crest-browser, the helper agents run over stdio to reach the Crest app it
   # ships inside (Contents/Helpers). Mac only.
@@ -360,7 +360,7 @@ targets:
       base:
         PRODUCT_NAME: crest-browser
         PRODUCT_MODULE_NAME: CrestBrowserHelper
-        PRODUCT_BUNDLE_IDENTIFIER: com.pauldavis.crest.browser-helper
+        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).browser-helper"
         GENERATE_INFOPLIST_FILE: YES
         CREATE_INFOPLIST_SECTION_IN_BINARY: YES
         SKIP_INSTALL: YES
@@ -374,7 +374,7 @@ targets:
       - path: CrestMac/Features/AppIcon/BrowserMacDockTileView.swift
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.pauldavis.crest.docktileplugin
+        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).docktileplugin"
         PRODUCT_NAME: CrestDockTilePlugin
         PRODUCT_MODULE_NAME: CrestDockTilePlugin
         WRAPPER_EXTENSION: docktileplugin
@@ -398,8 +398,8 @@ targets:
         SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/CrestContracts/include"
         BUNDLE_LOADER: "$(TEST_HOST)"
         GENERATE_INFOPLIST_FILE: YES
-        PRODUCT_BUNDLE_IDENTIFIER: com.pauldavis.crest.tests
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Crest.app/Contents/MacOS/Crest"
+        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).tests"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/$(SEI_PRODUCT_NAME).app/Contents/MacOS/$(SEI_PRODUCT_NAME)"
   CrestMobileNativeCore:
     type: application
     platform: iOS
@@ -428,12 +428,12 @@ targets:
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: CrestMobile/Configuration/CrestMobile-Info.plist
         IPHONEOS_DEPLOYMENT_TARGET: "26.1"
-        CREST_MOBILE_BUNDLE_IDENTIFIER: com.pauldavis.crest.mobile-native-core
+        CREST_MOBILE_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).mobile-native-core"
         PRODUCT_BUNDLE_IDENTIFIER: "$(CREST_MOBILE_BUNDLE_IDENTIFIER)"
         PRODUCT_MODULE_NAME: CrestMobile
         PRODUCT_NAME: CrestNativeCore
         TARGETED_DEVICE_FAMILY: "1,2"
-        ASSETCATALOG_COMPILER_APPICON_NAME: Crest
+        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
         ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) CREST_REVIEW_BUILD"
@@ -486,12 +486,12 @@ targets:
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: CrestMobile/Configuration/CrestMobile-Info.plist
         IPHONEOS_DEPLOYMENT_TARGET: "26.1"
-        CREST_MOBILE_BUNDLE_IDENTIFIER: com.pauldavis.crest
+        CREST_MOBILE_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID)"
         PRODUCT_BUNDLE_IDENTIFIER: "$(CREST_MOBILE_BUNDLE_IDENTIFIER)"
         PRODUCT_MODULE_NAME: CrestMobile
         PRODUCT_NAME: Crest
         TARGETED_DEVICE_FAMILY: "1,2"
-        ASSETCATALOG_COMPILER_APPICON_NAME: Crest
+        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
         ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
   # The share sheet entry hands shared links to the iOS app. It compiles the
@@ -509,7 +509,7 @@ targets:
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: CrestShareExtension/Info.plist
         IPHONEOS_DEPLOYMENT_TARGET: "26.1"
-        CREST_MOBILE_BUNDLE_IDENTIFIER: com.pauldavis.crest
+        CREST_MOBILE_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID)"
         PRODUCT_BUNDLE_IDENTIFIER: $(CREST_MOBILE_BUNDLE_IDENTIFIER).share
         PRODUCT_MODULE_NAME: CrestShareExtension
         PRODUCT_NAME: CrestShareExtension
@@ -527,7 +527,7 @@ targets:
         SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/CrestContracts/include"
         BUNDLE_LOADER: "$(TEST_HOST)"
         GENERATE_INFOPLIST_FILE: YES
-        PRODUCT_BUNDLE_IDENTIFIER: com.pauldavis.crest.mobile.tests
+        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).mobile.tests"
         TARGETED_DEVICE_FAMILY: "1,2"
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Crest.app/Crest"
 schemes:

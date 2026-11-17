@@ -2224,6 +2224,7 @@
 		2B1693FA2B6E872FBF56015E /* BrowserLinkPullPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6284DCCE4F3CA4DFA5022931 /* BrowserLinkPullPhase.swift */; };
 		2B16A36E054B03F68A4603F9 /* BrowserCommandPaletteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E120F0F170DC1FFEF7769E /* BrowserCommandPaletteModel.swift */; };
 		2B17AE0F5E303F12D5D7D568 /* EnginePage+Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9385EABE6143801D8D41670 /* EnginePage+Agent.swift */; };
+		2B18F4AB5B3AFB2F81E018EE /* Sei.icon in Resources */ = {isa = PBXBuildFile; fileRef = 93694BE5504FD7602AD9DC92 /* Sei.icon */; };
 		2B1AD69670112E6BBEE91D6A /* BrowserDataPortabilitySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D582617AE165C7FCFE44CEB /* BrowserDataPortabilitySection.swift */; };
 		2B212A52B1C13637352B4CAD /* BrowserFindPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6E964F3E30544B5A017B1 /* BrowserFindPort.swift */; };
 		2B2A59D1394E8193D527E95D /* FolderState+Seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1159CF77698406EC5C859AC /* FolderState+Seed.swift */; };
@@ -3113,6 +3114,7 @@
 		3B6626150366924A42C83D1F /* BrowserAddressSecurityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD24D6F58ACD9F9B6621746 /* BrowserAddressSecurityButton.swift */; };
 		3B6A239DC8667159AB5E7445 /* BrowserCommandPaletteCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71BA9892F0E68838C569401 /* BrowserCommandPaletteCard.swift */; };
 		3B711A262C42E8751517BAD4 /* ProductIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A13D62082489D1C98AEE50 /* ProductIdentity.swift */; };
+		3B736B36E47F4FE9D6382EEA /* Sei.icon in Resources */ = {isa = PBXBuildFile; fileRef = 93694BE5504FD7602AD9DC92 /* Sei.icon */; };
 		3B75FF2A2236005B9ED01C08 /* BrowserCloudUploadGone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2671267E362210157CDDA730 /* BrowserCloudUploadGone.swift */; };
 		3B76A442F6BCBBD2A9DA1A39 /* BrowserWebKitReaderModeDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6017D971F77FAC07B6F7F74 /* BrowserWebKitReaderModeDocument.swift */; };
 		3B7A9B8A60A799AA045936A3 /* BrowserDeveloperCustomViewportFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CFC4BB5FD5826BE3E22E7E /* BrowserDeveloperCustomViewportFields.swift */; };
@@ -5794,6 +5796,7 @@
 		6DDCEB9DD506CFB0BD89C8E7 /* CoreState+Engines.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB50B2FF352B1996CE0F2738 /* CoreState+Engines.swift */; };
 		6DE0BEB6158C5D7AC9ABB092 /* BrowserSoftwareUpdateActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0222B74A3F857903C9D300 /* BrowserSoftwareUpdateActions.swift */; };
 		6DE2B009023221837B4B1F75 /* BrowserCrestStudioStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A0E445DC95864F240FB7E7 /* BrowserCrestStudioStep.swift */; };
+		6DE31BD1CCD85E717FA912B4 /* Sei.icon in Resources */ = {isa = PBXBuildFile; fileRef = 93694BE5504FD7602AD9DC92 /* Sei.icon */; };
 		6DFADAAFF23BD46415786F02 /* BrowserSetupFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E068D3C8191C01A5125782 /* BrowserSetupFinish.swift */; };
 		6DFAEA48CDC2213C28E555AE /* TabsImported+CoreState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9225E5FD3DC56AE6E97A34 /* TabsImported+CoreState.swift */; };
 		6DFBCCEACCD5082853955E00 /* BrowserCredentialSaveKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD75709FBEA7B1B25495373 /* BrowserCredentialSaveKey.swift */; };
@@ -5865,6 +5868,7 @@
 		6F2E67EDC51B3FF4ABCB43CA /* BrowserSetupRefused.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45C973E5A8250EA97F6C2DD /* BrowserSetupRefused.swift */; };
 		6F38D8A40DB0274DC25527D9 /* BrowserEngineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15546EAD778E691F473C96CD /* BrowserEngineView.swift */; };
 		6F409491A0206BFFEDB5A1A3 /* BrowserNavigationFailureLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167BCCA801EA75ECCB920ED2 /* BrowserNavigationFailureLayout.swift */; };
+		6F4229E29F038C256392A9F2 /* Sei.icon in Resources */ = {isa = PBXBuildFile; fileRef = 93694BE5504FD7602AD9DC92 /* Sei.icon */; };
 		6F47BE98488AA2AED7CA78EA /* BrowserShortcutSettingsControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8686542B27DCA90F38B75E /* BrowserShortcutSettingsControls.swift */; };
 		6F4EBFB3B6FFA694F8AE2850 /* BrowserPlatformTabPromotionSourceModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A981AD4AD97CFF2706EAC2 /* BrowserPlatformTabPromotionSourceModifier.swift */; };
 		6F52B42E64C2B045CA7DAF12 /* BrowserTabStatusAppearanceGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F4CAB8F4310F73F1709F22 /* BrowserTabStatusAppearanceGroup.swift */; };
@@ -7409,6 +7413,7 @@
 		8E2900C97F79F493E238CCF4 /* BrowserCommandPaletteRowTrailing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECA2755ECC656130D348DBE /* BrowserCommandPaletteRowTrailing.swift */; };
 		8E29CED609E3BE85B79D3162 /* BrowserShortcutSearchProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E9E007B539567752409BB /* BrowserShortcutSearchProviding.swift */; };
 		8E31340ACAAF83BA081CB3ED /* BrowserTabCopying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3474F6E74628E763F6D733 /* BrowserTabCopying.swift */; };
+		8E3744DFB53ABC37AAC43512 /* Sei.icon in Resources */ = {isa = PBXBuildFile; fileRef = 93694BE5504FD7602AD9DC92 /* Sei.icon */; };
 		8E3B85077E17A21B5C46CA8D /* BrowserSidebarWidgetRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1DBD0C55887A666DCC4B0E /* BrowserSidebarWidgetRuntime.swift */; };
 		8E46A305CEB917DFC98F7470 /* BrowserQuickWindowSpacePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A0A605638D5AD0BB1A6BC /* BrowserQuickWindowSpacePicker.swift */; };
 		8E48CA5D9377C89756BF09D0 /* BrowserUtilityListReconciliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85969D1C5F7DF40EEE4752E6 /* BrowserUtilityListReconciliation.swift */; };
@@ -11939,6 +11944,7 @@
 		E5C9F4D72D965F15E36054AC /* BrowserSidebarTabRowMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CD12C78866AFABDCBD22CB /* BrowserSidebarTabRowMetrics.swift */; };
 		E5CD0FA5317C68DB1D348571 /* MobileBrowserSpaceSwitchDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3C3BDACC79AFB0C574ED73 /* MobileBrowserSpaceSwitchDestination.swift */; };
 		E5E9AB358A600E8BCFB13B00 /* BrowserStrongPasswordPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F6496050D7A302C1257B67 /* BrowserStrongPasswordPrompt.swift */; };
+		E5EA445A4121442245B99365 /* Sei.icon in Resources */ = {isa = PBXBuildFile; fileRef = 93694BE5504FD7602AD9DC92 /* Sei.icon */; };
 		E5EF8CE3930BB0F6B4B28DF3 /* PageLoadingChanged+ChromiumEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42660801D5ED2B0BF4FDA7A /* PageLoadingChanged+ChromiumEngine.swift */; };
 		E5F511B0AB016C9FE9B2A3B4 /* BrowserTabSelectionGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312148732A0FC8BADC384F8C /* BrowserTabSelectionGlow.swift */; };
 		E5F6284A078FDC488247BC28 /* BrowserLinkRoutingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6DC20D8D61B6B5D2038B5E /* BrowserLinkRoutingSection.swift */; };
@@ -13398,10 +13404,10 @@
 		77246D3C18A4BE22588899AF /* Embed Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents/Helpers;
-			dstSubfolderSpec = 1;
+			dstPath = "";
+			dstSubfolderSpec = 13;
 			files = (
-				602EA1C48DA886AF37165D05 /* CrestBrowserHelper in Embed Dependencies */,
+				E920722BC4FE573FCD86AC2F /* CrestDockTilePlugin.bundle in Embed Dependencies */,
 			);
 			name = "Embed Dependencies";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -13409,10 +13415,10 @@
 		C233CF86D8A7BCB83478C0FD /* Embed Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents/Helpers;
-			dstSubfolderSpec = 1;
+			dstPath = "";
+			dstSubfolderSpec = 13;
 			files = (
-				095A270ED3CF16A5D4880916 /* CrestBrowserHelper in Embed Dependencies */,
+				FD7AE579582BBE1FC03BA342 /* CrestDockTilePlugin.bundle in Embed Dependencies */,
 			);
 			name = "Embed Dependencies";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -13431,10 +13437,10 @@
 		E5DF0E7CEB816358EC452393 /* Embed Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstPath = Contents/Helpers;
+			dstSubfolderSpec = 1;
 			files = (
-				FD7AE579582BBE1FC03BA342 /* CrestDockTilePlugin.bundle in Embed Dependencies */,
+				095A270ED3CF16A5D4880916 /* CrestBrowserHelper in Embed Dependencies */,
 			);
 			name = "Embed Dependencies";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -13442,10 +13448,10 @@
 		F67E0DC06840146EFBBD7607 /* Embed Dependencies */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstPath = Contents/Helpers;
+			dstSubfolderSpec = 1;
 			files = (
-				E920722BC4FE573FCD86AC2F /* CrestDockTilePlugin.bundle in Embed Dependencies */,
+				602EA1C48DA886AF37165D05 /* CrestBrowserHelper in Embed Dependencies */,
 			);
 			name = "Embed Dependencies";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -14237,7 +14243,6 @@
 		4ACEB4ED160CA3F1223AC0C5 /* BrowserMacTabPreviewLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserMacTabPreviewLayer.swift; sourceTree = "<group>"; };
 		4AD83984E42E43C25A361182 /* AutomaticDownloadActionPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticDownloadActionPerformer.swift; sourceTree = "<group>"; };
 		4ADC8F2AB54B713A30B12ECB /* SidebarFullscreenRevealPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarFullscreenRevealPreference.swift; sourceTree = "<group>"; };
-		4AE3A1E6AFBDCC97BEFA3EC3 /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		4B0E057CCA05D90DFAD2187F /* BrowserCollapsedSidebarRevealControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserCollapsedSidebarRevealControl.swift; sourceTree = "<group>"; };
 		4B1BDA0B94B0EB304A84F3EA /* BrowserMacPageKeptShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserMacPageKeptShortcut.swift; sourceTree = "<group>"; };
 		4B32B6D1D2B69D4DA72A6A7E /* CrestButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrestButtonStyle.swift; sourceTree = "<group>"; };
@@ -15048,6 +15053,7 @@
 		931E183F8E03DB8C258C6CF3 /* BrowserSitePermissionDisclosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSitePermissionDisclosure.swift; sourceTree = "<group>"; };
 		93357BFE769719C1FB420720 /* BrowserStore+Pages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BrowserStore+Pages.swift"; sourceTree = "<group>"; };
 		93655A5C592EF13ECF947214 /* SearchProviderLogos.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SearchProviderLogos.xcassets; sourceTree = "<group>"; };
+		93694BE5504FD7602AD9DC92 /* Sei.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = Sei.icon; sourceTree = "<group>"; };
 		937F60F41682CA766D8CC591 /* CrestSelectableCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrestSelectableCard.swift; sourceTree = "<group>"; };
 		93A27F0CB338D03AA8D234C4 /* CrestPlatformFormRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrestPlatformFormRows.swift; sourceTree = "<group>"; };
 		93B2EB6E7E6FA33CF4B82C0C /* BrowserSiteEngineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSiteEngineRow.swift; sourceTree = "<group>"; };
@@ -15059,6 +15065,7 @@
 		93F7FAEC0BD57B04289BDCDB /* BrowserLaunchEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserLaunchEnvironmentTests.swift; sourceTree = "<group>"; };
 		941BA2D3748587498B2D80A9 /* SpacePageHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacePageHost.swift; sourceTree = "<group>"; };
 		9455906112C29FA3BC30C4D7 /* BrowserFaviconImageCacheRequestRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserFaviconImageCacheRequestRegistry.swift; sourceTree = "<group>"; };
+		94626ABFA7A90E4B4DC9808B /* Sei.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Sei.xcconfig; sourceTree = "<group>"; };
 		9489FEBE769E2EA599B478E0 /* FaviconFallbackLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaviconFallbackLoader.swift; sourceTree = "<group>"; };
 		94B33EF6EC1CB1E986988CD0 /* BrowserPrintingPageEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserPrintingPageEngine.swift; sourceTree = "<group>"; };
 		94C1F52B7C72FCAEE576A547 /* BrowserSpaceCrestPlateShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSpaceCrestPlateShape.swift; sourceTree = "<group>"; };
@@ -16927,7 +16934,7 @@
 		0F49EFB8FFB9D36758660FE8 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				4AE3A1E6AFBDCC97BEFA3EC3 /* Version.xcconfig */,
+				94626ABFA7A90E4B4DC9808B /* Sei.xcconfig */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -25958,6 +25965,7 @@
 				D61C5C755A9BEE7DE5F59285 /* CrestSun.icon */,
 				4BBC8011E5027988475C9CC6 /* CrestVigil.icon */,
 				B25DBCB5E4A57B2EBDB0B00A /* CrestWinter.icon */,
+				93694BE5504FD7602AD9DC92 /* Sei.icon */,
 			);
 			path = CrestIcon;
 			sourceTree = "<group>";
@@ -26438,51 +26446,51 @@
 				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					111A93F8B478002FE1D14B42 = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					321819CE93FADB5156A5A1DC = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					412EB9963F05DC0CBBBC33B0 = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					4356C4DA52CAE7524DEB0A38 = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					46B0D0C971890F8BC88AF730 = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					4D341E5497DB9B25FC73E60C = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					64F711736DE805DD1E5F0F82 = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					A15FDC6470C477C0C71DE608 = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					ADA9BA9F3D6E69D3F8FBB95C = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					ADEDE72882F61267A8E12490 = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					C12D338E727EE8486BB3B0EA = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 					E7D659FB7197EB7B4A7EA254 = {
-						DevelopmentTeam = 3U2R97HLXF;
+						DevelopmentTeam = "$(SEI_DEVELOPMENT_TEAM)";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -26549,6 +26557,7 @@
 				F4498D7DF27C5C4792B817D0 /* SFSymbolCatalog-LICENSE.txt in Resources */,
 				A30DDABDA81E1A3523AF4D94 /* SFSymbolNames.txt in Resources */,
 				4790A1B367AA917894368542 /* SearchProviderLogos.xcassets in Resources */,
+				8E3744DFB53ABC37AAC43512 /* Sei.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -26580,6 +26589,7 @@
 				F2ED4A8DB1B2954C8610E49F /* SFSymbolCatalog-LICENSE.txt in Resources */,
 				1F5DA7DAD071AA5BF018F790 /* SFSymbolNames.txt in Resources */,
 				F9C074CDA071AE2E946A8F22 /* SearchProviderLogos.xcassets in Resources */,
+				3B736B36E47F4FE9D6382EEA /* Sei.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -26610,6 +26620,7 @@
 				33BF32A803AE08915E6E91DE /* SFSymbolCatalog-LICENSE.txt in Resources */,
 				1D664E2C8A26470344CA298A /* SFSymbolNames.txt in Resources */,
 				1301AE6D8F7691639A464E07 /* SearchProviderLogos.xcassets in Resources */,
+				E5EA445A4121442245B99365 /* Sei.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -26640,6 +26651,7 @@
 				C6A1E33C6CFEF7D795607068 /* SFSymbolCatalog-LICENSE.txt in Resources */,
 				30443620112133C64184D1AD /* SFSymbolNames.txt in Resources */,
 				25184EA8E0CE2861EEF85C0C /* SearchProviderLogos.xcassets in Resources */,
+				6F4229E29F038C256392A9F2 /* Sei.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -26670,6 +26682,7 @@
 				3F587EBD27EF04B541219B9D /* SFSymbolCatalog-LICENSE.txt in Resources */,
 				54370228A380FD8F91A33246 /* SFSymbolNames.txt in Resources */,
 				DD665F578652637AEC35D7E6 /* SearchProviderLogos.xcassets in Resources */,
+				2B18F4AB5B3AFB2F81E018EE /* Sei.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -26710,6 +26723,7 @@
 				E1E3627BB9A1F2AC11CE5E56 /* SFSymbolCatalog-LICENSE.txt in Resources */,
 				5A09F23380B7F5B3D62E73CD /* SFSymbolNames.txt in Resources */,
 				9122621D093EC1C8A4687FD9 /* SearchProviderLogos.xcassets in Resources */,
+				6DE31BD1CCD85E717FA912B4 /* Sei.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40139,12 +40153,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				CODE_SIGN_ENTITLEMENTS = "$(CREST_NATIVE_CORE_ENTITLEMENTS)";
 				COMBINE_HIDPI_IMAGES = YES;
 				CREST_CORE_LIBRARY_DIR = "$(PROJECT_DIR)/CrestCore/src/CrestCore.Native/bin/Release/net10.0/osx-arm64/publish";
 				CREST_DEFAULT_UPDATE_CHANNEL = development;
-				CREST_NATIVE_CORE_BUNDLE_IDENTIFIER = "com.pauldavis.crest.native-core";
+				CREST_NATIVE_CORE_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).native-core";
 				CREST_NATIVE_CORE_ENTITLEMENTS = CrestNative/Apple/Composition/ControlPlane.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "CrestMac/Configuration/Crest-Info.plist";
@@ -40171,7 +40185,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pauldavis.crest.mobile.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).mobile.tests";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/CrestContracts/include";
@@ -40184,12 +40198,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CrestMobile/Configuration/CrestMobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CREST_CORE_FRAMEWORK_DIR = "$(BUILT_PRODUCTS_DIR)/CrestCore";
-				CREST_MOBILE_BUNDLE_IDENTIFIER = com.pauldavis.crest;
+				CREST_MOBILE_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID)";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(CREST_CORE_FRAMEWORK_DIR)";
 				GENERATE_INFOPLIST_FILE = NO;
@@ -40217,7 +40231,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pauldavis.crest.docktileplugin;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).docktileplugin";
 				PRODUCT_MODULE_NAME = CrestDockTilePlugin;
 				PRODUCT_NAME = CrestDockTilePlugin;
 				SDKROOT = macosx;
@@ -40229,7 +40243,7 @@
 		2389A25C2B1F3582F1C76CC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CREST_MOBILE_BUNDLE_IDENTIFIER = com.pauldavis.crest;
+				CREST_MOBILE_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID)";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CrestShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
@@ -40250,12 +40264,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CrestMobile/Configuration/CrestMobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CREST_CORE_FRAMEWORK_DIR = "$(BUILT_PRODUCTS_DIR)/CrestCore";
-				CREST_MOBILE_BUNDLE_IDENTIFIER = com.pauldavis.crest;
+				CREST_MOBILE_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID)";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(CREST_CORE_FRAMEWORK_DIR)";
 				GENERATE_INFOPLIST_FILE = NO;
@@ -40277,12 +40291,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = CrestNative/Apple/Composition/MobileCloudReview.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CREST_CORE_FRAMEWORK_DIR = "$(PROJECT_DIR)/CrestCore/artifacts/$(PLATFORM_NAME)";
-				CREST_MOBILE_BUNDLE_IDENTIFIER = "com.pauldavis.crest.mobile-native-core";
+				CREST_MOBILE_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).mobile-native-core";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(CREST_CORE_FRAMEWORK_DIR)";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "CrestMobile/Configuration/CrestMobile-Info.plist";
@@ -40310,7 +40324,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pauldavis.crest.mobile.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).mobile.tests";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/CrestContracts/include";
@@ -40329,7 +40343,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pauldavis.crest.browser-helper";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).browser-helper";
 				PRODUCT_MODULE_NAME = CrestBrowserHelper;
 				PRODUCT_NAME = "crest-browser";
 				SDKROOT = macosx;
@@ -40349,11 +40363,11 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pauldavis.crest.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).tests";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/CrestContracts/include";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Crest.app/Contents/MacOS/Crest";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(SEI_PRODUCT_NAME).app/Contents/MacOS/$(SEI_PRODUCT_NAME)";
 			};
 			name = Release;
 		};
@@ -40368,7 +40382,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pauldavis.crest.native-core.tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).native-core.tests";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -40381,7 +40395,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CREST_CORE_LIBRARY_DIR = "$(BUILT_PRODUCTS_DIR)/CrestCore";
@@ -40395,7 +40409,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../..";
 				OTHER_LDFLAGS = "$(inherited) \"$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib\"";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pauldavis.crest.chromium-ui";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).chromium-ui";
 				PRODUCT_MODULE_NAME = CrestChromiumUI;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -40410,7 +40424,7 @@
 		6086ED4957AD3F2025E7FBF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CREST_MOBILE_BUNDLE_IDENTIFIER = com.pauldavis.crest;
+				CREST_MOBILE_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID)";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CrestShareExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
@@ -40431,7 +40445,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CREST_CORE_LIBRARY_DIR = "$(BUILT_PRODUCTS_DIR)/CrestCore";
@@ -40445,7 +40459,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../..";
 				OTHER_LDFLAGS = "$(inherited) \"$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib\"";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pauldavis.crest.chromium-ui";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).chromium-ui";
 				PRODUCT_MODULE_NAME = CrestChromiumUI;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -40467,7 +40481,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pauldavis.crest.browser-helper";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).browser-helper";
 				PRODUCT_MODULE_NAME = CrestBrowserHelper;
 				PRODUCT_NAME = "crest-browser";
 				SDKROOT = macosx;
@@ -40480,12 +40494,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				CODE_SIGN_ENTITLEMENTS = "$(CREST_MAC_ENTITLEMENTS)";
 				COMBINE_HIDPI_IMAGES = YES;
 				CREST_CORE_LIBRARY_DIR = "$(BUILT_PRODUCTS_DIR)/CrestCore";
 				CREST_DEFAULT_UPDATE_CHANNEL = development;
-				CREST_MAC_BUNDLE_IDENTIFIER = com.pauldavis.crest;
+				CREST_MAC_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID)";
 				CREST_MAC_ENTITLEMENTS = CrestMac/Configuration/Crest.entitlements;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -40494,7 +40508,7 @@
 				OTHER_LDFLAGS = "$(inherited) \"$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(CREST_MAC_BUNDLE_IDENTIFIER)";
 				PRODUCT_MODULE_NAME = Crest;
-				PRODUCT_NAME = Crest;
+				PRODUCT_NAME = "$(SEI_PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(CREST_PROVISIONING_PROFILE_SPECIFIER)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
@@ -40504,7 +40518,7 @@
 		};
 		7A73CCD253EC97FA097AF293 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4AE3A1E6AFBDCC97BEFA3EC3 /* Version.xcconfig */;
+			baseConfigurationReference = 94626ABFA7A90E4B4DC9808B /* Sei.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APS_ENVIRONMENT = production;
@@ -40543,7 +40557,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_LANGUAGE = en;
-				DEVELOPMENT_TEAM = 3U2R97HLXF;
+				DEVELOPMENT_TEAM = "$(SEI_DEVELOPMENT_TEAM)";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -40580,11 +40594,11 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pauldavis.crest.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).tests";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/CrestContracts/include";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Crest.app/Contents/MacOS/Crest";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/$(SEI_PRODUCT_NAME).app/Contents/MacOS/$(SEI_PRODUCT_NAME)";
 			};
 			name = Debug;
 		};
@@ -40592,12 +40606,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				CODE_SIGN_ENTITLEMENTS = "$(CREST_NATIVE_CORE_ENTITLEMENTS)";
 				COMBINE_HIDPI_IMAGES = YES;
 				CREST_CORE_LIBRARY_DIR = "$(PROJECT_DIR)/CrestCore/src/CrestCore.Native/bin/Release/net10.0/osx-arm64/publish";
 				CREST_DEFAULT_UPDATE_CHANNEL = development;
-				CREST_NATIVE_CORE_BUNDLE_IDENTIFIER = "com.pauldavis.crest.native-core";
+				CREST_NATIVE_CORE_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).native-core";
 				CREST_NATIVE_CORE_ENTITLEMENTS = CrestNative/Apple/Composition/ControlPlane.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "CrestMac/Configuration/Crest-Info.plist";
@@ -40624,7 +40638,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pauldavis.crest.docktileplugin;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).docktileplugin";
 				PRODUCT_MODULE_NAME = CrestDockTilePlugin;
 				PRODUCT_NAME = CrestDockTilePlugin;
 				SDKROOT = macosx;
@@ -40637,12 +40651,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				CODE_SIGN_ENTITLEMENTS = "$(CREST_MAC_ENTITLEMENTS)";
 				COMBINE_HIDPI_IMAGES = YES;
 				CREST_CORE_LIBRARY_DIR = "$(BUILT_PRODUCTS_DIR)/CrestCore";
 				CREST_DEFAULT_UPDATE_CHANNEL = development;
-				CREST_MAC_BUNDLE_IDENTIFIER = com.pauldavis.crest;
+				CREST_MAC_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID)";
 				CREST_MAC_ENTITLEMENTS = CrestMac/Configuration/Crest.entitlements;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -40651,7 +40665,7 @@
 				OTHER_LDFLAGS = "$(inherited) \"$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(CREST_MAC_BUNDLE_IDENTIFIER)";
 				PRODUCT_MODULE_NAME = Crest;
-				PRODUCT_NAME = Crest;
+				PRODUCT_NAME = "$(SEI_PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(CREST_PROVISIONING_PROFILE_SPECIFIER)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
@@ -40661,7 +40675,7 @@
 		};
 		F91E21B65ECC03DFE56BEF8D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4AE3A1E6AFBDCC97BEFA3EC3 /* Version.xcconfig */;
+			baseConfigurationReference = 94626ABFA7A90E4B4DC9808B /* Sei.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APS_ENVIRONMENT = development;
@@ -40700,7 +40714,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_LANGUAGE = en;
-				DEVELOPMENT_TEAM = 3U2R97HLXF;
+				DEVELOPMENT_TEAM = "$(SEI_DEVELOPMENT_TEAM)";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -40744,7 +40758,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pauldavis.crest.native-core.tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).native-core.tests";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -40757,7 +40771,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CREST_CORE_LIBRARY_DIR = "$(BUILT_PRODUCTS_DIR)/CrestCore";
@@ -40771,7 +40785,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../..";
 				OTHER_LDFLAGS = "$(inherited) \"$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib\"";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pauldavis.crest.chromium-ui";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).chromium-ui";
 				PRODUCT_MODULE_NAME = CrestChromiumUI;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -40787,12 +40801,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = CrestNative/Apple/Composition/MobileCloudReview.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CREST_CORE_FRAMEWORK_DIR = "$(PROJECT_DIR)/CrestCore/artifacts/$(PLATFORM_NAME)";
-				CREST_MOBILE_BUNDLE_IDENTIFIER = "com.pauldavis.crest.mobile-native-core";
+				CREST_MOBILE_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).mobile-native-core";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(CREST_CORE_FRAMEWORK_DIR)";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "CrestMobile/Configuration/CrestMobile-Info.plist";
@@ -40814,7 +40828,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil";
-				ASSETCATALOG_COMPILER_APPICON_NAME = Crest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Sei;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CREST_CORE_LIBRARY_DIR = "$(BUILT_PRODUCTS_DIR)/CrestCore";
@@ -40828,7 +40842,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../../..";
 				OTHER_LDFLAGS = "$(inherited) \"$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib\"";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pauldavis.crest.chromium-ui";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SEI_BUNDLE_ID).chromium-ui";
 				PRODUCT_MODULE_NAME = CrestChromiumUI;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;

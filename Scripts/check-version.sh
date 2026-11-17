@@ -106,8 +106,15 @@ for configuration in Debug Release; do
     }
   ' "$project_file")"
 
-  [[ "$configured_path" == "Config/Version.xcconfig" ]] \
-    || fail "$configuration must inherit Config/Version.xcconfig in project.yml."
+  # Sei: the configuration may name Config/Sei.xcconfig, which itself
+  # includes Config/Version.xcconfig.
+  if [[ "$configured_path" == "Config/Sei.xcconfig" ]]; then
+    grep -Eq '^#include "Version.xcconfig"$' "$repository_root/Config/Sei.xcconfig" \
+      || fail "Config/Sei.xcconfig must include Version.xcconfig."
+  else
+    [[ "$configured_path" == "Config/Version.xcconfig" ]] \
+      || fail "$configuration must inherit Config/Version.xcconfig in project.yml."
+  fi
 done
 
 grep -Eq '^[[:space:]]+CURRENT_PROJECT_VERSION:[[:space:]]+"1"[[:space:]]*$' "$project_file" \

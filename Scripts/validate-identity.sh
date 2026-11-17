@@ -61,9 +61,11 @@ fi
 rg -q '^name: Crest$' project.yml
 rg -q '^  Crest:$' project.yml
 rg -q '^  CrestMobile:$' project.yml
-rg -q 'CREST_MAC_BUNDLE_IDENTIFIER: com\.pauldavis\.crest$' project.yml
-rg -q 'CREST_MOBILE_BUNDLE_IDENTIFIER: com\.pauldavis\.crest$' project.yml
+rg -q 'CREST_MAC_BUNDLE_IDENTIFIER: "\$\(SEI_BUNDLE_ID\)"$' project.yml
+rg -q 'CREST_MOBILE_BUNDLE_IDENTIFIER: "\$\(SEI_BUNDLE_ID\)"$' project.yml
+rg -q '^SEI_PRODUCT_NAME = ' Config/Sei.xcconfig
+rg -q '^SEI_BUNDLE_ID = ' Config/Sei.xcconfig
 rg -q 'PRODUCT_MODULE_NAME: Crest$' project.yml
 rg -q 'PRODUCT_MODULE_NAME: CrestMobile$' project.yml
 
-print "Crest identity validation passed."
+print "Sei identity validation passed."

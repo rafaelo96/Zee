@@ -80,7 +80,7 @@ struct BrowserSoftwareUpdateChannel: Hashable, Identifiable, Sendable {
         guard let filename = appcastName.map({ $0 + engine.appcastSuffix }) ?? engine.mainAppcastName else {
             return nil
         }
-        return URL(string: "https://raw.githubusercontent.com/pauljoda/Crest/updates/\(filename).xml")
+        return ProductIdentity.updateFeedBaseURL?.appendingPathComponent("\(filename).xml")
     }
 
     // MARK: - Actions - Identity
