@@ -1,6 +1,6 @@
 # Support
 
-Crest uses different public routes for conversation and actionable engineering
+Zee uses different public routes for conversation and actionable engineering
 work. Choosing the right one keeps support approachable without turning the
 issue tracker into a general forum.
 
@@ -20,11 +20,11 @@ history, personal messages, and other sensitive information before posting.
 ## Reproducible bugs and planned work
 
 Use [GitHub Issues](https://github.com/pauljoda/Crest/issues/new/choose) when a
-report has a Crest version, Apple platform, repeatable steps, expected result,
+report has a Zee version, Apple platform, repeatable steps, expected result,
 and actual result. Search existing issues first and add sanitized evidence only
 when it changes what another person can reproduce.
 
-The [Crest Roadmap project](https://github.com/users/pauljoda/projects/3) and
+The [Zee Roadmap project](https://github.com/users/pauljoda/projects/3) and
 the [release milestones](https://github.com/pauljoda/Crest/milestones) are the
 public view of currently planned outcomes. Only the maintainer adds items to
 them, so opening an issue doesn't put it on the roadmap. Scope may evolve as
@@ -39,7 +39,7 @@ Do not post suspected vulnerabilities on Reddit or in a public issue. See
 
 ## Support the work
 
-Crest is one of several open source projects built by Paul Davis. If the
+Zee is one of several open source projects built by Paul Davis. If the
 project is useful to you, you can support the work through
 [Ko-fi memberships](https://ko-fi.com/pauljoda/tiers) or
 [Patreon](https://www.patreon.com/CrestBrowser), make a

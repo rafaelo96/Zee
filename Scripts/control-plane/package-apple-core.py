@@ -16,15 +16,15 @@ def main():
     args = parser.parse_args()
     if not args.library.is_file() or not args.output.is_absolute() or args.output.exists():
         parser.error("Provide a published library and a new absolute output framework path")
-    if args.output.name != "CrestCoreABI.framework":
-        parser.error("The output must be named CrestCoreABI.framework")
+    if args.output.name != "ZeeCoreABI.framework":
+        parser.error("The output must be named ZeeCoreABI.framework")
     args.output.mkdir(parents=True)
-    binary = args.output / "CrestCoreABI"
+    binary = args.output / "ZeeCoreABI"
     shutil.copy2(args.library, binary)
-    subprocess.run(["xcrun", "install_name_tool", "-id", "@rpath/CrestCoreABI.framework/CrestCoreABI", str(binary)], check=True)
+    subprocess.run(["xcrun", "install_name_tool", "-id", "@rpath/ZeeCoreABI.framework/ZeeCoreABI", str(binary)], check=True)
     info = {
-        "CFBundleExecutable": "CrestCoreABI", "CFBundleName": "CrestCoreABI",
-        "CFBundleIdentifier": "com.pauldavis.crest.control-plane.core",
+        "CFBundleExecutable": "ZeeCoreABI", "CFBundleName": "ZeeCoreABI",
+        "CFBundleIdentifier": "dev.zee.browser.control-plane.core",
         "CFBundlePackageType": "FMWK", "CFBundleVersion": "1",
         "CFBundleShortVersionString": "1.0", "MinimumOSVersion": "26.1",
         "CFBundleSupportedPlatforms": ["iPhoneOS" if args.platform == "iphoneos" else "iPhoneSimulator"],

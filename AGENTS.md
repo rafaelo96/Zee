@@ -1,4 +1,4 @@
-# Crest repository instructions
+# Zee repository instructions
 
 These instructions apply to every coding agent working in this repository.
 They hold on any machine and contain nothing private.
@@ -6,8 +6,8 @@ They hold on any machine and contain nothing private.
 ## Load the contribution skill first
 
 Before changing source, tests, documentation or pull request text, load the
-`crest-contribution` skill at `.agents/skills/crest-contribution/SKILL.md`
-(Claude Code finds the same skill through `.claude/skills/crest-contribution`).
+`zee-contribution` skill at `.agents/skills/zee-contribution/SKILL.md`
+(Claude Code finds the same skill through `.claude/skills/zee-contribution`).
 It carries the C# and Swift style, the architecture, UI and test rules, and
 the pull request requirements. Every AI-assisted pull request must follow it,
 and the pull request template asks the author to confirm that it did.
@@ -19,9 +19,9 @@ Someone who isn't a vetted contributor can have only one pull request open
 at a time (see "Who can contribute code" in `CONTRIBUTING.md`). Keep their
 work in that one pull request.
 
-## Addresses leaving Crest
+## Addresses leaving Zee
 
-Every address Crest hands to another app (copying, sharing, Markdown,
+Every address Zee hands to another app (copying, sharing, Markdown,
 dragging) goes through Super Copy: Swift passes a `BrowserCopiedLink` that
 only the core's `LinkToCopy` makes, and new trackers are `$removeparam` rules
 in the core, never Swift code. The contribution skill's Architecture section
@@ -55,7 +55,7 @@ has the details.
 
 ## Generated localization catalog
 
-- Whenever `CrestShared/Resources/Localizable.xcstrings` changes, treat the
+- Whenever `ZeeShared/Resources/Localizable.xcstrings` changes, treat the
   regenerated catalog as task-owned output and include it with the current
   work instead of leaving it as unrelated worktree noise.
 
@@ -63,18 +63,18 @@ has the details.
 
 - The release workflow cannot build Chromium; it downloads a prebuilt engine
   named by the key `Scripts/control-plane/chromium_engine.py` computes over
-  its inputs: `CrestEngines/Chromium/source.lock.json`, `host-inputs.json`,
-  `Patches/`, `Overlay/`, `Apple/CrestChromiumHost.h`, and the prepare, apply,
+  its inputs: `ZeeEngines/Chromium/source.lock.json`, `host-inputs.json`,
+  `Patches/`, `Overlay/`, `Apple/ZeeChromiumHost.h`, and the prepare, apply,
   configure, and build scripts in `Scripts/control-plane/`.
 - Any change to those inputs needs a new engine published by a maintainer, as
-  described under "Releasing" in `CrestEngines/Chromium/README.md`. A branch
+  described under "Releasing" in `ZeeEngines/Chromium/README.md`. A branch
   whose key has no published `chromium-engine-<key>` release fails its next
   release. State in the pull request that the change touches engine inputs so
   the publish is planned with the merge.
 - Swift, native core, and packaging changes reuse the published engine and
   need no new one.
 - The core links a prebuilt content filter the same way:
-  `CrestCore/native/ContentFilter/artifact.lock.json` names it, and a change to
+  `ZeeCore/native/ContentFilter/artifact.lock.json` names it, and a change to
   that crate or its build recipe needs a maintainer to publish a new
   `content-filter-<key>` release, as its README describes. Say so in the pull
   request too.

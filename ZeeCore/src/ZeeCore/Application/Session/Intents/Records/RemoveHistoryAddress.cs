@@ -1,0 +1,20 @@
+using ZeeCore.Application;
+
+namespace ZeeCore.Contracts;
+
+/// Removes the history entry for one address from a Space, and from every
+/// Space of its group, whose history they share. The address is compared the
+/// way history records it, without its fragment, so an address history never
+/// records removes nothing.
+public sealed record RemoveHistoryAddress(Guid WorkspaceId, Guid SpaceId, string Address) : SessionIntent(WorkspaceId) {
+    #region Actions - Session
+
+    internal override SessionEdit? Edit(NativeSessionAuthority workspace, SessionTurn turn) {
+        var address = new WebAddress(Address).Normalized;
+        var remaining = workspace.GroupEditable(turn.Basis, SpaceId)
+            .Select(space => space.WithoutHistory(entry => address is not null && entry.Url == address));
+        return new(turn.Basis.Replacing([.. remaining]), SyncStaging.Deletion);
+    }
+
+    #endregion
+}

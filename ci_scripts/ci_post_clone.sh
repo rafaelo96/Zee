@@ -3,7 +3,7 @@
 set -eu
 
 if [ "${CI_XCODE_CLOUD:-FALSE}" != "TRUE" ]; then
-    echo "Crest Xcode Cloud guard skipped outside Xcode Cloud."
+    echo "Zee Xcode Cloud guard skipped outside Xcode Cloud."
     exit 0
 fi
 
@@ -16,19 +16,19 @@ case "${CI_START_CONDITION:-}" in
     manual|manual_rebuild)
         ;;
     *)
-        fail "Crest release archives must be started manually; received '${CI_START_CONDITION:-unset}'."
+        fail "Zee release archives must be started manually; received '${CI_START_CONDITION:-unset}'."
         ;;
 esac
 
 [ "${CI_XCODEBUILD_ACTION:-}" = "archive" ] \
-    || fail "The manual Crest workflow only permits archive actions."
+    || fail "The manual Zee workflow only permits archive actions."
 
 case "${CI_PRODUCT_PLATFORM:-}" in
     iOS)
-        expected_scheme="CrestMobile"
+        expected_scheme="ZeeMobile"
         ;;
     macOS)
-        expected_scheme="Crest"
+        expected_scheme="Zee"
         ;;
     *)
         fail "Unsupported Xcode Cloud platform '${CI_PRODUCT_PLATFORM:-unset}'."
@@ -47,7 +47,7 @@ case "$xcode_major" in
         ;;
 esac
 [ "$xcode_major" -ge 26 ] \
-    || fail "Crest requires Xcode 26 or newer; Xcode Cloud selected $xcode_version."
+    || fail "Zee requires Xcode 26 or newer; Xcode Cloud selected $xcode_version."
 case "$xcode_build" in
     27A266a)
         # Apple accepts Xcode 27 RC for App Store and TestFlight submissions.
@@ -55,7 +55,7 @@ case "$xcode_build" in
         # https://developer.apple.com/help/app-store-connect/release-notes/
         ;;
     *[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ])
-        fail "Crest Cloud archives require a release Xcode or an explicitly supported submission build; build $xcode_build is an unverified beta or prerelease image."
+        fail "Zee Cloud archives require a release Xcode or an explicitly supported submission build; build $xcode_build is an unverified beta or prerelease image."
         ;;
 esac
 
@@ -68,7 +68,7 @@ case "$repository_url" in
     http://github.com/pauljoda/Crest.git|https://github.com/pauljoda/Crest.git|git@github.com:pauljoda/Crest.git|http://*@github.com/pauljoda/Crest.git|https://*@github.com/pauljoda/Crest.git)
         ;;
     *)
-        fail "The Crest workflow must use https://github.com/pauljoda/Crest.git as its primary repository; received '${repository_url:-unset}'."
+        fail "The Zee workflow must use https://github.com/pauljoda/Crest.git as its primary repository; received '${repository_url:-unset}'."
         ;;
 esac
 
@@ -80,7 +80,7 @@ checked_out_commit="$(git -C "$repository_path" rev-parse HEAD)"
     || fail "Xcode Cloud reports commit $cloud_commit but checked out $checked_out_commit."
 
 project="$repository_path/project.yml"
-scheme="$repository_path/Crest.xcodeproj/xcshareddata/xcschemes/${expected_scheme}.xcscheme"
+scheme="$repository_path/Zee.xcodeproj/xcshareddata/xcschemes/${expected_scheme}.xcscheme"
 [ -f "$project" ] || fail "project.yml is missing from the primary repository."
 [ -f "$scheme" ] || fail "The shared ${expected_scheme} archive scheme is missing."
 
@@ -91,7 +91,7 @@ grep -q 'iOS: "26.1"' "$project" \
 grep -q 'macOS: "26.1"' "$project" \
     || fail "The macOS deployment target must remain 26.1."
 
-CREST_VERSION_REPOSITORY_ROOT="$repository_path" \
+ZEE_VERSION_REPOSITORY_ROOT="$repository_path" \
     "$repository_path/Scripts/check-version.sh" --static
 
 echo "Validated manual ${CI_PRODUCT_PLATFORM} archive for ${cloud_commit} from ${repository_url} with ${expected_scheme} on submission-supported Xcode ${xcode_version} (${xcode_build})."

@@ -27,7 +27,7 @@ permissions:
   pull-requests: read
 
 concurrency:
-  group: crest-chromium-maintenance
+  group: badge-chromium-maintenance
   cancel-in-progress: false
 
 jobs:
@@ -58,11 +58,11 @@ jobs:
           from pathlib import Path
           sys.path.insert(0, 'Scripts/control-plane')
           from chromium_fork import release_notes, select_update, upstream_releases, release_version
-          policy = json.loads(Path('CrestEngines/Chromium/fork.json').read_text())
+          policy = json.loads(Path('ZeeEngines/Chromium/fork.json').read_text())
           branch = policy['integrationBranch']
           subprocess.run(['git', 'fetch', '--depth=1', 'origin', f'refs/heads/{branch}'], check=True)
           sha = subprocess.check_output(['git', 'rev-parse', 'FETCH_HEAD'], text=True).strip()
-          lock = json.loads(subprocess.check_output(['git', 'show', f'{sha}:CrestEngines/Chromium/source.lock.json'], text=True))
+          lock = json.loads(subprocess.check_output(['git', 'show', f'{sha}:ZeeEngines/Chromium/source.lock.json'], text=True))
           releases = upstream_releases(policy)
           scheduled = os.environ['GITHUB_EVENT_NAME'] == 'schedule'
           allow_major = os.environ['ALLOW_MAJOR'] == 'true' and os.environ['GITHUB_EVENT_NAME'] == 'workflow_dispatch'
@@ -130,7 +130,7 @@ jobs:
     if: needs.resolve.outputs.operation != 'check'
     # Only trusted dispatches and the integration branch reach this persistent Mac.
     # Never add a pull_request or pull_request_target trigger to this job.
-    runs-on: [self-hosted, macOS, ARM64, crest-chromium]
+    runs-on: [self-hosted, macOS, ARM64, badge-chromium]
     timeout-minutes: 1440
     permissions:
       contents: write
@@ -138,7 +138,7 @@ jobs:
     outputs:
       pull_request: ${{ steps.update.outputs.pull_request }}
     env:
-      CREST_CHROMIUM_WORKSPACE: ${{ vars.CHROMIUM_WORKSPACE }}
+      ZEE_CHROMIUM_WORKSPACE: ${{ vars.CHROMIUM_WORKSPACE }}
       CHROMIUM_SDK: ${{ vars.CHROMIUM_SDK }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -148,11 +148,11 @@ jobs:
           persist-credentials: false
       - name: Check managed build tools
         run: |
-          test -n "$CREST_CHROMIUM_WORKSPACE"
+          test -n "$ZEE_CHROMIUM_WORKSPACE"
           test -d "$CHROMIUM_SDK"
-          test -x "$CREST_CHROMIUM_WORKSPACE/tools/bin/python"
+          test -x "$ZEE_CHROMIUM_WORKSPACE/tools/bin/python"
           echo '/opt/homebrew/bin' >> "$GITHUB_PATH"
-          echo "$CREST_CHROMIUM_WORKSPACE/tools/bin" >> "$GITHUB_PATH"
+          echo "$ZEE_CHROMIUM_WORKSPACE/tools/bin" >> "$GITHUB_PATH"
       - name: Test fork and release contracts
         run: python -m unittest discover -s Scripts/Tests
       - name: Prepare and compile the engine
@@ -178,7 +178,7 @@ jobs:
           ENGINE_SOURCE: ${{ steps.build.outputs.source }}
         run: |
           python Scripts/control-plane/publish-chromium-engine.py \
-            --source "$ENGINE_SOURCE" --ninja "$CREST_CHROMIUM_WORKSPACE/tools/bin/ninja" \
+            --source "$ENGINE_SOURCE" --ninja "$ZEE_CHROMIUM_WORKSPACE/tools/bin/ninja" \
             --repository "$GITHUB_REPOSITORY"
       - name: Open the update as a draft for review
         id: update
@@ -190,4 +190,4 @@ jobs:
         run: |
           git config --local credential.https://github.com.helper '!gh auth git-credential'
           python Scripts/control-plane/publish-chromium-update.py --base-sha "$BASE_SHA" \
-            --repository "$GITHUB_REPOSITORY" --receipt "$CREST_CHROMIUM_WORKSPACE/last-build.json"
+            --repository "$GITHUB_REPOSITORY" --receipt "$ZEE_CHROMIUM_WORKSPACE/last-build.json"

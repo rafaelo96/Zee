@@ -1,0 +1,6 @@
+module ZeeCoreABI {
+    header "zee_core.h"
+    header "zee_app.h"
+    header "zee_engine.h"
+    export *
+}

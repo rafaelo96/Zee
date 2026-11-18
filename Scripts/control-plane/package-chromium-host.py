@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble a separate, signed Chromium host from built products: an isolated experiment by default, or Crest's own product identity."""
+"""Assemble a separate, signed Chromium host from built products: an isolated experiment by default, or Zee's own product identity."""
 import argparse
 import json
 import os
@@ -18,7 +18,7 @@ import chromium_fork  # noqa: E402
 
 
 # Chromium's browser-process device access (chrome/app/app-entitlements.plist);
-# Crest's own entitlements are applied over these.
+# Zee's own entitlements are applied over these.
 ENGINE_APP_ENTITLEMENTS = {
     "com.apple.security.device.audio-input": True,
     "com.apple.security.device.bluetooth": True,
@@ -80,19 +80,19 @@ def require_package_renders_pages(output, identity):
     package with its host markers removed, which makes it plain headless
     Chromium; only the outer app is re-sealed, so the helpers are exactly the
     ones that ship."""
-    with tempfile.TemporaryDirectory(prefix="crest-package-probe-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="zee-package-probe-") as temporary:
         # Resolved, because the temporary directory is reached through the /var
         # symlink and Chromium's sandbox refuses extensions for symlinked paths.
         root = Path(temporary).resolve()
         probe = root / "Probe.app"
         subprocess.run(["ditto", str(output), str(probe)], check=True)
-        for marker in ("Crest-App-Owned-Host", "Crest-Native-Host", "Crest-Isolated-Experiment"):
+        for marker in ("Zee-App-Owned-Host", "Zee-Native-Host", "Zee-Isolated-Experiment"):
             (probe / "Contents/Resources" / marker).unlink(missing_ok=True)
         (probe / "Contents/embedded.provisionprofile").unlink(missing_ok=True)
         info_path = probe / "Contents/Info.plist"
         with info_path.open("rb") as stream:
             info = plistlib.load(stream)
-        # Its own identity, so it never reads the installed Crest's preferences.
+        # Its own identity, so it never reads the installed Zee's preferences.
         info["CFBundleIdentifier"] += ".package-probe"
         with info_path.open("wb") as stream:
             plistlib.dump(info, stream)
@@ -166,7 +166,7 @@ def sign_for_distribution(output, identity, app_entitlements):
     one exception they need."""
     def codesign(path, entitlements=None):
         command = ["codesign", "--force", "--timestamp", "--options", "runtime", "--sign", identity]
-        with tempfile.TemporaryDirectory(prefix="crest-distribution-sign-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="zee-distribution-sign-") as temporary:
             if entitlements:
                 plist = Path(temporary) / "entitlements.plist"
                 plist.write_bytes(plistlib.dumps(entitlements))
@@ -185,10 +185,10 @@ def sign_for_distribution(output, identity, app_entitlements):
 
 
 def default_update_channel(repo):
-    override = os.environ.get("CREST_DEFAULT_UPDATE_CHANNEL", "").strip()
+    override = os.environ.get("ZEE_DEFAULT_UPDATE_CHANNEL", "").strip()
     if override:
         return override
-    channels = set(re.findall(r"^\s*CREST_DEFAULT_UPDATE_CHANNEL:\s*([a-z]+)\s*$",
+    channels = set(re.findall(r"^\s*ZEE_DEFAULT_UPDATE_CHANNEL:\s*([a-z]+)\s*$",
                               (repo / "project.yml").read_text(), re.MULTILINE))
     if len(channels) != 1:
         raise SystemExit(f"project.yml must name one default update channel; found {sorted(channels)}")
@@ -206,18 +206,18 @@ def minimum_system_version(engine_info, ui_info):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--browser", required=True, type=Path, help="Built Chromium.app with the Crest overlay")
+    parser.add_argument("--browser", required=True, type=Path, help="Built Chromium.app with the Zee overlay")
     parser.add_argument("--signing-identity", required=True,
                         help="Stable Apple Development or Developer ID signing identity; ad-hoc is rejected")
-    parser.add_argument("--provisioning-profile", type=Path, help="Profile granting this app access to Crest CloudKit")
-    parser.add_argument("--baseline", action="store_true", help="Package the stock baseline without the Crest host libraries")
+    parser.add_argument("--provisioning-profile", type=Path, help="Profile granting this app access to Zee CloudKit")
+    parser.add_argument("--baseline", action="store_true", help="Package the stock baseline without the Zee host libraries")
     parser.add_argument("--product", action="store_true",
-                        help="Package Crest's own desktop identity from CrestChromiumUIProduct: browser registration, "
+                        help="Package Zee's own desktop identity from ZeeChromiumUIProduct: browser registration, "
                              "document types and the Sparkle update feed instead of the isolated review identity")
     parser.add_argument("--entitlements", type=Path,
                         help="Resolved entitlements plist for the product identity; build-setting variables must already be expanded")
-    parser.add_argument("--ui", type=Path, help="Built CrestChromiumUI.framework or CrestChromiumUIProduct.framework")
-    parser.add_argument("--core", type=Path, help="Published CrestCore.Native.dylib")
+    parser.add_argument("--ui", type=Path, help="Built ZeeChromiumUI.framework or ZeeChromiumUIProduct.framework")
+    parser.add_argument("--core", type=Path, help="Published ZeeCore.Native.dylib")
     parser.add_argument("--output", required=True, type=Path, help="New absolute .app path outside /Applications")
     parser.add_argument("--distribution", action="store_true",
                         help="Sign for notarization: hardened runtime, secure timestamps and the engine's helper entitlements")
@@ -236,7 +236,7 @@ def main():
     if args.baseline and (ui or core):
         parser.error("A baseline package must not include host libraries")
     if args.baseline and args.product:
-        parser.error("The stock baseline has no Crest product identity")
+        parser.error("The stock baseline has no Zee product identity")
     if args.entitlements and not args.product:
         parser.error("Entitlements belong to the product identity; review packages preserve the existing signature")
     if not (browser / "Contents/Info.plist").is_file():
@@ -252,15 +252,15 @@ def main():
         # Only the product target compiles without review isolation and carries
         # its marker resource. Read which composition this is instead of
         # trusting the path it was built at.
-        is_product_framework = (ui / "Resources/Crest-Native-Host").is_file()
+        is_product_framework = (ui / "Resources/Zee-Native-Host").is_file()
         if args.product and not is_product_framework:
-            parser.error("Build CrestChromiumUIProduct for a product package; this framework is the isolated review composition")
+            parser.error("Build ZeeChromiumUIProduct for a product package; this framework is the isolated review composition")
         if not args.product and is_product_framework:
-            parser.error("Build CrestChromiumUI for a review package; this framework is the normal product composition")
+            parser.error("Build ZeeChromiumUI for a review package; this framework is the normal product composition")
     identity = (
-        "com.pauldavis.crest" if args.product
-        else "com.pauldavis.crest.chromium-baseline" if args.baseline
-        else "com.pauldavis.crest.control-plane.chromium")
+        "dev.zee.browser" if args.product
+        else "dev.zee.browser.chromium-baseline" if args.baseline
+        else "dev.zee.browser.control-plane.chromium")
     product_entitlements = None
     if args.entitlements:
         with args.entitlements.open("rb") as stream:
@@ -273,15 +273,15 @@ def main():
     cloud_entitlements = None
     if args.provisioning_profile:
         if args.baseline:
-            parser.error("CloudKit is only supported by the native Crest composition")
+            parser.error("CloudKit is only supported by the native Zee composition")
         profile = plistlib.loads(subprocess.check_output(
             ["security", "cms", "-D", "-i", str(args.provisioning_profile)]))
         granted = profile.get("Entitlements", {})
         application_id = granted.get("com.apple.application-identifier", "")
         team = granted.get("com.apple.developer.team-identifier", "")
         expected_id = team + "." + identity
-        with (repo / "CrestMac/Configuration/Crest-Info.plist").open("rb") as stream:
-            container = plistlib.load(stream)["CrestCloudKitContainerIdentifier"]
+        with (repo / "ZeeMac/Configuration/Zee-Info.plist").open("rb") as stream:
+            container = plistlib.load(stream)["ZeeCloudKitContainerIdentifier"]
         expiration = profile.get("ExpirationDate")
         # A product profile may carry either environment; an experiment profile
         # stays on development so it can never reach production records.
@@ -319,11 +319,11 @@ def main():
     frameworks = output / "Contents/Frameworks"
     if not args.baseline:
         subprocess.run(["ditto", str(ui), str(frameworks / ui.name)], check=True)
-        shutil.copy2(core, frameworks / "CrestCore.Native.dylib")
+        shutil.copy2(core, frameworks / "ZeeCore.Native.dylib")
     resources = output / "Contents/Resources"
     resources.mkdir(exist_ok=True)
     if not args.baseline:
-        # Crest's existing views resolve assets and catalogs through Bundle.main.
+        # Zee's existing views resolve assets and catalogs through Bundle.main.
         # Preserve those resources when its window composition is framework-hosted.
         for resource in (ui / "Resources").iterdir():
             if resource.name == "Info.plist":
@@ -333,20 +333,20 @@ def main():
         if not sparkle.is_dir():
             parser.error("The native UI build must supply Sparkle.framework beside the host framework")
         subprocess.run(["ditto", str(sparkle), str(frameworks / "Sparkle.framework")], check=True)
-        icon = resources / "Crest.icns"
-        dock_plugin = ui.parent / "CrestDockTilePlugin.docktileplugin"
+        icon = resources / "Zee.icns"
+        dock_plugin = ui.parent / "ZeeDockTilePlugin.docktileplugin"
         if not icon.is_file() or not dock_plugin.is_dir():
-            parser.error("The native UI build must supply Crest.icns and CrestDockTilePlugin.docktileplugin")
+            parser.error("The native UI build must supply Zee.icns and ZeeDockTilePlugin.docktileplugin")
         plugins = output / "Contents/PlugIns"
         plugins.mkdir(exist_ok=True)
         subprocess.run(["ditto", str(dock_plugin), str(plugins / dock_plugin.name)], check=True)
-        # The helper agents run, crest-browser, which reaches Crest over its
+        # The helper agents run, zee-browser, which reaches Zee over its
         # agent socket. It lives in Contents/Helpers, where signing treats it
         # as loose code with the hardened runtime; its embedded Info.plist
         # names its signing identifier.
-        agent_helper = ui.parent / "crest-browser"
+        agent_helper = ui.parent / "zee-browser"
         if not agent_helper.is_file():
-            parser.error("The native UI build must supply crest-browser beside the host framework")
+            parser.error("The native UI build must supply zee-browser beside the host framework")
         helpers = output / "Contents/Helpers"
         helpers.mkdir(exist_ok=True)
         shutil.copy2(agent_helper, helpers / agent_helper.name)
@@ -356,57 +356,57 @@ def main():
         # The product hosts the native UI on every launch, including the ones
         # that carry no switches: Finder, a login item, the default-browser
         # role and Dock reopen.
-        (resources / "Crest-Native-Host").write_text("Native Crest host composition.\n")
+        (resources / "Zee-Native-Host").write_text("Native Zee host composition.\n")
     else:
-        (resources / "Crest-Isolated-Experiment").write_text("Explicit experimental profile required.\n")
+        (resources / "Zee-Isolated-Experiment").write_text("Explicit experimental profile required.\n")
     if args.ui:
-        (resources / "Crest-App-Owned-Host").write_text("Crest starts engines on demand.\n")
-    shutil.copy2(repo / "CrestEngines/Chromium/ThirdParty/Mori-LICENSE", resources / "Crest-Mori-LICENSE.txt")
+        (resources / "Zee-App-Owned-Host").write_text("Zee starts engines on demand.\n")
+    shutil.copy2(repo / "ZeeEngines/Chromium/ThirdParty/Mori-LICENSE", resources / "Zee-Mori-LICENSE.txt")
     info_path = output / "Contents/Info.plist"
     with info_path.open("rb") as stream:
         info = plistlib.load(stream)
     info["CFBundleIdentifier"] = identity
     info["CFBundleDisplayName"] = (
-        "Crest" if args.product
-        else "Crest Chromium Baseline" if args.baseline
-        else "Crest Chromium Experiment")
+        "Zee" if args.product
+        else "Zee Chromium Baseline" if args.baseline
+        else "Zee Chromium Experiment")
     info["CFBundleName"] = info["CFBundleDisplayName"]
     if not args.baseline:
         with (ui / "Resources/Info.plist").open("rb") as stream:
             ui_info = plistlib.load(stream)
-        info["CrestChromiumEngineVersion"] = info["CFBundleShortVersionString"]
+        info["ZeeChromiumEngineVersion"] = info["CFBundleShortVersionString"]
         info["CFBundleShortVersionString"] = ui_info["CFBundleShortVersionString"]
         info["CFBundleVersion"] = ui_info["CFBundleVersion"]
         info["LSMinimumSystemVersion"] = minimum_system_version(info, ui_info)
-        info["CFBundleIconFile"] = "Crest"
-        info["CFBundleIconName"] = "Crest"
-        info["NSDockTilePlugIn"] = "CrestDockTilePlugin.docktileplugin"
-        info["CrestAppIconPreferenceDomain"] = info["CFBundleIdentifier"]
+        info["CFBundleIconFile"] = "Zee"
+        info["CFBundleIconName"] = "Zee"
+        info["NSDockTilePlugIn"] = "ZeeDockTilePlugin.docktileplugin"
+        info["ZeeAppIconPreferenceDomain"] = info["CFBundleIdentifier"]
         # Chromium's scripting dictionary names Chromium's application class,
-        # which Crest's application is not. Once any script loaded it, a quit
+        # which Zee's application is not. Once any script loaded it, a quit
         # Apple Event (the updater's relaunch, the Dock's Quit, a logout) found
         # no application to quit; without it, AppKit handles the quit itself.
         info.pop("NSAppleScriptEnabled", None)
         info.pop("OSAScriptingDefinition", None)
-        with (repo / "CrestMac/Configuration/Crest-Info.plist").open("rb") as stream:
-            crest_info = plistlib.load(stream)
-        info["CrestCloudKitContainerIdentifier"] = crest_info["CrestCloudKitContainerIdentifier"]
+        with (repo / "ZeeMac/Configuration/Zee-Info.plist").open("rb") as stream:
+            zee_info = plistlib.load(stream)
+        info["ZeeCloudKitContainerIdentifier"] = zee_info["ZeeCloudKitContainerIdentifier"]
     if args.product:
-        # Crest's own browser registration, document handling, update feed and
+        # Zee's own browser registration, document handling, update feed and
         # privacy prompt text. The keys stay owned by the app's Info.plist;
         # nothing is restated here.
-        for key, value in crest_info.items():
+        for key, value in zee_info.items():
             if isinstance(value, str) and "$(" in value:
                 continue
             if (key.startswith("SU") or key.endswith("UsageDescription")
                     or key in ("CFBundleURLTypes", "CFBundleDocumentTypes")):
                 info[key] = value
-        # Crest's Info.plist leaves the channel to its target's build setting;
+        # Zee's Info.plist leaves the channel to its target's build setting;
         # a packaged product follows that same default, read from project.yml
-        # unless CREST_DEFAULT_UPDATE_CHANNEL overrides it.
-        info["CrestDefaultUpdateChannel"] = default_update_channel(repo)
+        # unless ZEE_DEFAULT_UPDATE_CHANNEL overrides it.
+        info["ZeeDefaultUpdateChannel"] = default_update_channel(repo)
         if "SUFeedURL" not in info or "SUPublicEDKey" not in info:
-            parser.error("Crest's Info.plist must supply the Sparkle feed and public key for a product package")
+            parser.error("Zee's Info.plist must supply the Sparkle feed and public key for a product package")
     else:
         # This experiment must not register as the system HTTP/HTTPS handler.
         info.pop("CFBundleURLTypes", None)
@@ -420,9 +420,9 @@ def main():
         remove_engine_alerts_helper(frameworks)
         name_engine_helpers(frameworks, info["CFBundleDisplayName"])
         name_product_in_localized_info(resources, info["CFBundleDisplayName"])
-    targets = [] if args.baseline else [frameworks / "CrestCore.Native.dylib", frameworks / ui.name,
-                                      output / "Contents/PlugIns/CrestDockTilePlugin.docktileplugin",
-                                      output / "Contents/Helpers/crest-browser"]
+    targets = [] if args.baseline else [frameworks / "ZeeCore.Native.dylib", frameworks / ui.name,
+                                      output / "Contents/PlugIns/ZeeDockTilePlugin.docktileplugin",
+                                      output / "Contents/Helpers/zee-browser"]
     targets += sorted((p for p in frameworks.rglob("*.app") if not p.is_symlink()), key=lambda p: len(p.parts), reverse=True)
     targets += sorted((p for p in frameworks.glob("*.framework") if p.name != ui.name), key=lambda p: len(p.parts), reverse=True)
     if cloud_entitlements:
@@ -439,7 +439,7 @@ def main():
             entitlements = plistlib.loads(existing) if existing.strip() else {}
             entitlements.update(product_entitlements or {})
             entitlements.update(cloud_entitlements or {})
-            with tempfile.TemporaryDirectory(prefix="crest-cloud-sign-") as temporary:
+            with tempfile.TemporaryDirectory(prefix="zee-cloud-sign-") as temporary:
                 path = Path(temporary) / "entitlements.plist"
                 path.write_bytes(plistlib.dumps(entitlements))
                 subprocess.run(["codesign", "--force", "--sign", args.signing_identity,
@@ -451,11 +451,11 @@ def main():
         require_helper_entitlements(frameworks)
         require_package_renders_pages(output, args.signing_identity)
     if args.product:
-        print(f"Packaged {output} with Crest's product identity. It launches without switches and registers "
+        print(f"Packaged {output} with Zee's product identity. It launches without switches and registers "
               "for HTTP, HTTPS and HTML documents once it is installed and its signature is accepted. "
               "Distribution still requires signing and provisioning that identity.")
         return
-    mode = "" if args.baseline else "--crest-control-plane and "
+    mode = "" if args.baseline else "--zee-control-plane and "
     print(f"Packaged {output}. Launch its executable with {mode}an explicit experimental --user-data-dir.")
 
 

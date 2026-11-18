@@ -1,10 +1,10 @@
 # Repository guardrails
 
-Crest keeps repository checks narrow enough to express real architecture contracts. They intentionally do not guess whether a number is a design token, whether a declaration reported by static analysis is safe to delete, or how many declarations and folders a cohesive feature needs.
+Zee keeps repository checks narrow enough to express real architecture contracts. They intentionally do not guess whether a number is a design token, whether a declaration reported by static analysis is safe to delete, or how many declarations and folders a cohesive feature needs.
 
 ## Changed-file formatting
 
-The root `.swift-format` configuration preserves Crest's four-space indentation and 120-column style. Check current staged, unstaged, and untracked Swift changes without rewriting them:
+The root `.swift-format` configuration preserves Zee's four-space indentation and 120-column style. Check current staged, unstaged, and untracked Swift changes without rewriting them:
 
 ```sh
 Scripts/check-swift-format.sh
@@ -20,7 +20,7 @@ The script only invokes strict `swift-format lint`. It never runs formatter writ
 
 ## Fix commit versions
 
-Every verified fix advances the patch component of Crest's public version in
+Every verified fix advances the patch component of Zee's public version in
 the same commit:
 
 ```sh
@@ -71,7 +71,7 @@ The check enforces these high-confidence contracts:
 
 - Domain imports Foundation only; Application imports Foundation, Observation, and Dispatch only.
 - SwiftUI presentation stays out of shared Infrastructure.
-- AppKit, CoreServices, and SecurityInterface stay under `CrestMac`; UIKit stays under `CrestMobile`.
+- AppKit, CoreServices, and SecurityInterface stay under `ZeeMac`; UIKit stays under `ZeeMobile`.
 - Production code does not introduce `ObservableObject`, `@Published`, or `AnyView`.
 - Conservative checks cover the documented Xcode 27 `@State` initialization and composition hazards, nested `TupleView` constraints, empty MapKit builders, and modified shape styles passed to non-builder `background` or `overlay` forms.
 
@@ -83,7 +83,7 @@ An exemption is not precedent for another file: add new debt only with a focused
 
 ## Feature organization
 
-Review applies Crest's deliberately small organization contract across `CrestShared`, `CrestMac`, and `CrestMobile`:
+Review applies Zee's deliberately small organization contract across `ZeeShared`, `ZeeMac`, and `ZeeMobile`:
 
 - Organize code by user-visible feature or runtime capability. Folder names describe the behavior a developer is looking for; `Components`, `Models`, `Services`, and `Support` are available vocabulary, not mandatory layers.
 - A file holds one cohesive concept. Name it for either its primary owner or the role of a tightly related group; small single-use values, private helpers, related global declarations, and nested types should live with that concept. Multiple extensions may share a file when they extend that same owner. Use `// MARK:` sections named for the behavior they contain, rather than generic labels such as `Utilities` or `Animation`.
@@ -96,13 +96,13 @@ Tests lock behavior whose regression would break a user workflow, persistence or
 
 Share content, policies, and behavior across platforms while keeping macOS and mobile shells, framework delegates, and system adapters explicit in their platform roots.
 
-UI components are canonical in `CrestShared` and read what their environment can do from `BrowserInteractionCapabilities` — independent bits like touch and hover, never a device or platform identity — with sizing and reveal rules derived in policies such as `BrowserSidebarInteractionPolicy`, and container width and Dynamic Type staying environmental. A platform tree may add a UI file only for a genuine platform seam: an AppKit/UIKit gesture or system adapter, a scene or presentation shell, a `BrowserPlatform*` same-name pair, or a port binding to a platform store. It may not fork a shared component's behavior; a divergence belongs in a capability bit, an explicit shell input, an optional closure on an actions value, or an accessory slot — chosen in that order of preference, and unified outright when the difference is harmless. This is a review rule, not a script: source-topology tests stay forbidden.
+UI components are canonical in `ZeeShared` and read what their environment can do from `BrowserInteractionCapabilities` — independent bits like touch and hover, never a device or platform identity — with sizing and reveal rules derived in policies such as `BrowserSidebarInteractionPolicy`, and container width and Dynamic Type staying environmental. A platform tree may add a UI file only for a genuine platform seam: an AppKit/UIKit gesture or system adapter, a scene or presentation shell, a `BrowserPlatform*` same-name pair, or a port binding to a platform store. It may not fork a shared component's behavior; a divergence belongs in a capability bit, an explicit shell input, an optional closure on an actions value, or an accessory slot — chosen in that order of preference, and unified outright when the difference is harmless. This is a review rule, not a script: source-topology tests stay forbidden.
 
 ## Isolated validation sessions
 
-Every fixture, forced-onboarding, setup, showcase, credential test, SwiftUI Preview, or automated app launch must use Crest's isolated launch graph. Set `CREST_ISOLATED_SESSION=1` for validation launches even when another fixture flag already implies isolation.
+Every fixture, forced-onboarding, setup, showcase, credential test, SwiftUI Preview, or automated app launch must use Zee's isolated launch graph. Set `ZEE_ISOLATED_SESSION=1` for validation launches even when another fixture flag already implies isolation.
 
-Use `CREST_ISOLATED_PERSISTENCE_ID=<name>` when a validation profile needs to survive relaunches. Keep fixture launches isolated from normal browsing data.
+Use `ZEE_ISOLATED_PERSISTENCE_ID=<name>` when a validation profile needs to survive relaunches. Keep fixture launches isolated from normal browsing data.
 
 ## Focused guard tests
 
@@ -114,7 +114,7 @@ with:
 python3 -m unittest discover -s Scripts/Tests
 ```
 
-`Scripts/validate.sh` runs this suite before the app tests. The **Build Crest**
+`Scripts/validate.sh` runs this suite before the app tests. The **Build Zee**
 workflow runs it on Linux, where the tests that need macOS `plutil` skip, and
 again in full on the macOS runner of the Chromium host build, or of the iOS
 build when a change skips the Mac builds. The suite covers release workflow,
@@ -127,8 +127,8 @@ tests also need macOS `plutil`.
 rejects coding-assistant instructions or state, machine-local editor files,
 local environment configuration, and Apple signing or provisioning material.
 The only tracked assistant files are the public `AGENTS.md`, the
-`crest-contribution` skill under `.agents/skills/`, and its
-`.claude/skills/crest-contribution` link; any other `.agents/` or `.claude/`
+`zee-contribution` skill under `.agents/skills/`, and its
+`.claude/skills/zee-contribution` link; any other `.agents/` or `.claude/`
 entry, nested `AGENTS.md`, or `CLAUDE.local.md` is rejected.
 Ignored local worktrees do not enter the public snapshot, while an accidental
 forced add fails the check.

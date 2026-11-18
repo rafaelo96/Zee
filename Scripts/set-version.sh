@@ -2,7 +2,7 @@
 set -euo pipefail
 
 script_root="${0:A:h:h}"
-repository_root="${CREST_VERSION_REPOSITORY_ROOT:-$script_root}"
+repository_root="${ZEE_VERSION_REPOSITORY_ROOT:-$script_root}"
 version_file="$repository_root/Config/Version.xcconfig"
 check_script="${0:A:h}/check-version.sh"
 
@@ -105,4 +105,4 @@ if ! "$check_script"; then
   exit 1
 fi
 
-print "Updated Crest $update_kind from $current_version to $requested_version."
+print "Updated Zee $update_kind from $current_version to $requested_version."

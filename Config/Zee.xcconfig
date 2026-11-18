@@ -1,0 +1,28 @@
+// Zee product identity: the one place that defines the browser's name and identifiers.
+//
+// After changing a value, run `xcodegen generate` (or Scripts/bootstrap.sh)
+// and rebuild. Everything else
+// (Info.plists, entitlements, iCloud container, keychain group, storage
+// folder, window titles, menus) reads these values.
+//
+// Crest's trademark policy requires a fork to use its own name, icon, bundle
+// identifier, signing identity, update feed and CloudKit container.
+
+#include "Version.xcconfig"
+
+// Name shown in the menu bar, Dock, Finder and windows. Also the
+// ~/Library/Application Support/<name> folder where browsing data lives.
+ZEE_PRODUCT_NAME = Zee
+
+// Reverse-DNS identifier. Changing it after people use the app moves their
+// data to a fresh, empty profile, so settle it before a public release.
+ZEE_BUNDLE_ID = dev.zee.browser
+
+// Your Apple Developer Team ID (Xcode → Settings → Accounts). Empty builds
+// locally without iCloud or a shared keychain.
+ZEE_DEVELOPMENT_TEAM =
+
+// Sparkle update feed base URL, e.g. https://example.com/updates
+// Empty disables update checks so Zee never installs an official Crest
+// release over itself.
+ZEE_UPDATE_FEED_BASE_URL =

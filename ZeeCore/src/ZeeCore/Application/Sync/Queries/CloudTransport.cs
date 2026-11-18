@@ -1,0 +1,21 @@
+using ZeeCore.Application;
+
+namespace ZeeCore.Contracts;
+
+/// The cloud transport's state on this device.
+public sealed record CloudTransport : Query<CloudTransportState> {
+    #region Variables
+
+    /// The transport store keeps a lock of its own.
+    internal override bool AnsweredUnderLock => false;
+
+    #endregion
+
+    #region Actions - Answering
+
+    internal override CloudTransportState Answer(ZeeApp app) {
+        lock (app.CloudTransport.Gate) return app.CloudTransport.Record.Published(app.CloudTransport.Adopted);
+    }
+
+    #endregion
+}

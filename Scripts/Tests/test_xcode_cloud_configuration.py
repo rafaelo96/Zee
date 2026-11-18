@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Repository-level contracts for Crest's Xcode Cloud release workflow."""
+"""Repository-level contracts for Zee's Xcode Cloud release workflow."""
 
 from __future__ import annotations
 
@@ -28,13 +28,13 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
 
     def test_both_app_schemes_are_shared_and_archive_enabled(self) -> None:
         for scheme_name, blueprint_name in (
-            ("Crest", "Crest"),
-            ("CrestMobile", "CrestMobile"),
+            ("Zee", "Zee"),
+            ("ZeeMobile", "ZeeMobile"),
         ):
             with self.subTest(scheme=scheme_name):
                 scheme_path = (
                     REPOSITORY_ROOT
-                    / "Crest.xcodeproj"
+                    / "Zee.xcodeproj"
                     / "xcshareddata"
                     / "xcschemes"
                     / f"{scheme_name}.xcscheme"
@@ -79,7 +79,7 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
                 "CI_START_CONDITION": "manual",
                 "CI_XCODEBUILD_ACTION": "archive",
                 "CI_PRODUCT_PLATFORM": "iOS",
-                "CI_XCODE_SCHEME": "CrestMobile",
+                "CI_XCODE_SCHEME": "ZeeMobile",
                 "CI_PRIMARY_REPOSITORY_PATH": str(REPOSITORY_ROOT),
                 "CI_COMMIT": subprocess.check_output(
                     ["git", "rev-parse", "HEAD"],
@@ -122,14 +122,14 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
         expected_version = self.marketing_version()
 
         with tempfile.TemporaryDirectory() as temporary_directory:
-            archive = pathlib.Path(temporary_directory) / "CrestMobile.xcarchive"
-            app = archive / "Products" / "Applications" / "Crest.app"
+            archive = pathlib.Path(temporary_directory) / "ZeeMobile.xcarchive"
+            app = archive / "Products" / "Applications" / "Zee.app"
             app.mkdir(parents=True)
             with (archive / "Info.plist").open("wb") as stream:
                 plistlib.dump(
                     {
                         "ApplicationProperties": {
-                            "ApplicationPath": "Applications/Crest.app",
+                            "ApplicationPath": "Applications/Zee.app",
                         },
                     },
                     stream,
@@ -152,7 +152,7 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
                     with (app / "Info.plist").open("wb") as stream:
                         plistlib.dump(
                             {
-                                "CFBundleIdentifier": "com.pauldavis.crest",
+                                "CFBundleIdentifier": "dev.zee.browser",
                                 "CFBundleShortVersionString": archived_version,
                                 "CFBundleVersion": "20",
                             },
@@ -180,18 +180,18 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = pathlib.Path(temporary_directory)
-            archive = temporary_root / "CrestMobile.xcarchive"
-            app = archive / "Products" / "Applications" / "Crest.app"
+            archive = temporary_root / "ZeeMobile.xcarchive"
+            app = archive / "Products" / "Applications" / "Zee.app"
             app.mkdir(parents=True)
             with (archive / "Info.plist").open("wb") as stream:
                 plistlib.dump(
-                    {"ApplicationProperties": {"ApplicationPath": "Applications/Crest.app"}},
+                    {"ApplicationProperties": {"ApplicationPath": "Applications/Zee.app"}},
                     stream,
                 )
             with (app / "Info.plist").open("wb") as stream:
                 plistlib.dump(
                     {
-                        "CFBundleIdentifier": "com.pauldavis.crest",
+                        "CFBundleIdentifier": "dev.zee.browser",
                         "CFBundleShortVersionString": self.marketing_version(),
                         "CFBundleVersion": "52",
                     },
@@ -202,7 +202,7 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
             ad_hoc_export = temporary_root / "adhocexport"
             app_store_export.mkdir()
             ad_hoc_export.mkdir()
-            app_store_package = app_store_export / "Crest.ipa"
+            app_store_package = app_store_export / "Zee.ipa"
             app_store_package.write_bytes(b"ipa")
 
             capture = temporary_root / "capture"
@@ -224,7 +224,7 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
             base_environment = {
                 name: value
                 for name, value in os.environ.items()
-                if not name.startswith("CREST_ASC_")
+                if not name.startswith("ZEE_ASC_")
             } | {
                 "CI_XCODE_CLOUD": "TRUE",
                 "CI_XCODEBUILD_ACTION": "archive",
@@ -239,9 +239,9 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
                 "PATH": f"{fake_bin}{os.pathsep}{os.environ['PATH']}",
             }
             credentials = {
-                "CREST_ASC_API_KEY_ID": "KEY123",
-                "CREST_ASC_API_ISSUER_ID": "issuer",
-                "CREST_ASC_API_PRIVATE_KEY_BASE64": "cHJpdmF0ZSBrZXk=",
+                "ZEE_ASC_API_KEY_ID": "KEY123",
+                "ZEE_ASC_API_ISSUER_ID": "issuer",
+                "ZEE_ASC_API_PRIVATE_KEY_BASE64": "cHJpdmF0ZSBrZXk=",
             }
 
             def run_guard(environment: dict[str, str]) -> subprocess.CompletedProcess[str]:
@@ -257,7 +257,7 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
             with self.subTest(export="missing credentials"):
                 result = run_guard(base_environment)
                 self.assertEqual(result.returncode, 64)
-                self.assertIn("CREST_ASC_API_KEY_ID", result.stderr)
+                self.assertIn("ZEE_ASC_API_KEY_ID", result.stderr)
                 self.assertFalse((capture / "arguments").exists())
 
             with self.subTest(export="App Store only"):
@@ -277,7 +277,7 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
                 self.assertFalse(pathlib.Path(arguments[arguments.index("--p8-file-path") + 1]).exists())
 
             (capture / "arguments").unlink()
-            (ad_hoc_export / "Crest.ipa").write_bytes(b"ipa")
+            (ad_hoc_export / "Zee.ipa").write_bytes(b"ipa")
             with self.subTest(export="every distribution"):
                 result = run_guard(base_environment | credentials)
                 self.assertEqual(result.returncode, 0, result.stderr)

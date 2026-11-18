@@ -15,8 +15,8 @@ class CloudKitEnvironmentConfigurationTests(unittest.TestCase):
         self.assertIn("ICLOUD_CONTAINER_ENVIRONMENT: Production", project)
 
         for relative_path in (
-            "CrestMac/Configuration/Crest.entitlements",
-            "CrestMobile/Configuration/CrestMobile.entitlements",
+            "ZeeMac/Configuration/Zee.entitlements",
+            "ZeeMobile/Configuration/ZeeMobile.entitlements",
         ):
             with (REPOSITORY_ROOT / relative_path).open("rb") as entitlements_file:
                 entitlements = plistlib.load(entitlements_file)
@@ -28,7 +28,7 @@ class CloudKitEnvironmentConfigurationTests(unittest.TestCase):
     def test_mobile_production_scheme_runs_the_release_configuration(self) -> None:
         scheme_path = (
             REPOSITORY_ROOT
-            / "Crest.xcodeproj/xcshareddata/xcschemes/CrestMobile Production.xcscheme"
+            / "Zee.xcodeproj/xcshareddata/xcschemes/ZeeMobile Production.xcscheme"
         )
         scheme = ET.parse(scheme_path).getroot()
 

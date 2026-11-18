@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Crest's explicit, history-stable release-note catalog."""
+"""Validate Zee's explicit, history-stable release-note catalog."""
 
 from __future__ import annotations
 

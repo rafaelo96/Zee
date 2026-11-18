@@ -11,18 +11,18 @@ import sys
 
 REPOSITORY_ROOT = Path(
     os.environ.get(
-        "CREST_PUBLIC_SOURCE_REPOSITORY_ROOT",
+        "ZEE_PUBLIC_SOURCE_REPOSITORY_ROOT",
         Path(__file__).resolve().parent.parent,
     )
 )
 
 # The public contribution instructions are the only tracked assistant files:
-# the root AGENTS.md, the crest-contribution skill, and its Claude Code link.
+# the root AGENTS.md, the zee-contribution skill, and its Claude Code link.
 PUBLIC_INSTRUCTION_PATHS = {
     "AGENTS.md",
-    ".claude/skills/crest-contribution",
+    ".claude/skills/zee-contribution",
 }
-PUBLIC_INSTRUCTION_PREFIXES = (".agents/skills/crest-contribution/",)
+PUBLIC_INSTRUCTION_PREFIXES = (".agents/skills/zee-contribution/",)
 
 FORBIDDEN_NAMES = {
     ".cursorrules",
@@ -38,7 +38,7 @@ FORBIDDEN_COMPONENTS = {
     ".agents",
     ".claude",
     ".codex",
-    ".crest-review",
+    ".zee-review",
     ".cursor",
     ".idea",
     ".vscode",

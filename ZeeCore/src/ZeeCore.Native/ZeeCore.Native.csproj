@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PublishAot>true</PublishAot>
+    <NativeLib>Shared</NativeLib>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsAotCompatible>true</IsAotCompatible>
+    <!-- The apps' deployment target (project.yml), which the content filter is built for too. -->
+    <AppleMinOSVersion>26.1</AppleMinOSVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../ZeeCore/ZeeCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The session file uses the system SQLite on every Apple platform. -->
+    <DirectPInvoke Include="libsqlite3" />
+    <NativeLibrary Include="-lsqlite3" />
+    <!-- The content filter is linked in statically: the prebuilt library the
+         lock in ZeeCore/native/ContentFilter names, for the runtime published. -->
+    <DirectPInvoke Include="zee_content_filter" />
+  </ItemGroup>
+  <Target Name="ZeeContentFilterLibrary" BeforeTargets="SetupOSSpecificProps"
+      Condition="'$(RuntimeIdentifier)' == 'osx-arm64' or '$(RuntimeIdentifier)' == 'ios-arm64' or '$(RuntimeIdentifier)' == 'iossimulator-arm64'">
+    <PropertyGroup>
+      <ZeeContentFilterPathFile>$(IntermediateOutputPath)content-filter.path</ZeeContentFilterPathFile>
+    </PropertyGroup>
+    <Exec Command="python3 &quot;$(MSBuildThisFileDirectory)../../../Scripts/control-plane/fetch-content-filter.py&quot; --runtime $(RuntimeIdentifier) &gt; &quot;$(ZeeContentFilterPathFile)&quot;"
+        IgnoreStandardErrorWarningFormat="true" />
+    <ReadLinesFromFile File="$(ZeeContentFilterPathFile)">
+      <Output TaskParameter="Lines" PropertyName="ZeeContentFilterLibraryPath" />
+    </ReadLinesFromFile>
+    <ItemGroup>
+      <NativeLibrary Include="$(ZeeContentFilterLibraryPath)" />
+      <!-- An engine that checks each request itself calls the slot check directly,
+           without the core's managed code. -->
+      <LinkerArg Include="-Wl,-exported_symbol,_zee_content_filter_slot_check" />
+      <LinkerArg Include="-Wl,-exported_symbol,_zee_content_filter_slot_check_redirect" />
+      <LinkerArg Include="-Wl,-exported_symbol,_zee_content_filter_buffer_free" />
+    </ItemGroup>
+  </Target>
+</Project>

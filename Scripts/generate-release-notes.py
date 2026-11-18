@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate user-facing release notes from Crest's explicit change catalog."""
+"""Generate user-facing release notes from Zee's explicit change catalog."""
 
 from __future__ import annotations
 

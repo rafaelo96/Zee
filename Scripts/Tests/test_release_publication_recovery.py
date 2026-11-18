@@ -109,8 +109,8 @@ class ReleaseAssetRecoveryTests(unittest.TestCase):
         )
 
     def make_asset(self, directory: pathlib.Path) -> tuple[pathlib.Path, FakeGitHub]:
-        asset = directory / "Installer-Crest-0.4.0-development-test-arm64.dmg"
-        asset.write_bytes(b"notarized crest installer")
+        asset = directory / "Installer-Zee-0.4.0-development-test-arm64.dmg"
+        asset.write_bytes(b"notarized badge installer")
         digest = f"sha256:{hashlib.sha256(asset.read_bytes()).hexdigest()}"
         github = FakeGitHub(asset.name, asset.stat().st_size, digest)
         return asset, github

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Behavioral coverage for Crest's commit-based release notes."""
+"""Behavioral coverage for Zee's commit-based release notes."""
 
 from __future__ import annotations
 
@@ -77,7 +77,7 @@ class ReleaseNotesTests(unittest.TestCase):
             "--current-ref",
             current_commit,
             "--asset-name",
-            "Installer-Crest-nightly-test-arm64.dmg",
+            "Installer-Zee-nightly-test-arm64.dmg",
         ]
         if previous_commit is not None:
             arguments.extend(["--previous-ref", previous_commit])
@@ -96,8 +96,8 @@ class ReleaseNotesTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             repository = pathlib.Path(temporary_directory)
             self.run_git(repository, "init", "--initial-branch=main")
-            self.run_git(repository, "config", "user.name", "Crest Tests")
-            self.run_git(repository, "config", "user.email", "crest-tests@example.invalid")
+            self.run_git(repository, "config", "user.name", "Zee Tests")
+            self.run_git(repository, "config", "user.email", "zee-tests@example.invalid")
             previous = self.commit(repository, "Initial build")
             current = self.commit(repository, "fix: Keep release history")
             for channel in ("stable", "nightly", "development"):
@@ -122,7 +122,7 @@ class ReleaseNotesTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             repository = pathlib.Path(temporary_directory)
             self.run_git(repository, "init", "--initial-branch=main")
-            self.run_git(repository, "config", "user.name", "Crest Tests")
+            self.run_git(repository, "config", "user.name", "Zee Tests")
             self.run_git(repository, "config", "user.email", "tests@crestbrowser.com")
 
             entries = {
@@ -172,7 +172,7 @@ class ReleaseNotesTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary_directory:
             repository = pathlib.Path(temporary_directory)
             self.run_git(repository, "init", "--initial-branch=main")
-            self.run_git(repository, "config", "user.name", "Crest Tests")
+            self.run_git(repository, "config", "user.name", "Zee Tests")
             self.run_git(repository, "config", "user.email", "tests@crestbrowser.com")
 
             self.write_catalog(

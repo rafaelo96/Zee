@@ -31,7 +31,7 @@ metadata_path = root / "Config/ThirdPartyDependencies.json"
 metadata = json.loads(metadata_path.read_text())
 record = next(item for item in metadata["bundledData"] if item["identity"] == "sf-symbol-names")
 record.update(version=args.revision, source=source)
-(root / "CrestShared/Resources/SFSymbolNames.txt").write_text(names)
+(root / "ZeeShared/Resources/SFSymbolNames.txt").write_text(names)
 (root / record["notice"]).write_text(
     "SF symbol name catalog from SFSafeSymbols\nRevision: " + args.revision
     + "\nhttps://github.com/SFSafeSymbols/SFSafeSymbols\n"

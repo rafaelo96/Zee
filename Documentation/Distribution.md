@@ -1,9 +1,9 @@
-# Crest distribution
+# Zee distribution
 
-Crest has one official distribution path per platform:
+Zee has one official distribution path per platform:
 
-- **macOS:** one app, Crest, with the Chromium and WebKit engines. It is
-  distributed directly via GitHub Releases and official Homebrew cask (`crest-browser`),
+- **macOS:** one app, Zee, with the Chromium and WebKit engines. It is
+  distributed directly via GitHub Releases and official Homebrew cask (`zee-browser`),
   signed with Developer ID, notarized by Apple, and updated through Sparkle 2;
 - **iPhone and iPad:** TestFlight and the App Store.
 
@@ -14,9 +14,9 @@ behavior, and user confusion over which build supports extensions.
 The Homebrew cask fetches un-modified binaries from GitHub Releases, 
 thus it is still updated through Sparkle 2. 
 
-Crest 0.10 opened the release line with `MARKETING_VERSION = 0.10.0`, and its
+Zee 0.10 opened the release line with `MARKETING_VERSION = 0.10.0`, and its
 first stable tag is `v0.10.8`; later releases on the line, such as security
-updates, follow as `0.10.x` with tags such as `v0.10.9`. User-facing release copy calls it Crest 0.10. Mac requires Apple
+updates, follow as `0.10.x` with tags such as `v0.10.9`. User-facing release copy calls it Zee 0.10. Mac requires Apple
 silicon and macOS 26.1 or later; iPhone and iPad remain WebKit apps with 26.1
 deployment targets. The packaged Mac app and Sparkle feed take the higher
 minimum macOS version required by the engine and the native UI framework.
@@ -24,7 +24,7 @@ minimum macOS version required by the engine and the native UI framework.
 The release build downloads a prebuilt Chromium engine instead of compiling
 Chromium. Each engine is published once as a `chromium-engine-<key>` release,
 keyed by its inputs; see "Releasing" in
-[the Chromium engine README](../CrestEngines/Chromium/README.md). When a commit's
+[the Chromium engine README](../ZeeEngines/Chromium/README.md). When a commit's
 engine is missing, the **Ensure Chromium engine** job builds and publishes it on
 the registered build Mac if `CHROMIUM_CI_ENABLED` is set, and otherwise stops the
 release before signing.
@@ -59,7 +59,7 @@ serialized publication queue. A direct push to `main` publishes nothing.
 
 The marketing version comes from `Config/Version.xcconfig`. Stable tags must
 match it exactly. Distributed build numbers add the GitHub Actions run number
-to Crest's public-repository build epoch. The epoch keeps Sparkle ordering
+to Zee's public-repository build epoch. The epoch keeps Sparkle ordering
 strictly increasing across the repository migration; the run number keeps every
 subsequent published update newer than the prior build. Preflight also reads
 every signed appcast and raises the build number above every published build,
@@ -75,8 +75,8 @@ stable or nightly entries:
 `https://raw.githubusercontent.com/pauljoda/Crest/updates/appcast-development.xml`
 
 Experimental builds use `appcast-experimental.xml`. Each feed also has a
-`-webkit` twin, such as `appcast-webkit.xml`, which WebKit-only builds of Crest
-read. Those twins now offer the same Crest installer, so a WebKit-only copy
+`-webkit` twin, such as `appcast-webkit.xml`, which WebKit-only builds of Zee
+read. Those twins now offer the same Zee installer, so a WebKit-only copy
 updates into the dual-engine app on its next check.
 
 The `updates` branch is workflow-owned. It contains the appcasts, a short
@@ -124,7 +124,7 @@ contract tests locally for the exact commit, following the
 [repository guardrails](RepositoryGuardrails.md). The production workflow follows
 these steps:
 
-1. validate the exact source SHA through the reusable **Build Crest** workflow
+1. validate the exact source SHA through the reusable **Build Zee** workflow
    and find the Chromium engine for its engine key, building it on the registered
    Mac when it is missing and that builder is enabled. Signing waits for both;
 2. regenerate the project and check version metadata, product identity, and
@@ -132,10 +132,10 @@ these steps:
 3. import the Developer ID identity into a temporary keychain and install the
    matching release provisioning profile;
 4. archive and export the WebKit composition as an arm64 Developer ID build.
-   Xcode's export resolves Crest's production CloudKit, push, and keychain
+   Xcode's export resolves Zee's production CloudKit, push, and keychain
    entitlements; the exported app only supplies them and is not published;
-5. download and checksum the Chromium engine, build the native core and Crest's
-   interface framework, and package them with the engine as `Crest.app`, signed
+5. download and checksum the Chromium engine, build the native core and Zee's
+   interface framework, and package them with the engine as `Zee.app`, signed
    with hardened runtime and those entitlements;
 6. verify the app's signature, bundle identifier, update channel, and build
    number;
@@ -160,7 +160,7 @@ new signed appcast is pushed. If a release is created but its appcast fails to
 publish, the next run still uses the last successfully published channel cursor
 for release notes and the signed appcast for nightly deduplication.
 
-When a user chooses Download Update from an available update card, Crest ends
+When a user chooses Download Update from an available update card, Zee ends
 that undownloaded offer and asks Sparkle to check the selected channel again.
 It downloads the newly selected compatible build without an extra click. A
 failed or cancelled check does not install the old offer. Sparkle continues to
@@ -179,7 +179,7 @@ exposed to pull-request builds.
 | --- | --- |
 | `DEVELOPER_ID_APPLICATION_P12_BASE64` | Developer ID certificate and private key exported as an encrypted PKCS #12 archive, then base64 encoded |
 | `DEVELOPER_ID_APPLICATION_P12_PASSWORD` | Password used for that PKCS #12 archive |
-| `DEVELOPER_ID_PROVISIONING_PROFILE_BASE64` | `Crest Developer ID` provisioning profile that grants the direct build access to Apple services |
+| `DEVELOPER_ID_PROVISIONING_PROFILE_BASE64` | `Zee Developer ID` provisioning profile that grants the direct build access to Apple services |
 | `APP_STORE_CONNECT_API_ISSUER_ID` | App Store Connect API issuer used by Xcode and `notarytool` |
 | `APP_STORE_CONNECT_API_KEY_ID` | Identifier of the App Store Connect API key |
 | `APP_STORE_CONNECT_API_PRIVATE_KEY_BASE64` | Downloaded `.p8` private key, base64 encoded |
@@ -196,7 +196,7 @@ Before publishing a stable tag:
 1. confirm `CHANGELOG.md`, `Documentation/ReleaseNotes.json`, and the marketing
    version are ready;
 2. complete local app and release-script tests for the commit being published;
-3. confirm **Build Crest** passed on the intended `main` commit and the Pages
+3. confirm **Build Zee** passed on the intended `main` commit and the Pages
    workflow is green. The stable release will validate its exact source again;
 4. confirm the commit's Chromium engine is published:
    `gh release view "$(python3 Scripts/control-plane/chromium_engine.py tag)"`;
@@ -206,7 +206,7 @@ Before publishing a stable tag:
    attestation results. Distribution packaging stops the release if an engine
    helper is an unknown kind or is signed with the wrong entitlements, or if the
    signed package's engine can't load a page. That check runs the engine on its
-   own, so it covers signing and the engine helpers, not Crest's interface;
+   own, so it covers signing and the engine helpers, not Zee's interface;
 8. install the published disk image on a clean macOS account, load real pages
    in both engines, and exercise both a manual update check and the normal
    relaunch path. For 0.7, cover an upgrade
@@ -222,7 +222,7 @@ maintained [iPhone and iPad listing](../Marketing/AppStore/README.md) against
 the release's mobile capabilities.
 
 Commit the version and release documentation together, push that commit to
-`main`, and wait for a **Build Crest** run on it to pass before creating and
+`main`, and wait for a **Build Zee** run on it to pass before creating and
 pushing an annotated `vX.Y.Z` tag at that same commit. A new release line uses
 `Scripts/check-version.sh` and the release-note catalog check;
 `--fix-commit` applies only to patch increases on the existing line.
@@ -246,22 +246,22 @@ way the release workflow packages it, without publishing an update:
 Scripts/install-local-macos-release.sh
 ```
 
-The command requires Crest's Developer ID identity and provisioning profile in
+The command requires Zee's Developer ID identity and provisioning profile in
 the local keychain/Xcode profile directory, the .NET SDK, and the GitHub CLI. It
 downloads the published Chromium engine matching the checkout's engine inputs
-and caches it in `~/Library/Caches/Crest-local-release`. Set
-`CREST_CHROMIUM_APP` to a locally built `Chromium.app` to package that engine
+and caches it in `~/Library/Caches/Zee-local-release`. Set
+`ZEE_CHROMIUM_APP` to a locally built `Chromium.app` to package that engine
 instead. It then archives and exports the WebKit composition to resolve the
 production iCloud, push, and keychain entitlements, builds the native core and
-`CrestChromiumUIProduct`, and packages them with the engine, signed with
-hardened runtime. Finally it quits the installed Crest, replaces
-`/Applications/Crest.app`, and relaunches it. The app is signed but not
-notarized. Builds reuse `~/Library/Developer/Xcode/DerivedData/Crest-LocalRelease`.
+`ZeeChromiumUIProduct`, and packages them with the engine, signed with
+hardened runtime. Finally it quits the installed Zee, replaces
+`/Applications/Zee.app`, and relaunches it. The app is signed but not
+notarized. Builds reuse `~/Library/Developer/Xcode/DerivedData/Zee-LocalRelease`.
 
 The build number defaults to the greater of the installed build number and the
 current development appcast. That prevents the current public build from
 immediately replacing a local iteration without outranking the next published
-Sparkle build. Set `CREST_LOCAL_BUILD_NUMBER` only when a specific local bundle
+Sparkle build. Set `ZEE_LOCAL_BUILD_NUMBER` only when a specific local bundle
 version is needed.
 
 Merging a PR into `main` automatically starts development publication. Direct
@@ -275,10 +275,10 @@ After mounting a published disk image, users and maintainers can inspect it
 with standard macOS tools:
 
 ```bash
-shasum -a 256 -c Checksum-Crest-*.dmg.sha256
-codesign --verify --deep --strict --verbose=2 /Volumes/Crest/Crest.app
-spctl --assess --type execute --verbose=4 /Volumes/Crest/Crest.app
-xcrun stapler validate /Volumes/Crest/Crest.app
+shasum -a 256 -c Checksum-Zee-*.dmg.sha256
+codesign --verify --deep --strict --verbose=2 /Volumes/Zee/Zee.app
+spctl --assess --type execute --verbose=4 /Volumes/Zee/Zee.app
+xcrun stapler validate /Volumes/Zee/Zee.app
 ```
 
 GitHub's build-provenance attestation and the checksum file provide independent

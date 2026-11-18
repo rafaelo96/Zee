@@ -1,4 +1,4 @@
-"""Crest's maintained Chromium patch fork and persistent build workspace."""
+"""Zee's maintained Chromium patch fork and persistent build workspace."""
 from __future__ import annotations
 
 import contextlib
@@ -28,13 +28,13 @@ import urllib.request
 import chromium_engine
 
 REPO = Path(__file__).resolve().parents[2]
-ENGINE = Path("CrestEngines/Chromium")
+ENGINE = Path("ZeeEngines/Chromium")
 # The directory the workspace's Actions runner works in.
 RUNNER_WORK = "runner-work"
 VERSION = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+")
 # A prepared source directory is named by its preparation key's first 20 hex digits.
 SOURCE_NAME = re.compile(r"[0-9a-f]{20}")
-PREPARATION_FIELDS = ("chromium", "dependencies", "cipd", "crestPatches")
+PREPARATION_FIELDS = ("chromium", "dependencies", "cipd", "zeePatches")
 # Present while a tree is being moved to a new release in place.
 ADVANCING = "advancing.json"
 ARCHIVE = "https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{version}-lite.tar.xz"
@@ -51,7 +51,7 @@ CIPD_PLATFORM = {"platform": "mac-arm64", "os": "mac", "arch": "arm64"}
 RELEASE_NOTES = "https://chromereleases.googleblog.com/feeds/posts/default?alt=json&max-results=80"
 NOTED_VERSIONS = re.compile(r"\b(\d+\.\d+\.\d+\.)(\d+)((?:/\.\d+)*)")
 SEVERITY = re.compile(r"\b(Critical|High|Medium|Low)\s+(CVE-\d{4}-\d+)")
-# Upstream files an update reads to find what changed under Crest's overlay and packaging.
+# Upstream files an update reads to find what changed under Zee's overlay and packaging.
 HELPER_LIST = "chrome/installer/mac/signing/parts.py"
 HELPER_APP = re.compile(r"Helpers/\{0\.product\} Helper( \([^)]+\))?\.app")
 ANNOTATIONS = "tools/traffic_annotation/summary/annotations.xml"
@@ -119,11 +119,11 @@ def preparation_key(repo, lock):
 
 def validate_workspace(root, repo):
     root, repo = root.expanduser().resolve(), repo.resolve()
-    # The Actions runner the workspace hosts checks Crest out under its own
+    # The Actions runner the workspace hosts checks Zee out under its own
     # work directory, which holds no Chromium source or build output.
     checked_out_by_runner = root / RUNNER_WORK in repo.parents
     if root == repo or repo in root.parents or (root in repo.parents and not checked_out_by_runner):
-        raise ValueError("The build workspace must be separate from the Crest checkout")
+        raise ValueError("The build workspace must be separate from the Zee checkout")
     if root == Path.home() or root == Path("/"):
         raise ValueError("Choose a dedicated Chromium workspace directory")
     return root
@@ -160,7 +160,7 @@ def make_directory(root, path):
 def building():
     """Whether a Ninja build of a Chromium tree is running, managed or not."""
     processes = run("ps", "-axo", "comm=,args=", capture=True)
-    return any("ninja" in line.split()[0] and "CrestBaseline" in line for line in processes.splitlines() if line.split())
+    return any("ninja" in line.split()[0] and "ZeeBaseline" in line for line in processes.splitlines() if line.split())
 
 
 @contextlib.contextmanager
@@ -176,7 +176,7 @@ def timed(timings, step):
 @contextlib.contextmanager
 def exclusive_workspace(root):
     root.mkdir(parents=True, exist_ok=True)
-    with (root / ".crest-build.lock").open("a+") as stream:
+    with (root / ".zee-build.lock").open("a+") as stream:
         try:
             fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
@@ -251,7 +251,7 @@ class Workspace:
         if (self.directory / ADVANCING).exists():
             raise ValueError(f"An advance to a new release stopped partway at {self.directory}. Inspect it before building.")
         if marker.exists():
-            if read_json(marker)["preparationKey"] != self.key or not (self.source / "out/CrestBaseline/gn").is_file():
+            if read_json(marker)["preparationKey"] != self.key or not (self.source / "out/ZeeBaseline/gn").is_file():
                 raise ValueError("Prepared workspace is incomplete or has different inputs")
             self.script("prepare-chromium.py", "--source", self.source, "--verify-only")
         elif self.source.exists() or self.source.with_name("src.partial").exists():
@@ -296,7 +296,7 @@ class Workspace:
             if performance_configuration_matches(self.source, self.lock, sdk):
                 # Preserve equivalent absolute paths in an adopted build. Rewriting its
                 # PGO path alone invalidates every compile command in Ninja.
-                run(self.source / "out/CrestBaseline/gn", "gen", "out/CrestBaseline", "--fail-on-unused-args", cwd=self.source)
+                run(self.source / "out/ZeeBaseline/gn", "gen", "out/ZeeBaseline", "--fail-on-unused-args", cwd=self.source)
             else:
                 self.script("configure-chromium.py", "--source", self.source, "--configuration", "performance",
                             "--sdk", sdk, "--pgo-profile", profile)
@@ -316,7 +316,7 @@ class Workspace:
         For a release on the same milestone whose toolchains and tools are
         unchanged, which `plan_update` decides. Files the new archive leaves as
         they were keep their timestamps, so Ninja recompiles only what the release
-        changed. The tree takes the target's directory; Crest's host is reversed
+        changed. The tree takes the target's directory; Zee's host is reversed
         here and installed again by the next build.
         """
         if building():
@@ -338,7 +338,7 @@ class Workspace:
         # archive's own copies there are for the Linux host that exported it.
         tools = tuple(path.removeprefix("src/") + "/" for path in [*target.lock["dependencies"], *target.lock["cipd"]])
         build_patched = {}
-        for relative in target.lock["crestPatches"]:
+        for relative in target.lock["zeePatches"]:
             for path, _ in chromium_engine.patch_sections((self.repo / ENGINE / relative).read_text()):
                 build_patched.setdefault(path, []).append(relative)
         changed, names, originals = [], set(), {}
@@ -380,13 +380,13 @@ class Workspace:
                 path.write_bytes(data)
                 path.chmod(mode)
                 changed.append(name)
-        # Crest's build adjustments, applied to the new release's copies of the files they change.
-        with tempfile.TemporaryDirectory(prefix="crest-advance-") as temporary:
+        # Zee's build adjustments, applied to the new release's copies of the files they change.
+        with tempfile.TemporaryDirectory(prefix="zee-advance-") as temporary:
             scratch = Path(temporary)
             for name, data in originals.items():
                 (scratch / name).parent.mkdir(parents=True, exist_ok=True)
                 (scratch / name).write_bytes(data)
-            for relative in target.lock["crestPatches"]:
+            for relative in target.lock["zeePatches"]:
                 run("patch", "--batch", "-p1", "--forward", "--fuzz=0", "-s", "--input", self.repo / ENGINE / relative,
                     cwd=scratch)
             for name in originals:
@@ -411,7 +411,7 @@ class Workspace:
                     and not directory.is_symlink() and not any(directory.iterdir())):
                 directory.rmdir()
         if any(name.startswith("tools/gn/") for name in changed + removed):
-            output = self.source / "out/CrestBaseline"
+            output = self.source / "out/ZeeBaseline"
             run(sys.executable, self.source / "tools/gn/bootstrap/bootstrap.py", "-o", output / "gn",
                 "--skip-generate-buildfiles", cwd=self.source)
             shutil.copy2(output / "gn", self.source / "buildtools/mac/gn")
@@ -425,7 +425,7 @@ class Workspace:
 
 
 def smoke_engine(source, workspace, version):
-    browser = source / "out/CrestBaseline/Chromium.app/Contents/MacOS/Chromium"
+    browser = source / "out/ZeeBaseline/Chromium.app/Contents/MacOS/Chromium"
     with (browser.parent.parent / "Info.plist").open("rb") as stream:
         actual = plistlib.load(stream)["CFBundleShortVersionString"]
     if version != actual:
@@ -438,7 +438,7 @@ def smoke_engine(source, workspace, version):
 def check_renders_page(browser, scratch, timeout=30):
     """Require `browser`, run headless in a throwaway profile, to run a page's JavaScript."""
     with tempfile.TemporaryDirectory(prefix="smoke-", dir=scratch) as profile:
-        page = "data:text/html,<script>document.title='crest-'+(6*7)</script>"
+        page = "data:text/html,<script>document.title='zee-'+(6*7)</script>"
         process = subprocess.Popen([str(browser), "--headless", "--disable-gpu", "--disable-background-networking",
             "--no-first-run", "--no-default-browser-check", "--use-mock-keychain", "--timeout=10000",
             f"--user-data-dir={profile}", "--dump-dom", page], stdout=subprocess.PIPE,
@@ -449,7 +449,7 @@ def check_renders_page(browser, scratch, timeout=30):
             with selectors.DefaultSelector() as selector:
                 selector.register(process.stdout, selectors.EVENT_READ, output)
                 selector.register(process.stderr, selectors.EVENT_READ, errors)
-                while b"<title>crest-42</title>" not in output and time.monotonic() < deadline:
+                while b"<title>zee-42</title>" not in output and time.monotonic() < deadline:
                     events = selector.select(timeout=min(1, max(0, deadline - time.monotonic())))
                     for key, _ in events:
                         data = os.read(key.fileobj.fileno(), 65536)
@@ -459,7 +459,7 @@ def check_renders_page(browser, scratch, timeout=30):
                             selector.unregister(key.fileobj)
                     if not selector.get_map():
                         break
-            if b"<title>crest-42</title>" not in output:
+            if b"<title>zee-42</title>" not in output:
                 raise ValueError(f"Engine JavaScript smoke check failed: {errors[-2000:].decode(errors='replace')}")
         finally:
             # macOS helpers can keep output pipes open after dump-dom completes.
@@ -479,12 +479,12 @@ def check_renders_page(browser, scratch, timeout=30):
 def require_overlay_compiled(repo, source, ninja):
     """Refuse a build whose browser target compiles none of an overlay source.
 
-    Chromium sometimes folds the target Crest's host sources sit in into
+    Chromium sometimes folds the target Zee's host sources sit in into
     another one, and a list GN accepts can still compile nothing. Every
     overlay source must be an input of the `chrome` target the build makes,
     not merely of some target in the graph, before hours are spent compiling.
     """
-    output = "out/CrestBaseline"
+    output = "out/ZeeBaseline"
     listing = run(ninja, "-C", source / output, "-t", "inputs", "chrome", capture=True)
     inputs = {os.path.normpath(os.path.join(output, line)) for line in listing.splitlines() if line}
     overlay = repo / ENGINE / "Overlay"
@@ -508,7 +508,7 @@ def performance_configuration_matches(source, lock, sdk=None):
         return values
 
     try:
-        values = assignments((source / "out/CrestBaseline/args.gn").read_text())
+        values = assignments((source / "out/ZeeBaseline/args.gn").read_text())
     except (ValueError, OSError):
         return False
     expected_flags = {**lock["buildArguments"], **lock["performanceBuildArguments"]}
@@ -637,7 +637,7 @@ def deps_cipd(deps_text, directory):
             elif "version_file" in item:
                 pinned = (None, directory + item["version_file"])
             else:
-                raise ValueError(f"DEPS pins {prefix + path} in a form Crest does not read: {sorted(item)}")
+                raise ValueError(f"DEPS pins {prefix + path} in a form Zee does not read: {sorted(item)}")
             packages.setdefault(prefix + path, []).append((expand(item["package"]), *pinned))
     return packages
 
@@ -779,7 +779,7 @@ def release_notes(version, feed=None):
 
 def apply_section(text, path, section):
     """`text`, the file at `path`, with one patch section applied without fuzz, or None when it does not apply."""
-    with tempfile.TemporaryDirectory(prefix="crest-section-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="zee-section-") as temporary:
         target = Path(temporary) / path
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
@@ -790,12 +790,12 @@ def apply_section(text, path, section):
 
 
 def merge_three_way(ours, base, theirs):
-    """(merged text, whether it conflicts) for Crest's change from `base` to `ours` carried onto `theirs`."""
-    with tempfile.TemporaryDirectory(prefix="crest-merge-") as temporary:
+    """(merged text, whether it conflicts) for Zee's change from `base` to `ours` carried onto `theirs`."""
+    with tempfile.TemporaryDirectory(prefix="zee-merge-") as temporary:
         files = [Path(temporary) / name for name in ("ours", "base", "theirs")]
         for file, text in zip(files, (ours, base, theirs)):
             file.write_text(text)
-        result = subprocess.run(["git", "merge-file", "-p", "--diff3", "-L", "crest", "-L", "pinned", "-L", "release",
+        result = subprocess.run(["git", "merge-file", "-p", "--diff3", "-L", "zee", "-L", "pinned", "-L", "release",
                                  *map(str, files)], capture_output=True, text=True)
     if result.returncode < 0 or result.returncode > 127:
         raise ValueError("git merge-file failed")
@@ -808,10 +808,10 @@ def rebase_patches(repo, pinned, release, report):
     `pinned` and `release` map each patched path to its upstream text; a path
     the release lacks maps to None. A section that applies to the release's file
     without fuzz is kept, including one already rebased for that release.
-    Otherwise Crest's change is merged three ways onto the release's file: a
+    Otherwise Zee's change is merged three ways onto the release's file: a
     clean merge gives a rebased section, and a conflicting one is written with
     diff3 markers; a merge that leaves the release's file as it is means the
-    release already has Crest's change, and the section is dropped. Writes the
+    release already has Zee's change, and the section is dropped. Writes the
     rebased patch files, conflicts and `report.json` below `report`, and returns
     {patch: {path: status}}, where each status is unchanged, applies, rebased,
     upstream, conflict or missing.
@@ -865,13 +865,13 @@ def check_build_patches(repo, lock, release):
     no longer fit must stop before either touches a source.
     """
     results = {}
-    with tempfile.TemporaryDirectory(prefix="crest-build-patches-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="zee-build-patches-") as temporary:
         scratch = Path(temporary)
         for path, data in release.items():
             if data is not None:
                 (scratch / path).parent.mkdir(parents=True, exist_ok=True)
                 (scratch / path).write_bytes(data)
-        for relative in lock["crestPatches"]:
+        for relative in lock["zeePatches"]:
             result = subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-s", "--no-backup-if-mismatch",
                                      "--input", str(repo / ENGINE / relative)], cwd=scratch, capture_output=True, text=True)
             results[relative] = "applies" if result.returncode == 0 else "fails"
@@ -907,7 +907,7 @@ def advance_obstacles(lock, candidate, pinned_toolchains, release_toolchains):
 
 
 def plan_update(repo, root, version, allow_major=False, report=None):
-    """Decide how to move the pinned engine to `version` and check Crest's patches against it, changing nothing.
+    """Decide how to move the pinned engine to `version` and check Zee's patches against it, changing nothing.
 
     The path is "advance" when the release keeps the milestone, every toolchain
     DEPS fetches and every pinned tool: the built tree then moves in place and
@@ -936,7 +936,7 @@ def plan_update(repo, root, version, allow_major=False, report=None):
     headers = sorted({name for path in overlay.rglob("*") if path.is_file() and path.suffix in (".h", *COMPILED)
                       for name in INCLUDE.findall(path.read_text(errors="replace"))
                       if not (overlay / name).exists()})
-    build_patched = {path for relative in candidate["crestPatches"]
+    build_patched = {path for relative in candidate["zeePatches"]
                      for path, _ in chromium_engine.patch_sections((repo / ENGINE / relative).read_text())}
     names = {*patched, *headers, *build_patched, "DEPS", HELPER_LIST, ANNOTATIONS}
     pinned, release = read_archive(pinned_archive, names), read_archive(release_archive, names)
@@ -977,7 +977,7 @@ def deps_dependencies(text):
     spec = importlib.util.spec_from_file_location("prepare_chromium", REPO / "Scripts/control-plane/prepare-chromium.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    with tempfile.TemporaryDirectory(prefix="crest-deps-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="zee-deps-") as temporary:
         (Path(temporary) / "DEPS").write_bytes(text)
         return {"src/" + path.removeprefix("src/"): value for path, value in module.deps_dependencies(Path(temporary)).items()}
 
@@ -989,13 +989,13 @@ def prepare_update(repo, root, version, allow_major=False, timings=None):
         plan, candidate = plan_update(repo, root, version, allow_major)
     print(json.dumps(plan, indent=2), flush=True)
     if plan["blocked"]:
-        raise ValueError(f"Crest's patches don't apply to {version} as they are; review {plan['report']}")
+        raise ValueError(f"Zee's patches don't apply to {version} as they are; review {plan['report']}")
     lock_path, host_path = repo / ENGINE / "source.lock.json", repo / ENGINE / "host-inputs.json"
     original_lock, original_host = lock_path.read_bytes(), host_path.read_bytes()
     pinned = Workspace(root, repo)
     if (pinned.directory / ADVANCING).exists():
         raise ValueError(f"An advance to a new release stopped partway at {pinned.directory}. Inspect it before updating.")
-    # Only a pinned tree that a build installed Crest's host in can be reversed and advanced.
+    # Only a pinned tree that a build installed Zee's host in can be reversed and advanced.
     advance = plan["path"] == "advance" and all((pinned.directory / name).is_file() for name in ("prepared.json", "host.json"))
     try:
         write_json(lock_path, candidate)

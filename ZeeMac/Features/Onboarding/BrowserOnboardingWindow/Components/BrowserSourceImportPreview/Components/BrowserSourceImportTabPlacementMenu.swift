@@ -1,0 +1,28 @@
+import SwiftUI
+
+struct BrowserSourceImportTabPlacementMenu: View {
+    let tab: TabStateModel
+    let setPlacement: (UUID, TabPlacement) -> Void
+
+    var body: some View {
+        Menu {
+            Group {
+                ForEach(TabPlacement.all, id: \.self) { placement in
+                    Button(placement.title, systemImage: placement.symbol) {
+                        setPlacement(tab.id, placement)
+                    }
+                }
+            }
+            .zeeMenuActionLabelStyle()
+        } label: {
+            Image(systemName: "ellipsis")
+                .frame(width: 22, height: 22)
+        }
+        .menuIndicator(.hidden)
+        .menuStyle(.borderlessButton)
+        .zeeMenuActionLabelStyle()
+        .fixedSize()
+        .accessibilityLabel(Text("Tab placement for \(tab.shownTitle)"))
+        .accessibilityValue(Text(tab.placement.title))
+    }
+}

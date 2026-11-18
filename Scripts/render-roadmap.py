@@ -14,15 +14,15 @@ from typing import Any, Optional
 
 REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_ROADMAP = REPOSITORY_ROOT / "Documentation" / "ROADMAP.md"
-START_MARKER = "<!-- crest-roadmap-sync:start -->"
-END_MARKER = "<!-- crest-roadmap-sync:end -->"
+START_MARKER = "<!-- zee-roadmap-sync:start -->"
+END_MARKER = "<!-- zee-roadmap-sync:end -->"
 COMMIT_LINE = re.compile(r"^commits?:\s*(?P<commits>[0-9a-fA-F, ]+)$", re.MULTILINE)
 VERSION = re.compile(r"^v?(?P<version>\d+(?:\.\d+){1,2})(?:\b|$)")
 
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Render Crest's public roadmap from roadmap-labelled GitHub issues."
+        description="Render Zee's public roadmap from roadmap-labelled GitHub issues."
     )
     parser.add_argument("--repository", default="pauljoda/Crest")
     parser.add_argument("--input", type=Path, help="Read a saved JSON snapshot instead of GitHub.")

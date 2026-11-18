@@ -8,7 +8,7 @@
   "entries": {
     "2026-08-18-stable-0-4-0": {
       "category": "internal",
-      "message": "Record the Crest 0.4.0 stable publication boundary"
+      "message": "Record the Zee 0.4.0 stable publication boundary"
     },
     "2026-08-18-xcode-cloud-release-validation": {
       "category": "internal",
@@ -16,7 +16,7 @@
     },
     "2026-08-18-public-repository-roadmap": {
       "category": "internal",
-      "message": "Prepare the public repository and Crest 0.5 roadmap"
+      "message": "Prepare the public repository and Zee 0.5 roadmap"
     },
     "2026-08-18-sponsor-recognition": {
       "category": "internal",
@@ -52,7 +52,7 @@
     },
     "2026-08-18-public-roadmap-automation": {
       "category": "internal",
-      "message": "Automate the public Crest roadmap sync"
+      "message": "Automate the public Zee roadmap sync"
     },
     "2026-08-18-webextension-window-focus": {
       "category": "fixed",
@@ -84,7 +84,7 @@
     },
     "2026-08-19-development-0-4-4": {
       "category": "internal",
-      "message": "Record the Crest 0.4.4 development publication boundary"
+      "message": "Record the Zee 0.4.4 development publication boundary"
     },
     "2026-08-19-roadmap-refresh": {
       "category": "internal",
@@ -100,7 +100,7 @@
     },
     "2026-08-20-nightly-0-4-5": {
       "category": "internal",
-      "message": "Record the Crest 0.4.5 nightly publication boundary"
+      "message": "Record the Zee 0.4.5 nightly publication boundary"
     },
     "2026-08-20-shared-sidebar-architecture": {
       "category": "internal",
@@ -148,11 +148,11 @@
     },
     "2026-08-20-local-release-install-safety": {
       "category": "internal",
-      "message": "Limit local release install blocking to an installed copy of Crest"
+      "message": "Limit local release install blocking to an installed copy of Zee"
     },
     "2026-08-20-webkit-feature-flags": {
       "category": "new",
-      "message": "Configure available WebKit feature flags from Crest settings"
+      "message": "Configure available WebKit feature flags from Zee settings"
     },
     "2026-08-21-transient-browser-architecture": {
       "category": "internal",
@@ -284,7 +284,7 @@
     },
     "2026-08-25-start-0-5-release-line": {
       "category": "internal",
-      "message": "Record the Crest 0.5 release candidate line"
+      "message": "Record the Zee 0.5 release candidate line"
     },
     "2026-08-26-space-switcher-overflow": {
       "category": "fixed",
@@ -580,7 +580,7 @@
     },
     "2026-09-05-open-folder-sync-upgrades": {
       "category": "fixed",
-      "message": "Recover synced open-tab folders after updating Crest and handle unsupported folder records on older versions"
+      "message": "Recover synced open-tab folders after updating Zee and handle unsupported folder records on older versions"
     },
     "2026-09-05-native-desktop-picture-in-picture": {
       "category": "new",
@@ -676,7 +676,7 @@
     },
     "2026-09-07-guided-space-appearance": {
       "category": "improved",
-      "message": "Set up and customize Spaces with crest templates, focused appearance controls and a live preview on Mac, iPhone and iPad"
+      "message": "Set up and customize Spaces with badge templates, focused appearance controls and a live preview on Mac, iPhone and iPad"
     },
     "2026-09-07-interactive-getting-started": {
       "category": "new",
@@ -884,7 +884,7 @@
     },
     "2026-09-11-app-icon-palettes": {
       "category": "new",
-      "message": "Choose a color palette for Crest's app icon on Mac, iPhone, and iPad"
+      "message": "Choose a color palette for Zee's app icon on Mac, iPhone, and iPad"
     },
     "2026-09-11-default-page-zoom-in-look-and-feel": {
       "category": "improved",
@@ -898,13 +898,13 @@
       "category": "improved",
       "message": "Open Settings in a browser tab on Mac and iPad, with more room for controls and live sidebar customization"
     },
-    "2026-09-11-crest-studio-customization": {
+    "2026-09-11-zee-studio-customization": {
       "category": "new",
-      "message": "Design Space crests with more heraldic artwork, shapes, patterns, independent colors, emoji, monograms, and a searchable SF Symbols picker"
+      "message": "Design Space badges with more heraldic artwork, shapes, patterns, independent colors, emoji, monograms, and a searchable SF Symbols picker"
     },
-    "2026-09-11-responsive-crest-editing": {
+    "2026-09-11-responsive-zee-editing": {
       "category": "improved",
-      "message": "Keep crest previews visible while editing, with faster updates and color choices beside each part of the design"
+      "message": "Keep badge previews visible while editing, with faster updates and color choices beside each part of the design"
     },
     "2026-09-11-settings-layout-refinements": {
       "category": "improved",
@@ -928,7 +928,7 @@
     },
     "2026-09-12-preserve-text-replacement-choice": {
       "category": "fixed",
-      "message": "Text replacement follows your Mac settings and keeps your choice when Crest restarts"
+      "message": "Text replacement follows your Mac settings and keeps your choice when Zee restarts"
     },
     "2026-09-12-extension-panel-tab-ownership": {
       "category": "fixed",
@@ -952,7 +952,7 @@
     },
     "2026-09-12-preserve-space-customization-during-sync": {
       "category": "fixed",
-      "message": "Keep Space customization when edits overlap an iCloud sync, and preserve saved crest controls when switching designs"
+      "message": "Keep Space customization when edits overlap an iCloud sync, and preserve saved badge controls when switching designs"
     },
     "2026-09-12-preserve-extension-header-rule-restrictions": {
       "category": "fixed",
@@ -1138,9 +1138,9 @@
       "category": "internal",
       "message": "Avoid a Swift 6.3 compiler crash when archiving the Space settings pickers"
     },
-    "selected-text-search-in-crest": {
+    "selected-text-search-in-zee": {
       "category": "fixed",
-      "message": "Search selected text in a new Crest tab using the current Space\u2019s search engine"
+      "message": "Search selected text in a new Zee tab using the current Space\u2019s search engine"
     },
     "tab-owned-peeks": {
       "category": "improved",
@@ -1190,9 +1190,9 @@
       "category": "fixed",
       "message": "Keep extension and built-in pages on their own device so they cannot block iCloud sync"
     },
-    "crest-060-release-documentation": {
+    "zee-060-release-documentation": {
       "category": "internal",
-      "message": "Prepare the Crest 0.6 release version, changelog, roadmap, and App Store release copy"
+      "message": "Prepare the Zee 0.6 release version, changelog, roadmap, and App Store release copy"
     },
     "open-location-preserves-collapsed-sidebar": {
       "category": "fixed",
@@ -1200,7 +1200,7 @@
     },
     "system-dark-app-icon-background": {
       "category": "fixed",
-      "message": "Match the system dark background across Crest's app icon color palettes"
+      "message": "Match the system dark background across Zee's app icon color palettes"
     },
     "folder-full-sf-symbol-picker": {
       "category": "improved",
@@ -1232,7 +1232,7 @@
     },
     "macos-approved-browser-passkey-access": {
       "category": "new",
-      "message": "Allow Crest on Mac to request access to system passkeys and connect to the iCloud Passwords extension"
+      "message": "Allow Zee on Mac to request access to system passkeys and connect to the iCloud Passwords extension"
     },
     "quick-window-promotion-reuses-normal-window": {
       "category": "fixed",
@@ -1276,7 +1276,7 @@
     },
     "preserve-tab-selection-during-startup": {
       "category": "fixed",
-      "message": "Keep the tab you select while Crest starts instead of returning to the Start Page when extensions finish loading"
+      "message": "Keep the tab you select while Zee starts instead of returning to the Start Page when extensions finish loading"
     },
     "reduce-large-sync-journal-sorting-work": {
       "category": "improved",
@@ -1416,7 +1416,7 @@
     },
     "manual-development-build-validation": {
       "category": "internal",
-      "message": "Run the Build Crest workflow only when manually requested"
+      "message": "Run the Build Zee workflow only when manually requested"
     },
     "mac-titlebar-webpage-input": {
       "category": "fixed",
@@ -1436,7 +1436,7 @@
     },
     "reliable-extension-image-conversion": {
       "category": "fixed",
-      "message": "Image-converter extensions can save JPEGs repeatedly and keep their image menus after restarting Crest"
+      "message": "Image-converter extensions can save JPEGs repeatedly and keep their image menus after restarting Zee"
     },
     "picture-in-picture-return-to-source-tab": {
       "category": "fixed",
@@ -1488,23 +1488,23 @@
     },
     "native-chromium-ui-and-optimized-engine": {
       "category": "internal",
-      "message": "Run Chromium in the original native Crest UI with the portable core and release engine optimizations."
+      "message": "Run Chromium in the original native Zee UI with the portable core and release engine optimizations."
     },
     "native-chromium-extensions-and-page-controls": {
       "category": "internal",
       "message": "Restore native extension controls, permission review, and Space installation for Chromium, and connect private browsing, popups, Find, zoom, and site permissions."
     },
-    "core-space-commands-sync-rules-crest-branding": {
+    "core-space-commands-sync-rules-zee-branding": {
       "category": "internal",
-      "message": "Move Space and folder changes, sync conflicts, and stable ordering into the portable core, and restore Crest icon customization in the Chromium host."
+      "message": "Move Space and folder changes, sync conflicts, and stable ordering into the portable core, and restore Zee icon customization in the Chromium host."
     },
     "portable-sync-journal-transactions": {
       "category": "internal",
       "message": "Move sync journal staging, deletion evidence, merges, and upload acknowledgements into immutable portable core snapshots."
     },
-    "chromium-native-extension-popovers-and-crest-addresses": {
+    "chromium-native-extension-popovers-and-zee-addresses": {
       "category": "improved",
-      "message": "Extension popups stay anchored to their toolbar buttons, with balanced toolbar spacing and Crest addresses for internal browser pages."
+      "message": "Extension popups stay anchored to their toolbar buttons, with balanced toolbar spacing and Zee addresses for internal browser pages."
     },
     "portable-sync-projection-and-materialization": {
       "category": "internal",
@@ -1532,7 +1532,7 @@
     },
     "space-menu-icon-proportions": {
       "category": "fixed",
-      "message": "Keep Space crests from stretching in settings menus and pickers."
+      "message": "Keep Space badges from stretching in settings menus and pickers."
     },
     "native-engine-navigation-port": {
       "category": "improved",
@@ -1542,9 +1542,9 @@
       "category": "improved",
       "message": "Capture Chromium page content and preserve active media when managing idle tabs, without creating an unused WebKit page."
     },
-    "crest-native-chromium-commands": {
+    "zee-native-chromium-commands": {
       "category": "improved",
-      "message": "Use Crest menus and customized shortcuts with Chromium, including Blank Windows and Quick Windows."
+      "message": "Use Zee menus and customized shortcuts with Chromium, including Blank Windows and Quick Windows."
     },
     "chromium-page-close-confirmation": {
       "category": "fixed",
@@ -1552,11 +1552,11 @@
     },
     "chromium-native-downloads": {
       "category": "improved",
-      "message": "Track Chromium downloads in Crest, cancel transfers, and save files using each Space\u2019s download folder preferences."
+      "message": "Track Chromium downloads in Zee, cancel transfers, and save files using each Space\u2019s download folder preferences."
     },
     "chromium-history-and-site-icons": {
       "category": "improved",
-      "message": "Restore Chromium Back and Forward history after restarting Crest and show site icons in tabs."
+      "message": "Restore Chromium Back and Forward history after restarting Zee and show site icons in tabs."
     },
     "chromium-space-profile-cleanup": {
       "category": "fixed",
@@ -1564,7 +1564,7 @@
     },
     "resumable-space-data-cleanup": {
       "category": "fixed",
-      "message": "Resume interrupted Space deletion after restarting Crest and keep pending cleanup unavailable for browsing."
+      "message": "Resume interrupted Space deletion after restarting Zee and keep pending cleanup unavailable for browsing."
     },
     "cross-device-space-data-cleanup": {
       "category": "fixed",
@@ -1596,7 +1596,7 @@
     },
     "chromium-native-document-output": {
       "category": "new",
-      "message": "Export PDFs, save offline web archives, capture full pages, and print Chromium pages through Crest\u2019s native controls."
+      "message": "Export PDFs, save offline web archives, capture full pages, and print Chromium pages through Zee\u2019s native controls."
     },
     "core-owned-temporary-window-profiles": {
       "category": "improved",
@@ -1620,7 +1620,7 @@
     },
     "retire-control-plane-prototype-ui": {
       "category": "internal",
-      "message": "Remove the obsolete control-plane test UI and Apple message wrappers so every app target uses Crest's original native interface."
+      "message": "Remove the obsolete control-plane test UI and Apple message wrappers so every app target uses Zee's original native interface."
     },
     "shared-core-space-unlocking": {
       "category": "internal",
@@ -1692,15 +1692,15 @@
     },
     "chromium-host-external-links-and-reopen": {
       "category": "new",
-      "message": "Chromium-powered Crest opens links and documents sent from other apps, reopens a window from the Dock, and restores its open windows at launch."
+      "message": "Chromium-powered Zee opens links and documents sent from other apps, reopens a window from the Dock, and restores its open windows at launch."
     },
     "chromium-host-product-packaging": {
       "category": "internal",
-      "message": "Add a non-review Chromium host composition and a product packaging mode that carries Crest identity, URL and document types, and Sparkle update settings."
+      "message": "Add a non-review Chromium host composition and a product packaging mode that carries Zee identity, URL and document types, and Sparkle update settings."
     },
     "chromium-extension-windows-and-side-panels": {
       "category": "new",
-      "message": "Windows created by extensions open as Crest windows in the matching Space, and extensions with a side panel can open it beside the current page from their toolbar menu."
+      "message": "Windows created by extensions open as Zee windows in the matching Space, and extensions with a side panel can open it beside the current page from their toolbar menu."
     },
     "native-core-tab-content-and-access": {
       "category": "internal",
@@ -1736,7 +1736,7 @@
     },
     "upgrade-unreadable-session-recovery": {
       "category": "fixed",
-      "message": "Upgrading with a damaged saved session no longer gets stuck on the recovery screen; Crest starts and restores your Spaces from iCloud instead."
+      "message": "Upgrading with a damaged saved session no longer gets stuck on the recovery screen; Zee starts and restores your Spaces from iCloud instead."
     },
     "installed-session-upgrade-coverage": {
       "category": "internal",
@@ -1770,9 +1770,9 @@
       "category": "fixed",
       "message": "Extensions asking to open a window in a locked Space get a clear refusal instead of waiting forever."
     },
-    "web-store-add-to-crest": {
+    "web-store-add-to-zee": {
       "category": "new",
-      "message": "Chrome Web Store listings show Add to Crest, install straight into the Space you choose, and show Added to Crest with a remove option once installed."
+      "message": "Chrome Web Store listings show Add to Zee, install straight into the Space you choose, and show Added to Zee with a remove option once installed."
     },
     "web-store-page-fits-card": {
       "category": "fixed",
@@ -1796,7 +1796,7 @@
     },
     "updater-ignores-older-updates": {
       "category": "fixed",
-      "message": "Crest no longer offers to install an update older than the running version."
+      "message": "Zee no longer offers to install an update older than the running version."
     },
     "remove-dead-webkit-only-code": {
       "category": "internal",
@@ -1812,11 +1812,11 @@
     },
     "chromium-product-own-engine-directory": {
       "category": "fixed",
-      "message": "Chromium-powered Crest keeps its engine data in its own Crest folder, never shows the Chromium profile picker, and no longer asks for your keychain password at launch."
+      "message": "Chromium-powered Zee keeps its engine data in its own Zee folder, never shows the Chromium profile picker, and no longer asks for your keychain password at launch."
     },
     "chromium-product-browser-gates": {
       "category": "fixed",
-      "message": "iCloud Passwords helper discovery, extension updates and private windows work when Crest is launched normally from the Finder or Dock."
+      "message": "iCloud Passwords helper discovery, extension updates and private windows work when Zee is launched normally from the Finder or Dock."
     },
     "chromium-passkeys-system-sheet": {
       "category": "new",
@@ -1856,7 +1856,7 @@
     },
     "copy-link-without-crashing": {
       "category": "fixed",
-      "message": "Copying a link from a page's context menu no longer quits Crest; a short confirmation appears instead."
+      "message": "Copying a link from a page's context menu no longer quits Zee; a short confirmation appears instead."
     },
     "app-sign-in-in-quick-window": {
       "category": "fixed",
@@ -1864,7 +1864,7 @@
     },
     "page-crash-keeps-browser-running": {
       "category": "fixed",
-      "message": "When a page's content process crashes, only that page is affected; Crest keeps running."
+      "message": "When a page's content process crashes, only that page is affected; Zee keeps running."
     },
     "remove-pre-core-session-branches": {
       "category": "internal",
@@ -1884,11 +1884,11 @@
     },
     "sign-ins-survive-quitting": {
       "category": "fixed",
-      "message": "Quitting Crest during an app sign-in no longer holds up later sign-ins."
+      "message": "Quitting Zee during an app sign-in no longer holds up later sign-ins."
     },
     "content-bridge-world-admitted": {
       "category": "internal",
-      "message": "Admit Crest's content-bridge isolated world in the engine's script-execution bounds check."
+      "message": "Admit Zee's content-bridge isolated world in the engine's script-execution bounds check."
     },
     "failed-page-view-survives-engine-retry": {
       "category": "fixed",
@@ -1900,7 +1900,7 @@
     },
     "device-choosers-no-crash": {
       "category": "fixed",
-      "message": "Sites that ask to connect to a USB, HID or serial device no longer quit Crest."
+      "message": "Sites that ask to connect to a USB, HID or serial device no longer quit Zee."
     },
     "context-menu-only-working-items": {
       "category": "fixed",
@@ -1972,7 +1972,7 @@
     },
     "site-permissions-desktop": {
       "category": "improved",
-      "message": "In the desktop browser, camera, microphone, location and notification requests use Crest's own prompt, are remembered per Space, and can be reviewed and revoked in Site Controls and Privacy."
+      "message": "In the desktop browser, camera, microphone, location and notification requests use Zee's own prompt, are remembered per Space, and can be reviewed and revoked in Site Controls and Privacy."
     },
     "core-downloads-aggregate": {
       "category": "internal",
@@ -2040,7 +2040,7 @@
     },
     "shared-native-page-menus": {
       "category": "improved",
-      "message": "Crest's link and Space actions appear first in native page menus while browser and extension actions stay available."
+      "message": "Zee's link and Space actions appear first in native page menus while browser and extension actions stay available."
     },
     "shared-page-dialogs-auth": {
       "category": "improved",
@@ -2048,7 +2048,7 @@
     },
     "chromium-feature-flags-settings": {
       "category": "new",
-      "message": "Chromium feature flags open inside Crest Settings."
+      "message": "Chromium feature flags open inside Zee Settings."
     },
     "chromium-automatic-video-pip": {
       "category": "improved",
@@ -2088,7 +2088,7 @@
     },
     "import-opens-first-tab": {
       "category": "fixed",
-      "message": "Importing bookmarks or a Crest archive into a new Space opens that Space on its first tab again."
+      "message": "Importing bookmarks or a Zee archive into a new Space opens that Space on its first tab again."
     },
     "compact-sidebar-hover-sync": {
       "category": "fixed",
@@ -2266,9 +2266,9 @@
       "category": "internal",
       "message": "The core publishes the session as typed changes, commands no longer carry a revision, and switching tabs is faster."
     },
-    "crest-normalization-core": {
+    "zee-normalization-core": {
       "category": "internal",
-      "message": "The core keeps a crest's figure and composition the way every device draws them, so Space branding stays steady across sync."
+      "message": "The core keeps a badge's figure and composition the way every device draws them, so Space branding stays steady across sync."
     },
     "core-sync-staging": {
       "category": "internal",
@@ -2304,15 +2304,15 @@
     },
     "restored-windows-keep-their-own-content": {
       "category": "fixed",
-      "message": "When macOS reopens Crest's windows after you quit, each window comes back on its own Space and tab instead of mirroring the first window."
+      "message": "When macOS reopens Zee's windows after you quit, each window comes back on its own Space and tab instead of mirroring the first window."
     },
     "quit-saves-last-edits": {
       "category": "fixed",
-      "message": "A change made right before quitting Crest, or right before it goes to the background on iPhone and iPad, is now always saved and queued for sync."
+      "message": "A change made right before quitting Zee, or right before it goes to the background on iPhone and iPad, is now always saved and queued for sync."
     },
     "quit-saves-window-space": {
       "category": "fixed",
-      "message": "Switching a window to another Space or resizing a split right before quitting Crest is now always remembered when the window reopens."
+      "message": "Switching a window to another Space or resizing a split right before quitting Zee is now always remembered when the window reopens."
     },
     "tab-lifecycle-intents": {
       "category": "internal",
@@ -2320,7 +2320,7 @@
     },
     "assistive-app-selectable-text-crash": {
       "category": "fixed",
-      "message": "Crest no longer crashes when VoiceOver or another assistive app reads an error page, the About pane or a revealed password."
+      "message": "Zee no longer crashes when VoiceOver or another assistive app reads an error page, the About pane or a revealed password."
     },
     "space-intents": {
       "category": "internal",
@@ -2404,7 +2404,7 @@
     },
     "sync-journal-off-launch": {
       "category": "improved",
-      "message": "Crest opens faster with a large sync history."
+      "message": "Zee opens faster with a large sync history."
     },
     "sync-pauses-on-unreadable-journal": {
       "category": "internal",
@@ -2448,7 +2448,7 @@
     },
     "sync-merges-off-main-thread": {
       "category": "improved",
-      "message": "Changes from your other devices arrive through iCloud Sync without pausing Crest's windows."
+      "message": "Changes from your other devices arrive through iCloud Sync without pausing Zee's windows."
     },
     "overwrite-keeps-deletion-reason": {
       "category": "fixed",
@@ -2492,7 +2492,7 @@
     },
     "id-names-plain-uuids": {
       "category": "internal",
-      "message": "Tab, Space, folder, split and window identities are plain UUIDs in Swift, and everything Crest stores keeps the identity spelling earlier builds read."
+      "message": "Tab, Space, folder, split and window identities are plain UUIDs in Swift, and everything Zee stores keeps the identity spelling earlier builds read."
     },
     "command-palette-address-morph": {
       "category": "improved",
@@ -2604,7 +2604,7 @@
     },
     "2026-09-25-debugger-passes-core-signal": {
       "category": "internal",
-      "message": "Debugging a Crest app from Xcode no longer stops on the core runtime's own garbage-collection signal, which froze the app"
+      "message": "Debugging a Zee app from Xcode no longer stops on the core runtime's own garbage-collection signal, which froze the app"
     },
     "2026-09-25-palette-ranked-in-core": {
       "category": "improved",
@@ -2616,7 +2616,7 @@
     },
     "2026-09-25-chromium-binding-profiles": {
       "category": "internal",
-      "message": "Chromium keeps Crest's engine profiles in its own C++ binding"
+      "message": "Chromium keeps Zee's engine profiles in its own C++ binding"
     },
     "2026-09-25-chromium-binding-offered-downloads": {
       "category": "internal",
@@ -2632,11 +2632,11 @@
     },
     "2026-09-25-chromium-typed-ui-protocol": {
       "category": "internal",
-      "message": "Chromium asks Crest's interface through a typed protocol instead of finding it by name"
+      "message": "Chromium asks Zee's interface through a typed protocol instead of finding it by name"
     },
-    "2026-09-25-chromium-windows-join-crest-window": {
+    "2026-09-25-chromium-windows-join-zee-window": {
       "category": "improved",
-      "message": "Windows Chromium opens for a page now open in the Crest window you're using"
+      "message": "Windows Chromium opens for a page now open in the Zee window you're using"
     },
     "2026-09-25-chromium-typed-mac-shell": {
       "category": "internal",
@@ -2752,7 +2752,7 @@
     },
     "2026-09-26-cloud-transport-state-in-core": {
       "category": "internal",
-      "message": "iCloud sync keeps its progress on this device in Crest's own store, carried over once from the file earlier versions used"
+      "message": "iCloud sync keeps its progress on this device in Zee's own store, carried over once from the file earlier versions used"
     },
     "2026-09-26-webkit-dialogs-through-core": {
       "category": "internal",
@@ -2768,7 +2768,7 @@
     },
     "2026-09-26-cloud-sync-decisions-in-core": {
       "category": "internal",
-      "message": "Crest decides each step of iCloud sync in its core: starting, pausing for an account change, applying your choice and retrying"
+      "message": "Zee decides each step of iCloud sync in its core: starting, pausing for an account change, applying your choice and retrying"
     },
     "2026-09-26-webkit-location-notifications-through-core": {
       "category": "internal",
@@ -2800,15 +2800,15 @@
     },
     "2026-09-26-core-judges-downloads": {
       "category": "improved",
-      "message": "Crest now checks a download before it's saved, in both engines, and shows its reasons, the site and the Space when it asks; a download blocked by a site's setting can be retried"
+      "message": "Zee now checks a download before it's saved, in both engines, and shows its reasons, the site and the Space when it asks; a download blocked by a site's setting can be retried"
     },
     "2026-09-26-import-export-in-core": {
       "category": "improved",
-      "message": "Importing from other browsers and Crest browser-data files, and exporting, now run in Crest's shared core on Mac and iPhone"
+      "message": "Importing from other browsers and Zee browser-data files, and exporting, now run in Zee's shared core on Mac and iPhone"
     },
     "2026-09-26-manual-setup-in-core": {
       "category": "internal",
-      "message": "The manual setup is held by Crest's shared core, and an unfinished setup on iPhone and iPad waits for the next launch"
+      "message": "The manual setup is held by Zee's shared core, and an unfinished setup on iPhone and iPad waits for the next launch"
     },
     "2026-09-26-setup-flow-in-core": {
       "category": "fixed",
@@ -2816,11 +2816,11 @@
     },
     "2026-09-26-practice-workspace-in-core": {
       "category": "internal",
-      "message": "The Getting Started practice starts from Crest's shared core"
+      "message": "The Getting Started practice starts from Zee's shared core"
     },
     "2026-09-26-typed-session-seeds": {
       "category": "internal",
-      "message": "Crest hands its core typed sessions for new and test workspaces, and the core describes the first-launch session itself"
+      "message": "Zee hands its core typed sessions for new and test workspaces, and the core describes the first-launch session itself"
     },
     "2026-09-26-seeded-fixtures": {
       "category": "internal",
@@ -2828,7 +2828,7 @@
     },
     "2026-09-26-password-files-in-core": {
       "category": "internal",
-      "message": "Password file import and export run in Crest's shared core, which keeps none of the passwords it reads or writes"
+      "message": "Password file import and export run in Zee's shared core, which keeps none of the passwords it reads or writes"
     },
     "2026-09-26-native-core-test-target": {
       "category": "internal",
@@ -2848,11 +2848,11 @@
     },
     "2026-09-26-engine-capabilities-follow-page-engine": {
       "category": "internal",
-      "message": "Menus, the launcher and settings offer a feature when an engine Crest runs supports it, and the page's own engine decides whether it is available"
+      "message": "Menus, the launcher and settings offer a feature when an engine Zee runs supports it, and the page's own engine decides whether it is available"
     },
     "2026-09-26-site-engine-choices": {
       "category": "internal",
-      "message": "Crest can remember which engine each site's pages open on, per device, and keeps private windows' choices in memory only"
+      "message": "Zee can remember which engine each site's pages open on, per device, and keeps private windows' choices in memory only"
     },
     "2026-09-26-offer-default-and-live-engines": {
       "category": "internal",
@@ -2864,7 +2864,7 @@
     },
     "2026-09-26-space-deletion-erases-every-engine": {
       "category": "improved",
-      "message": "Deleting a Space erases its website data in every browser engine Crest runs, including one that never opened a page for it"
+      "message": "Deleting a Space erases its website data in every browser engine Zee runs, including one that never opened a page for it"
     },
     "2026-09-26-engine-page-direct-path": {
       "category": "internal",
@@ -2888,7 +2888,7 @@
     },
     "protected-video-fallback": {
       "category": "new",
-      "message": "When a page's protected video needs a player Crest's Chromium doesn't have, the page moves to WebKit to play it, with an option to move it back"
+      "message": "When a page's protected video needs a player Zee's Chromium doesn't have, the page moves to WebKit to play it, with an option to move it back"
     },
     "2026-09-26-chromium-reports-missing-drm": {
       "category": "internal",
@@ -3108,11 +3108,11 @@
     },
     "dock-menu-spaces-and-window-commands": {
       "category": "new",
-      "message": "The Dock menu shows your Spaces and Crest's own window commands: New Window, New Quick Window and New Private Window."
+      "message": "The Dock menu shows your Spaces and Zee's own window commands: New Window, New Quick Window and New Private Window."
     },
     "space-icons-in-menus-every-time": {
       "category": "fixed",
-      "message": "Menus that list your Spaces show each Space's crest or symbol every time they open, including the link menu's Open Link in Another Space."
+      "message": "Menus that list your Spaces show each Space's badge or symbol every time they open, including the link menu's Open Link in Another Space."
     },
     "fullscreen-video-leaves-cleanly": {
       "category": "fixed",
@@ -3140,7 +3140,7 @@
     },
     "page-menu-rows-no-longer-quit": {
       "category": "fixed",
-      "message": "Choosing Open Link in Peek, Open Link in Split View, another Space or Search from a page's right-click menu works again instead of quitting Crest."
+      "message": "Choosing Open Link in Peek, Open Link in Split View, another Space or Search from a page's right-click menu works again instead of quitting Zee."
     },
     "open-page-in-other-engine": {
       "category": "fixed",
@@ -3156,7 +3156,7 @@
     },
     "start-page-search-offers-commands": {
       "category": "improved",
-      "message": "The Start Page's search now offers Crest's commands, like New Quick Window, when what you type matches one."
+      "message": "The Start Page's search now offers Zee's commands, like New Quick Window, when what you type matches one."
     },
     "chromium-website-notifications-appear": {
       "category": "fixed",
@@ -3166,13 +3166,13 @@
       "category": "fixed",
       "message": "In the Chromium build, notification sounds and other short sounds a site plays no longer show the sidebar's Now Playing card or take over the Mac's Now Playing; only media you can play and pause does, as in the WebKit build."
     },
-    "chromium-build-names-itself-crest-to-macos": {
+    "chromium-build-names-itself-zee-to-macos": {
       "category": "improved",
-      "message": "In the Chromium build, camera, microphone, location, Bluetooth and passkey prompts name Crest instead of Chromium, and Crest no longer includes a helper app that could appear as \u201cChromium\u201d in Notifications settings."
+      "message": "In the Chromium build, camera, microphone, location, Bluetooth and passkey prompts name Zee instead of Chromium, and Zee no longer includes a helper app that could appear as \u201cChromium\u201d in Notifications settings."
     },
     "picture-in-picture-returns-to-its-tab": {
       "category": "fixed",
-      "message": "The back-to-tab button in a Picture in Picture video now brings Crest forward on the video's own tab, switching window or Space if needed, in both the Chromium and WebKit builds. When you go back to that tab yourself, the video leaves Picture in Picture and returns to its place on the page, whether it floated automatically or you floated it."
+      "message": "The back-to-tab button in a Picture in Picture video now brings Zee forward on the video's own tab, switching window or Space if needed, in both the Chromium and WebKit builds. When you go back to that tab yourself, the video leaves Picture in Picture and returns to its place on the page, whether it floated automatically or you floated it."
     },
     "webkit-tabs-show-engine-badge": {
       "category": "improved",
@@ -3192,7 +3192,7 @@
     },
     "locking-a-space-closes-its-picture-in-picture": {
       "category": "fixed",
-      "message": "Locking a protected Space, including when Crest goes to the background, now always closes that Space's Picture in Picture video."
+      "message": "Locking a protected Space, including when Zee goes to the background, now always closes that Space's Picture in Picture video."
     },
     "webkit-badge-draws-stacked-tile": {
       "category": "improved",
@@ -3200,7 +3200,7 @@
     },
     "window-moves-natively-and-page-top-stays-still": {
       "category": "fixed",
-      "message": "Window \u203a Move & Resize, the Globe-Control tiling shortcuts and the green button's tiling options work for Crest windows again, while dragging at the very top of a page still selects text instead of moving the window. Double-clicking empty sidebar space opens a new tab again, without also acting as a title bar double-click."
+      "message": "Window \u203a Move & Resize, the Globe-Control tiling shortcuts and the green button's tiling options work for Zee windows again, while dragging at the very top of a page still selects text instead of moving the window. Double-clicking empty sidebar space opens a new tab again, without also acting as a title bar double-click."
     },
     "blank-popups-and-quick-window-popups-open-again": {
       "category": "fixed",
@@ -3212,7 +3212,7 @@
     },
     "diagnostic-log-keeps-no-addresses": {
       "category": "internal",
-      "message": "Crest's diagnostic log names a refused request by its rule alone, so it never keeps a site or an address, and the logging left over from earlier investigations is gone."
+      "message": "Zee's diagnostic log names a refused request by its rule alone, so it never keeps a site or an address, and the logging left over from earlier investigations is gone."
     },
     "app-dead-code-after-restructure": {
       "category": "internal",
@@ -3284,15 +3284,15 @@
     },
     "chromium-first-run-setup": {
       "category": "new",
-      "message": "The Chromium build now opens first-run setup on a Mac where Crest hasn't been set up yet, as the WebKit build does, and opens your windows once setup finishes."
+      "message": "The Chromium build now opens first-run setup on a Mac where Zee hasn't been set up yet, as the WebKit build does, and opens your windows once setup finishes."
     },
     "quit-waits-for-space-deletion": {
       "category": "improved",
-      "message": "Quitting while a Space is being deleted now tells you Crest will quit once the Space is gone, and then quits by itself, instead of quitting midway or ignoring the request."
+      "message": "Quitting while a Space is being deleted now tells you Zee will quit once the Space is gone, and then quits by itself, instead of quitting midway or ignoring the request."
     },
     "external-opens-follow-link-settings": {
       "category": "improved",
-      "message": "Links and documents from other apps open in your frontmost Crest window, and with no window open they follow your link settings instead of always opening a Quick Window. The Chromium build reopens its windows in the order you left them, with only the front one taking focus."
+      "message": "Links and documents from other apps open in your frontmost Zee window, and with no window open they follow your link settings instead of always opening a Quick Window. The Chromium build reopens its windows in the order you left them, with only the front one taking focus."
     },
     "one-mac-shell-for-both-engines": {
       "category": "internal",
@@ -3300,7 +3300,7 @@
     },
     "dock-icon-download-progress": {
       "category": "improved",
-      "message": "Crest's Dock icon shows how many downloads are in progress and how far along they are, and keeps the app icon you picked while it does."
+      "message": "Zee's Dock icon shows how many downloads are in progress and how far along they are, and keeps the app icon you picked while it does."
     },
     "webkit-build-on-shared-mac-shell": {
       "category": "improved",
@@ -3308,11 +3308,11 @@
     },
     "edit-menu-text-tools-in-both-builds": {
       "category": "improved",
-      "message": "The Chromium build's Edit menu now has Find, Spelling and Grammar, Substitutions, Transformations and Speech, Translate Page appears in the Page menu whenever a page can be translated, and Command-W closes Crest Setup and What's New in Crest there too."
+      "message": "The Chromium build's Edit menu now has Find, Spelling and Grammar, Substitutions, Transformations and Speech, Translate Page appears in the Page menu whenever a page can be translated, and Command-W closes Zee Setup and What's New in Zee there too."
     },
     "extension-closed-tabs-close-once": {
       "category": "fixed",
-      "message": "A tab or window an extension closes now closes in Crest instead of leaving a blank tab behind, and a site can close only a tab or window that another page opened."
+      "message": "A tab or window an extension closes now closes in Zee instead of leaving a blank tab behind, and a site can close only a tab or window that another page opened."
     },
     "dock-keeps-picked-icon-during-downloads": {
       "category": "fixed",
@@ -3352,7 +3352,7 @@
     },
     "pages-get-first-say-over-shortcuts": {
       "category": "fixed",
-      "message": "Pages get first say over shortcuts such as \u2318F, as in other browsers, so a document editor like Google Docs opens its own Find. \u2318T, \u2318W and \u2318N always stay Crest's."
+      "message": "Pages get first say over shortcuts such as \u2318F, as in other browsers, so a document editor like Google Docs opens its own Find. \u2318T, \u2318W and \u2318N always stay Zee's."
     },
     "now-playing-artwork-on-chromium": {
       "category": "fixed",
@@ -3384,7 +3384,7 @@
     },
     "fullscreen-video-in-fullscreen-window": {
       "category": "fixed",
-      "message": "With Crest already in full screen, a full-screen video covers the whole screen, and Esc brings the sidebar back while Crest stays in full screen."
+      "message": "With Zee already in full screen, a full-screen video covers the whole screen, and Esc brings the sidebar back while Zee stays in full screen."
     },
     "screen-sharing-site-setting": {
       "category": "new",
@@ -3392,7 +3392,7 @@
     },
     "chromium-screen-sharing-system-picker": {
       "category": "fixed",
-      "message": "Screen sharing on pages that run in Chromium uses the macOS sharing picker and needs no Screen Recording permission, and Crest no longer asks for that permission over and over."
+      "message": "Screen sharing on pages that run in Chromium uses the macOS sharing picker and needs no Screen Recording permission, and Zee no longer asks for that permission over and over."
     },
     "media-pages-stay-loaded": {
       "category": "fixed",
@@ -3400,7 +3400,7 @@
     },
     "page-presentation-diagnostics": {
       "category": "internal",
-      "message": "Crest's Pages log records which pages each window shows, when Chromium is told to show or hide one, Picture in Picture, memory pressure and a page's first input after it returns."
+      "message": "Zee's Pages log records which pages each window shows, when Chromium is told to show or hide one, Picture in Picture, memory pressure and a page's first input after it returns."
     },
     "space-return-shows-pages": {
       "category": "fixed",
@@ -3416,7 +3416,7 @@
     },
     "chromium-loads-when-needed": {
       "category": "improved",
-      "message": "WebKit sessions leave Chromium unloaded until you open a Chromium website or extension. Once loaded, it stays ready until you quit Crest."
+      "message": "WebKit sessions leave Chromium unloaded until you open a Chromium website or extension. Once loaded, it stays ready until you quit Zee."
     },
     "dual-engine-default-desktop-download": {
       "category": "improved",
@@ -3428,7 +3428,7 @@
     },
     "chromium-extension-window-geometry": {
       "category": "fixed",
-      "message": "Extensions can move, resize and restore Crest windows using their normal window controls."
+      "message": "Extensions can move, resize and restore Zee windows using their normal window controls."
     },
     "cloud-convergence-typed-session": {
       "category": "internal",
@@ -3436,7 +3436,7 @@
     },
     "experimental-updates-continue-on-development": {
       "category": "improved",
-      "message": "The final experimental update moves your update preference to Development so future Crest updates continue there."
+      "message": "The final experimental update moves your update preference to Development so future Zee updates continue there."
     },
     "engine-settings-localization-catalog": {
       "category": "internal",
@@ -3452,7 +3452,7 @@
     },
     "single-mac-download": {
       "category": "improved",
-      "message": "Crest for Mac is one download with both engines. Copies of the separate WebKit download update to it automatically."
+      "message": "Zee for Mac is one download with both engines. Copies of the separate WebKit download update to it automatically."
     },
     "split-click-focuses-field": {
       "category": "fixed",
@@ -3460,7 +3460,7 @@
     },
     "extension-popup-close-no-crash": {
       "category": "fixed",
-      "message": "Crest no longer quits when an extension closes its popup window, as Bitwarden does after you turn on unlock with biometrics."
+      "message": "Zee no longer quits when an extension closes its popup window, as Bitwarden does after you turn on unlock with biometrics."
     },
     "extension-popups-open-as-tabs": {
       "category": "improved",
@@ -3468,7 +3468,7 @@
     },
     "updates-install-after-restart": {
       "category": "fixed",
-      "message": "Restarting to install an update, or choosing Quit from the Dock, quits Crest so the update installs instead of waiting forever."
+      "message": "Restarting to install an update, or choosing Quit from the Dock, quits Zee so the update installs instead of waiting forever."
     },
     "floating-sidebar-stays-for-its-popups": {
       "category": "fixed",
@@ -3488,7 +3488,7 @@
     },
     "web-store-button-every-language": {
       "category": "fixed",
-      "message": "Add to Crest works on Chrome Web Store pages in every language, including an extension's reviews and support pages, and the store's prompts to switch to Chrome stay hidden."
+      "message": "Add to Zee works on Chrome Web Store pages in every language, including an extension's reviews and support pages, and the store's prompts to switch to Chrome stay hidden."
     },
     "collapsed-folder-keeps-nested-tab": {
       "category": "fixed",
@@ -3532,7 +3532,7 @@
     },
     "chromium-host-patch-applies-to-fresh-sources": {
       "category": "internal",
-      "message": "Crest's Chromium changes apply cleanly to freshly prepared engine sources, so upstream Chromium updates can build."
+      "message": "Zee's Chromium changes apply cleanly to freshly prepared engine sources, so upstream Chromium updates can build."
     },
     "downloads-follow-page-site-choice": {
       "category": "fixed",
@@ -3560,7 +3560,7 @@
     },
     "chromium-local-background-notifications": {
       "category": "improved",
-      "message": "Chromium can show local service-worker and extension notifications while Crest runs, with Space access and notification permissions respected."
+      "message": "Chromium can show local service-worker and extension notifications while Zee runs, with Space access and notification permissions respected."
     },
     "release-source-validation-and-startup-contracts": {
       "category": "internal",
@@ -3568,15 +3568,15 @@
     },
     "chromium-update-macos-requirement": {
       "category": "fixed",
-      "message": "Crest updates advertise the macOS version the whole app requires, so older Macs are not offered an incompatible update."
+      "message": "Zee updates advertise the macOS version the whole app requires, so older Macs are not offered an incompatible update."
     },
-    "crest-07-chromium-and-webkit": {
+    "zee-07-chromium-and-webkit": {
       "category": "new",
-      "message": "Crest 0.7 brings Chromium and WebKit together on Mac, with Chrome Web Store extensions and engine choices for each website. iPhone and iPad continue to use WebKit."
+      "message": "Zee 0.7 brings Chromium and WebKit together on Mac, with Chrome Web Store extensions and engine choices for each website. iPhone and iPad continue to use WebKit."
     },
     "opaque-mac-windows-external-display-load": {
       "category": "fixed",
-      "message": "Crest windows on Mac no longer keep the system's WindowServer busy, which could use a lot of CPU on large or high-refresh external displays. The focused-window transparency setting has been removed."
+      "message": "Zee windows on Mac no longer keep the system's WindowServer busy, which could use a lot of CPU on large or high-refresh external displays. The focused-window transparency setting has been removed."
     },
     "window-focus-bridge-release-format": {
       "category": "internal",
@@ -3600,15 +3600,15 @@
     },
     "login-button-federated-sign-in-crash": {
       "category": "fixed",
-      "message": "Crest on Mac no longer quits when you press a site\u2019s Login or Continue with Google button. Crest doesn\u2019t offer Chrome\u2019s federated sign-in, so these sites use their own sign-in pop-up or page where they have one, as they do in Safari."
+      "message": "Zee on Mac no longer quits when you press a site\u2019s Login or Continue with Google button. Zee doesn\u2019t offer Chrome\u2019s federated sign-in, so these sites use their own sign-in pop-up or page where they have one, as they do in Safari."
     },
     "extension-sign-in-survives-relaunch": {
       "category": "fixed",
-      "message": "Extensions that sign you back in on their own when the browser starts, such as Claude, now stay signed in after Crest restarts on Mac, as they do in Chrome."
+      "message": "Extensions that sign you back in on their own when the browser starts, such as Claude, now stay signed in after Zee restarts on Mac, as they do in Chrome."
     },
     "extension-tab-groups-as-folders": {
       "category": "new",
-      "message": "Tab groups that extensions make, such as the tabs Claude works in, now appear on Mac as folders in the Space\u2019s open tabs, in the group\u2019s name and color. Renaming, recoloring, collapsing or deleting the folder, or moving tabs in or out, changes the group the extension sees, and the folder keeps following the group after Crest restarts."
+      "message": "Tab groups that extensions make, such as the tabs Claude works in, now appear on Mac as folders in the Space\u2019s open tabs, in the group\u2019s name and color. Renaming, recoloring, collapsing or deleting the folder, or moving tabs in or out, changes the group the extension sees, and the folder keeps following the group after Zee restarts."
     },
     "retina-tab-icons": {
       "category": "fixed",
@@ -3616,11 +3616,11 @@
     },
     "back-forward-history-menu-responsive": {
       "category": "fixed",
-      "message": "The back and forward history menus open at once and no longer freeze Crest on Mac when you move the pointer over them. Each lists the 12 nearest pages, with Show Full History at the end for everything else."
+      "message": "The back and forward history menus open at once and no longer freeze Zee on Mac when you move the pointer over them. Each lists the 12 nearest pages, with Show Full History at the end for everything else."
     },
     "zen-import-pinned-split-views": {
       "category": "fixed",
-      "message": "Importing from Zen no longer fails with \u201cCrest could not recognize this browser\u2019s tab-session data\u201d when a Space has pinned tabs in a split view. Those tabs now come over as saved tabs: in the folder that held the split, or outside any folder when the split sat among the Space\u2019s pinned tabs. A Zen session too large to import now says so."
+      "message": "Importing from Zen no longer fails with \u201cZee could not recognize this browser\u2019s tab-session data\u201d when a Space has pinned tabs in a split view. Those tabs now come over as saved tabs: in the folder that held the split, or outside any folder when the split sat among the Space\u2019s pinned tabs. A Zen session too large to import now says so."
     },
     "site-controls-full-screen": {
       "category": "fixed",
@@ -3628,15 +3628,15 @@
     },
     "extension-download-startup-hold": {
       "category": "fixed",
-      "message": "Installing an extension right after Crest opens no longer stays on \u201cPreparing extension\u2026\u201d for up to three minutes."
+      "message": "Installing an extension right after Zee opens no longer stays on \u201cPreparing extension\u2026\u201d for up to three minutes."
     },
     "import-chrome-arc-extensions": {
       "category": "new",
-      "message": "Importing from Chrome, Arc, or another Chromium browser now lists the extensions you installed from the Chrome Web Store beneath each Space\u2019s address bar. Choose which ones each Space brings, and Crest installs them when the import finishes, without asking about each one."
+      "message": "Importing from Chrome, Arc, or another Chromium browser now lists the extensions you installed from the Chrome Web Store beneath each Space\u2019s address bar. Choose which ones each Space brings, and Zee installs them when the import finishes, without asking about each one."
     },
     "import-more-chromium-browsers": {
       "category": "new",
-      "message": "You can now import from Brave, Microsoft Edge, Vivaldi, Opera, Dia, Comet, Aside, ego lite, Chromium, and Chrome Beta, Dev, and Canary. If your browser isn\u2019t listed, choose \u201cBrowser not listed?\u201d to have Crest look for other Chromium-based browsers on your Mac."
+      "message": "You can now import from Brave, Microsoft Edge, Vivaldi, Opera, Dia, Comet, Aside, ego lite, Chromium, and Chrome Beta, Dev, and Canary. If your browser isn\u2019t listed, choose \u201cBrowser not listed?\u201d to have Zee look for other Chromium-based browsers on your Mac."
     },
     "import-split-views-and-tab-groups": {
       "category": "improved",
@@ -3652,7 +3652,7 @@
     },
     "import-keeps-what-fits": {
       "category": "improved",
-      "message": "When an import holds more than Crest can keep, it now brings as many Spaces, tabs, folders, and bookmarks as fit and lists what it left out, instead of stopping. A Space that joins one of yours brings only the tabs it has room for."
+      "message": "When an import holds more than Zee can keep, it now brings as many Spaces, tabs, folders, and bookmarks as fit and lists what it left out, instead of stopping. A Space that joins one of yours brings only the tabs it has room for."
     },
     "import-signed-in-chrome-bookmarks": {
       "category": "fixed",
@@ -3678,21 +3678,21 @@
       "category": "improved",
       "message": "Settings has a cleaner, native look with less text. Each Space has its own page in the Settings sidebar, where you can add, rename, rearrange, lock and delete Spaces, and tab options have their own Tabs page."
     },
-    "crest-studio-forge": {
+    "zee-studio-forge": {
       "category": "new",
-      "message": "Crest Studio shows your crest on your Space\u2019s own background, names every color by what it paints, and walks you through shape, field, band, emblem, border, finish and sidebar with previews of your crest. Each part of a crest can now have its own color."
+      "message": "Badge Studio shows your badge on your Space\u2019s own background, names every color by what it paints, and walks you through shape, field, band, emblem, border, finish and sidebar with previews of your badge. Each part of a badge can now have its own color."
     },
     "settings-space-switch-speed": {
       "category": "fixed",
       "message": "Switching Spaces with Settings open is now as quick as with a webpage, and Settings pages scroll smoothly."
     },
-    "crest-template-arms": {
+    "zee-template-arms": {
       "category": "improved",
-      "message": "Every Space template has new arms in colors of their own, from a grey wolf on snow to a pale raven on black, and Shuffle now changes every part of a crest and its sidebar."
+      "message": "Every Space template has new arms in colors of their own, from a grey wolf on snow to a pale raven on black, and Shuffle now changes every part of a badge and its sidebar."
     },
     "declared-fixed-set-facts": {
       "category": "internal",
-      "message": "Crest's fixed sets declare their own facts, such as a crest term's rendering vocabulary, ranges and titles, instead of working them out in switches across the apps and the core."
+      "message": "Zee's fixed sets declare their own facts, such as a badge term's rendering vocabulary, ranges and titles, instead of working them out in switches across the apps and the core."
     },
     "stored-address-loads": {
       "category": "fixed",
@@ -3712,15 +3712,15 @@
     },
     "mobile-launch-crash": {
       "category": "fixed",
-      "message": "Crest on iPhone and iPad opens again instead of closing as soon as it starts."
+      "message": "Zee on iPhone and iPad opens again instead of closing as soon as it starts."
     },
     "camera-microphone-allow-crash": {
       "category": "fixed",
-      "message": "Allowing a site to use your camera or microphone no longer quits Crest."
+      "message": "Allowing a site to use your camera or microphone no longer quits Zee."
     },
     "onboarding-scan-for-more": {
       "category": "improved",
-      "message": "Setup no longer looks through other browsers’ data when Crest first opens. It reads a browser only when you choose it to import, or everything when you press Scan for more."
+      "message": "Setup no longer looks through other browsers’ data when Zee first opens. It reads a browser only when you choose it to import, or everything when you press Scan for more."
     },
     "pinned-tab-unpin-menu": {
       "category": "improved",
@@ -3740,7 +3740,7 @@
     },
     "update-card-hide": {
       "category": "improved",
-      "message": "You can hide the update card in the sidebar until you next check for updates or restart Crest. Settings › About shows where the update stands and offers the same buttons."
+      "message": "You can hide the update card in the sidebar until you next check for updates or restart Zee. Settings › About shows where the update stands and offers the same buttons."
     },
     "show-history-opens-sidebar": {
       "category": "fixed",
@@ -3748,19 +3748,19 @@
     },
     "chromium-tab-history-after-relaunch": {
       "category": "fixed",
-      "message": "On Mac, tabs that use Chromium keep their back and forward history when you quit and reopen Crest, as WebKit tabs already did."
+      "message": "On Mac, tabs that use Chromium keep their back and forward history when you quit and reopen Zee, as WebKit tabs already did."
     },
     "no-chromium-folder-on-quit": {
       "category": "fixed",
-      "message": "On Mac, quitting Crest no longer creates an empty Chromium folder in Application Support, where another Chromium browser keeps its profile."
+      "message": "On Mac, quitting Zee no longer creates an empty Chromium folder in Application Support, where another Chromium browser keeps its profile."
     },
     "reopened-windows-after-quit": {
       "category": "fixed",
-      "message": "On Mac, Crest reopens the windows that were open when you quit, instead of sometimes bringing back windows you had already closed."
+      "message": "On Mac, Zee reopens the windows that were open when you quit, instead of sometimes bringing back windows you had already closed."
     },
     "chromium-tab-history-across-updates": {
       "category": "improved",
-      "message": "On Mac, tabs that use Chromium keep their back and forward history when Crest or macOS updates."
+      "message": "On Mac, tabs that use Chromium keep their back and forward history when Zee or macOS updates."
     },
     "chromium-upstream-154-0-8037-97-1-1-6c05ab379fd7": {
       "category": "fixed",
@@ -3780,7 +3780,7 @@
     },
     "icloud-sync-catches-up-on-open": {
       "category": "fixed",
-      "message": "iCloud sync catches up each time Crest opens. Changes made on your other devices while Crest was closed arrive, and changes waiting on this device upload, without tapping Sync Now."
+      "message": "iCloud sync catches up each time Zee opens. Changes made on your other devices while Zee was closed arrive, and changes waiting on this device upload, without tapping Sync Now."
     },
     "icloud-sync-status-shows-waiting-uploads": {
       "category": "improved",
@@ -3794,9 +3794,9 @@
       "category": "fixed",
       "message": "Search engine and assistant logos in Settings keep their proportions instead of looking stretched."
     },
-    "space-switching-keeps-crest-open": {
+    "space-switching-keeps-zee-open": {
       "category": "fixed",
-      "message": "Switching Spaces no longer makes Crest quit unexpectedly on macOS 26."
+      "message": "Switching Spaces no longer makes Zee quit unexpectedly on macOS 26."
     },
     "settings-opens-in-browser-window": {
       "category": "fixed",
@@ -3804,7 +3804,7 @@
     },
     "start-on-new-tab": {
       "category": "new",
-      "message": "On iPhone and iPad, Start on new tab in General settings opens Crest on a new tab in your default Space, ready to search."
+      "message": "On iPhone and iPad, Start on new tab in General settings opens Zee on a new tab in your default Space, ready to search."
     },
     "floating-sidebar-optional": {
       "category": "improved",
@@ -3816,11 +3816,11 @@
     },
     "settings-shows-real-app-icon": {
       "category": "fixed",
-      "message": "Settings on iPhone and iPad shows Crest’s real app icon, including the one you chose, in light and dark."
+      "message": "Settings on iPhone and iPad shows Zee’s real app icon, including the one you chose, in light and dark."
     },
     "default-browser-status-remembered": {
       "category": "fixed",
-      "message": "On iPhone and iPad, General settings shows whether Crest is your default browser instead of Unavailable when iOS limits how often Crest can check."
+      "message": "On iPhone and iPad, General settings shows whether Zee is your default browser instead of Unavailable when iOS limits how often Zee can check."
     },
     "search-provider-editor-opens": {
       "category": "fixed",
@@ -3840,7 +3840,7 @@
     },
     "download-prompt-over-page": {
       "category": "fixed",
-      "message": "On iPhone, Crest asks before downloading a risky file from the page you’re viewing, instead of leaving the download waiting for approval."
+      "message": "On iPhone, Zee asks before downloading a risky file from the page you’re viewing, instead of leaving the download waiting for approval."
     },
     "tab-audio-indicator": {
       "category": "new",
@@ -3854,9 +3854,9 @@
       "category": "fixed",
       "message": "Command-G and Command-Shift-G move to the next and previous find-in-page match, and reopen the find bar with your last search."
     },
-    "agents-use-crest": {
+    "agents-use-zee": {
       "category": "new",
-      "message": "On Mac, coding agents such as Claude Code and Codex can use Crest as their browser in the Spaces you choose: open and read tabs, click and type, take screenshots, and read a page’s console and network requests. Turn it on in Settings › Agents. Crest asks before each new agent connects, and every tab an agent uses shows its badge."
+      "message": "On Mac, coding agents such as Claude Code and Codex can use Zee as their browser in the Spaces you choose: open and read tabs, click and type, take screenshots, and read a page’s console and network requests. Turn it on in Settings › Agents. Zee asks before each new agent connects, and every tab an agent uses shows its badge."
     },
     "2026-10-12-page-engine-events-own-behavior": {
       "category": "internal",
@@ -4016,15 +4016,15 @@
     },
     "2026-10-12-refuse-unexpected-edits-instead-of-quitting": {
       "category": "fixed",
-      "message": "Crest no longer quits when it can’t make an edit, such as one on a tab that just closed or a change only a Space’s owner may make."
+      "message": "Zee no longer quits when it can’t make an edit, such as one on a tab that just closed or a change only a Space’s owner may make."
     },
     "2026-10-12-prompt-hosts-answer-every-question": {
       "category": "internal",
-      "message": "Every place that shows Crest's questions now handles each kind of question explicitly."
+      "message": "Every place that shows Zee's questions now handles each kind of question explicitly."
     },
     "2026-10-12-refused-engine-report-safe": {
       "category": "fixed",
-      "message": "A page reporting something Crest can’t use no longer closes the app."
+      "message": "A page reporting something Zee can’t use no longer closes the app."
     },
     "2026-10-12-concrete-pane-views": {
       "category": "internal",
@@ -4054,9 +4054,9 @@
       "category": "internal",
       "message": "Give tiles inside material panels a fixed fill"
     },
-    "crest-08-agents-palette-settings": {
+    "zee-08-agents-palette-settings": {
       "category": "new",
-      "message": "Crest 0.8 lets coding agents use Crest as their browser on Mac, brings a rebuilt command palette and Settings, imports from many more browsers, and makes the sidebar quicker and more consistent."
+      "message": "Zee 0.8 lets coding agents use Zee as their browser on Mac, brings a rebuilt command palette and Settings, imports from many more browsers, and makes the sidebar quicker and more consistent."
     },
     "pinned-tab-status-badge-corner": {
       "category": "fixed",
@@ -4104,7 +4104,7 @@
     },
     "translation-download-languages-no-crash": {
       "category": "fixed",
-      "message": "Download Languages in Page Translation settings opens language downloads without Crest quitting."
+      "message": "Download Languages in Page Translation settings opens language downloads without Zee quitting."
     },
     "chromium-whole-page-translation": {
       "category": "new",
@@ -4150,13 +4150,13 @@
       "category": "fixed",
       "message": "On macOS 26, switches, pickers and the house choices in Settings take every click instead of ignoring clicks after the first."
     },
-    "update-restart-quits-crest": {
+    "update-restart-quits-zee": {
       "category": "fixed",
-      "message": "Restart and Update quits Crest and installs the update instead of waiting until you quit, and Quit in the Dock works again, even after another app has used AppleScript with Crest."
+      "message": "Restart and Update quits Zee and installs the update instead of waiting until you quit, and Quit in the Dock works again, even after another app has used AppleScript with Zee."
     },
     "quit-after-space-deletion-fails": {
       "category": "fixed",
-      "message": "Crest quits instead of waiting indefinitely when a Space couldn’t be fully deleted, and tries deleting that Space again the next time it opens."
+      "message": "Zee quits instead of waiting indefinitely when a Space couldn’t be fully deleted, and tries deleting that Space again the next time it opens."
     },
     "chromium-upstream-155-0-8059-39-1-1-6271503014ef": {
       "category": "fixed",
@@ -4164,7 +4164,7 @@
     },
     "http-dead-link-crash": {
       "category": "fixed",
-      "message": "Opening an http:// address that can’t be reached shows Crest’s error page instead of closing Crest."
+      "message": "Opening an http:// address that can’t be reached shows Zee’s error page instead of closing Zee."
     },
     "link-route-exact-site-name": {
       "category": "fixed",
@@ -4176,7 +4176,7 @@
     },
     "settings-narrow-window-sidebar-clicks": {
       "category": "fixed",
-      "message": "In a narrow window, a Space’s Crest Studio no longer covers the Settings sidebar, so its search field and Space buttons take clicks again."
+      "message": "In a narrow window, a Space’s Badge Studio no longer covers the Settings sidebar, so its search field and Space buttons take clicks again."
     },
     "local-addresses-open-over-http": {
       "category": "fixed",
@@ -4204,7 +4204,7 @@
     },
     "history-across-engines-after-relaunch": {
       "category": "improved",
-      "message": "Tabs keep their back and forward history across engines after Crest relaunches, and a duplicated tab keeps it too."
+      "message": "Tabs keep their back and forward history across engines after Zee relaunches, and a duplicated tab keeps it too."
     },
     "history-kept-before-engine-state": {
       "category": "internal",
@@ -4212,11 +4212,11 @@
     },
     "chromium-form-submit-autofill-save-crash": {
       "category": "fixed",
-      "message": "Crest no longer quits when you submit a form containing a payment card or address."
+      "message": "Zee no longer quits when you submit a form containing a payment card or address."
     },
     "setup-full-screen-look-choice": {
       "category": "new",
-      "message": "Setup on the Mac fills the screen and asks whether your Spaces wear Crest's heraldic banners and crests or a modern gradient and icon, then carries that look through importing, reviewing and making your Spaces yours."
+      "message": "Setup on the Mac fills the screen and asks whether your Spaces wear Zee's heraldic banners and badges or a modern gradient and icon, then carries that look through importing, reviewing and making your Spaces yours."
     },
     "setup-import-read-cancel": {
       "category": "fixed",
@@ -4234,13 +4234,13 @@
       "category": "fixed",
       "message": "On iPhone and iPad, a video a site shows full screen, such as Reddit's, fills the screen instead of going black, and the page is back when you leave full screen."
     },
-    "sync-default-search-and-crest-passwords": {
+    "sync-default-search-and-zee-passwords": {
       "category": "fixed",
-      "message": "A new iPhone or iPad that syncs with iCloud searches with the default your other devices' Spaces follow instead of keeping Google, turning Crest Passwords on or off for a Space reaches your other devices, and Settings says which search and password choices stay on each device."
+      "message": "A new iPhone or iPad that syncs with iCloud searches with the default your other devices' Spaces follow instead of keeping Google, turning Zee Passwords on or off for a Space reaches your other devices, and Settings says which search and password choices stay on each device."
     },
     "share-sheet-open-links": {
       "category": "new",
-      "message": "On iPhone and iPad, Crest appears in the share sheet, so a link shared from another app, or the first link in shared text, opens in Crest."
+      "message": "On iPhone and iPad, Zee appears in the share sheet, so a link shared from another app, or the first link in shared text, opens in Zee."
     },
     "appearance-preview-concentric-page-corners": {
       "category": "fixed",
@@ -4248,7 +4248,7 @@
     },
     "ios-icon-tinted-clear-background": {
       "category": "fixed",
-      "message": "With tinted or clear app icons on iPhone, iPad and Mac, Crest's icon sits on the same tinted or glass background as other apps instead of a flat gray one."
+      "message": "With tinted or clear app icons on iPhone, iPad and Mac, Zee's icon sits on the same tinted or glass background as other apps instead of a flat gray one."
     },
     "mobile-edge-swipe-back-forward": {
       "category": "new",
@@ -4260,11 +4260,11 @@
     },
     "iphone-duo-layout": {
       "category": "new",
-      "message": "On iPhone Duo, Crest's controls move to the side bar where iOS puts them, pages use the outer display's full width, the open display's page and sidebar reach its edges, and folded like a book the sidebar and page, or a Split View's two pages, each take one side of the fold."
+      "message": "On iPhone Duo, Zee's controls move to the side bar where iOS puts them, pages use the outer display's full width, the open display's page and sidebar reach its edges, and folded like a book the sidebar and page, or a Split View's two pages, each take one side of the fold."
     },
     "no-room-for-hidden-keyboard": {
       "category": "fixed",
-      "message": "On iPhone and iPad, Crest no longer leaves an empty band at the bottom of the window for a keyboard that isn't on screen."
+      "message": "On iPhone and iPad, Zee no longer leaves an empty band at the bottom of the window for a keyboard that isn't on screen."
     },
     "history-swipe-from-page-frame": {
       "category": "new",
@@ -4306,9 +4306,9 @@
       "category": "fixed",
       "message": "Pages that run in Chromium no longer trust certificates from the compromised eMudhra certificate authorities, matching Chrome."
     },
-    "crest-0-8-50-chromium-security-setup-translation": {
+    "zee-0-8-50-chromium-security-setup-translation": {
       "category": "new",
-      "message": "Crest 0.8.50 updates Chromium with its latest security fixes and stops trusting the compromised eMudhra certificate authorities, rebuilds setup on the Mac, translates whole pages in Chromium, and fixes several crashes and problems quitting."
+      "message": "Zee 0.8.50 updates Chromium with its latest security fixes and stops trusting the compromised eMudhra certificate authorities, rebuilds setup on the Mac, translates whole pages in Chromium, and fixes several crashes and problems quitting."
     },
     "upload-ios-cloud-archives-without-ad-hoc-export": {
       "category": "internal",
@@ -4316,11 +4316,11 @@
     },
     "appearance-light-dark-follow-system": {
       "category": "new",
-      "message": "Keep Crest light or dark, or let it follow macOS, in Settings › Appearance. Spaces can also dim their colors in dark."
+      "message": "Keep Zee light or dark, or let it follow macOS, in Settings › Appearance. Spaces can also dim their colors in dark."
     },
     "background-launch-for-connected-tools": {
       "category": "fixed",
-      "message": "Connected tools can start Crest in the background without taking focus."
+      "message": "Connected tools can start Zee in the background without taking focus."
     },
     "space-neutral-look": {
       "category": "new",
@@ -4344,7 +4344,7 @@
     },
     "agents-pointer-activity-and-questions": {
       "category": "new",
-      "message": "An agent’s pointer shows where it works on a page, Settings › Agents lists what each agent did, Stop All Agents stops every agent at once, and Crest asks before an agent opens a window. Agents can also read a page’s text and answer its dialogs."
+      "message": "An agent’s pointer shows where it works on a page, Settings › Agents lists what each agent did, Stop All Agents stops every agent at once, and Zee asks before an agent opens a window. Agents can also read a page’s text and answer its dialogs."
     },
     "temporary-sidebar-interruptible-animation": {
       "category": "fixed",
@@ -4356,7 +4356,7 @@
     },
     "space-lock-stays-off": {
       "category": "fixed",
-      "message": "Turning off a Space’s lock in Settings now sticks after one Touch ID or password check, instead of the lock coming back. With iCloud sync, turning a lock on or off reaches your other devices too, even where the Space is locked, without unlocking it there first. If a lock can’t change, Crest says so at the top of the window."
+      "message": "Turning off a Space’s lock in Settings now sticks after one Touch ID or password check, instead of the lock coming back. With iCloud sync, turning a lock on or off reaches your other devices too, even where the Space is locked, without unlocking it there first. If a lock can’t change, Zee says so at the top of the window."
     },
     "sidebar-shift-click-selects-range": {
       "category": "fixed",
@@ -4516,7 +4516,7 @@
     },
     "sync-merge-save-freeze": {
       "category": "fixed",
-      "message": "Crest no longer freezes when an iCloud sync arrives while it’s saving a change, such as deleting a Space, moving or closing several tabs, or importing from another browser."
+      "message": "Zee no longer freezes when an iCloud sync arrives while it’s saving a change, such as deleting a Space, moving or closing several tabs, or importing from another browser."
     },
     "recent-tab-switcher-previews": {
       "category": "new",
@@ -4528,7 +4528,7 @@
     },
     "ipv6-saved-password-origin": {
       "category": "fixed",
-      "message": "Passwords saved for an IPv6 address load again, and one saved password Crest can't read no longer hides a Space's other passwords. Settings can remove it."
+      "message": "Passwords saved for an IPv6 address load again, and one saved password Zee can't read no longer hides a Space's other passwords. Settings can remove it."
     },
     "escaped-address-saved-password-origin": {
       "category": "fixed",
@@ -4560,7 +4560,7 @@
     },
     "quick-window-space-switcher": {
       "category": "new",
-      "message": "Click the Space in a Quick Window’s address bar to switch Spaces. The page reloads in the Space you choose, with that Space’s cookies and passwords, and Crest remembers the choice for that site."
+      "message": "Click the Space in a Quick Window’s address bar to switch Spaces. The page reloads in the Space you choose, with that Space’s cookies and passwords, and Zee remembers the choice for that site."
     },
     "quick-window-address-drag-selects-text": {
       "category": "fixed",
@@ -4596,7 +4596,7 @@
     },
     "sub-spaces": {
       "category": "new",
-      "message": "Sub-Spaces let several Spaces share one set of sign-ins, history, passwords and extensions while each keeps its own tabs and look. In Settings › Spaces a Sub-Space sits under its primary, and a group's page shows its Spaces' crests above the settings they share: + starts a Sub-Space, and on the Mac you can drag a Space into a group to add it or out of one to separate it. A Sub-Space you separate goes back to its own sign-ins and website data."
+      "message": "Sub-Spaces let several Spaces share one set of sign-ins, history, passwords and extensions while each keeps its own tabs and look. In Settings › Spaces a Sub-Space sits under its primary, and a group's page shows its Spaces' badges above the settings they share: + starts a Sub-Space, and on the Mac you can drag a Space into a group to add it or out of one to separate it. A Sub-Space you separate goes back to its own sign-ins and website data."
     },
     "sub-spaces-pinned-tabs": {
       "category": "new",
@@ -4616,7 +4616,7 @@
     },
     "sub-spaces-older-devices": {
       "category": "improved",
-      "message": "Devices that run an earlier Crest keep syncing and show each Sub-Space on its own, signed out, until they update. The first group you make reminds you to update Crest on your other devices."
+      "message": "Devices that run an earlier Zee keep syncing and show each Sub-Space on its own, signed out, until they update. The first group you make reminds you to update Zee on your other devices."
     },
     "sub-spaces-group-records": {
       "category": "internal",
@@ -4640,7 +4640,7 @@
     },
     "chromium-plain-156-privacy": {
       "category": "improved",
-      "message": "Chromium is updated to 156 and now built from Chromium itself with Crest's privacy changes. It sends Google none of your browsing, form or account data, and contacts Google only to keep certificate checks, protected video and your extensions up to date."
+      "message": "Chromium is updated to 156 and now built from Chromium itself with Zee's privacy changes. It sends Google none of your browsing, form or account data, and contacts Google only to keep certificate checks, protected video and your extensions up to date."
     },
     "chromium-widevine-video": {
       "category": "new",
@@ -4732,11 +4732,11 @@
     },
     "chromium-lens-menu-crash": {
       "category": "fixed",
-      "message": "Choosing Google Lens from a page's right-click menu on Mac no longer quits Crest. Lens isn't offered there any more, and images keep their plain image search."
+      "message": "Choosing Google Lens from a page's right-click menu on Mac no longer quits Zee. Lens isn't offered there any more, and images keep their plain image search."
     },
     "chromium-restore-history-crash": {
       "category": "fixed",
-      "message": "Going back to a restored tab on Mac no longer quits Crest when that tab's page never finished opening, such as one that turned into a download or that you stopped."
+      "message": "Going back to a restored tab on Mac no longer quits Zee when that tab's page never finished opening, such as one that turned into a download or that you stopped."
     },
     "sub-space-switch-steady-pins": {
       "category": "fixed",
@@ -4748,7 +4748,7 @@
     },
     "chromium-extension-popup-crash": {
       "category": "fixed",
-      "message": "Crest on Mac no longer quits when an extension such as 1Password opens its popup by itself."
+      "message": "Zee on Mac no longer quits when an extension such as 1Password opens its popup by itself."
     },
     "chromium-tall-full-page-capture": {
       "category": "fixed",
@@ -4836,7 +4836,7 @@
     },
     "saved-passwords-survive-interrupted-writes": {
       "category": "fixed",
-      "message": "Saved passwords are no longer lost when Crest quits partway through importing or deleting them, or through turning iCloud Keychain on or off for a Space."
+      "message": "Saved passwords are no longer lost when Zee quits partway through importing or deleting them, or through turning iCloud Keychain on or off for a Space."
     },
     "earlier-ip-passwords-fill": {
       "category": "fixed",
@@ -4848,7 +4848,7 @@
     },
     "quick-window-remembers-size": {
       "category": "improved",
-      "message": "On Mac, a new Quick Window opens at the size you last gave one, even after restarting Crest."
+      "message": "On Mac, a new Quick Window opens at the size you last gave one, even after restarting Zee."
     },
     "quick-window-size-after-contents-change": {
       "category": "fixed",
@@ -4860,15 +4860,15 @@
     },
     "reopen-pages-after-quit-choice": {
       "category": "fixed",
-      "message": "If Crest quits unexpectedly while reopening your pages on Mac, the next launch asks whether to reopen them. Don’t Reopen opens each window on the Start Page with your tabs still in the sidebar, so a page that makes Crest quit can’t keep you out."
+      "message": "If Zee quits unexpectedly while reopening your pages on Mac, the next launch asks whether to reopen them. Don’t Reopen opens each window on the Start Page with your tabs still in the sidebar, so a page that makes Zee quit can’t keep you out."
     },
     "sidebar-scroll-freeze": {
       "category": "fixed",
-      "message": "Scrolling the sidebar no longer makes Crest stop responding, with or without folders open."
+      "message": "Scrolling the sidebar no longer makes Zee stop responding, with or without folders open."
     },
     "shortcuts-follow-command-keyboard-layout": {
       "category": "fixed",
-      "message": "Keyboard shortcuts follow layouts that change keys while Command is held, such as Dvorak – QWERTY ⌘, Russian and Greek, so Command-X cuts instead of quitting Crest."
+      "message": "Keyboard shortcuts follow layouts that change keys while Command is held, such as Dvorak – QWERTY ⌘, Russian and Greek, so Command-X cuts instead of quitting Zee."
     },
     "search-provider-fragment-address": {
       "category": "fixed",
@@ -4888,7 +4888,7 @@
     },
     "chromium-held-window-timeout": {
       "category": "internal",
-      "message": "A window a link opens on the Chromium engine loads after a few seconds even when Crest never decides where it belongs, instead of staying blank."
+      "message": "A window a link opens on the Chromium engine loads after a few seconds even when Zee never decides where it belongs, instead of staying blank."
     },
     "chromium-stale-window-link": {
       "category": "internal",
@@ -4904,11 +4904,11 @@
     },
     "chromium-new-tab-page-crash": {
       "category": "fixed",
-      "message": "Crest on Mac no longer quits when a Chromium tab opens the new tab page, as Claude in Chrome does, or keeps quitting at launch while restoring one."
+      "message": "Zee on Mac no longer quits when a Chromium tab opens the new tab page, as Claude in Chrome does, or keeps quitting at launch while restoring one."
     },
     "chromium-new-tab-page-promo-crash": {
       "category": "fixed",
-      "message": "The new tab page in a Chromium tab no longer quits Crest on Mac when it would offer to customize the page."
+      "message": "The new tab page in a Chromium tab no longer quits Zee on Mac when it would offer to customize the page."
     },
     "sidebar-new-tab-row-height": {
       "category": "fixed",
@@ -4916,7 +4916,7 @@
     },
     "quick-window-opens-where-you-are": {
       "category": "fixed",
-      "message": "On Mac, a Quick Window for a link from another app opens over the window you're in and on its display, instead of over a Crest window that may be on another display, and comes to the Space you're on."
+      "message": "On Mac, a Quick Window for a link from another app opens over the window you're in and on its display, instead of over a Zee window that may be on another display, and comes to the Space you're on."
     },
     "quick-windows-cascade": {
       "category": "improved",
@@ -4924,7 +4924,7 @@
     },
     "chromium-cycle-windows": {
       "category": "fixed",
-      "message": "On Mac, Command-` (Move focus to next window) moves between Crest's windows, Quick Windows included, when a Chromium page has focus."
+      "message": "On Mac, Command-` (Move focus to next window) moves between Zee's windows, Quick Windows included, when a Chromium page has focus."
     },
     "quick-window-reused-moves-to-you": {
       "category": "fixed",
@@ -4964,7 +4964,7 @@
     },
     "status-colors-house-palette": {
       "category": "improved",
-      "message": "Errors, warnings and confirmations, such as a failed download, a permission that needs attention or a secure site, now show in Crest’s own red, amber and green, which are easier to read in Light Mode."
+      "message": "Errors, warnings and confirmations, such as a failed download, a permission that needs attention or a secure site, now show in Zee’s own red, amber and green, which are easier to read in Light Mode."
     },
     "settings-results-as-notices": {
       "category": "improved",
@@ -4972,11 +4972,11 @@
     },
     "choices-respond-to-pointer": {
       "category": "improved",
-      "message": "Choices you pick from, such as crest and background tiles, symbols, color swatches, app icons, Getting Started chapters and the Spaces in setup, now highlight under the pointer, respond as you press them and show keyboard focus."
+      "message": "Choices you pick from, such as badge and background tiles, symbols, color swatches, app icons, Getting Started chapters and the Spaces in setup, now highlight under the pointer, respond as you press them and show keyboard focus."
     },
     "password-and-route-buttons-match": {
       "category": "improved",
-      "message": "Reveal Password and Copy Password, and the move and delete buttons of a link route on iPhone and iPad, now look and respond like Crest’s other buttons."
+      "message": "Reveal Password and Copy Password, and the move and delete buttons of a link route on iPhone and iPad, now look and respond like Zee’s other buttons."
     },
     "setup-secondary-text-consistent": {
       "category": "improved",
@@ -4984,11 +4984,11 @@
     },
     "menu-items-all-show-icons": {
       "category": "improved",
-      "message": "Every item in Crest’s menus now shows its icon, including Select All and Deselect All, the folders in Move to Folder, and the Edit, Remove and Move items in Settings."
+      "message": "Every item in Zee’s menus now shows its icon, including Select All and Deselect All, the folders in Move to Folder, and the Edit, Remove and Move items in Settings."
     },
     "refusals-no-longer-sync-errors": {
       "category": "fixed",
-      "message": "A locked Space, a full split or another change Crest can’t make no longer shows as a sync failure in Settings › Sync. Adding a Space or Sub-Space past the limit, or pinning a tab when the pinned tabs are full, now says why in a notice."
+      "message": "A locked Space, a full split or another change Zee can’t make no longer shows as a sync failure in Settings › Sync. Adding a Space or Sub-Space past the limit, or pinning a tab when the pinned tabs are full, now says why in a notice."
     },
     "space-search-matches-address-bar": {
       "category": "fixed",
@@ -5000,7 +5000,7 @@
     },
     "mobile-export-through-engine": {
       "category": "fixed",
-      "message": "On iPhone and iPad, exporting a page as a PDF or saving it as a web archive now makes the document the same way Crest on Mac does."
+      "message": "On iPhone and iPad, exporting a page as a PDF or saving it as a web archive now makes the document the same way Zee on Mac does."
     },
     "remove-unused-setup-and-profile-code": {
       "category": "internal",
@@ -5012,11 +5012,11 @@
     },
     "space-studio-choices-fit-and-match": {
       "category": "fixed",
-      "message": "Crest Studio and setup now mark every choice in the same color, draw search fields like the rest of Settings and show long names in full, and setup keeps the chosen sidebar style in view. A link route’s move buttons no longer look like delete buttons, and the New Space button in iPhone setup is easier to tap."
+      "message": "Badge Studio and setup now mark every choice in the same color, draw search fields like the rest of Settings and show long names in full, and setup keeps the chosen sidebar style in view. A link route’s move buttons no longer look like delete buttons, and the New Space button in iPhone setup is easier to tap."
     },
     "quick-window-shortcut-from-any-app": {
       "category": "new",
-      "message": "On Mac, the New Quick Window shortcut works from any app while Crest is open. Change or clear it in Settings → Shortcuts."
+      "message": "On Mac, the New Quick Window shortcut works from any app while Zee is open. Change or clear it in Settings → Shortcuts."
     },
     "quick-window-shortcut-opens-over-your-window": {
       "category": "improved",
@@ -5056,7 +5056,7 @@
     },
     "sidebar-with-open-folders-stops-freezing": {
       "category": "fixed",
-      "message": "Crest no longer stops responding while the sidebar lays out open folders, such as when you scroll past them."
+      "message": "Zee no longer stops responding while the sidebar lays out open folders, such as when you scroll past them."
     },
     "sidebar-drag-right-after-a-drop-lands-where-aimed": {
       "category": "fixed",
@@ -5080,7 +5080,7 @@
     },
     "press-a-shortcut-again-when-a-website-keeps-it": {
       "category": "new",
-      "message": "When a website keeps a shortcut such as Command-S, Crest says to press it again, and the second press runs Crest's command. Choose Prefer Crest, Use Both or Prefer Website for each shortcut in Settings › Shortcuts, and switching Spaces now always reaches Crest."
+      "message": "When a website keeps a shortcut such as Command-S, Zee says to press it again, and the second press runs Zee's command. Choose Prefer Zee, Use Both or Prefer Website for each shortcut in Settings › Shortcuts, and switching Spaces now always reaches Zee."
     },
     "command-z-undo-stays-in-text-fields": {
       "category": "fixed",
@@ -5088,7 +5088,7 @@
     },
     "shift-number-shortcuts-record-as-the-number": {
       "category": "fixed",
-      "message": "Recording a shortcut with Shift and a number key, such as Shift-Command-2, now records the number on every keyboard layout, so Settings catches a clash with Crest's own Shift-number shortcuts. Shortcuts recorded this way before are carried over."
+      "message": "Recording a shortcut with Shift and a number key, such as Shift-Command-2, now records the number on every keyboard layout, so Settings catches a clash with Zee's own Shift-number shortcuts. Shortcuts recorded this way before are carried over."
     },
     "long-sidebars-with-folders-scroll-smoothly": {
       "category": "fixed",
@@ -5098,9 +5098,9 @@
       "category": "fixed",
       "message": "On Chromium pages, a window a site opens and fills in itself, such as presentation speaker notes or a Slack huddle, now shows its content instead of staying blank."
     },
-    "chromium-share-this-tab-uses-crest-picker": {
+    "chromium-share-this-tab-uses-zee-picker": {
       "category": "fixed",
-      "message": "On Chromium pages, a site that asks to share its own tab now asks in Crest's sharing picker over the page, instead of in a separate window."
+      "message": "On Chromium pages, a site that asks to share its own tab now asks in Zee's sharing picker over the page, instead of in a separate window."
     },
     "chromium-extension-popup-edit-shortcuts": {
       "category": "fixed",
@@ -5128,11 +5128,11 @@
     },
     "chromium-discord-stays-signed-in": {
       "category": "fixed",
-      "message": "On Chromium pages, Discord stays signed in after Crest restarts, updates or unloads its tab, and a page unloaded to save memory can still save its work before it goes."
+      "message": "On Chromium pages, Discord stays signed in after Zee restarts, updates or unloads its tab, and a page unloaded to save memory can still save its work before it goes."
     },
     "popovers-read-on-their-own-surface": {
       "category": "fixed",
-      "message": "Popovers and prompts such as the color and icon pickers, Site Controls, the save-password prompt and the screen-sharing picker stay readable whatever the Space’s text color, Crest’s appearance or the page behind them."
+      "message": "Popovers and prompts such as the color and icon pickers, Site Controls, the save-password prompt and the screen-sharing picker stay readable whatever the Space’s text color, Zee’s appearance or the page behind them."
     },
     "space-color-grid-and-custom-hex": {
       "category": "fixed",
@@ -5168,11 +5168,11 @@
     },
     "finder-pdf-open-with": {
       "category": "new",
-      "message": "On Mac, Crest appears in Finder’s Open With menu for PDFs, without becoming your default PDF app."
+      "message": "On Mac, Zee appears in Finder’s Open With menu for PDFs, without becoming your default PDF app."
     },
     "responsive-with-many-spaces-and-extensions": {
       "category": "improved",
-      "message": "Crest stays more responsive with many Spaces and extensions: pages scroll smoothly while extensions such as ad blockers update their badge counts, and loading a page saves the session less often."
+      "message": "Zee stays more responsive with many Spaces and extensions: pages scroll smoothly while extensions such as ad blockers update their badge counts, and loading a page saves the session less often."
     },
     "quit-after-failed-save": {
       "category": "fixed",
@@ -5196,11 +5196,11 @@
     },
     "built-in-ad-blocking": {
       "category": "new",
-      "message": "Crest blocks ads and trackers on every page, on Mac, iPhone and iPad, with EasyList, EasyPrivacy, uBlock Origin’s lists and a list for your language, which stay up to date on their own. Blocked ads leave no empty boxes, floating video players are hidden, and the lists’ fixes for sites that fight ad blockers run too. Add your own lists or filters in a Space’s privacy settings, choose Block Element to hide anything the lists miss, and turn blocking off for a site from the page’s actions."
+      "message": "Zee blocks ads and trackers on every page, on Mac, iPhone and iPad, with EasyList, EasyPrivacy, uBlock Origin’s lists and a list for your language, which stay up to date on their own. Blocked ads leave no empty boxes, floating video players are hidden, and the lists’ fixes for sites that fight ad blockers run too. Add your own lists or filters in a Space’s privacy settings, choose Block Element to hide anything the lists miss, and turn blocking off for a site from the page’s actions."
     },
     "ad-hiding-out-of-sites-reach": {
       "category": "improved",
-      "message": "On Chromium pages on Mac, sites can no longer see which of your blocking rules they match or bring back what Crest hides."
+      "message": "On Chromium pages on Mac, sites can no longer see which of your blocking rules they match or bring back what Zee hides."
     },
     "add-to-home-screen": {
       "category": "new",
@@ -5208,7 +5208,7 @@
     },
     "full-screen-tab-close-crash": {
       "category": "fixed",
-      "message": "On Mac, closing a tab while its Chromium page is full screen no longer makes Crest quit."
+      "message": "On Mac, closing a tab while its Chromium page is full screen no longer makes Zee quit."
     },
     "full-screen-survives-page-moves": {
       "category": "fixed",
@@ -5274,9 +5274,9 @@
       "category": "improved",
       "message": "On iPhone and iPad, a floating sidebar no longer has an arrow to hide it, on the sidebar or in the side toolbar; scroll or tap the page to put it away."
     },
-    "crest-0-9-sub-spaces-ad-blocking-chromium": {
+    "zee-0-9-sub-spaces-ad-blocking-chromium": {
       "category": "new",
-      "message": "Crest 0.9 brings Sub-Spaces, which let several Spaces share one set of sign-ins while each keeps its own tabs and look, built-in ad blocking on Mac, iPhone and iPad, and a Chromium engine built from Chromium itself, now at 157. Quick Windows and Peek do more, and Crest can follow the system's light or dark appearance."
+      "message": "Zee 0.9 brings Sub-Spaces, which let several Spaces share one set of sign-ins while each keeps its own tabs and look, built-in ad blocking on Mac, iPhone and iPad, and a Chromium engine built from Chromium itself, now at 157. Quick Windows and Peek do more, and Zee can follow the system's light or dark appearance."
     },
     "chromium-upstream-157-0-8103-51": {
       "category": "fixed",
@@ -5284,15 +5284,15 @@
     },
     "private-browsing-space-never-locks": {
       "category": "fixed",
-      "message": "The Private Browsing Space no longer offers a lock, which on iPhone could lock it with no way back in until Crest was quit. The lock setting for other Spaces now names Face ID on devices that have it."
+      "message": "The Private Browsing Space no longer offers a lock, which on iPhone could lock it with no way back in until Zee was quit. The lock setting for other Spaces now names Face ID on devices that have it."
     },
     "arc-import-shared-profile-spaces": {
       "category": "fixed",
-      "message": "On Mac, importing from Arc no longer quits Crest when Spaces that share an Arc profile aren't next to each other in Arc; they come in together, each with its own tabs."
+      "message": "On Mac, importing from Arc no longer quits Zee when Spaces that share an Arc profile aren't next to each other in Arc; they come in together, each with its own tabs."
     },
     "browser-import-keeps-spaces-without-passwords": {
       "category": "fixed",
-      "message": "On Mac, when Crest can't unlock another browser's passwords during an import, as when Keychain access is denied, the import still brings that browser's Spaces and tabs and leaves only the passwords behind."
+      "message": "On Mac, when Zee can't unlock another browser's passwords during an import, as when Keychain access is denied, the import still brings that browser's Spaces and tabs and leaves only the passwords behind."
     },
     "extension-opens-own-popup": {
       "category": "fixed",
@@ -5304,11 +5304,11 @@
     },
     "cold-launch-link-opens-in-front": {
       "category": "fixed",
-      "message": "On Mac, a link from another app that opens Crest now shows in front, instead of behind the window Crest reopens, and Crest's windows reopen in the order you left them."
+      "message": "On Mac, a link from another app that opens Zee now shows in front, instead of behind the window Zee reopens, and Zee's windows reopen in the order you left them."
     },
     "customization-styles": {
       "category": "new",
-      "message": "Choose how much customization Crest shows with three styles: Heraldic keeps every control, while Modern and Simple show fewer, simpler ones and keep the rest under Advanced. Pick one in Settings › Appearance or during setup, and give any Space its own. Space icons in the switcher can now be dots. The address field and pins now look the same on every Space, and text over a Space's colors is easier to read."
+      "message": "Choose how much customization Zee shows with three styles: Heraldic keeps every control, while Modern and Simple show fewer, simpler ones and keep the rest under Advanced. Pick one in Settings › Appearance or during setup, and give any Space its own. Space icons in the switcher can now be dots. The address field and pins now look the same on every Space, and text over a Space's colors is easier to read."
     },
     "sidebar-clear-divider-reaches-clear": {
       "category": "improved",
@@ -5364,7 +5364,7 @@
     },
     "super-copy": {
       "category": "new",
-      "message": "Super Copy, on by default, copies and shares links without known trackers. It follows supported redirect links to their destination, applies AdGuard's URL Tracking filter and Crest's own rules, and shortens Amazon product links. Selecting the address and copying it keeps everything."
+      "message": "Super Copy, on by default, copies and shares links without known trackers. It follows supported redirect links to their destination, applies AdGuard's URL Tracking filter and Zee's own rules, and shortens Amazon product links. Selecting the address and copying it keeps everything."
     },
     "open-subfolder-in-closed-folder": {
       "category": "fixed",
@@ -5384,15 +5384,15 @@
     },
     "quick-window-opens-over-app-in-use": {
       "category": "fixed",
-      "message": "On Mac, a Quick Window that a link from another app or the New Quick Window shortcut opens appears over the app you're using, on the display you're using it on, instead of over another app's window. Links in Crest's own Settings open over Crest."
+      "message": "On Mac, a Quick Window that a link from another app or the New Quick Window shortcut opens appears over the app you're using, on the display you're using it on, instead of over another app's window. Links in Zee's own Settings open over Zee."
     },
     "quick-window-returns-to-app": {
       "category": "new",
-      "message": "On Mac, closing a Quick Window that opened over another app, from one of its links or the New Quick Window shortcut, takes you back to that app. Crest's other windows stay behind that app while the Quick Window is open."
+      "message": "On Mac, closing a Quick Window that opened over another app, from one of its links or the New Quick Window shortcut, takes you back to that app. Zee's other windows stay behind that app while the Quick Window is open."
     },
     "isolated-sidebar-width": {
       "category": "fixed",
-      "message": "An isolated test copy of Crest on Mac keeps its own sidebar width, opening at the default and never changing the installed app's."
+      "message": "An isolated test copy of Zee on Mac keeps its own sidebar width, opening at the default and never changing the installed app's."
     },
     "settings-scroll-anywhere": {
       "category": "improved",
@@ -5400,7 +5400,7 @@
     },
     "quick-window-opens-in-place": {
       "category": "fixed",
-      "message": "On Mac, a Quick Window opens once where it stays and pops in, instead of flashing in the middle of the screen at a larger size and jumping into place. Crest's other windows no longer flash over the app a link came from."
+      "message": "On Mac, a Quick Window opens once where it stays and pops in, instead of flashing in the middle of the screen at a larger size and jumping into place. Zee's other windows no longer flash over the app a link came from."
     },
     "tab-hover-preview": {
       "category": "new",
@@ -5460,7 +5460,7 @@
     },
     "restored-tab-back-redraws": {
       "category": "fixed",
-      "message": "In a tab Crest reopened after a relaunch, going back on sites such as Reddit shows the earlier page again, instead of leaving the page you left on screen until a refresh."
+      "message": "In a tab Zee reopened after a relaunch, going back on sites such as Reddit shows the earlier page again, instead of leaving the page you left on screen until a refresh."
     },
     "floating-sidebar-previews": {
       "category": "fixed",
@@ -5500,11 +5500,11 @@
     },
     "arc-import-damaged-data": {
       "category": "fixed",
-      "message": "On Mac, Crest no longer quits while it prepares an import from Arc or another browser when some of that browser's data is damaged."
+      "message": "On Mac, Zee no longer quits while it prepares an import from Arc or another browser when some of that browser's data is damaged."
     },
     "import-review-shows-errors": {
       "category": "fixed",
-      "message": "On Mac, when Crest can't prepare an import from another browser, the review now shows an error with Back and Skip instead of quitting."
+      "message": "On Mac, when Zee can't prepare an import from another browser, the review now shows an error with Back and Skip instead of quitting."
     },
     "arc-import-keeps-tab-renames": {
       "category": "fixed",
@@ -5568,15 +5568,15 @@
     },
     "handoff-opens-page": {
       "category": "fixed",
-      "message": "On Mac, choosing Crest's Handoff icon for a page open on another device now opens that page."
+      "message": "On Mac, choosing Zee's Handoff icon for a page open on another device now opens that page."
     },
     "translation-check-crash": {
       "category": "fixed",
-      "message": "Crest no longer crashes while it checks which languages it can translate a page into."
+      "message": "Zee no longer crashes while it checks which languages it can translate a page into."
     },
     "peek-idle-cpu": {
       "category": "fixed",
-      "message": "An open Peek no longer keeps Crest busy while it sits still, which saves battery."
+      "message": "An open Peek no longer keeps Zee busy while it sits still, which saves battery."
     },
     "developer-url-drag-select": {
       "category": "fixed",
@@ -5588,7 +5588,7 @@
     },
     "sparkle-security-update": {
       "category": "fixed",
-      "message": "Crest's updater now includes two security fixes for how updates are installed."
+      "message": "Zee's updater now includes two security fixes for how updates are installed."
     },
     "recent-tabs-loaded-only": {
       "category": "improved",
@@ -5600,7 +5600,7 @@
     },
     "storage-pressure-crash": {
       "category": "fixed",
-      "message": "On Mac, Crest no longer quits when your disk is almost full and a site saves data."
+      "message": "On Mac, Zee no longer quits when your disk is almost full and a site saves data."
     },
     "back-closes-opened-tab": {
       "category": "new",
@@ -5644,7 +5644,7 @@
     },
     "setup-style-applies-to-spaces": {
       "category": "fixed",
-      "message": "Choosing Modern or Simple during setup now restyles your Spaces as choosing it in Settings does, including the Spaces you already had and the ones setup imports, instead of leaving them with crests. Setup also opens on the style you use, and imports from Settings bring Spaces in that style."
+      "message": "Choosing Modern or Simple during setup now restyles your Spaces as choosing it in Settings does, including the Spaces you already had and the ones setup imports, instead of leaving them with badges. Setup also opens on the style you use, and imports from Settings bring Spaces in that style."
     },
     "open-folder-archive-icon": {
       "category": "improved",
@@ -5664,11 +5664,11 @@
     },
     "chromium-update-planning": {
       "category": "internal",
-      "message": "Chromium updates are planned before they build: the tooling reports how each of Crest's patches carries over and what upstream fixed, moves the built engine to a security fix in place, and opens scheduled updates as drafts for a maintainer to publish."
+      "message": "Chromium updates are planned before they build: the tooling reports how each of Zee's patches carries over and what upstream fixed, moves the built engine to a security fix in place, and opens scheduled updates as drafts for a maintainer to publish."
     },
-    "crest-0-10-customization": {
+    "zee-0-10-customization": {
       "category": "new",
-      "message": "Crest 0.10 is about customization. Three styles set how much Crest shows, the address bar can sit above the page on Mac, the sidebar gains spacing, tab size, hover previews and groups, and a Material color setting keeps glass surfaces and text readable over any Space."
+      "message": "Zee 0.10 is about customization. Three styles set how much Zee shows, the address bar can sit above the page on Mac, the sidebar gains spacing, tab size, hover previews and groups, and a Material color setting keeps glass surfaces and text readable over any Space."
     }
   }
 }

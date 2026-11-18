@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       source_sha:
-        description: Exact Crest commit whose engine will be packaged
+        description: Exact Zee commit whose engine will be packaged
         required: true
         type: string
 
@@ -44,15 +44,15 @@ jobs:
     name: Build missing engine on the Mac
     needs: inspect
     if: needs.inspect.outputs.ready != 'true'
-    runs-on: [self-hosted, macOS, ARM64, crest-chromium]
+    runs-on: [self-hosted, macOS, ARM64, badge-chromium]
     timeout-minutes: 1440
     concurrency:
-      group: crest-chromium-maintenance
+      group: badge-chromium-maintenance
       cancel-in-progress: false
     permissions:
       contents: write
     env:
-      CREST_CHROMIUM_WORKSPACE: ${{ vars.CHROMIUM_WORKSPACE }}
+      ZEE_CHROMIUM_WORKSPACE: ${{ vars.CHROMIUM_WORKSPACE }}
       CHROMIUM_SDK: ${{ vars.CHROMIUM_SDK }}
     steps:
       # Called only by trusted release dispatches and merged pull requests.
@@ -63,11 +63,11 @@ jobs:
           persist-credentials: false
       - name: Check managed build tools
         run: |
-          test -n "$CREST_CHROMIUM_WORKSPACE"
+          test -n "$ZEE_CHROMIUM_WORKSPACE"
           test -d "$CHROMIUM_SDK"
-          test -x "$CREST_CHROMIUM_WORKSPACE/tools/bin/python"
+          test -x "$ZEE_CHROMIUM_WORKSPACE/tools/bin/python"
           echo '/opt/homebrew/bin' >> "$GITHUB_PATH"
-          echo "$CREST_CHROMIUM_WORKSPACE/tools/bin" >> "$GITHUB_PATH"
+          echo "$ZEE_CHROMIUM_WORKSPACE/tools/bin" >> "$GITHUB_PATH"
       - name: Test fork and release contracts
         run: python -m unittest discover -s Scripts/Tests
       - name: Prepare and compile the engine
@@ -82,7 +82,7 @@ jobs:
           ENGINE_SOURCE: ${{ steps.build.outputs.source }}
         run: |
           python Scripts/control-plane/publish-chromium-engine.py \
-            --source "$ENGINE_SOURCE" --ninja "$CREST_CHROMIUM_WORKSPACE/tools/bin/ninja" \
+            --source "$ENGINE_SOURCE" --ninja "$ZEE_CHROMIUM_WORKSPACE/tools/bin/ninja" \
             --repository "$GITHUB_REPOSITORY"
 
   ready:

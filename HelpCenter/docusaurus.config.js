@@ -2,13 +2,13 @@ const {themes: prismThemes} = require('prism-react-renderer');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Crest Help',
-  tagline: 'Help articles for Crest.',
-  favicon: 'img/crest-logo.svg',
+  title: 'Zee Help',
+  tagline: 'Help articles for Zee.',
+  favicon: 'img/zee-logo.svg',
   url: 'https://crestbrowser.com',
   baseUrl: '/guides/',
   organizationName: 'pauljoda',
-  projectName: 'Crest-Website',
+  projectName: 'Zee-Website',
   trailingSlash: true,
   onBrokenLinks: 'throw',
   markdown: {
@@ -48,7 +48,7 @@ const config = {
     metadata: [
       {
         name: 'description',
-        content: 'Help articles for Crest on Mac, iPad, and iPhone.',
+        content: 'Help articles for Zee on Mac, iPad, and iPhone.',
       },
     ],
     colorMode: {
@@ -57,10 +57,10 @@ const config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Crest Help',
+      title: 'Zee Help',
       logo: {
-        alt: 'Crest',
-        src: 'img/crest-logo.svg',
+        alt: 'Zee',
+        src: 'img/zee-logo.svg',
       },
       items: [
         {type: 'docSidebar', sidebarId: 'helpSidebar', position: 'left', label: 'Articles'},
@@ -81,7 +81,7 @@ const config = {
       style: 'dark',
       links: [
         {
-          title: 'Crest',
+          title: 'Zee',
           items: [
             {label: 'Product site', href: 'https://crestbrowser.com/'},
             {label: 'Download for Mac', href: 'https://github.com/pauljoda/Crest/releases/latest'},
@@ -109,7 +109,7 @@ const config = {
           ],
         },
       ],
-      copyright: `Crest is not affiliated with Arc. © ${new Date().getFullYear()} Paul Davis.`,
+      copyright: `Zee is not affiliated with Arc. © ${new Date().getFullYear()} Paul Davis.`,
     },
     prism: {
       theme: prismThemes.github,

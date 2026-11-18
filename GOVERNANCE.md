@@ -1,6 +1,6 @@
 # Governance
 
-Crest is an open source project maintained by Paul Davis. This document explains
+Zee is an open source project maintained by Paul Davis. This document explains
 who makes decisions now and how the maintainer group can grow.
 
 ## Maintainer
@@ -8,12 +8,12 @@ who makes decisions now and how the maintainer group can grow.
 [Paul Davis](https://github.com/pauljoda) is the current lead maintainer and
 release owner. The maintainer is responsible for product direction, review and
 merge decisions, security coordination, Apple-platform signing, and official
-Crest releases.
+Zee releases.
 
 Official signing identities, bundle identifiers, hosted services, trademarks,
 and distribution credentials remain under the project owner's control. Source
 code contributions are accepted under the repository's MPL-2.0 license; the
-Crest name and visual identity remain governed by [TRADEMARKS.md](TRADEMARKS.md).
+Zee name and visual identity remain governed by [TRADEMARKS.md](TRADEMARKS.md).
 
 ## How decisions are made
 
@@ -44,7 +44,7 @@ is at the maintainer's discretion and can be revoked at any time.
 
 Maintainer access is earned through sustained, trustworthy participation:
 high-quality contributions, useful review, respectful community work, and
-demonstrated care for Crest's architecture and release boundaries. Access grows
+demonstrated care for Zee's architecture and release boundaries. Access grows
 gradually from contribution and triage to review and, when appropriate, merge
 or release responsibilities.
 

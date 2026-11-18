@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Crest's emoji picker catalog from Unicode's official test data."""
+"""Generate Zee's emoji picker catalog from Unicode's official test data."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ DEFAULT_UNICODE_VERSION = "17.0"
 DEFAULT_SOURCE_URL = (
     f"https://www.unicode.org/Public/{DEFAULT_UNICODE_VERSION}.0/emoji/emoji-test.txt"
 )
-DEFAULT_OUTPUT = REPOSITORY_ROOT / "CrestShared" / "Resources" / "EmojiCatalog.json"
+DEFAULT_OUTPUT = REPOSITORY_ROOT / "ZeeShared" / "Resources" / "EmojiCatalog.json"
 
 GROUP_CATEGORIES = {
     "Smileys & Emotion": "people",
@@ -109,7 +109,7 @@ def render_json(catalog: dict[str, object]) -> str:
 
 
 def download_source(source_url: str) -> str:
-    request = Request(source_url, headers={"User-Agent": "Crest emoji catalog generator"})
+    request = Request(source_url, headers={"User-Agent": "Zee emoji catalog generator"})
     with urlopen(request, timeout=30) as response:
         return response.read().decode("utf-8")
 

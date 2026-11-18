@@ -7,7 +7,7 @@ name: Content filter
 on:
   pull_request:
     paths:
-      - CrestCore/native/ContentFilter/**
+      - ZeeCore/native/ContentFilter/**
       - Scripts/control-plane/content_filter.py
       - Scripts/control-plane/fetch-content-filter.py
       - Scripts/control-plane/publish-content-filter.py
@@ -15,7 +15,7 @@ on:
   push:
     branches: [main]
     paths:
-      - CrestCore/native/ContentFilter/**
+      - ZeeCore/native/ContentFilter/**
       - Scripts/control-plane/content_filter.py
       - Scripts/control-plane/fetch-content-filter.py
       - Scripts/control-plane/publish-content-filter.py
@@ -43,7 +43,7 @@ jobs:
         run: python3 Scripts/control-plane/content_filter.py build --check
 
       - name: Test the content filter
-        working-directory: CrestCore/native/ContentFilter
+        working-directory: ZeeCore/native/ContentFilter
         run: cargo test --release --locked
 
       - name: Require the locked archive to be published

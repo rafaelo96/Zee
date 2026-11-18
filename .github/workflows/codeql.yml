@@ -33,15 +33,15 @@ jobs:
 
       - name: Build analyzed target
         env:
-          CREST_ISOLATED_SESSION: "1"
+          ZEE_ISOLATED_SESSION: "1"
         run: |
           Scripts/bootstrap.sh
           xcodebuild build \
-            -project Crest.xcodeproj \
-            -scheme Crest \
+            -project Zee.xcodeproj \
+            -scheme Zee \
             -configuration Debug \
             -destination 'generic/platform=macOS' \
-            -derivedDataPath "$RUNNER_TEMP/crest-codeql-derived-data" \
+            -derivedDataPath "$RUNNER_TEMP/zee-codeql-derived-data" \
             CODE_SIGNING_ALLOWED=NO
 
       - name: Analyze
@@ -49,4 +49,4 @@ jobs:
 
       - name: Remove generated build data
         if: always()
-        run: find "$RUNNER_TEMP/crest-codeql-derived-data" -depth -delete 2>/dev/null || true
+        run: find "$RUNNER_TEMP/zee-codeql-derived-data" -depth -delete 2>/dev/null || true

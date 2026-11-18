@@ -1,16 +1,16 @@
 name: Feature request
-description: Propose a user problem Crest could solve.
+description: Propose a user problem Zee could solve.
 title: "feature: "
 labels: [enhancement]
 body:
   - type: markdown
     attributes:
-      value: Discuss early ideas and alternatives in [r/CrestBrowser](https://www.reddit.com/r/CrestBrowser). Use this form when there is a clear user problem and a concrete outcome Crest could track. A request isn't a commitment; the maintainer decides what goes on the roadmap.
+      value: Discuss early ideas and alternatives in [r/CrestBrowser](https://www.reddit.com/r/CrestBrowser). Use this form when there is a clear user problem and a concrete outcome Zee could track. A request isn't a commitment; the maintainer decides what goes on the roadmap.
   - type: textarea
     id: problem
     attributes:
       label: Problem
-      description: What are you trying to accomplish, and where does Crest get in the way today?
+      description: What are you trying to accomplish, and where does Zee get in the way today?
     validations:
       required: true
   - type: textarea

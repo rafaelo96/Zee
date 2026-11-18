@@ -7,7 +7,7 @@ keywords: [Peek, Quick Window, Little Arc, preview, external links, transient br
 
 # Use Peek and Quick Window
 
-Peek and Quick Window are transient browsing surfaces. Both use a real Crest Space profile so the page can access the right signed-in session and Crest Passwords, but neither has to become a durable tab.
+Peek and Quick Window are transient browsing surfaces. Both use a real Zee Space profile so the page can access the right signed-in session and Zee Passwords, but neither has to become a durable tab.
 
 ## Peek
 
@@ -35,11 +35,11 @@ To see a link under another account on Mac, right-click it and choose a Space fr
 
 On Mac, a Quick Window has a browser window's controls: Back and Forward, Site Controls for the page's permissions and extensions, and the Space's pinned extensions, with the ones that don't fit behind **»**. Click its address or press **Command-L** to search or go somewhere else in the same Quick Window. Right-click a link and choose **Open Link in New Quick Window** to open it in another Quick Window.
 
-Open a blank Quick Window with **Option-Shift-Command-N** on Mac, including from another Quick Window, and from any app while Crest is open, where it opens over the window you're in. While Crest is in the background, that shortcut opens a Quick Window instead of acting in the app in front; change or clear it in **Settings → Shortcuts**. In **Settings → Links**, choose whether external links use Quick Window, the most recent Space, or a chosen Space.
+Open a blank Quick Window with **Option-Shift-Command-N** on Mac, including from another Quick Window, and from any app while Zee is open, where it opens over the window you're in. While Zee is in the background, that shortcut opens a Quick Window instead of acting in the app in front; change or clear it in **Settings → Shortcuts**. In **Settings → Links**, choose whether external links use Quick Window, the most recent Space, or a chosen Space.
 
 ### Sign-in and other popup windows
 
-When a page opens a popup window, like a **Sign in with Google** or **Sign in with Apple** window, Crest for Mac shows it in a Quick Window in the same Space. The popup stays connected to the page that opened it, uses the same engine as that page, and closes itself when the sign-in finishes. Choose **Open in** and the Space to keep it as a tab instead, or close the Quick Window to drop it. A page that opens a new tab, rather than a popup window, still opens a tab beside it. On iPhone and iPad, a popup opens as a tab.
+When a page opens a popup window, like a **Sign in with Google** or **Sign in with Apple** window, Zee for Mac shows it in a Quick Window in the same Space. The popup stays connected to the page that opened it, uses the same engine as that page, and closes itself when the sign-in finishes. Choose **Open in** and the Space to keep it as a tab instead, or close the Quick Window to drop it. A page that opens a new tab, rather than a popup window, still opens a tab beside it. On iPhone and iPad, a popup opens as a tab.
 
 ## Shared windows and Blank Window on Mac
 

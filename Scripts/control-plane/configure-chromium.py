@@ -21,13 +21,13 @@ def main():
     args = parser.parse_args()
     source = args.source.resolve()
     if source == REPO or REPO in source.parents:
-        parser.error("Chromium sources and products must be outside Crest")
-    output = source / "out/CrestBaseline"
+        parser.error("Chromium sources and products must be outside Zee")
+    output = source / "out/ZeeBaseline"
     arguments = output / "args.gn"
     gn = output / "gn"
     if not arguments.is_file() or not gn.is_file():
         parser.error("Prepare the pinned source before configuring it")
-    lock = json.loads((REPO / "CrestEngines/Chromium/source.lock.json").read_text())
+    lock = json.loads((REPO / "ZeeEngines/Chromium/source.lock.json").read_text())
     settings = {**lock["buildArguments"], **lock[f"{args.configuration}BuildArguments"]}
     if args.configuration == "performance":
         if args.sdk is None or args.pgo_profile is None:
@@ -53,7 +53,7 @@ def main():
         # must live beneath root_build_dir, just like sdk_info.py's aliases.
         # V8's metagen queries GN from a copy of the build directory that
         # carries only `xcode_links`, so the alias lives there too.
-        sdk_link = output / "xcode_links/crest" / sdk.name
+        sdk_link = output / "xcode_links/zee" / sdk.name
         if sdk_link.exists() or sdk_link.is_symlink():
             if not sdk_link.is_symlink() or sdk_link.resolve() != sdk:
                 parser.error(f"SDK alias already belongs to another path: {sdk_link}")
@@ -78,7 +78,7 @@ def main():
     configured = "\n".join(retained).rstrip() + "\n\n"
     configured += "\n".join(f"{key}={json.dumps(value)}" for key, value in settings.items()) + "\n"
     arguments.write_text(configured)
-    command = [str(gn), "gen", "out/CrestBaseline", "--fail-on-unused-args"]
+    command = [str(gn), "gen", "out/ZeeBaseline", "--fail-on-unused-args"]
     try:
         subprocess.run(command, cwd=source, check=True)
     except subprocess.CalledProcessError:

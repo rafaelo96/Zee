@@ -13,7 +13,7 @@
 <!-- Leave both boxes empty when no AI tool touched this change. -->
 
 - [ ] AI tools helped produce this change.
-- [ ] I ran the `crest-contribution` skill (`.agents/skills/crest-contribution/SKILL.md`), followed it, and reviewed every generated line.
+- [ ] I ran the `zee-contribution` skill (`.agents/skills/zee-contribution/SKILL.md`), followed it, and reviewed every generated line.
 
 ## Boundaries
 

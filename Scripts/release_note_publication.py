@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read and advance Crest's per-channel release-note publication cursors."""
+"""Read and advance Zee's per-channel release-note publication cursors."""
 
 from __future__ import annotations
 

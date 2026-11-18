@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Identify the prebuilt Chromium engine a Crest source tree needs.
+"""Identify the prebuilt Chromium engine a Zee source tree needs.
 
-The engine — Chromium with Crest's host patch and overlay compiled in — takes
+The engine — Chromium with Zee's host patch and overlay compiled in — takes
 hours to build and cannot be built on a hosted runner, so releases download a
 prebuilt engine published once per engine revision. Its key hashes every input
 that is compiled into the engine: the pinned source lock, the host patch and
@@ -34,16 +34,16 @@ ENGINE_HELPER_KINDS = {
 }
 
 INPUTS = (
-    "CrestEngines/Chromium/source.lock.json",
-    "CrestEngines/Chromium/host-inputs.json",
-    "CrestEngines/Chromium/Patches",
-    "CrestEngines/Chromium/Overlay",
-    "CrestEngines/Chromium/Apple/CrestChromiumHost.h",
-    "CrestContracts/include/crest_core.h",
-    "CrestContracts/include/crest_app.h",
-    "CrestContracts/include/crest_engine.h",
-    "CrestContracts/include/crest_engine_contract.h",
-    "CrestCore/native/ContentFilter/include/crest_content_filter.h",
+    "ZeeEngines/Chromium/source.lock.json",
+    "ZeeEngines/Chromium/host-inputs.json",
+    "ZeeEngines/Chromium/Patches",
+    "ZeeEngines/Chromium/Overlay",
+    "ZeeEngines/Chromium/Apple/ZeeChromiumHost.h",
+    "ZeeContracts/include/zee_core.h",
+    "ZeeContracts/include/zee_app.h",
+    "ZeeContracts/include/zee_engine.h",
+    "ZeeContracts/include/zee_engine_contract.h",
+    "ZeeCore/native/ContentFilter/include/zee_content_filter.h",
     "Scripts/control-plane/prepare-chromium.py",
     "Scripts/control-plane/apply-chromium-host.py",
     "Scripts/control-plane/configure-chromium.py",
@@ -92,7 +92,7 @@ def host_patch(repo: Path) -> str:
     A file may appear in more than one patch; a later section applies to the
     earlier ones' result, so reversing the host reverses the sections' order.
     """
-    patches = repo / "CrestEngines/Chromium/Patches"
+    patches = repo / "ZeeEngines/Chromium/Patches"
     combined = []
     for line in (patches / "series").read_text().splitlines():
         name = line.split("#", 1)[0].strip()
@@ -116,7 +116,7 @@ def release_tag(key: str) -> str:
 
 
 def asset_name(key: str) -> str:
-    return f"Crest-Chromium-Engine-{key[:16]}-arm64.zip"
+    return f"Zee-Chromium-Engine-{key[:16]}-arm64.zip"
 
 
 def main():

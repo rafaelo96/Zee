@@ -1,10 +1,10 @@
-# Crest documentation
+# Zee documentation
 
-The product site and [Crest Help](https://crestbrowser.com/guides/) explain how
+The product site and [Zee Help](https://crestbrowser.com/guides/) explain how
 to use the browser. This directory describes the source, product behavior, and
 build and release requirements for contributors.
 
-Crest ships Chromium and WebKit together on Mac, backed by the shared native
+Zee ships Chromium and WebKit together on Mac, backed by the shared native
 core. iPhone and iPad keep WebKit. Start with the [engine and migration guide](../HelpCenter/docs/browsing/engines.md)
 for user-visible behavior, or the architecture references below for ownership
 and implementation details.
@@ -28,12 +28,12 @@ and implementation details.
 - [Core architecture](Architecture/CoreArchitecture.md)
 - [Portable control plane](Architecture/ControlPlane.md)
 - [Engine abstraction](Architecture/EngineAbstractionCompletion.md)
-- [Chromium engine](../CrestEngines/Chromium/README.md)
+- [Chromium engine](../ZeeEngines/Chromium/README.md)
 
 ## Project participation
 
 See [SUPPORT.md](../SUPPORT.md) for community and reporting routes,
 [CONTRIBUTING.md](../CONTRIBUTING.md) for local development,
 [GOVERNANCE.md](../GOVERNANCE.md) for ownership and decision making, and the
-[`crest-contribution` skill](../.agents/skills/crest-contribution/SKILL.md)
+[`zee-contribution` skill](../.agents/skills/zee-contribution/SKILL.md)
 for the rules every AI-assisted change must follow.

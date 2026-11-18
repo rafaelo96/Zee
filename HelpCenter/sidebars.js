@@ -8,7 +8,7 @@ const sidebars = {
       collapsed: false,
       items: [
         'getting-started/install-and-update-mac',
-        'getting-started/move-to-crest',
+        'getting-started/move-to-zee',
         'getting-started/settings-reference',
         'browsing/engines',
       ],
@@ -25,7 +25,7 @@ const sidebars = {
         'tabs/split-view',
         'spaces/private-spaces',
         'spaces/sync-across-devices',
-        'spaces/crest-passwords',
+        'spaces/zee-passwords',
       ],
     },
     {

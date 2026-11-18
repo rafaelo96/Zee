@@ -2,7 +2,7 @@
 set -euo pipefail
 
 script_repository_root="${0:A:h:h}"
-repository_root="${CREST_FORMAT_REPOSITORY_ROOT:-$script_repository_root}"
+repository_root="${ZEE_FORMAT_REPOSITORY_ROOT:-$script_repository_root}"
 base_ref=""
 typeset -a explicit_paths
 
@@ -72,7 +72,7 @@ if (( ${#swift_paths[@]} == 0 )); then
   exit 0
 fi
 
-formatter="${CREST_SWIFT_FORMAT:-}"
+formatter="${ZEE_SWIFT_FORMAT:-}"
 if [[ -z "$formatter" ]]; then
   formatter="$(xcrun --find swift-format 2>/dev/null || true)"
 fi

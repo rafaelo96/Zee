@@ -10,7 +10,7 @@ The core's builds run this, so a checkout without Rust builds the core:
   Native AOT. On a Mac that library is linked from the verified macOS static
   library; elsewhere, such as CI's Linux runner, it is compiled from source.
 
-When the crate's sources no longer match the lock, or CREST_CONTENT_FILTER_FROM_SOURCE
+When the crate's sources no longer match the lock, or ZEE_CONTENT_FILTER_FROM_SOURCE
 is 1, the library is compiled from source instead, which needs Rust.
 """
 import argparse
@@ -106,19 +106,19 @@ def source_library(runtime: str) -> Path:
     if runtime != "host":
         return release / content_filter.LIBRARY
     suffix = {"Darwin": ".dylib", "Windows": ".dll"}.get(platform.system(), ".so")
-    return release / f"libcrest_content_filter{suffix}"
+    return release / f"libzee_content_filter{suffix}"
 
 
 def mac_test_library(static_library: Path, folder: Path) -> Path:
     """A dynamic library holding every export of the verified static one."""
-    library = folder / "host/libcrest_content_filter.dylib"
+    library = folder / "host/libzee_content_filter.dylib"
     stamp = library.with_suffix(".source")
     if library.is_file() and stamp.is_file() and stamp.read_text() == content_filter.sha256(static_library):
         return library
     library.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(["xcrun", "clang", "-dynamiclib", "-arch", "arm64",
                     f"-mmacosx-version-min={content_filter.DEPLOYMENT_TARGET}",
-                    f"-Wl,-force_load,{static_library}", "-install_name", "@rpath/libcrest_content_filter.dylib",
+                    f"-Wl,-force_load,{static_library}", "-install_name", "@rpath/libzee_content_filter.dylib",
                     "-o", library], check=True)
     stamp.write_text(content_filter.sha256(static_library))
     return library
@@ -127,11 +127,11 @@ def mac_test_library(static_library: Path, folder: Path) -> Path:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runtime", required=True, choices=[*content_filter.TARGETS, "host"])
-    parser.add_argument("--cache", type=Path, default=content_filter.REPOSITORY / "CrestCore/artifacts/content-filter")
-    parser.add_argument("--repository", default=os.environ.get("CREST_CONTENT_FILTER_REPOSITORY", "pauljoda/Crest"))
+    parser.add_argument("--cache", type=Path, default=content_filter.REPOSITORY / "ZeeCore/artifacts/content-filter")
+    parser.add_argument("--repository", default=os.environ.get("ZEE_CONTENT_FILTER_REPOSITORY", "pauljoda/Crest"))
     args = parser.parse_args()
 
-    from_source = os.environ.get("CREST_CONTENT_FILTER_FROM_SOURCE") == "1"
+    from_source = os.environ.get("ZEE_CONTENT_FILTER_FROM_SOURCE") == "1"
     if not from_source and content_filter.read_lock()["key"] != content_filter.artifact_key():
         if content_filter.cargo() is None:
             raise SystemExit(f"The content filter's sources differ from {content_filter.LOCK} and no Rust "

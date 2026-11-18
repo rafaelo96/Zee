@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression coverage for Crest's direct macOS release signing path."""
+"""Regression coverage for Zee's direct macOS release signing path."""
 
 from __future__ import annotations
 
@@ -67,7 +67,7 @@ class DirectDistributionContractTests(unittest.TestCase):
             "DEVELOPER_ID_PROVISIONING_PROFILE_BASE64",
             'CODE_SIGN_STYLE=Manual',
             'CODE_SIGN_IDENTITY="Developer ID Application"',
-            'CREST_PROVISIONING_PROFILE_SPECIFIER="Crest Developer ID"',
+            'ZEE_PROVISIONING_PROFILE_SPECIFIER="Zee Developer ID"',
             "com.apple.application-identifier",
             "com.apple.developer.aps-environment",
             "com.apple.developer.icloud-container-identifiers:0",

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression coverage for Crest's semantic-version contract."""
+"""Regression coverage for Zee's semantic-version contract."""
 
 from __future__ import annotations
 
@@ -27,8 +27,8 @@ class VersionContractTests(unittest.TestCase):
 
         for relative_path in (
             "Config/Version.xcconfig",
-            "CrestMac/Configuration/Crest-Info.plist",
-            "CrestMobile/Configuration/CrestMobile-Info.plist",
+            "ZeeMac/Configuration/Zee-Info.plist",
+            "ZeeMobile/Configuration/ZeeMobile-Info.plist",
             "Documentation/ReleaseNotes.json",
             "project.yml",
         ):
@@ -37,9 +37,9 @@ class VersionContractTests(unittest.TestCase):
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
 
-        (self.fixture_root / "Crest.xcodeproj").mkdir()
+        (self.fixture_root / "Zee.xcodeproj").mkdir()
         self.environment = os.environ | {
-            "CREST_VERSION_REPOSITORY_ROOT": str(self.fixture_root),
+            "ZEE_VERSION_REPOSITORY_ROOT": str(self.fixture_root),
         }
         self.current_version = self.current_marketing_version()
         major, minor, patch = (
@@ -51,12 +51,12 @@ class VersionContractTests(unittest.TestCase):
 
         subprocess.run(["git", "init", "-q"], cwd=self.fixture_root, check=True)
         subprocess.run(
-            ["git", "config", "user.email", "crest-tests@example.com"],
+            ["git", "config", "user.email", "zee-tests@example.com"],
             cwd=self.fixture_root,
             check=True,
         )
         subprocess.run(
-            ["git", "config", "user.name", "Crest Tests"],
+            ["git", "config", "user.name", "Zee Tests"],
             cwd=self.fixture_root,
             check=True,
         )
@@ -130,7 +130,7 @@ class VersionContractTests(unittest.TestCase):
 
     @REQUIRES_PLUTIL
     def test_static_check_rejects_literal_plist_versions(self) -> None:
-        plist = self.fixture_root / "CrestMac" / "Configuration" / "Crest-Info.plist"
+        plist = self.fixture_root / "ZeeMac" / "Configuration" / "Zee-Info.plist"
         contents = plist.read_text().replace("$(MARKETING_VERSION)", "0.3.0")
         plist.write_text(contents)
 

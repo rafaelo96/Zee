@@ -2,10 +2,10 @@
 set -euo pipefail
 
 repository_root="${0:A:h:h}"
-derived_data="${CREST_DERIVED_DATA_PATH:-}"
+derived_data="${ZEE_DERIVED_DATA_PATH:-}"
 owns_derived_data=0
 if [[ -z "$derived_data" ]]; then
-  derived_data="$(mktemp -d /private/tmp/crest-validation.XXXXXX)"
+  derived_data="$(mktemp -d /private/tmp/zee-validation.XXXXXX)"
   owns_derived_data=1
 else
   mkdir -p "$derived_data"
@@ -23,17 +23,17 @@ python3 -m unittest discover -s Scripts/Tests
 Scripts/bootstrap.sh
 
 xcodebuild \
-  -project Crest.xcodeproj \
-  -scheme Crest \
+  -project Zee.xcodeproj \
+  -scheme Zee \
   -destination 'platform=macOS,arch=arm64' \
   -derivedDataPath "$derived_data" \
   test
 
-ios_destination="${CREST_IOS_DESTINATION:-platform=iOS Simulator,name=iPhone 17 Pro,OS=latest}"
+ios_destination="${ZEE_IOS_DESTINATION:-platform=iOS Simulator,name=iPhone 17 Pro,OS=latest}"
 xcodebuild \
-  -project Crest.xcodeproj \
-  -scheme CrestMobile \
+  -project Zee.xcodeproj \
+  -scheme ZeeMobile \
   -destination "$ios_destination" \
   -derivedDataPath "$derived_data" \
-  -only-testing:CrestMobileTests \
+  -only-testing:ZeeMobileTests \
   test

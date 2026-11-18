@@ -1,9 +1,9 @@
 # Content blocking
 
-Crest blocks ads and trackers with filter lists in EasyList and uBlock Origin
+Zee blocks ads and trackers with filter lists in EasyList and uBlock Origin
 syntax, matched by Brave's open-source engine,
 [adblock-rust](https://github.com/brave/adblock-rust), which the core links as
-its content filter (`CrestCore/native/ContentFilter`). The core owns the lists,
+its content filter (`ZeeCore/native/ContentFilter`). The core owns the lists,
 their updates, the level blocking runs at and the sites where it is off, all of
 them the same in every Space, and it produces what each engine enforces.
 
@@ -23,7 +23,7 @@ and up to 512 KB, as My Filters (`SetCustomFilters`). Both are device
 preferences, kept by the device store, and apply beside the catalog's lists. A
 list the person added takes its title from its `! Title:` header.
 
-Crest never ships a copy of a list. The platform downloads what the core says is
+Zee never ships a copy of a list. The platform downloads what the core says is
 due (`DueFilterDownloads`) from the list's maintainers, with the validators of
 the copy it holds, and hands the result back (`FilterDownloadFetched`,
 `FilterDownloadNotModified`, `FilterDownloadFailed`). It downloads over https
@@ -44,21 +44,21 @@ The resources that scriptlets and redirect filters name are downloaded the same
 way, from uBlock Origin's own release, which
 `Scripts/control-plane/ublock-resources` converts into the engine's format and
 publishes as a release asset. They are data the engine loads, not part of
-Crest's binary.
+Zee's binary.
 
 uBlock Origin's lists wrap platform-specific rules in `!#if` blocks, which the
 engine would read as comments. `FilterListText` resolves them for the platform
 before the engine sees them: Safari's conditions for WebKit, plus `env_mobile`
 on iPhone and iPad, and Chromium's for Chromium.
 
-Until the first list arrives, Crest's own baseline rules block third-party
+Until the first list arrives, Zee's own baseline rules block third-party
 loads from well-known advertising and analytics hosts. They stay beside the
 lists afterwards.
 
 ## Level and sites
 
 Blocking holds for every Space alike. `ContentBlockingLevel` decides how much
-Crest blocks: Off blocks nothing, Balanced turns on the lists that block ads and
+Zee blocks: Off blocks nothing, Balanced turns on the lists that block ads and
 trackers without breaking sites, and Strict adds AdGuard Base and the annoyance
 lists. Choosing a level that blocks (`SetContentBlockingLevel`) sets every
 catalog list to what it turns on and forgets the person's own choices, from Off
@@ -93,7 +93,7 @@ list that is on together and splits the rules into lists of at most 70,000,
 well under WebKit's 150,000, with every exception repeated at the end of each.
 Each list's identifier changes with its rules, so a rule-list store compiles
 it once and keeps it across launches; the core answers the source of one the
-store lacks (`ContentRuleListSource`), and the lists Crest compiled earlier are
+store lacks (`ContentRuleListSource`), and the lists Zee compiled earlier are
 removed when no set names them. The set before the current one is kept, its
 converted rules in the core and its compiled lists in the store for the rest of
 the launch, so switching back, as between Balanced and Strict, applies at once.
@@ -101,7 +101,7 @@ WebKit's store compiles on the main thread and parses a whole list first, so a
 set it has never seen still costs that parse once.
 
 Each page owns its user content controller. A main-frame navigation installs
-or removes Crest's lists for the site it goes to before the page loads it, so a
+or removes Zee's lists for the site it goes to before the page loads it, so a
 site's switch costs no compilation. A list update takes effect on each page's
 next navigation; the page whose site the person switched reloads. The lists
 carry the rules that block loads, and the person's own hiding rules, which
@@ -124,13 +124,13 @@ directly rather than converted rules. The core compiles every list that is on,
 resolved for Chromium's conditions (`env_chromium`), into one filter on a
 worker, saves it beside the lists so the next launch only loads it, and puts it
 in a `ContentFilterSlot`. The engine binding finds the slot once, through
-`crest_app_content_filter_slot`, and checks each request with
-`crest_content_filter_slot_check` on a sequence of its own: the check takes no
+`zee_app_content_filter_slot`, and checks each request with
+`zee_content_filter_slot_check` on a sequence of its own: the check takes no
 core lock and runs no managed code, and a check under way when the filter is
 replaced finishes with the one it began with.
 
 The host's `content-filter.patch` puts a filtering URL loader factory in front of
-each Crest page's document and frame-navigation factories. A request the filter
+each Zee page's document and frame-navigation factories. A request the filter
 blocks fails with `ERR_BLOCKED_BY_CLIENT`; a top-level document is never
 blocked. Each redirect a request it allowed is about to follow is checked the
 same way, as the request it becomes. The filter judges every request as part
@@ -156,9 +156,9 @@ Chromium applies no hiding rules of its own.
 ## Cosmetic filtering
 
 Blocking a request can leave the box it would have filled, so a page shows
-empty space where an ad was. Crest's cosmetic bridge
+empty space where an ad was. Zee's cosmetic bridge
 (`BrowserCosmeticFilterContentBridge`) closes those boxes on both engines, as
-ad blockers such as uBlock Origin do. It runs in every document, in Crest's
+ad blockers such as uBlock Origin do. It runs in every document, in Zee's
 own content world, and asks the core (`DocumentCosmetics`), which answers from
 its compiled filter for the page's Space and the site it shows:
 
@@ -205,8 +205,8 @@ the document lives:
 The hiding rules, the site's and the generic ones alike, go where the page's
 scripts cannot reach them where the engine allows it:
 
-- On Chromium, each frame's renderer gives Crest's content world alone
-  `__crestUserSheet.insert(css)` (`chrome/renderer/crest/crest_user_sheet.cc`,
+- On Chromium, each frame's renderer gives Zee's content world alone
+  `__zeeUserSheet.insert(css)` (`chrome/renderer/zee/zee_user_sheet.cc`,
   wired by `content-filter.patch`), which adds the rules to the document as a
   user style sheet, as extensions' injected CSS is. The page can't list or read
   such a sheet, so it can't learn which rules matched the site, the person's
@@ -231,10 +231,10 @@ element named as one (`ad`, `advert`, `billboard`, `leaderboard`, `dfp` and the
 like) or holding only an ad label such as "Advertisement", that shows no text,
 image, video, frame or control, no image still to load and no background
 image. A collapsed slot shows again when something it may show arrives inside
-it, and the next sweep looks at it afresh, a few times at most. Crest's
+it, and the next sweep looks at it afresh, a few times at most. Zee's
 baseline also hides a JW Player video while it floats over the page.
 
-A page on a site where Crest does not block gets nothing, and the bridge
+A page on a site where Zee does not block gets nothing, and the bridge
 stops. The compiled filter is built on every platform for this: with
 Chromium's `!#if` conditions on the Mac, where Chromium also checks requests
 against it, and with Safari's on iPhone and iPad.

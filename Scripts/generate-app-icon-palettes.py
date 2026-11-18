@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate bundled palette icons from Crest's existing Icon Composer artwork."""
+"""Generate bundled palette icons from Zee's existing Icon Composer artwork."""
 import colorsys
 import json
 import re
@@ -8,10 +8,10 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-COLOR_SOURCE = ROOT / "CrestShared/Domain/BrowserSpace/Branding/BrowserSpaceBrandColor.swift"
-PALETTE_SOURCE = ROOT / "CrestShared/Domain/BrowserSpace/Branding/BrowserSpaceHousePalette.swift"
-ICON_ROOT = ROOT / "CrestShared/Resources/CrestIcon"
-PREVIEWS = ROOT / "CrestShared/Resources/AppIconPreviews.xcassets"
+COLOR_SOURCE = ROOT / "ZeeShared/Domain/BrowserSpace/Branding/BrowserSpaceBrandColor.swift"
+PALETTE_SOURCE = ROOT / "ZeeShared/Domain/BrowserSpace/Branding/BrowserSpaceHousePalette.swift"
+ICON_ROOT = ROOT / "ZeeShared/Resources/ZeeIcon"
+PREVIEWS = ROOT / "ZeeShared/Resources/AppIconPreviews.xcassets"
 
 def write_json(path, value):
     path.write_text(json.dumps(value, indent=2) + "\n")
@@ -30,7 +30,7 @@ def dark_flag_color(color, minimum_lightness):
 
 def dark_rail_color(charge):
     # A pale, palette-tinted binding defines the left silhouette like the
-    # original Crest icon, instead of merging into the tile background.
+    # original Zee icon, instead of merging into the tile background.
     return hex_color(channel + (1 - channel) * 0.68 for channel in rgb(charge))
 
 def main():
@@ -43,9 +43,9 @@ def main():
     palettes = re.findall(r"case \.(\w+): \[\.(\w+), \.(\w+), \.(\w+)\]", PALETTE_SOURCE.read_text())
     PREVIEWS.mkdir(exist_ok=True)
     write_json(PREVIEWS / "Contents.json", {"info": {"author": "xcode", "version": 1}})
-    template = ICON_ROOT / "Crest.icon"
+    template = ICON_ROOT / "Zee.icon"
     for name, field, primary, charge in palettes:
-        icon_name = "Crest" + name.title()
+        icon_name = "Zee" + name.title()
         destination = ICON_ROOT / (icon_name + ".icon")
         (destination / "Assets").mkdir(parents=True, exist_ok=True)
         (destination / "icon.json").write_text((template / "icon.json").read_text())
@@ -66,9 +66,9 @@ def main():
         # selected .icon with its own light, dark, tinted, and clear treatment.
         layers = []
         for layer in ["Background", "Coral", "Sky", "Butter", "Rail"]:
-            content = (destination / "Assets" / f"Crest{layer}.svg").read_text()
+            content = (destination / "Assets" / f"Zee{layer}.svg").read_text()
             inner = re.search(r"<svg[^>]*>(.*)</svg>", content, re.S).group(1)
-            layers.append(inner.replace("crest-banner", f"crest-banner-{layer}"))
+            layers.append(inner.replace("zee-banner", f"zee-banner-{layer}"))
         preview = PREVIEWS / (icon_name + "Preview.imageset")
         preview.mkdir(exist_ok=True)
         (preview / "icon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">' + "".join(layers) + "</svg>\n")
@@ -79,10 +79,10 @@ def main():
         })
     layers = []
     for layer in ["Background", "Coral", "Sky", "Butter", "Rail"]:
-        content = (template / "Assets" / f"Crest{layer}.svg").read_text()
+        content = (template / "Assets" / f"Zee{layer}.svg").read_text()
         inner = re.search(r"<svg[^>]*>(.*)</svg>", content, re.S).group(1)
-        layers.append(inner.replace("crest-banner", f"crest-banner-{layer}"))
-    preview = PREVIEWS / "CrestPreview.imageset"
+        layers.append(inner.replace("zee-banner", f"zee-banner-{layer}"))
+    preview = PREVIEWS / "ZeePreview.imageset"
     preview.mkdir(exist_ok=True)
     (preview / "icon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">' + "".join(layers) + "</svg>\n")
     write_json(preview / "Contents.json", {
@@ -95,12 +95,12 @@ def main():
     # Clear/Tinted still use the shared monochrome icon through Icon Services.
     developer = Path(subprocess.check_output(["xcode-select", "-p"], text=True).strip())
     exporter = developer.parent / "Applications/Icon Composer.app/Contents/Executables/ictool"
-    with tempfile.TemporaryDirectory(prefix="crest-icon-export-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="zee-icon-export-") as temporary:
         working = Path(temporary)
         padding_tool = working / "pad-mac-app-icon"
         subprocess.run(["xcrun", "swiftc", str(ROOT / "Scripts/pad-mac-app-icon.swift"),
                         "-o", str(padding_tool)], check=True)
-        for source in ICON_ROOT.glob("Crest*.icon"):
+        for source in ICON_ROOT.glob("Zee*.icon"):
             for appearance, rendition in [("Light", "Default"), ("Dark", "Dark")]:
                 target = PREVIEWS / (source.stem + "Dock" + appearance + ".imageset")
                 target.mkdir(exist_ok=True)

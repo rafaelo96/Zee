@@ -1,0 +1,119 @@
+import AppKit
+import WebKit
+
+@MainActor
+final class BrowserDesktopWebView: WKWebView {
+    /// The page that owns this view. Weak because the page owns it.
+    weak var menuHost: (any BrowserDesktopWebViewMenuHost)?
+    /// The page-owned record of this view's public AppKit editing responder.
+    weak var focusRestoration: BrowserWebFocusRestorationController?
+    weak var linkHover: BrowserLinkHoverController?
+    weak var linkDrag: BrowserLinkDragController?
+
+    override func mouseDown(with event: NSEvent) {
+        linkDrag?.mouseDown(event)
+        super.mouseDown(with: event)
+    }
+
+    override func viewWillMove(toSuperview newSuperview: NSView?) {
+        if superview !== newSuperview {
+            linkHover?.detach()
+            linkDrag?.detach()
+        }
+        super.viewWillMove(toSuperview: newSuperview)
+    }
+
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        if window == nil {
+            linkHover?.invalidate()
+            linkDrag?.detach()
+        }
+    }
+
+    override func becomeFirstResponder() -> Bool {
+        guard focusRestoration?.allowsNativeFocusAcquisition != false else {
+            return false
+        }
+        let becameFirstResponder = super.becomeFirstResponder()
+        if becameFirstResponder {
+            focusRestoration?.remember(self)
+        }
+        return becameFirstResponder
+    }
+
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
+        true
+    }
+
+    /// WebKit takes a swipe back through its own list and drops one it has no
+    /// entry for. That one goes on to the window, which goes back through the
+    /// core: there, the first page of a tab another tab opened closes it.
+    override func swipe(with event: NSEvent) {
+        guard event.deltaX > 0, !canGoBack else {
+            super.swipe(with: event)
+            return
+        }
+        nextResponder?.swipe(with: event)
+    }
+
+    /// Adds Zee's actions ahead of WebKit's native and extension items, led
+    /// by WebKit's own row that opens a link in a new tab.
+    override func willOpenMenu(_ menu: NSMenu, with event: NSEvent) {
+        super.willOpenMenu(menu, with: event)
+        let newTab = menuHost?.opensLinksInCurrentSpace == true ? menu.webKitOpenLinkInNewTabItem() : nil
+        menu.removeWebKitSelectionSearch()
+        guard let menuHost else { return }
+        // Without a capture of what the right-click landed on, Zee adds no
+        // rows of its own, and the new-tab row still leads.
+        let context = menuHost.takeMenuContext()
+        BrowserPageContextMenu(
+            actions: context.map {
+                menuHost.contextMenuActions(linkURL: $0.linkURL, selectionText: $0.selectionText)
+            } ?? [],
+            host: menuHost, view: self
+        ).insert(into: menu, leading: newTab)
+        guard let context else { return }
+        if context.isEditable, let paste = menu.webKitPasteItem {
+            let item = NSMenuItem(
+                title: String(localized: "Paste and Match Style"), action: #selector(pasteAsPlainTextFromMenu(_:)),
+                keyEquivalent: "")
+            item.target = self
+            item.isEnabled = paste.isEnabled
+            menu.insertItem(item, at: menu.index(of: paste) + 1)
+        }
+        if let imageDownloadURL = context.imageDownloadURL,
+            let item = menu.webKitDownloadImageItem
+        {
+            item.target = self
+            item.action = #selector(downloadImage(_:))
+            item.representedObject = imageDownloadURL
+        }
+    }
+
+    /// A capture belongs to one menu. Whatever this one did not use is dropped
+    /// here, so the next right-click starts from nothing even if its own report
+    /// never arrives.
+    override func didCloseMenu(_ menu: NSMenu, with event: NSEvent?) {
+        super.didCloseMenu(menu, with: event)
+        menuHost?.discardSplitViewLinkCapture()
+    }
+
+    /// Named apart from `pasteAsPlainText:` so WebKit's own handler is the one
+    /// the paste reaches.
+    @objc private func pasteAsPlainTextFromMenu(_ sender: NSMenuItem) {
+        BrowserPlainTextPaste(for: self)?.perform()
+    }
+
+    @objc private func downloadImage(_ sender: NSMenuItem) {
+        guard let url = sender.representedObject as? URL else { return }
+        menuHost?.downloadImage(from: url)
+    }
+}
+
+// WebKit's hover observer remains with its adapter. Other native engine views
+// use the same host without inheriting WebKit-specific presentation work.
+extension BrowserDesktopWebView: BrowserNativePageSurfaceLifecycle {
+    func didAttach(to host: BrowserWebHostView) { linkHover?.attach(to: host) }
+    func willDetach(from host: BrowserWebHostView) { linkHover?.detach(from: host) }
+}

@@ -1,0 +1,11 @@
+{
+  "key": "f32dcab54f45951b1c2a77d5c498e73489f82f1c9055f59607a4d9c1c5318587",
+  "archive": "Zee-Content-Filter-f32dcab54f45951b.zip",
+  "sha256": "67daffd55915df25de805d630e24359063889797185d1f76613a1cc21e97c59a",
+  "files": {
+    "include/zee_content_filter.h": "f430751ab3944268b86d1d90977c705b7779617dc298bd22bbff540e2b2a0a1c",
+    "ios-arm64/libzee_content_filter.a": "ec2e3b8f77cb8e9db49911673f0ee4b270f93d0acadb14cee16d2c759ab3e75d",
+    "iossimulator-arm64/libzee_content_filter.a": "d8665724f76a3c83619fe989b7f35037fcd7fbe1c1412f89cab4eb41c7160a87",
+    "osx-arm64/libzee_content_filter.a": "70c7b74cae1abef549a8368e7ad1e78a26cd19bd717429cd56af3eac516b0214"
+  }
+}

@@ -47,13 +47,13 @@ DOCUMENTATION = Area(
 # regenerates the project from project.yml before it builds.
 SHARED_METADATA = Area(
     name="shared metadata",
-    folders=("Crest.xcodeproj/",),
+    folders=("Zee.xcodeproj/",),
     files=("Config/Version.xcconfig", "Documentation/ReleaseNotes.json"),
 )
 MAC_ONLY = Area(
     name="macOS only",
-    folders=("CrestMac/", "CrestEngines/", "CrestDockTilePlugin/", "CrestTests/", "CrestAgents/", "CrestAgentHelper/"))
-IOS_ONLY = Area(name="iOS only", folders=("CrestMobile/", "CrestMobileTests/"))
+    folders=("ZeeMac/", "ZeeEngines/", "ZeeDockTilePlugin/", "ZeeTests/", "ZeeAgents/", "ZeeAgentHelper/"))
+IOS_ONLY = Area(name="iOS only", folders=("ZeeMobile/", "ZeeMobileTests/"))
 
 
 def git(*arguments: str) -> list[str] | None:

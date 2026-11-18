@@ -2,8 +2,8 @@
 set -euo pipefail
 
 script_repository_root="${0:A:h:h}"
-repository_root="${CREST_PERIPHERY_REPOSITORY_ROOT:-$script_repository_root}"
-periphery="${CREST_PERIPHERY:-}"
+repository_root="${ZEE_PERIPHERY_REPOSITORY_ROOT:-$script_repository_root}"
+periphery="${ZEE_PERIPHERY:-}"
 
 if [[ -z "$periphery" ]]; then
   periphery="$(command -v periphery || true)"
@@ -16,11 +16,11 @@ if [[ -z "$periphery" || ! -x "$periphery" ]]; then
   exit 69
 fi
 
-project="$repository_root/Crest.xcodeproj"
+project="$repository_root/Zee.xcodeproj"
 [[ -d "$project" ]] \
-  || { print -u2 "error: Crest.xcodeproj is missing; run XcodeGen first."; exit 2; }
+  || { print -u2 "error: Zee.xcodeproj is missing; run XcodeGen first."; exit 2; }
 
-derived_data="$(mktemp -d /private/tmp/crest-periphery-audit.XXXXXX)"
+derived_data="$(mktemp -d /private/tmp/zee-periphery-audit.XXXXXX)"
 cleanup() {
   if [[ -n "${derived_data:-}" && -d "$derived_data" ]]; then
     find "$derived_data" -depth -delete
@@ -31,11 +31,11 @@ trap cleanup EXIT INT TERM HUP
 print "Periphery findings are evidence, not deletion instructions."
 print "Confirm references, builds, and tests before removing declarations; dynamic WebKit and AppKit entry points need manual review."
 
-typeset -a schemes=(Crest CrestMobile)
+typeset -a schemes=(Zee ZeeMobile)
 typeset -a configurations=(Debug Release)
 
 for scheme in "${schemes[@]}"; do
-  if [[ "$scheme" == "Crest" ]]; then
+  if [[ "$scheme" == "Zee" ]]; then
     destination="platform=macOS,arch=arm64"
   else
     destination="generic/platform=iOS Simulator"
@@ -56,4 +56,4 @@ for scheme in "${schemes[@]}"; do
   done
 done
 
-print "Completed the Crest Periphery evidence matrix."
+print "Completed the Zee Periphery evidence matrix."

@@ -31,7 +31,7 @@ permissions:
 concurrency:
   # A PR closed without merging publishes nothing, so it stays out of the
   # queue instead of replacing a publication waiting there.
-  group: ${{ github.event_name == 'pull_request_target' && !github.event.pull_request.merged && format('crest-unmerged-pr-{0}', github.run_id) || 'crest-macos-release' }}
+  group: ${{ github.event_name == 'pull_request_target' && !github.event.pull_request.merged && format('zee-unmerged-pr-{0}', github.run_id) || 'zee-macos-release' }}
   cancel-in-progress: false
 
 jobs:
@@ -124,16 +124,16 @@ jobs:
               exit 1
             fi
             release_tag="$expected_tag"
-            release_title="Crest Stable ${marketing_version}"
-            asset_base="Crest-${marketing_version}-arm64"
+            release_title="Zee Stable ${marketing_version}"
+            asset_base="Zee-${marketing_version}-arm64"
           elif [[ "$channel" == "nightly" ]]; then
             release_tag="nightly-${marketing_version}-${release_date}-${build_number}-r${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
-            release_title="Crest Nightly ${marketing_version} · ${release_date} · Build ${build_number}"
-            asset_base="Crest-${marketing_version}-nightly-${release_date}-${short_sha}-arm64"
+            release_title="Zee Nightly ${marketing_version} · ${release_date} · Build ${build_number}"
+            asset_base="Zee-${marketing_version}-nightly-${release_date}-${short_sha}-arm64"
           else
             release_tag="development-${marketing_version}-${release_date}-${build_number}-r${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
-            release_title="Crest Development ${marketing_version} · ${release_date} · Build ${build_number}"
-            asset_base="Crest-${marketing_version}-development-${release_date}-${short_sha}-arm64"
+            release_title="Zee Development ${marketing_version} · ${release_date} · Build ${build_number}"
+            asset_base="Zee-${marketing_version}-development-${release_date}-${short_sha}-arm64"
           fi
 
           previous_commit=""
@@ -170,7 +170,7 @@ jobs:
             else
               appcast_filename="appcast.xml"
             fi
-            previous_appcast="$RUNNER_TEMP/crest-previous-${appcast_filename}"
+            previous_appcast="$RUNNER_TEMP/zee-previous-${appcast_filename}"
             if git cat-file -e "FETCH_HEAD:${appcast_filename}" 2>/dev/null; then
               git show "FETCH_HEAD:${appcast_filename}" > "$previous_appcast"
               published_commit_prefix="$(
@@ -273,19 +273,19 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
 
-          release_root="$RUNNER_TEMP/crest-release"
-          archive_path="$release_root/Crest.xcarchive"
+          release_root="$RUNNER_TEMP/zee-release"
+          archive_path="$release_root/Zee.xcarchive"
           export_path="$release_root/export"
           publish_path="$release_root/publish"
           installer_name="Installer-${RELEASE_ASSET_BASE}.dmg"
           checksum_name="Checksum-${RELEASE_ASSET_BASE}.dmg.sha256"
           symbols_name="Debug-Symbols-${RELEASE_ASSET_BASE}.dSYM.zip"
-          keychain_path="$RUNNER_TEMP/crest-signing.keychain-db"
+          keychain_path="$RUNNER_TEMP/zee-signing.keychain-db"
           api_key_path="$RUNNER_TEMP/AuthKey_${APP_STORE_CONNECT_API_KEY_ID}.p8"
           p12_path="$RUNNER_TEMP/developer-id-application.p12"
-          profile_path="$RUNNER_TEMP/crest-developer-id.provisionprofile"
+          profile_path="$RUNNER_TEMP/zee-developer-id.provisionprofile"
           installed_profile_directory="$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles"
-          installed_profile_path="$installed_profile_directory/${GITHUB_RUN_ID}-crest.provisionprofile"
+          installed_profile_path="$installed_profile_directory/${GITHUB_RUN_ID}-zee.provisionprofile"
           keychain_password="$(openssl rand -hex 24)"
           original_keychain="$(security default-keychain -d user | tr -d '"')"
 
@@ -310,7 +310,7 @@ jobs:
 
           profile_plist="$release_root/developer-id-profile.plist"
           security cms -D -i "$profile_path" > "$profile_plist"
-          test "$(plutil -extract Name raw "$profile_plist")" = "Crest Developer ID"
+          test "$(plutil -extract Name raw "$profile_plist")" = "Zee Developer ID"
           mkdir -p "$installed_profile_directory"
           cp "$profile_path" "$installed_profile_path"
 
@@ -335,7 +335,7 @@ jobs:
               | awk '/Developer ID Application: .*\(3U2R97HLXF\)/ { print $2; exit }'
           )"
           if [[ -z "$identity_hash" ]]; then
-            print -u2 "The imported archive does not contain Crest's Developer ID Application identity."
+            print -u2 "The imported archive does not contain Zee's Developer ID Application identity."
             exit 1
           fi
 
@@ -357,7 +357,7 @@ jobs:
             xcrun stapler validate "$app"
             spctl --assess --type execute --verbose=4 "$app"
             mkdir -p "$staging"
-            ditto "$app" "$staging/Crest.app"
+            ditto "$app" "$staging/Zee.app"
             ln -s /Applications "$staging/Applications"
             diskutil image create from --volumeName "$volume" --format ULFO "$staging" "$image"
             codesign --force --timestamp --sign "$identity_hash" "$image"
@@ -368,51 +368,51 @@ jobs:
           }
 
           # --- Entitlements: Xcode's Developer ID export of the WebKit
-          # composition resolves the entitlements Crest is signed with. That
+          # composition resolves the entitlements Zee is signed with. That
           # app only supplies them; it is not published. ---
           xcodebuild archive \
-            -project Crest.xcodeproj \
-            -scheme Crest \
+            -project Zee.xcodeproj \
+            -scheme Zee \
             -configuration Release \
             -destination 'generic/platform=macOS' \
             -archivePath "$archive_path" \
-            -derivedDataPath "$RUNNER_TEMP/crest-release-derived-data" \
+            -derivedDataPath "$RUNNER_TEMP/zee-release-derived-data" \
             CURRENT_PROJECT_VERSION="$RELEASE_BUILD_NUMBER" \
-            CREST_DEFAULT_UPDATE_CHANNEL="$RELEASE_CHANNEL" \
+            ZEE_DEFAULT_UPDATE_CHANNEL="$RELEASE_CHANNEL" \
             DEVELOPMENT_TEAM=3U2R97HLXF \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Developer ID Application" \
-            CREST_PROVISIONING_PROFILE_SPECIFIER="Crest Developer ID"
+            ZEE_PROVISIONING_PROFILE_SPECIFIER="Zee Developer ID"
 
           xcodebuild -exportArchive \
             -archivePath "$archive_path" \
             -exportPath "$export_path" \
             -exportOptionsPlist Config/DeveloperIDExportOptions.plist
 
-          app_path="$export_path/Crest.app"
+          app_path="$export_path/Zee.app"
           test -d "$app_path"
           codesign --verify --deep --strict --verbose=2 "$app_path"
-          test "$(defaults read "$app_path/Contents/Info" CFBundleIdentifier)" = "com.pauldavis.crest"
-          test "$(defaults read "$app_path/Contents/Info" CrestDefaultUpdateChannel)" = "$RELEASE_CHANNEL"
-          test "$(lipo -archs "$app_path/Contents/MacOS/Crest")" = "arm64"
+          test "$(defaults read "$app_path/Contents/Info" CFBundleIdentifier)" = "dev.zee.browser"
+          test "$(defaults read "$app_path/Contents/Info" ZeeDefaultUpdateChannel)" = "$RELEASE_CHANNEL"
+          test "$(lipo -archs "$app_path/Contents/MacOS/Zee")" = "arm64"
 
           exported_entitlements="$release_root/exported-entitlements.plist"
           codesign -d --entitlements :- "$app_path" \
             > "$exported_entitlements" 2>/dev/null
           test "$(/usr/libexec/PlistBuddy -c 'Print :com.apple.application-identifier' "$exported_entitlements")" \
-            = "3U2R97HLXF.com.pauldavis.crest"
+            = "3U2R97HLXF.dev.zee.browser"
           test "$(/usr/libexec/PlistBuddy -c 'Print :com.apple.developer.aps-environment' "$exported_entitlements")" \
             = "production"
           test "$(/usr/libexec/PlistBuddy -c 'Print :com.apple.developer.icloud-container-identifiers:0' "$exported_entitlements")" \
-            = "iCloud.com.pauldavis.crest"
+            = "iCloud.dev.zee.browser"
           test "$(/usr/libexec/PlistBuddy -c 'Print :keychain-access-groups:0' "$exported_entitlements")" \
-            = "3U2R97HLXF.com.pauldavis.crest"
+            = "3U2R97HLXF.dev.zee.browser"
           if /usr/libexec/PlistBuddy -c 'Print :com.apple.security.app-sandbox' "$exported_entitlements" >/dev/null 2>&1; then
             print -u2 "The product entitlements must not enable the app sandbox; it would strand installed data."
             exit 1
           fi
 
-          # --- Crest: Chromium's engine with Crest's interface and WebKit. The
+          # --- Zee: Chromium's engine with Zee's interface and WebKit. The
           # engine is prebuilt and published once per engine revision; see
           # Scripts/control-plane/publish-chromium-engine.py. ---
           engine_root="$release_root/engine"
@@ -434,24 +434,24 @@ jobs:
           test -d "$engine_root/Chromium.app"
 
           # The native core the UI framework links against, then the framework.
-          (cd CrestCore && "$HOME/.dotnet/dotnet" publish src/CrestCore.Native \
+          (cd ZeeCore && "$HOME/.dotnet/dotnet" publish src/ZeeCore.Native \
             -c Release -r osx-arm64 --nologo)
-          core_library="$PWD/CrestCore/src/CrestCore.Native/bin/Release/net10.0/osx-arm64/publish/CrestCore.Native.dylib"
+          core_library="$PWD/ZeeCore/src/ZeeCore.Native/bin/Release/net10.0/osx-arm64/publish/ZeeCore.Native.dylib"
           test -f "$core_library"
           xcodebuild build \
-            -project Crest.xcodeproj \
-            -scheme CrestChromiumUIProduct \
+            -project Zee.xcodeproj \
+            -scheme ZeeChromiumUIProduct \
             -configuration Release \
             -destination 'generic/platform=macOS' \
-            -derivedDataPath "$RUNNER_TEMP/crest-release-derived-data" \
+            -derivedDataPath "$RUNNER_TEMP/zee-release-derived-data" \
             CURRENT_PROJECT_VERSION="$RELEASE_BUILD_NUMBER" \
             CODE_SIGNING_ALLOWED=NO
-          ui_framework="$RUNNER_TEMP/crest-release-derived-data/Build/Products/Release/CrestChromiumUIProduct.framework"
+          ui_framework="$RUNNER_TEMP/zee-release-derived-data/Build/Products/Release/ZeeChromiumUIProduct.framework"
           test -d "$ui_framework"
 
           mkdir -p "$release_root/chromium"
-          chromium_app="$release_root/chromium/Crest.app"
-          CREST_DEFAULT_UPDATE_CHANNEL="$RELEASE_CHANNEL" python3 Scripts/control-plane/package-chromium-host.py \
+          chromium_app="$release_root/chromium/Zee.app"
+          ZEE_DEFAULT_UPDATE_CHANNEL="$RELEASE_CHANNEL" python3 Scripts/control-plane/package-chromium-host.py \
             --browser "$engine_root/Chromium.app" \
             --product \
             --distribution \
@@ -462,11 +462,11 @@ jobs:
             --signing-identity "$identity_hash" \
             --output "$chromium_app"
           codesign --verify --deep --strict --verbose=2 "$chromium_app"
-          test "$(defaults read "$chromium_app/Contents/Info" CFBundleIdentifier)" = "com.pauldavis.crest"
-          test "$(defaults read "$chromium_app/Contents/Info" CrestDefaultUpdateChannel)" = "$RELEASE_CHANNEL"
+          test "$(defaults read "$chromium_app/Contents/Info" CFBundleIdentifier)" = "dev.zee.browser"
+          test "$(defaults read "$chromium_app/Contents/Info" ZeeDefaultUpdateChannel)" = "$RELEASE_CHANNEL"
           test "$(defaults read "$chromium_app/Contents/Info" CFBundleVersion)" = "$RELEASE_BUILD_NUMBER"
 
-          package_disk_image "$chromium_app" "$publish_path/$installer_name" "Crest" chromium
+          package_disk_image "$chromium_app" "$publish_path/$installer_name" "Zee" chromium
           ditto -c -k --keepParent \
             "$ui_framework.dSYM" \
             "$publish_path/$symbols_name"
@@ -479,7 +479,7 @@ jobs:
       - name: Attest release disk image
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
-          subject-path: ${{ runner.temp }}/crest-release/publish/Installer-${{ needs.preflight.outputs.asset_base }}.dmg
+          subject-path: ${{ runner.temp }}/zee-release/publish/Installer-${{ needs.preflight.outputs.asset_base }}.dmg
 
       - name: Create GitHub Release
         shell: zsh {0}
@@ -524,8 +524,8 @@ jobs:
             done
           }
 
-          publish_path="$RUNNER_TEMP/crest-release/publish"
-          release_notes="$RUNNER_TEMP/crest-release/release-notes.md"
+          publish_path="$RUNNER_TEMP/zee-release/publish"
+          release_notes="$RUNNER_TEMP/zee-release/release-notes.md"
           installer_name="Installer-${RELEASE_ASSET_BASE}.dmg"
           checksum_name="Checksum-${RELEASE_ASSET_BASE}.dmg.sha256"
           symbols_name="Debug-Symbols-${RELEASE_ASSET_BASE}.dSYM.zip"
@@ -605,9 +605,9 @@ jobs:
           sparkle_version=2.9.6
           sparkle_archive_sha256=52bf9e88cdd972fc0c81501377a880e90d47031bd8ca5462488f843e2609e192
           sparkle_root="$RUNNER_TEMP/Sparkle-${sparkle_version}"
-          feed_source="$RUNNER_TEMP/crest-appcast-source"
-          updates_checkout="$RUNNER_TEMP/crest-updates-branch"
-          release_root="$RUNNER_TEMP/crest-release"
+          feed_source="$RUNNER_TEMP/zee-appcast-source"
+          updates_checkout="$RUNNER_TEMP/zee-updates-branch"
+          release_root="$RUNNER_TEMP/zee-release"
           installer_name="Installer-${RELEASE_ASSET_BASE}.dmg"
           release_note_state_filename="release-note-publication.json"
           mkdir -p "$sparkle_root" "$feed_source" "$updates_checkout"
@@ -634,7 +634,7 @@ jobs:
 
           retry_github git fetch origin updates
           # Each composition reads its own signed feed. A WebKit-only copy of
-          # Crest reads the -webkit feed, which offers the same Crest installer
+          # Zee reads the -webkit feed, which offers the same Zee installer
           # so that copy updates into the dual-engine app.
           generate_feed() {
             local appcast="$1" installer="$2" source="$3"
@@ -681,7 +681,7 @@ jobs:
             "$updates_checkout/${appcast_filename}"
           cp "$feed_source-webkit/${webkit_appcast_filename}" "$updates_checkout/${webkit_appcast_filename}"
           printf '%s\n' \
-            '# Crest software updates' \
+            '# Zee software updates' \
             '' \
             'This branch is written by the production release workflow. Its signed stable, nightly, and development appcasts point only to notarized assets in GitHub Releases.' \
             > "$updates_checkout/README.md"
@@ -702,10 +702,10 @@ jobs:
         if: always()
         run: |
           find \
-            "$RUNNER_TEMP/crest-release" \
-            "$RUNNER_TEMP/crest-release-derived-data" \
-            "$RUNNER_TEMP/crest-appcast-source" \
-            "$RUNNER_TEMP/crest-appcast-source-webkit" \
-            "$RUNNER_TEMP/crest-updates-branch" \
+            "$RUNNER_TEMP/zee-release" \
+            "$RUNNER_TEMP/zee-release-derived-data" \
+            "$RUNNER_TEMP/zee-appcast-source" \
+            "$RUNNER_TEMP/zee-appcast-source-webkit" \
+            "$RUNNER_TEMP/zee-updates-branch" \
             "$RUNNER_TEMP/Sparkle-2.9.6" \
             -depth -delete 2>/dev/null || true

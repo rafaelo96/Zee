@@ -21,9 +21,9 @@ def main():
     root = args.source.resolve()
     repo = Path(__file__).resolve().parents[2]
     if root == repo or repo in root.parents:
-        parser.error("Chromium source and products must be outside the Crest checkout")
-    if not (root / "out/CrestBaseline/build.ninja").is_file():
-        parser.error("Prepare the pinned source and generate out/CrestBaseline first")
+        parser.error("Chromium source and products must be outside the Zee checkout")
+    if not (root / "out/ZeeBaseline/build.ninja").is_file():
+        parser.error("Prepare the pinned source and generate out/ZeeBaseline first")
     if args.jobs < 1 or args.min_free_gib < 1:
         parser.error("Job count and disk reserve must be positive")
     reserve = args.min_free_gib * 1024**3
@@ -31,7 +31,7 @@ def main():
         parser.error("Free disk space is below the requested reserve")
 
     process = subprocess.Popen(
-        [args.ninja, "-C", "out/CrestBaseline", f"-j{args.jobs}", args.target],
+        [args.ninja, "-C", "out/ZeeBaseline", f"-j{args.jobs}", args.target],
         cwd=root, start_new_session=True,
     )
 

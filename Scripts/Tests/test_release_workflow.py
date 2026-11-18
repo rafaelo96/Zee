@@ -33,8 +33,8 @@ class ReleasePreflightTests(unittest.TestCase):
         self.repository = self.root / "repository"
         self.repository.mkdir()
         self.git("init", "--initial-branch=main")
-        self.git("config", "user.name", "Crest Tests")
-        self.git("config", "user.email", "crest-tests@example.invalid")
+        self.git("config", "user.name", "Zee Tests")
+        self.git("config", "user.email", "zee-tests@example.invalid")
         self.git("remote", "add", "origin", str(self.repository))
         (self.repository / "Config").mkdir()
         (self.repository / "Config/Version.xcconfig").write_text("MARKETING_VERSION = 0.5.25\n")
@@ -104,7 +104,7 @@ class ReleasePreflightTests(unittest.TestCase):
             f"<channel><item><sparkle:channel>{channel}</sparkle:channel>"
             f"<sparkle:version>{build}</sparkle:version>"
             f'<enclosure url="https://github.com/pauljoda/Crest/releases/download/{tag}/'
-            f'Installer-Crest-0.5.25-{channel}-2026-09-03-{commit[:7]}-arm64.dmg" />'
+            f'Installer-Zee-0.5.25-{channel}-2026-09-03-{commit[:7]}-arm64.dmg" />'
             "</item></channel></rss>"
         )
         self.git("add", filename)

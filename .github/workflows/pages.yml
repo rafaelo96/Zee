@@ -14,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: crest-product-site
+  group: badge-product-site
   cancel-in-progress: true
 
 jobs:

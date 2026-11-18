@@ -28,7 +28,7 @@ def run(*command, **kwargs):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", required=True, type=Path, help="The pinned external Chromium checkout")
-    parser.add_argument("--output", default="out/CrestBaseline", help="Build directory inside the checkout")
+    parser.add_argument("--output", default="out/ZeeBaseline", help="Build directory inside the checkout")
     parser.add_argument("--ninja", required=True, type=Path)
     parser.add_argument("--repository", default="pauljoda/Crest")
     parser.add_argument("--dry-run", action="store_true", help="Verify and package without uploading")
@@ -45,7 +45,7 @@ def main():
 def publish(args):
     repo = Path(__file__).resolve().parents[2]
     source = args.source.resolve()
-    lock = read_json(repo / "CrestEngines/Chromium/source.lock.json")
+    lock = read_json(repo / "ZeeEngines/Chromium/source.lock.json")
     if not performance_configuration_matches(source, lock):
         raise SystemExit("Published engines require the pinned performance configuration, SDK and PGO profile")
     run(sys.executable, repo / "Scripts/control-plane/prepare-chromium.py", "--source", source, "--verify-only")
@@ -57,16 +57,16 @@ def publish(args):
                      "--source", source, capture_output=True).stdout
     if "(after)" not in validation:
         raise SystemExit("Apply the host to the checkout before publishing: " + validation.strip())
-    overlay = repo / "CrestEngines/Chromium/Overlay"
+    overlay = repo / "ZeeEngines/Chromium/Overlay"
     for path in overlay.rglob("*"):
         if path.is_file() and (source / path.relative_to(overlay)).read_bytes() != path.read_bytes():
             raise SystemExit(f"The checkout's overlay differs from the branch: {path.relative_to(overlay)}")
-    headers = [repo / "CrestEngines/Chromium/Apple/CrestChromiumHost.h",
-               repo / "CrestCore/native/ContentFilter/include/crest_content_filter.h"]
-    headers += [repo / "CrestContracts/include" / name for name in
-                ("crest_core.h", "crest_app.h", "crest_engine.h", "crest_engine_contract.h")]
+    headers = [repo / "ZeeEngines/Chromium/Apple/ZeeChromiumHost.h",
+               repo / "ZeeCore/native/ContentFilter/include/zee_content_filter.h"]
+    headers += [repo / "ZeeContracts/include" / name for name in
+                ("zee_core.h", "zee_app.h", "zee_engine.h", "zee_engine_contract.h")]
     for header in headers:
-        if (source / "chrome/browser/ui/crest" / header.name).read_bytes() != header.read_bytes():
+        if (source / "chrome/browser/ui/zee" / header.name).read_bytes() != header.read_bytes():
             raise SystemExit(f"The checkout's contract header differs from the branch: {header.name}")
 
     # And its build must have nothing left to do.
@@ -88,7 +88,7 @@ def publish(args):
             return
         raise SystemExit("Published engine release is incomplete or has a different full key; refusing to overwrite it")
 
-    with tempfile.TemporaryDirectory(prefix="crest-engine-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="zee-engine-") as temporary:
         archive = Path(temporary) / asset
         run("ditto", "-c", "-k", "--sequesterRsrc", "--keepParent", browser, archive)
         digest = sha256(archive)
@@ -103,13 +103,13 @@ def publish(args):
             "configuration": "performance", "sdkVersion": lock["performanceInputs"]["macSDKVersion"],
             "pgoSHA256": lock["performanceInputs"]["pgoSHA256"], "archiveSHA256": digest,
             "sourceCommit": run("git", "-C", repo, "rev-parse", "HEAD", capture_output=True).stdout.strip()}, indent=2) + "\n")
-        notes = (f"Chromium {lock['chromium']['version']} with Crest's native host, for release packaging.\n\n"
+        notes = (f"Chromium {lock['chromium']['version']} with Zee's native host, for release packaging.\n\n"
                  f"Engine key `{key}`, computed by `Scripts/control-plane/chromium_engine.py` over the "
                  f"engine inputs of commit `{run('git', '-C', repo, 'rev-parse', 'HEAD', capture_output=True).stdout.strip()}`.\n"
-                 "This is not an installable browser; releases package it with Crest's UI and sign it.")
+                 "This is not an installable browser; releases package it with Zee's UI and sign it.")
         if existing.returncode != 0:
             run("gh", "release", "create", tag, "--repo", args.repository, "--draft", "--prerelease", "--latest=false",
-                "--title", f"Crest Chromium engine {key[:16]}", "--notes", notes)
+                "--title", f"Zee Chromium engine {key[:16]}", "--notes", notes)
         # Only an unpublished draft can be resumed or replaced. The release becomes
         # visible to app packaging after all assets have uploaded successfully.
         run("gh", "release", "upload", tag, archive, checksum, provenance, "--repo", args.repository, "--clobber")

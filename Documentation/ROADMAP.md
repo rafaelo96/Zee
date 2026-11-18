@@ -1,19 +1,19 @@
-# Crest roadmap
+# Zee roadmap
 
 This file summarizes public release outcomes and work that is still outstanding
 or intentionally deferred. The live
-[Crest Roadmap project](https://github.com/users/pauljoda/projects/3) shows
+[Zee Roadmap project](https://github.com/users/pauljoda/projects/3) shows
 status; release milestones hold the actionable issue descriptions.
 
 ## Published releases
 
-- [Crest 0.9.1](https://github.com/pauljoda/Crest/releases/tag/v0.9.1) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/5?closed=1).
-- [Crest 0.8.50](https://github.com/pauljoda/Crest/releases/tag/v0.8.50) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/4?closed=1).
-- [Crest 0.7.2](https://github.com/pauljoda/Crest/releases/tag/v0.7.2) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/3?closed=1).
-- [Crest 0.6.3](https://github.com/pauljoda/Crest/releases/tag/v0.6.3) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/2?closed=1).
-- [Crest 0.5.7](https://github.com/pauljoda/Crest/releases/tag/v0.5.7) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/1?closed=1).
+- [Zee 0.9.1](https://github.com/pauljoda/Crest/releases/tag/v0.9.1) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/5?closed=1).
+- [Zee 0.8.50](https://github.com/pauljoda/Crest/releases/tag/v0.8.50) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/4?closed=1).
+- [Zee 0.7.2](https://github.com/pauljoda/Crest/releases/tag/v0.7.2) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/3?closed=1).
+- [Zee 0.6.3](https://github.com/pauljoda/Crest/releases/tag/v0.6.3) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/2?closed=1).
+- [Zee 0.5.7](https://github.com/pauljoda/Crest/releases/tag/v0.5.7) — [release scope and completed work](https://github.com/pauljoda/Crest/milestone/1?closed=1).
 
-<!-- crest-roadmap-sync:start -->
+<!-- zee-roadmap-sync:start -->
 ## Active releases
 
 Release milestones are shown from earliest to latest. The project board holds
@@ -51,9 +51,9 @@ the live status for each issue.
 - [x] [Preview tabs and folders from the sidebar on hover and hold](https://github.com/pauljoda/Crest/issues/294)
 - [x] [Return to the previous app when a Quick Window from another app closes](https://github.com/pauljoda/Crest/issues/428)
 - [x] [bug: can't continue onboarding when importing from Arc](https://github.com/pauljoda/Crest/issues/535)
-- [x] [Choose a Heraldic, Modern or Simple style for customizing Crest, and show Spaces as dots](https://github.com/pauljoda/Crest/issues/1102)
+- [x] [Choose a Heraldic, Modern or Simple style for customizing Zee, and show Spaces as dots](https://github.com/pauljoda/Crest/issues/1102)
 
-<!-- crest-roadmap-sync:end -->
+<!-- zee-roadmap-sync:end -->
 
 These describe intended user outcomes rather than fixed implementation
 promises. Scope may change when WebKit capability, accessibility, or physical
@@ -61,7 +61,7 @@ device evidence shows a better boundary.
 
 ## Approval-gated capabilities
 
-- Obtain Apple's managed default-browser entitlement for `com.pauldavis.crest`, then enable and validate default-browser registration on physical devices.
+- Obtain Apple's managed default-browser entitlement for `dev.zee.browser`, then enable and validate default-browser registration on physical devices.
 - Complete the browser passkey entitlement request and physical-device passkey validation before advertising passkey-provider support.
 
 ## Release gates
@@ -79,4 +79,4 @@ Repeat these checks for each release candidate.
 
 - [Image-conversion compatibility](https://github.com/pauljoda/Crest/issues/163) is delivered. Slack Huddles remain deferred and are not claimed fixed or validated.
 
-- Extension work is active in the Chromium Mac product. Preserve per-Space isolation, keep extensions out of private windows, and report what Crest's host does not support instead of presenting partially initialized extension UI as working.
+- Extension work is active in the Chromium Mac product. Preserve per-Space isolation, keep extensions out of private windows, and report what Zee's host does not support instead of presenting partially initialized extension UI as working.

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Build and publish the resources Crest's content filter loads for scriptlets.
+"""Build and publish the resources Zee's content filter loads for scriptlets.
 
 Scriptlets (`##+js(...)`) and redirect filters (`$redirect=`) name resources
-that uBlock Origin ships under GPL-3.0. Crest never compiles them in: the core
+that uBlock Origin ships under GPL-3.0. Zee never compiles them in: the core
 downloads one JSON file, in adblock-rust's resource format, from a release of
 this repository, the way it downloads filter lists. `build` makes that file
 from the uBlock Origin release `resources.lock.json` pins, verified against
@@ -32,7 +32,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 REPOSITORY = HERE.parents[2]
 LOCK = HERE / "resources.lock.json"
-LIBRARY = REPOSITORY / "CrestCore/src/CrestCore/Application/ContentBlocking/FilterLibrary.cs"
+LIBRARY = REPOSITORY / "ZeeCore/src/ZeeCore/Application/ContentBlocking/FilterLibrary.cs"
 
 
 def sha256(path: Path) -> str:
@@ -114,7 +114,7 @@ def main():
     if args.command == "url":
         print(f"https://github.com/pauljoda/Crest/releases/download/{lock['tag']}/{lock['asset']}")
         return
-    with tempfile.TemporaryDirectory(prefix="crest-ublock-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="zee-ublock-") as temporary:
         folder = Path(temporary)
         output, licence = build(lock, folder, getattr(args, "update", False))
         if args.command == "build":
@@ -133,10 +133,10 @@ def main():
             return
         licence_copy = folder / "uBlock-Origin-LICENSE.txt"
         licence_copy.write_bytes(licence.read_bytes())
-        notes = (f"Scriptlet and redirect resources for Crest's content filter, converted from uBlock Origin "
+        notes = (f"Scriptlet and redirect resources for Zee's content filter, converted from uBlock Origin "
                  f"{lock['ublock']} ({lock['source']}, SHA-256 {lock['sourceSHA256']}) by "
                  f"Scripts/control-plane/ublock-resources/generate.mjs. uBlock Origin's resources are licensed "
-                 f"under the GNU General Public License v3.0; its licence is attached. Crest downloads this file "
+                 f"under the GNU General Public License v3.0; its licence is attached. Zee downloads this file "
                  f"at runtime as data.")
         subprocess.run(["gh", "release", "create", lock["tag"], "--repo", args.repository,
                         "--title", f"uBlock Origin resources {lock['ublock']}", "--notes", notes, "--latest=false",

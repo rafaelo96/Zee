@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Behavioral coverage for Crest's repository-lock guardrails."""
+"""Behavioral coverage for Zee's repository-lock guardrails."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ FORMAT_SCRIPT = REPOSITORY_ROOT / "Scripts" / "check-swift-format.sh"
 
 def load_architecture_module():
     spec = importlib.util.spec_from_file_location(
-        "crest_architecture_guard", ARCHITECTURE_SCRIPT
+        "zee_architecture_guard", ARCHITECTURE_SCRIPT
     )
     if spec is None or spec.loader is None:
         raise RuntimeError("Unable to load Scripts/check-architecture.py")
@@ -32,7 +32,7 @@ class ArchitectureGuardTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.fixture_root = Path(self.temporary_directory.name)
-        for source_root in ("CrestShared", "CrestMac", "CrestMobile"):
+        for source_root in ("ZeeShared", "ZeeMac", "ZeeMobile"):
             (self.fixture_root / source_root).mkdir()
         self.config_path = self.fixture_root / "guardrails.json"
         self.write_config()
@@ -71,11 +71,11 @@ class ArchitectureGuardTests(unittest.TestCase):
 
     def test_domain_and_application_reject_outer_layer_frameworks(self) -> None:
         self.write_source(
-            "CrestShared/Domain/BadDomain.swift",
+            "ZeeShared/Domain/BadDomain.swift",
             "import SwiftUI\nstruct BadDomain {}\n",
         )
         self.write_source(
-            "CrestShared/Application/BadApplication.swift",
+            "ZeeShared/Application/BadApplication.swift",
             "import WebKit\nstruct BadApplication {}\n",
         )
 
@@ -86,7 +86,7 @@ class ArchitectureGuardTests(unittest.TestCase):
 
     def test_xcode_27_state_and_builder_hazards_are_rejected(self) -> None:
         self.write_source(
-            "CrestShared/Features/Compatibility.swift",
+            "ZeeShared/Features/Compatibility.swift",
             """import SwiftUI
 struct Compatibility: View {
     let title: String
@@ -123,12 +123,12 @@ class SwiftFormatGuardTests(unittest.TestCase):
         self.fixture_root = Path(self.temporary_directory.name)
         subprocess.run(["git", "init", "-q"], cwd=self.fixture_root, check=True)
         subprocess.run(
-            ["git", "config", "user.email", "crest-tests@example.com"],
+            ["git", "config", "user.email", "zee-tests@example.com"],
             cwd=self.fixture_root,
             check=True,
         )
         subprocess.run(
-            ["git", "config", "user.name", "Crest Tests"],
+            ["git", "config", "user.name", "Zee Tests"],
             cwd=self.fixture_root,
             check=True,
         )
@@ -149,7 +149,7 @@ class SwiftFormatGuardTests(unittest.TestCase):
         self.argument_log = self.fixture_root / "formatter-arguments.txt"
         self.fake_formatter = self.fixture_root / "swift-format"
         self.fake_formatter.write_text(
-            "#!/bin/sh\nprintf '%s\\n' \"$@\" > \"$CREST_TEST_ARGUMENT_LOG\"\n"
+            "#!/bin/sh\nprintf '%s\\n' \"$@\" > \"$ZEE_TEST_ARGUMENT_LOG\"\n"
         )
         self.fake_formatter.chmod(0o755)
 

@@ -44,7 +44,7 @@ class UpstreamSelectionTests(unittest.TestCase):
 class WorkspaceTests(unittest.TestCase):
     def host(self, root, patches):
         repo = root / "repo"
-        host = repo / "CrestEngines/Chromium"
+        host = repo / "ZeeEngines/Chromium"
         (host / "Patches").mkdir(parents=True)
         for name, text in patches.items():
             (host / "Patches" / name).write_text(text)
@@ -114,7 +114,7 @@ class UpdatePlanTests(unittest.TestCase):
     def test_patches_carry_over_by_applying_merging_or_reporting_conflicts(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            host = root / "repo/CrestEngines/Chromium/Patches"
+            host = root / "repo/ZeeEngines/Chromium/Patches"
             host.mkdir(parents=True)
             names = ("same.cc", "moved.cc", "merged.cc", "clash.cc", "gone.cc", "ready.cc", "landed.cc")
             pinned = {name: "a\nb\nc\nd\ne\nf\ng\nh\n" for name in names}
@@ -122,12 +122,12 @@ class UpdatePlanTests(unittest.TestCase):
             pinned["ready.cc"] = "a\nb\nold\nd\ne\nf\ng\nh\n"
             patch = "".join(f"--- a/{name}\n+++ b/{name}\n@@ -2,7 +2,7 @@\n b\n c\n d\n-e\n+E\n f\n g\n h\n"
                             for name in names)
-            (host / "native-host.patch").write_text("Why Crest changes these files.\n" + patch)
+            (host / "native-host.patch").write_text("Why Zee changes these files.\n" + patch)
             (host / "series").write_text("native-host.patch\n")
             release = {"same.cc": pinned["same.cc"], "moved.cc": "new\n" + pinned["moved.cc"],
                        "merged.cc": "a\nB\nc\nd\ne\nf\ng\nh\n", "clash.cc": "a\nb\nc\nd\nX\nf\ng\nh\n",
                        "gone.cc": None, "ready.cc": pinned["same.cc"],
-                       # The release already has Crest's change: the patch must not pass by applying in reverse.
+                       # The release already has Zee's change: the patch must not pass by applying in reverse.
                        "landed.cc": "a\nb\nc\nd\nE\nf\ng\nh\n"}
             report = root / "report"
             statuses = rebase_patches(root / "repo", pinned, release, report)["native-host.patch"]
@@ -135,7 +135,7 @@ class UpdatePlanTests(unittest.TestCase):
                                         "clash.cc": "conflict", "gone.cc": "missing", "ready.cc": "applies",
                                         "landed.cc": "upstream"})
             rebased = (report / "Patches/native-host.patch").read_text()
-            self.assertTrue(rebased.startswith("Why Crest changes these files.\n"))
+            self.assertTrue(rebased.startswith("Why Zee changes these files.\n"))
             source = root / "source"
             source.mkdir()
             (source / "merged.cc").write_text(release["merged.cc"])
@@ -151,7 +151,7 @@ class UpdatePlanTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             repo, workspace = root / "repo", root / "workspace"
-            (repo / "CrestEngines/Chromium").mkdir(parents=True)
+            (repo / "ZeeEngines/Chromium").mkdir(parents=True)
             (repo / "Scripts/control-plane").mkdir(parents=True)
             (repo / "Scripts/control-plane/prepare-chromium.py").write_text("# preparation\n")
             downloads = workspace / "downloads"
@@ -176,8 +176,8 @@ class UpdatePlanTests(unittest.TestCase):
             def pin(version, path):
                 lock = {"chromium": {"version": version, "sourceArchive": f"https://example.invalid/{path.name}",
                                      "sourceArchiveSha256": sha256(path)},
-                        "dependencies": ["src/third_party/tool"], "cipd": {}, "crestPatches": {}}
-                (repo / "CrestEngines/Chromium/source.lock.json").write_text(json.dumps(lock))
+                        "dependencies": ["src/third_party/tool"], "cipd": {}, "zeePatches": {}}
+                (repo / "ZeeEngines/Chromium/source.lock.json").write_text(json.dumps(lock))
                 return Workspace(workspace, repo)
 
             original = {"same.cc": "same\n", "changed.cc": "old\n", "dropped.cc": "dropped\n",
@@ -202,10 +202,10 @@ class UpdatePlanTests(unittest.TestCase):
                 (source / name).parent.mkdir(parents=True, exist_ok=True)
                 (source / name).write_text(text)
             (source / "third_party/tool/linux").write_text("mac toolchain\n")
-            (source / "out/CrestBaseline").mkdir(parents=True)
-            (source / "out/CrestBaseline/obj.o").write_text("object\n")
-            host = "--- a/patched.cc\n+++ b/patched.cc\n@@ -1,2 +1,2 @@\n context\n-old\n+crest\n"
-            (source / "patched.cc").write_text("context\ncrest\n")
+            (source / "out/ZeeBaseline").mkdir(parents=True)
+            (source / "out/ZeeBaseline/obj.o").write_text("object\n")
+            host = "--- a/patched.cc\n+++ b/patched.cc\n@@ -1,2 +1,2 @@\n context\n-old\n+badge\n"
+            (source / "patched.cc").write_text("context\nzee\n")
             (pinned.directory / "host.json").write_text(json.dumps({"patch": host, "inputs": {"patched.cc": {
                 "before": sha256(root / "staging-157.0.8103.51/chromium-157.0.8103.51/patched.cc"),
                 "after": sha256(source / "patched.cc")}}}))
@@ -228,7 +228,7 @@ class UpdatePlanTests(unittest.TestCase):
             self.assertEqual((advanced / "patched.cc").read_text(), "context\nold\n")
             self.assertEqual((advanced / "same.cc").stat().st_mtime, 1)
             self.assertEqual((advanced / "third_party/tool/linux").read_text(), "mac toolchain\n")
-            self.assertEqual((advanced / "out/CrestBaseline/obj.o").read_text(), "object\n")
+            self.assertEqual((advanced / "out/ZeeBaseline/obj.o").read_text(), "object\n")
             self.assertFalse((target.directory / "host.json").exists())
 
     def test_build_patches_must_fit_the_release_before_its_source_is_touched(self):
@@ -237,7 +237,7 @@ class UpdatePlanTests(unittest.TestCase):
             (repo / ENGINE / "Patches").mkdir(parents=True)
             (repo / ENGINE / "Patches/unwind.patch").write_text(
                 "--- a/chrome/BUILD.gn\n+++ b/chrome/BUILD.gn\n@@ -1,3 +1,3 @@\n a\n-b\n+B\n c\n")
-            lock = {"crestPatches": {"Patches/unwind.patch": "digest"}}
+            lock = {"zeePatches": {"Patches/unwind.patch": "digest"}}
             self.assertEqual(check_build_patches(repo, lock, {"chrome/BUILD.gn": b"a\nb\nc\n"}),
                              {"Patches/unwind.patch": "applies"})
             for release in ({"chrome/BUILD.gn": b"a\nchanged\nc\n"}, {"chrome/BUILD.gn": b"a\nB\nc\n"},
@@ -252,7 +252,7 @@ class UpdatePlanTests(unittest.TestCase):
             (repo / ENGINE).mkdir(parents=True)
             (repo / "Scripts/control-plane").mkdir(parents=True)
             (repo / "Scripts/control-plane/prepare-chromium.py").write_text("# preparation\n")
-            lock = {"chromium": {"version": "157.0.8103.51"}, "dependencies": [], "cipd": {}, "crestPatches": {}}
+            lock = {"chromium": {"version": "157.0.8103.51"}, "dependencies": [], "cipd": {}, "zeePatches": {}}
             candidate = lock | {"chromium": {"version": "157.0.8103.80"}}
             (repo / ENGINE / "source.lock.json").write_text(json.dumps(lock))
             (repo / ENGINE / "host-inputs.json").write_text("{}")
@@ -279,18 +279,18 @@ class UpdatePlanTests(unittest.TestCase):
     def test_every_overlay_source_must_be_compiled_into_the_browser(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            overlay = root / "repo" / ENGINE / "Overlay/chrome/browser/ui/crest"
+            overlay = root / "repo" / ENGINE / "Overlay/chrome/browser/ui/zee"
             overlay.mkdir(parents=True)
-            (overlay / "crest_window.mm").write_text("")
-            (overlay / "crest_window.h").write_text("")
-            (root / "src/out/CrestBaseline").mkdir(parents=True)
+            (overlay / "zee_window.mm").write_text("")
+            (overlay / "zee_window.h").write_text("")
+            (root / "src/out/ZeeBaseline").mkdir(parents=True)
             # A stand-in for Ninja's inputs tool: what the browser target compiles.
             ninja = root / "ninja"
-            ninja.write_text("#!/bin/sh\nprintf '../../chrome/browser/ui/crest/crest_window.mm\\n../../base/base.cc\\n'\n")
+            ninja.write_text("#!/bin/sh\nprintf '../../chrome/browser/ui/zee/zee_window.mm\\n../../base/base.cc\\n'\n")
             ninja.chmod(0o755)
             chromium_fork.require_overlay_compiled(root / "repo", root / "src", ninja)
             # A source whose object only some other target makes is not in the browser.
-            (overlay / "crest_elsewhere.cc").write_text("")
+            (overlay / "zee_elsewhere.cc").write_text("")
             with self.assertRaises(ValueError):
                 chromium_fork.require_overlay_compiled(root / "repo", root / "src", ninja)
 

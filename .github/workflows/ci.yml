@@ -1,4 +1,4 @@
-name: Build Crest
+name: Build Zee
 
 on:
   pull_request:
@@ -77,11 +77,11 @@ jobs:
 
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
-          global-json-file: CrestCore/global.json
+          global-json-file: ZeeCore/global.json
 
       - name: Test core contracts
-        working-directory: CrestCore
-        run: dotnet test tests/CrestCore.Tests/CrestCore.Tests.csproj --nologo
+        working-directory: ZeeCore
+        run: dotnet test tests/ZeeCore.Tests/ZeeCore.Tests.csproj --nologo
 
       - name: Check core analyzers and code style
         run: Scripts/control-plane/lint-dotnet.sh
@@ -143,28 +143,28 @@ jobs:
       - name: Build Chromium product host
         run: |
           xcodebuild build \
-            -project Crest.xcodeproj \
-            -scheme CrestChromiumUIProduct \
+            -project Zee.xcodeproj \
+            -scheme ZeeChromiumUIProduct \
             -configuration Release \
             -destination 'generic/platform=macOS' \
-            -derivedDataPath "$RUNNER_TEMP/crest-build-derived-data" \
+            -derivedDataPath "$RUNNER_TEMP/zee-build-derived-data" \
             CODE_SIGNING_ALLOWED=NO
 
       - name: Check native contracts against the built core
         run: |
-          core="$RUNNER_TEMP/crest-build-derived-data/Build/Products/Release/CrestCore"
-          clang -std=c11 -Wall -Wextra -Werror -I CrestContracts/include \
-            CrestContracts/tests/native_abi.c "$core/CrestCore.Native.dylib" \
+          core="$RUNNER_TEMP/zee-build-derived-data/Build/Products/Release/ZeeCore"
+          clang -std=c11 -Wall -Wextra -Werror -I ZeeContracts/include \
+            ZeeContracts/tests/native_abi.c "$core/ZeeCore.Native.dylib" \
             -Wl,-rpath,"$core" -o "$core/native-abi"
           "$core/native-abi"
-          clang++ -std=c++20 -Wall -Wextra -Werror -Wconversion -I CrestContracts/include \
-            CrestContracts/tests/engine_abi.cc "$core/CrestCore.Native.dylib" \
+          clang++ -std=c++20 -Wall -Wextra -Werror -Wconversion -I ZeeContracts/include \
+            ZeeContracts/tests/engine_abi.cc "$core/ZeeCore.Native.dylib" \
             -Wl,-rpath,"$core" -o "$core/engine-abi"
           "$core/engine-abi"
 
       - name: Remove generated build data
         if: always()
-        run: find "$RUNNER_TEMP/crest-build-derived-data" -depth -delete 2>/dev/null || true
+        run: find "$RUNNER_TEMP/zee-build-derived-data" -depth -delete 2>/dev/null || true
 
   mac-app:
     name: Build macOS
@@ -183,16 +183,16 @@ jobs:
       - name: Build macOS
         run: |
           xcodebuild build \
-            -project Crest.xcodeproj \
-            -scheme Crest \
+            -project Zee.xcodeproj \
+            -scheme Zee \
             -configuration Release \
             -destination 'generic/platform=macOS' \
-            -derivedDataPath "$RUNNER_TEMP/crest-build-derived-data" \
+            -derivedDataPath "$RUNNER_TEMP/zee-build-derived-data" \
             CODE_SIGNING_ALLOWED=NO
 
       - name: Remove generated build data
         if: always()
-        run: find "$RUNNER_TEMP/crest-build-derived-data" -depth -delete 2>/dev/null || true
+        run: find "$RUNNER_TEMP/zee-build-derived-data" -depth -delete 2>/dev/null || true
 
   ios-app:
     name: Build iOS
@@ -228,16 +228,16 @@ jobs:
       - name: Build iOS
         run: |
           xcodebuild build \
-            -project Crest.xcodeproj \
-            -scheme CrestMobile \
+            -project Zee.xcodeproj \
+            -scheme ZeeMobile \
             -configuration Release \
             -destination 'generic/platform=iOS Simulator' \
-            -derivedDataPath "$RUNNER_TEMP/crest-build-derived-data" \
+            -derivedDataPath "$RUNNER_TEMP/zee-build-derived-data" \
             CODE_SIGNING_ALLOWED=NO
 
       - name: Remove generated build data
         if: always()
-        run: find "$RUNNER_TEMP/crest-build-derived-data" -depth -delete 2>/dev/null || true
+        run: find "$RUNNER_TEMP/zee-build-derived-data" -depth -delete 2>/dev/null || true
 
   website:
     name: Website and Help Center

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Crest's high-confidence source ownership and SwiftUI contracts."""
+"""Validate Zee's high-confidence source ownership and SwiftUI contracts."""
 
 from __future__ import annotations
 
@@ -11,18 +11,18 @@ import sys
 from typing import NamedTuple
 
 
-SOURCE_ROOTS = ("CrestShared", "CrestMac", "CrestMobile")
+SOURCE_ROOTS = ("ZeeShared", "ZeeMac", "ZeeMobile")
 LAYER_IMPORT_POLICIES = {
-    "CrestShared/Domain/": frozenset({"Foundation"}),
-    "CrestShared/Application/": frozenset(
+    "ZeeShared/Domain/": frozenset({"Foundation"}),
+    "ZeeShared/Application/": frozenset(
         {"Dispatch", "Foundation", "Observation", "Synchronization"}
     ),
 }
 PLATFORM_FRAMEWORK_OWNERS = {
-    "AppKit": "CrestMac/",
-    "CoreServices": "CrestMac/",
-    "SecurityInterface": "CrestMac/",
-    "UIKit": "CrestMobile/",
+    "AppKit": "ZeeMac/",
+    "CoreServices": "ZeeMac/",
+    "SecurityInterface": "ZeeMac/",
+    "UIKit": "ZeeMobile/",
 }
 LEGACY_OBSERVATION_PATTERNS = (
     re.compile(r"\bObservableObject\b"),
@@ -227,7 +227,7 @@ def _import_violations(
                 )
 
         if (
-            relative_path.startswith("CrestShared/Infrastructure/")
+            relative_path.startswith("ZeeShared/Infrastructure/")
             and module == "SwiftUI"
         ):
             violations.append(
@@ -477,7 +477,7 @@ def main() -> int:
         )
         return 1
 
-    print("Validated Crest architecture and Xcode 27 source guardrails.")
+    print("Validated Zee architecture and Xcode 27 source guardrails.")
     return 0
 
 

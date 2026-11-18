@@ -1,7 +1,7 @@
-# Contributing to Crest
+# Contributing to Zee
 
-Crest is licensed under the Mozilla Public License 2.0. Contributions are
-accepted under the same license. The Crest name and visual identity remain
+Zee is licensed under the Mozilla Public License 2.0. Contributions are
+accepted under the same license. The Zee name and visual identity remain
 covered by [`TRADEMARKS.md`](TRADEMARKS.md).
 
 ## Who can contribute code
@@ -28,7 +28,7 @@ r/CrestBrowser and Discord.
 
 1. Install Xcode with SDKs supporting the macOS 26.1 and iOS 26.1 deployment targets.
 2. Install [XcodeGen](https://github.com/yonaskolb/XcodeGen).
-3. Install the .NET SDK pinned by `CrestCore/global.json`, for example with
+3. Install the .NET SDK pinned by `ZeeCore/global.json`, for example with
    `Scripts/control-plane/install-dotnet.sh`.
 4. Use Python 3.11 or later for the Chromium and release tools. Check that
    `python3 --version` resolves to that interpreter.
@@ -38,9 +38,9 @@ r/CrestBrowser and Discord.
    `xcrun`.
 6. Run `Scripts/bootstrap.sh` from the repository root.
 
-Building the `Crest` scheme produces the WebKit composition of the Mac app. The
+Building the `Zee` scheme produces the WebKit composition of the Mac app. The
 published Mac app also packages a prebuilt Chromium engine; see
-[`CrestEngines/Chromium/README.md`](CrestEngines/Chromium/README.md) before
+[`ZeeEngines/Chromium/README.md`](ZeeEngines/Chromium/README.md) before
 changing engine inputs.
 
 `project.yml` is authoritative. Do not hand-edit target membership or build settings only in Xcode, because the next project generation will replace those changes.
@@ -58,7 +58,7 @@ justifies deletion without reference, build, and test proof. See
 [`Documentation/RepositoryGuardrails.md`](Documentation/RepositoryGuardrails.md)
 for the enforced contracts and current exact exemptions.
 
-**Build Crest** runs on pull requests and pushes to `main`, and can also be
+**Build Zee** runs on pull requests and pushes to `main`, and can also be
 dispatched manually. It checks source, core tests and analyzers, architecture,
 scripts, Swift formatting, native contracts, macOS and iOS builds, and the Help
 Center. Release publication calls the same workflow for the exact source SHA
@@ -77,7 +77,7 @@ Use [r/CrestBrowser](https://www.reddit.com/r/CrestBrowser) to discuss early
 ideas, user questions, and compatibility experiences before they become
 actionable engineering work. Use GitHub Issues for reproducible bugs and
 concrete outcomes. The public
-[Crest Roadmap project](https://github.com/users/pauljoda/projects/3) and
+[Zee Roadmap project](https://github.com/users/pauljoda/projects/3) and
 release milestones summarize planned work. Only the maintainer adds items to
 them: opening an issue or a pull request doesn't put it on the roadmap or
 commit to building it. [The roadmap](Documentation/ROADMAP.md)
@@ -94,16 +94,16 @@ See [SUPPORT.md](SUPPORT.md) for reporting routes and
 - Cover important behavioral contracts with focused regression tests. Review visual appearance, layout, and animation in the running app.
 - Keep build products, diagnostic captures, audit reports, submission packets, user state, credentials, signing exports, and local environment files out of Git. Documentation should help public users and contributors; keep private planning and machine-specific instructions local.
 - Do not add task-specific Markdown results or closeout reports, including under Documentation, or upload them as release or issue attachments. Summarize validation in the task or issue discussion. Keep necessary local evidence outside the checkout; maintained docs should describe lasting behavior and instructions, not dated test totals or cleanup narratives.
-- Keep personal editor and coding-assistant state local. The tracked exceptions are the root `AGENTS.md` and the `crest-contribution` skill; `Scripts/check-public-source.py` rejects everything else.
-- Do not enable the managed iOS default-browser entitlement until Apple approves it for the Crest App ID.
+- Keep personal editor and coding-assistant state local. The tracked exceptions are the root `AGENTS.md` and the `zee-contribution` skill; `Scripts/check-public-source.py` rejects everything else.
+- Do not enable the managed iOS default-browser entitlement until Apple approves it for the Zee App ID.
 
 ## AI-assisted contributions
 
 You may use AI tools. Any change an AI tool helped produce must follow the
-[`crest-contribution` skill](.agents/skills/crest-contribution/SKILL.md),
+[`zee-contribution` skill](.agents/skills/zee-contribution/SKILL.md),
 which carries the code style, architecture, UI, test, verification and
 writing rules a reviewer will hold the change to. Claude Code discovers it
-through `.claude/skills/crest-contribution`, Codex through `.agents/skills`,
+through `.claude/skills/zee-contribution`, Codex through `.agents/skills`,
 and every other agent is pointed to it by [`AGENTS.md`](AGENTS.md). Load it
 before the agent changes anything and keep it loaded while it works.
 
@@ -113,7 +113,7 @@ tools helped, and that the skill was run and its output reviewed. The
 without the second, or that removed the section. You remain responsible for
 understanding, validating and explaining everything you submit.
 
-`Config/Version.xcconfig` is the only source for Crest's public version. Versions
+`Config/Version.xcconfig` is the only source for Zee's public version. Versions
 use complete `X.Y.Z` semantic versioning. Once a fix is verified and ready to
 commit, run `Scripts/set-version.sh --patch`, stage the version file with the
 fix, and run `Scripts/check-version.sh --fix-commit`. Each independently
@@ -144,7 +144,7 @@ annotated `vX.Y.Z` tag. Do not invent historical release tags.
 
 ## Developer Certificate of Origin
 
-Crest uses the [Developer Certificate of Origin 1.1](https://developercertificate.org/).
+Zee uses the [Developer Certificate of Origin 1.1](https://developercertificate.org/).
 Sign off each commit with `git commit -s` to certify that you have the right to
 submit the contribution under this project's license. The sign-off is a commit
 trailer, not a transfer of copyright:

@@ -3,7 +3,7 @@
 set -eu
 
 if [ "${CI_XCODE_CLOUD:-FALSE}" != "TRUE" ]; then
-    echo "Crest pre-archive version guard skipped outside Xcode Cloud."
+    echo "Zee pre-archive version guard skipped outside Xcode Cloud."
     exit 0
 fi
 
@@ -13,7 +13,7 @@ fail() {
 }
 
 [ "${CI_XCODEBUILD_ACTION:-}" = "archive" ] \
-    || fail "The Crest release workflow only permits archive actions."
+    || fail "The Zee release workflow only permits archive actions."
 
 repository_path="${CI_PRIMARY_REPOSITORY_PATH:-}"
 [ -n "$repository_path" ] \
@@ -21,11 +21,11 @@ repository_path="${CI_PRIMARY_REPOSITORY_PATH:-}"
 
 case "${CI_PRODUCT_PLATFORM:-}" in
     iOS)
-        expected_scheme="CrestMobile"
+        expected_scheme="ZeeMobile"
         destination="generic/platform=iOS"
         ;;
     macOS)
-        expected_scheme="Crest"
+        expected_scheme="Zee"
         destination="generic/platform=macOS"
         ;;
     *)
@@ -40,9 +40,9 @@ version_file="$repository_path/Config/Version.xcconfig"
 [ -f "$version_file" ] \
     || fail "Config/Version.xcconfig is missing from the primary repository."
 
-project_file="$repository_path/Crest.xcodeproj/project.pbxproj"
+project_file="$repository_path/Zee.xcodeproj/project.pbxproj"
 [ -f "$project_file" ] \
-    || fail "Crest.xcodeproj/project.pbxproj is missing from the primary repository."
+    || fail "Zee.xcodeproj/project.pbxproj is missing from the primary repository."
 
 expected_build="${CI_BUILD_NUMBER:-}"
 case "$expected_build" in
@@ -72,7 +72,7 @@ expected_version="$(
 
 if ! build_settings="$(
     xcodebuild \
-        -project "$repository_path/Crest.xcodeproj" \
+        -project "$repository_path/Zee.xcodeproj" \
         -scheme "$expected_scheme" \
         -configuration Release \
         -destination "$destination" \

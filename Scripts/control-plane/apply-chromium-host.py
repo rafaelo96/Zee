@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate or install Crest's native host overlay into its pinned external Chromium tree."""
+"""Validate or install Zee's native host overlay into its pinned external Chromium tree."""
 import argparse
 import hashlib
 import json
@@ -12,11 +12,11 @@ import tempfile
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import chromium_engine  # noqa: E402
 
-# The engine contract's headers in CrestContracts/include that the binding
+# The engine contract's headers in ZeeContracts/include that the binding
 # compiles against. chromium_engine.py keys the published engine on them.
-ENGINE_CONTRACT = ("crest_core.h", "crest_app.h", "crest_engine.h", "crest_engine_contract.h")
+ENGINE_CONTRACT = ("zee_core.h", "zee_app.h", "zee_engine.h", "zee_engine_contract.h")
 # The content filter's C interface, which the binding's request filter calls.
-CONTENT_FILTER_HEADER = "CrestCore/native/ContentFilter/include/crest_content_filter.h"
+CONTENT_FILTER_HEADER = "ZeeCore/native/ContentFilter/include/zee_content_filter.h"
 
 
 def main():
@@ -26,7 +26,7 @@ def main():
     args = parser.parse_args()
     source = args.source.resolve()
     repo = Path(__file__).resolve().parents[2]
-    host = repo / "CrestEngines/Chromium"
+    host = repo / "ZeeEngines/Chromium"
     if source == repo or repo in source.parents:
         parser.error("Use the external, pinned Chromium checkout")
     inputs = json.loads((host / "host-inputs.json").read_text())
@@ -48,7 +48,7 @@ def main():
     pending = [(name, section) for name, section in sections if states[name] == "before"]
     # A file several patches change takes them in order, which `patch
     # --dry-run` cannot check, so the result is made in a scratch copy first.
-    with tempfile.TemporaryDirectory(prefix="crest-host-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="zee-host-") as temporary:
         scratch = Path(temporary)
         for name in {name for name, _ in pending}:
             (scratch / name).parent.mkdir(parents=True, exist_ok=True)
@@ -66,7 +66,7 @@ def main():
         # Never alter inputs under an active compiler. The build wrapper uses a
         # dedicated process group, but other Ninja invocations must also be quiet.
         processes = subprocess.check_output(["ps", "-axo", "comm=,args="], text=True)
-        if any("ninja" in line.split()[0] and "CrestBaseline" in line for line in processes.splitlines() if line.split()):
+        if any("ninja" in line.split()[0] and "ZeeBaseline" in line for line in processes.splitlines() if line.split()):
             parser.error("Stop the task's Chromium Ninja build before installing the overlay")
         for name in {name for name, _ in pending}:
             shutil.copyfile(scratch / name, source / name)
@@ -83,10 +83,10 @@ def main():
     # The host header, the engine contract the binding implements (the C ABI
     # it registers through and the generated C++ codec), and the content
     # filter's C interface it checks requests through.
-    headers = [host / "Apple/CrestChromiumHost.h", repo / CONTENT_FILTER_HEADER]
-    headers += [repo / "CrestContracts/include" / name for name in ENGINE_CONTRACT]
+    headers = [host / "Apple/ZeeChromiumHost.h", repo / CONTENT_FILTER_HEADER]
+    headers += [repo / "ZeeContracts/include" / name for name in ENGINE_CONTRACT]
     for header in headers:
-        destination = source / "chrome/browser/ui/crest" / header.name
+        destination = source / "chrome/browser/ui/zee" / header.name
         if not destination.is_file() or destination.read_bytes() != header.read_bytes():
             shutil.copy(header, destination)
     print("Installed host sources. Regenerate GN and build before packaging the native UI framework.")

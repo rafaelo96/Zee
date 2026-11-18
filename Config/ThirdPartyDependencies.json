@@ -22,7 +22,7 @@
       "name": "Game-icons.net Heraldic Artwork",
       "version": "2026-09-11",
       "license": "CC BY 3.0",
-      "notice": "CrestShared/Resources/HeraldicArtworkCredits.txt",
+      "notice": "ZeeShared/Resources/HeraldicArtworkCredits.txt",
       "source": "https://github.com/game-icons/icons"
     },
     {
@@ -30,7 +30,7 @@
       "name": "SFSafeSymbols Name Catalog",
       "version": "cb2e670a213ff42ae08528ee2c401bfb1d799675",
       "license": "MIT",
-      "notice": "CrestShared/Resources/SFSymbolCatalog-LICENSE.txt",
+      "notice": "ZeeShared/Resources/SFSymbolCatalog-LICENSE.txt",
       "source": "https://raw.githubusercontent.com/SFSafeSymbols/SFSafeSymbols/cb2e670a213ff42ae08528ee2c401bfb1d799675/SymbolsGenerator/Sources/SymbolsGenerator/Resources/symbol_names.txt"
     }
   ],
@@ -42,7 +42,7 @@
       "license": "BSD-3-Clause, with bundled third-party licenses listed at chrome://credits",
       "notice": "ThirdParty/Chromium-LICENSE.txt",
       "source": "https://chromium.googlesource.com/chromium/src",
-      "usedBy": "Crest's Chromium build"
+      "usedBy": "Zee's Chromium build"
     },
     {
       "identity": "dotnet-runtime",
@@ -51,7 +51,7 @@
       "license": "MIT, with bundled third-party notices",
       "notice": "ThirdParty/DotNet-LICENSE.txt",
       "source": "https://github.com/dotnet/runtime",
-      "usedBy": "Crest's core on every platform"
+      "usedBy": "Zee's core on every platform"
     },
     {
       "identity": "adblock-rust",
@@ -60,7 +60,7 @@
       "license": "MPL-2.0, with the MIT, Apache-2.0, Unicode-3.0 and Unlicense Rust crates it is built from",
       "notice": "ThirdParty/ContentFilter-LICENSES.txt",
       "source": "https://github.com/brave/adblock-rust",
-      "usedBy": "Crest's core content filter on every platform"
+      "usedBy": "Zee's core content filter on every platform"
     }
   ],
   "contentFilterCrates": {

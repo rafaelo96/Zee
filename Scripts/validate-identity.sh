@@ -5,20 +5,20 @@ repository_root="${0:A:h:h}"
 cd "$repository_root"
 
 required_paths=(
-  CrestShared
-  CrestMac
-  CrestMobile
-  CrestTests
-  CrestMobileTests
-  CrestTestFixtures
+  ZeeShared
+  ZeeMac
+  ZeeMobile
+  ZeeTests
+  ZeeMobileTests
+  ZeeTestFixtures
   Documentation/ARCHITECTURE.md
-  CrestShared/Resources/CrestIcon/Crest.icon
+  ZeeShared/Resources/ZeeIcon/Zee.icon
   project.yml
 )
 
 for required_path in "${required_paths[@]}"; do
   if [[ ! -e "$required_path" ]]; then
-    print -u2 "Missing required Crest path: $required_path"
+    print -u2 "Missing required Zee path: $required_path"
     exit 1
   fi
 done
@@ -58,14 +58,14 @@ if rg -n \
   exit 1
 fi
 
-rg -q '^name: Crest$' project.yml
-rg -q '^  Crest:$' project.yml
-rg -q '^  CrestMobile:$' project.yml
-rg -q 'CREST_MAC_BUNDLE_IDENTIFIER: "\$\(SEI_BUNDLE_ID\)"$' project.yml
-rg -q 'CREST_MOBILE_BUNDLE_IDENTIFIER: "\$\(SEI_BUNDLE_ID\)"$' project.yml
-rg -q '^SEI_PRODUCT_NAME = ' Config/Sei.xcconfig
-rg -q '^SEI_BUNDLE_ID = ' Config/Sei.xcconfig
-rg -q 'PRODUCT_MODULE_NAME: Crest$' project.yml
-rg -q 'PRODUCT_MODULE_NAME: CrestMobile$' project.yml
+rg -q '^name: Zee$' project.yml
+rg -q '^  Zee:$' project.yml
+rg -q '^  ZeeMobile:$' project.yml
+rg -q 'ZEE_MAC_BUNDLE_IDENTIFIER: "\$\(ZEE_BUNDLE_ID\)"$' project.yml
+rg -q 'ZEE_MOBILE_BUNDLE_IDENTIFIER: "\$\(ZEE_BUNDLE_ID\)"$' project.yml
+rg -q '^ZEE_PRODUCT_NAME = ' Config/Zee.xcconfig
+rg -q '^ZEE_BUNDLE_ID = ' Config/Zee.xcconfig
+rg -q 'PRODUCT_MODULE_NAME: Zee$' project.yml
+rg -q 'PRODUCT_MODULE_NAME: ZeeMobile$' project.yml
 
-print "Sei identity validation passed."
+print "Zee identity validation passed."

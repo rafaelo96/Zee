@@ -2,7 +2,7 @@
 set -euo pipefail
 
 script_root="${0:A:h:h}"
-repository_root="${CREST_VERSION_REPOSITORY_ROOT:-$script_root}"
+repository_root="${ZEE_VERSION_REPOSITORY_ROOT:-$script_root}"
 mode="${1:-}"
 
 if [[ -n "$mode" && "$mode" != "--static" && "$mode" != "--fix-commit" ]]; then
@@ -22,9 +22,9 @@ is_strict_semver() {
 
 version_file="$repository_root/Config/Version.xcconfig"
 project_file="$repository_root/project.yml"
-project_bundle="$repository_root/Crest.xcodeproj"
-mac_plist="$repository_root/CrestMac/Configuration/Crest-Info.plist"
-mobile_plist="$repository_root/CrestMobile/Configuration/CrestMobile-Info.plist"
+project_bundle="$repository_root/Zee.xcodeproj"
+mac_plist="$repository_root/ZeeMac/Configuration/Zee-Info.plist"
+mobile_plist="$repository_root/ZeeMobile/Configuration/ZeeMobile-Info.plist"
 release_note_catalog_check="$script_root/Scripts/release_note_catalog.py"
 
 [[ -f "$version_file" ]] || fail "Config/Version.xcconfig is missing."
@@ -62,10 +62,10 @@ if [[ "$mode" == "--fix-commit" ]]; then
       | sed -nE 's/^[[:space:]]*MARKETING_VERSION[[:space:]]*=[[:space:]]*([^[:space:]]+)[[:space:]]*$/\1/p'
   } || true)"
 
-  is_strict_semver "$head_version" || fail "HEAD does not contain a valid Crest marketing version."
-  is_strict_semver "$staged_version" || fail "The staged Crest marketing version is invalid."
+  is_strict_semver "$head_version" || fail "HEAD does not contain a valid Zee marketing version."
+  is_strict_semver "$staged_version" || fail "The staged Zee marketing version is invalid."
   [[ "$marketing_version" == "$staged_version" ]] \
-    || fail "The working and staged Crest marketing versions differ; stage Config/Version.xcconfig again."
+    || fail "The working and staged Zee marketing versions differ; stage Config/Version.xcconfig again."
 
   head_parts=("${(@s:.:)head_version}")
   staged_parts=("${(@s:.:)staged_version}")
@@ -106,11 +106,11 @@ for configuration in Debug Release; do
     }
   ' "$project_file")"
 
-  # Sei: the configuration may name Config/Sei.xcconfig, which itself
+  # Zee: the configuration may name Config/Zee.xcconfig, which itself
   # includes Config/Version.xcconfig.
-  if [[ "$configured_path" == "Config/Sei.xcconfig" ]]; then
-    grep -Eq '^#include "Version.xcconfig"$' "$repository_root/Config/Sei.xcconfig" \
-      || fail "Config/Sei.xcconfig must include Version.xcconfig."
+  if [[ "$configured_path" == "Config/Zee.xcconfig" ]]; then
+    grep -Eq '^#include "Version.xcconfig"$' "$repository_root/Config/Zee.xcconfig" \
+      || fail "Config/Zee.xcconfig must include Version.xcconfig."
   else
     [[ "$configured_path" == "Config/Version.xcconfig" ]] \
       || fail "$configuration must inherit Config/Version.xcconfig in project.yml."
@@ -121,9 +121,9 @@ grep -Eq '^[[:space:]]+CURRENT_PROJECT_VERSION:[[:space:]]+"1"[[:space:]]*$' "$p
   || fail "project.yml must keep CURRENT_PROJECT_VERSION at the local fallback value 1."
 
 if [[ -z "$mode" ]]; then
-  [[ -d "$project_bundle" ]] || fail "Crest.xcodeproj is missing; run XcodeGen first."
+  [[ -d "$project_bundle" ]] || fail "Zee.xcodeproj is missing; run XcodeGen first."
 
-  for target in Crest CrestMobile; do
+  for target in Zee ZeeMobile; do
     for configuration in Debug Release; do
       if ! build_settings="$(
         xcodebuild \
@@ -157,7 +157,7 @@ fi
 if [[ "$mode" == "--fix-commit" ]]; then
   print "Validated fix commit patch version from $head_version to $staged_version."
 elif [[ "$mode" == "--static" ]]; then
-  print "Validated Crest $marketing_version version metadata (static)."
+  print "Validated Zee $marketing_version version metadata (static)."
 else
-  print "Validated Crest $marketing_version version metadata."
+  print "Validated Zee $marketing_version version metadata."
 fi

@@ -14,7 +14,7 @@ TEMPLATE = REPOSITORY_ROOT / ".github" / "PULL_REQUEST_TEMPLATE.md"
 
 
 def load_check_module():
-    spec = importlib.util.spec_from_file_location("crest_contribution", CHECK_SCRIPT)
+    spec = importlib.util.spec_from_file_location("zee_contribution", CHECK_SCRIPT)
     if spec is None or spec.loader is None:
         raise RuntimeError("Unable to load Scripts/check-contribution.py")
     module = importlib.util.module_from_spec(spec)
@@ -40,7 +40,7 @@ class ContributionCheckTests(unittest.TestCase):
         body = self.template.replace(f"- [ ] {self.check.AI_USED_MARKER}", f"- [x] {self.check.AI_USED_MARKER}")
         self.assertEqual(len(self.check.ai_declaration_problems(body)), 1)
 
-        body = body.replace("- [ ] I ran the `crest-contribution`", "- [x] I ran the `crest-contribution`")
+        body = body.replace("- [ ] I ran the `zee-contribution`", "- [x] I ran the `zee-contribution`")
         self.assertEqual(self.check.ai_declaration_problems(body), [])
 
     def test_sign_off_is_required_except_for_merges(self) -> None:

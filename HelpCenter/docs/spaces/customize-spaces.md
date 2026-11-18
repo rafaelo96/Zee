@@ -1,8 +1,8 @@
 ---
 title: Customize and arrange Spaces
-description: Design a Space in Crest Studio, customize its folders, and choose its browsing and cleanup settings.
+description: Design a Space in Badge Studio, customize its folders, and choose its browsing and cleanup settings.
 slug: /customize-spaces
-keywords: [Crest Studio, Space Forge, theme, gradient, crest, emoji, monogram, folders, cleanup, reorder, Appearance, add Space, rename Space]
+keywords: [Badge Studio, Space Forge, theme, gradient, badge, emoji, monogram, folders, cleanup, reorder, Appearance, add Space, rename Space]
 ---
 
 # Customize and arrange Spaces
@@ -11,19 +11,19 @@ Open a Space’s context menu to edit it, or open its page in Settings. On Mac, 
 
 ## Choose an identity
 
-Crest offers two presentation styles:
+Zee offers two presentation styles:
 
-- **Banner** uses Crest Studio: begin with a template, then choose a shape, field division, pattern, trim, and heraldic artwork. Use independent colors for the parts of your design, or make an identity with an emoji, monogram, or searchable SF Symbol.
-- **Gradient**, the last choice in Crest Studio's **Sidebar** step, blends one to three colors with direction, intensity, and optional texture.
+- **Banner** uses Badge Studio: begin with a template, then choose a shape, field division, pattern, trim, and heraldic artwork. Use independent colors for the parts of your design, or make an identity with an emoji, monogram, or searchable SF Symbol.
+- **Gradient**, the last choice in Badge Studio's **Sidebar** step, blends one to three colors with direction, intensity, and optional texture.
 
 The result appears in the Space picker and browser chrome on Mac, iPad, and iPhone.
 
-Crest Studio is on the Space’s Appearance page. The crest sits on the Space’s own sidebar background, with its colors named by what they paint:
+Badge Studio is on the Space’s Appearance page. The badge sits on the Space’s own sidebar background, with its colors named by what they paint:
 
-- **Crest:** Field, Second field, Band, Emblem, Border and Edge. A color for a part the crest doesn’t draw is dimmed.
+- **Zee:** Field, Second field, Band, Emblem, Border and Edge. A color for a part the badge doesn’t draw is dimmed.
 - **Sidebar:** Background, Accent (selected tabs, pins, the address field and the Space picker) and Pattern.
 
-Click or tap a color to choose one of the templates’ tinctures or a custom color. Below the crest, work through **Start from**, **Shape**, **Field**, **Band**, **Emblem**, **Border**, **Finish** and **Sidebar**; each step shows your crest with each choice applied. On iPhone, the steps are a list showing what each has chosen; tap one to open it. Choose **Icon** at the top of **Emblem** to use an SF Symbol or emoji instead of a crest. **Shuffle** suggests a new crest in the templates’ colors, and **Undo** steps back through your changes. **Reset Appearance** and **Artwork Credits** are in the **…** menu on the Space’s page.
+Click or tap a color to choose one of the templates’ tinctures or a custom color. Below the badge, work through **Start from**, **Shape**, **Field**, **Band**, **Emblem**, **Border**, **Finish** and **Sidebar**; each step shows your badge with each choice applied. On iPhone, the steps are a list showing what each has chosen; tap one to open it. Choose **Icon** at the top of **Emblem** to use an SF Symbol or emoji instead of a badge. **Shuffle** suggests a new badge in the templates’ colors, and **Undo** steps back through your changes. **Reset Appearance** and **Artwork Credits** are in the **…** menu on the Space’s page.
 
 ## Customize folders
 
@@ -37,7 +37,7 @@ Choose an app icon palette here too. These controls change the browser on this d
 
 ## Add and arrange Spaces
 
-On Mac, click **+** next to the Spaces heading in the Settings sidebar to add a Space. Its Appearance page opens with the name ready to type. Right-click a Space there, or use the **…** menu on its page, to rename it, edit its crest, lock it, or delete it. Crest needs at least one Space. Choose **New Sub-Space** from the same menu for a Space that shares this one's sign-ins; see [Sub-Spaces](./sub-spaces.md).
+On Mac, click **+** next to the Spaces heading in the Settings sidebar to add a Space. Its Appearance page opens with the name ready to type. Right-click a Space there, or use the **…** menu on its page, to rename it, edit its badge, lock it, or delete it. Zee needs at least one Space. Choose **New Sub-Space** from the same menu for a Space that shares this one's sign-ins; see [Sub-Spaces](./sub-spaces.md).
 
 Drag a Space in the picker to reorder it. In the Mac Settings sidebar, click the pencil next to the Spaces heading, drag Spaces by their handles, then click the checkmark; or right-click a Space and choose **Move Up** or **Move Down**. On iPhone and iPad, use the order controls in **Settings → Spaces**. Position matters for **Control-1** through **Control-9**, so put frequently used Spaces first. A group's Sub-Spaces stay together after their primary, and dragging the primary moves the whole group.
 

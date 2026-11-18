@@ -26,10 +26,10 @@ build/
 .swiftpm/
 
 # Portable core products
-CrestCore/**/bin/
-CrestCore/**/obj/
-CrestCore/artifacts/
-CrestCore/native/ContentFilter/target/
+ZeeCore/**/bin/
+ZeeCore/**/obj/
+ZeeCore/artifacts/
+ZeeCore/native/ContentFilter/target/
 
 # Local environment files
 .env
@@ -37,15 +37,15 @@ CrestCore/native/ContentFilter/target/
 !.env.example
 
 # Local editor and coding-assistant state. The tracked exceptions are the
-# public AGENTS.md and the crest-contribution skill with its Claude Code link.
+# public AGENTS.md and the badge-contribution skill with its Claude Code link.
 .claude/*
 !.claude/skills/
 .claude/skills/*
-!.claude/skills/crest-contribution
+!.claude/skills/zee-contribution
 .agents/*
 !.agents/skills/
 .agents/skills/*
-!.agents/skills/crest-contribution/
+!.agents/skills/zee-contribution/
 .codex/
 .codex-*/
 .cursor/
@@ -59,7 +59,7 @@ GEMINI.md
 # Language tool caches
 __pycache__/
 *.py[cod]
-/.crest-review
+/.badge-review
 
 # Local investigation and submission artifacts
 /Documentation/Audits/

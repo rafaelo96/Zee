@@ -18,7 +18,7 @@ def published_commit_prefix(appcast: str, channel: str) -> str | None:
     root = ElementTree.fromstring(appcast)
     channel_element = f"{{{SPARKLE_NAMESPACE}}}channel"
     asset_pattern = re.compile(
-        rf"^(?:Installer-)?Crest-.+-{re.escape(channel)}-"
+        rf"^(?:Installer-)?Zee-.+-{re.escape(channel)}-"
         rf"\d{{4}}-\d{{2}}-\d{{2}}-([0-9a-f]{{7,40}})-arm64\.dmg$"
     )
 

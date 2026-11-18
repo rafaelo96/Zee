@@ -1,21 +1,21 @@
 ---
 title: Settings reference
-description: Find every major Crest setting and understand whether it applies globally or to one Space.
+description: Find every major Zee setting and understand whether it applies globally or to one Space.
 slug: /settings-reference
 keywords: [settings, preferences, General, Tabs, Search, default search, search providers, command palette, Appearance, page zoom, app icon, Links, Quick Window, Peek, Engines, Chromium, WebKit, Shortcuts, Sync, Privacy, system permissions, Spaces, Passwords, Extensions, Advanced, Feature Flags, About, updates]
 ---
 
 # Settings reference
 
-Open **Crest → Settings** on Mac. On iPhone and iPad, open Settings from the browser interface. Some controls appear only on the platform that supports them.
+Open **Zee → Settings** on Mac. On iPhone and iPad, open Settings from the browser interface. Some controls appear only on the platform that supports them.
 
 On Mac and wider iPad windows, Settings opens as a browser tab and keeps your place when you switch away. In compact layouts, including iPhone, it opens as a dismissible sheet while your current page stays selected.
 
-On Mac, the Settings sidebar lists General, Tabs, Search, Appearance, Links, Engines, Shortcuts, Sync, and Privacy, then each of your Spaces by name and crest, then Agents, Advanced and About. iPhone and iPad keep their own layout; see [iPhone and iPad](#iphone-and-ipad).
+On Mac, the Settings sidebar lists General, Tabs, Search, Appearance, Links, Engines, Shortcuts, Sync, and Privacy, then each of your Spaces by name and badge, then Agents, Advanced and About. iPhone and iPad keep their own layout; see [iPhone and iPad](#iphone-and-ipad).
 
 ## General
 
-Make Crest your default browser, choose what happens when Crest opens, and pick the default Space. General also holds automatic page translation and spell checking. On Mac, it includes **Picture in Picture when switching tabs** and **Developer toolbar on local pages**. On iPhone and iPad, **Start on new tab** opens Crest on a new tab in the default Space, and **Allow floating sidebar** lets the sidebar float over the page instead of filling the screen.
+Make Zee your default browser, choose what happens when Zee opens, and pick the default Space. General also holds automatic page translation and spell checking. On Mac, it includes **Picture in Picture when switching tabs** and **Developer toolbar on local pages**. On iPhone and iPad, **Start on new tab** opens Zee on a new tab in the default Space, and **Allow floating sidebar** lets the sidebar float over the page instead of filling the screen.
 
 ## Tabs
 
@@ -34,7 +34,7 @@ The command palette settings come next:
 
 The search providers come last:
 
-- **Search Engines**, **AI Assistants** and **Websites**: every provider Crest offers, each with its main shortcut. Turn a provider off to stop its shortcut; the default stays on. Click a provider to open it and see its options, such as Google's **Hide AI Overviews** or ChatGPT's **Model**, and to change its shortcuts.
+- **Search Engines**, **AI Assistants** and **Websites**: every provider Zee offers, each with its main shortcut. Turn a provider off to stop its shortcut; the default stays on. Click a provider to open it and see its options, such as Google's **Hide AI Overviews** or ChatGPT's **Model**, and to change its shortcuts.
 - **Add Provider…** adds your own search engine, AI assistant or website with a name, shortcuts, search URL and color. **Restore Defaults…** puts the built-in providers' shortcuts and options back; providers you added stay.
 
 Search providers and their settings stay on this device.
@@ -45,7 +45,7 @@ See [Use the command palette](../browsing/command-palette.md).
 
 Customize the browser on this device with a live preview. Choose sidebar position, the window border, tab shape and scale, pinned-tab layout, address-field style, folder display, and an app icon palette. With **Follow Space accent** on, selected tabs, pins, and the address field use the current Space's color; turn it off to pick a custom color. **Default page zoom** offers fixed levels from **50% to 300%**. Use presets to get started or reset individual changed settings.
 
-A Space's crest, colors, and sidebar background live on the Space's Appearance page. See [Spaces](#spaces) and [Customize and arrange Spaces](../customize-spaces/).
+A Space's badge, colors, and sidebar background live on the Space's Appearance page. See [Spaces](#spaces) and [Customize and arrange Spaces](../customize-spaces/).
 
 ## Links
 
@@ -57,7 +57,7 @@ On Mac, choose whether new pages open in Chromium or WebKit, and manage website 
 
 ## Shortcuts
 
-Search the complete Mac command catalog, record a replacement, inspect conflicts, clear an assignment, or restore the default. Choose **Prefer Crest**, **Use Both** or **Prefer Website** for what happens when a website uses the same keys. The New Quick Window shortcut works from any app while Crest is open. Extension shortcuts are set on Chromium's extension shortcuts page, opened from **Shortcuts…** on a Space's Extensions page, because they belong to the extension installed in that Space.
+Search the complete Mac command catalog, record a replacement, inspect conflicts, clear an assignment, or restore the default. Choose **Prefer Zee**, **Use Both** or **Prefer Website** for what happens when a website uses the same keys. The New Quick Window shortcut works from any app while Zee is open. Extension shortcuts are set on Chromium's extension shortcuts page, opened from **Shortcuts…** on a Space's Extensions page, because they belong to the extension installed in that Space.
 
 ## Sync
 
@@ -65,31 +65,31 @@ Enable or disable iCloud sync and review its current state. Private Spaces and t
 
 ## Privacy
 
-On Mac, Privacy covers the whole device. **System permissions** shows whether macOS lets Crest use the camera, microphone, location, notifications, passkeys, and files and folders. Below that, select a Space to open its Privacy page, where its data retention, content blocking, and site permissions live.
+On Mac, Privacy covers the whole device. **System permissions** shows whether macOS lets Zee use the camera, microphone, location, notifications, passkeys, and files and folders. Below that, select a Space to open its Privacy page, where its data retention, content blocking, and site permissions live.
 
 ## Spaces
 
-On Mac, every Space has its own page. Select the Space in the Settings sidebar; the window switches to that Space, and Settings follows. The page header shows the Space's crest and name. Hover over the name and click the pencil to rename it, or open the **…** menu for more actions.
+On Mac, every Space has its own page. Select the Space in the Settings sidebar; the window switches to that Space, and Settings follows. The page header shows the Space's badge and name. Hover over the name and click the pencil to rename it, or open the **…** menu for more actions.
 
 Each Space's page has these tabs:
 
-- **Appearance**: Crest Studio for the Space's crest, colors, and sidebar background.
+- **Appearance**: Badge Studio for the Space's badge, colors, and sidebar background.
 - **Browsing**: **Search with** and **Search suggestions**, which follow your default search until you choose for the Space, archiving old tabs with **Archive current tabs** and **Archive Now**, downloads (whether to ask where to save, and the download folder), and **Delete Space**.
 - **Privacy**: **Require Touch ID or password**, how long to keep History, Archived Tabs, and Download Records, content blocking, and saved site permissions.
-- **Passwords**: **Use Crest Passwords**, **Sync with iCloud Keychain**, and the Space's saved passwords, with **Import Passwords…** and **Export Passwords…**.
+- **Passwords**: **Use Zee Passwords**, **Sync with iCloud Keychain**, and the Space's saved passwords, with **Import Passwords…** and **Export Passwords…**.
 - **Extensions**: available when Chromium is. **Open Chrome Web Store**, **Chromium Extension Manager**, **Shortcuts…**, and the extensions installed in the Space.
 
 ### Add, arrange, and remove Spaces
 
 Click **+** next to the Spaces heading to add a Space. Its Appearance page opens with the name ready to type. Click the pencil next to it to rearrange: drag Spaces by their handles, then click the checkmark when done.
 
-Right-click a Space, or use the **…** menu on its page, for **Rename**, **Edit Crest…**, **Move Up**, **Move Down**, **New Sub-Space**, **Make Sub-Space of**, **Separate from "Primary"…**, **Lock Space**, and **Delete**, or **Delete "Primary" and Its Sub-Spaces…** for a group's primary. Crest needs at least one Space.
+Right-click a Space, or use the **…** menu on its page, for **Rename**, **Edit Badge…**, **Move Up**, **Move Down**, **New Sub-Space**, **Make Sub-Space of**, **Separate from "Primary"…**, **Lock Space**, and **Delete**, or **Delete "Primary" and Its Sub-Spaces…** for a group's primary. Zee needs at least one Space.
 
-[Sub-Spaces](../spaces/sub-spaces.md) are indented under their primary, and a group's page shows the crests of its Spaces, with **+** to add one. Drag a Space onto another, or among a group's Sub-Spaces, to add it to that group; drag it out to separate it. The Privacy and Passwords pages of a group say they are shared by its Sub-Spaces, and its Browsing page has **Separate Pinned Tabs**.
+[Sub-Spaces](../spaces/sub-spaces.md) are indented under their primary, and a group's page shows the badges of its Spaces, with **+** to add one. Drag a Space onto another, or among a group's Sub-Spaces, to add it to that group; drag it out to separate it. The Privacy and Passwords pages of a group say they are shared by its Sub-Spaces, and its Browsing page has **Separate Pinned Tabs**.
 
 ## Agents
 
-On Mac, choose whether coding agents on your Mac may use Crest, which Spaces they reach, and whether they may run scripts in pages; connect an agent, and see the agents connected now and the ones you allowed. See [Let coding agents use Crest](../browsing/coding-agents.md).
+On Mac, choose whether coding agents on your Mac may use Zee, which Spaces they reach, and whether they may run scripts in pages; connect an agent, and see the agents connected now and the ones you allowed. See [Let coding agents use Zee](../browsing/coding-agents.md).
 
 ## Advanced
 
@@ -101,8 +101,8 @@ Choose **Rerun onboarding** to return to Welcome and go through setup again. Com
 
 ## About
 
-**About** shows Crest’s build information and links to the community. On Mac, it also holds software updates: automatic checks and installs, the update channel, and **Check for Updates…**.
+**About** shows Zee’s build information and links to the community. On Mac, it also holds software updates: automatic checks and installs, the update channel, and **Check for Updates…**.
 
 ## iPhone and iPad
 
-iPhone and iPad keep their own Settings navigation, with the same **Tabs** and **Appearance** pages for the whole device. **Spaces** is a page of its own: choose a Space from its picker to customize it and set its browsing and cleanup choices. **Privacy** also has a Space picker for data retention, content blocking, and site permissions. **Passwords** lists Crest Passwords by Space; authenticate to reveal or export them, and choose whether eligible credentials sync with iCloud Keychain.
+iPhone and iPad keep their own Settings navigation, with the same **Tabs** and **Appearance** pages for the whole device. **Spaces** is a page of its own: choose a Space from its picker to customize it and set its browsing and cleanup choices. **Privacy** also has a Space picker for data retention, content blocking, and site permissions. **Passwords** lists Zee Passwords by Space; authenticate to reveal or export them, and choose whether eligible credentials sync with iCloud Keychain.

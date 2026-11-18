@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Crest's declared third-party dependency and license surface."""
+"""Validate Zee's declared third-party dependency and license surface."""
 
 from __future__ import annotations
 
@@ -13,14 +13,14 @@ REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
 CATALOG_PATH = REPOSITORY_ROOT / "Config" / "ThirdPartyDependencies.json"
 PACKAGE_RESOLVED_PATH = (
     REPOSITORY_ROOT
-    / "Crest.xcodeproj"
+    / "Zee.xcodeproj"
     / "project.xcworkspace"
     / "xcshareddata"
     / "swiftpm"
     / "Package.resolved"
 )
 PACKAGE_LOCK_PATH = REPOSITORY_ROOT / "HelpCenter" / "package-lock.json"
-CARGO_LOCK_PATH = REPOSITORY_ROOT / "CrestCore" / "native" / "ContentFilter" / "Cargo.lock"
+CARGO_LOCK_PATH = REPOSITORY_ROOT / "ZeeCore" / "native" / "ContentFilter" / "Cargo.lock"
 CONTENT_FILTER_NOTICES_PATH = REPOSITORY_ROOT / "ThirdParty" / "ContentFilter-LICENSES.txt"
 WORKFLOW_DIRECTORY = REPOSITORY_ROOT / ".github" / "workflows"
 
@@ -96,7 +96,7 @@ def audit_bundled_components(catalog: dict) -> int:
 
 
 # Each license expression a content filter crate may declare. Every one is
-# permissive or, like Crest itself, MPL-2.0.
+# permissive or, like Zee itself, MPL-2.0.
 ALLOWED_CRATE_LICENSES = {
     "(MIT OR Apache-2.0) AND Unicode-3.0",
     "Apache-2.0",
@@ -115,7 +115,7 @@ def audit_content_filter_crates(catalog: dict) -> int:
     allowed license and its text in the content filter's notices."""
     locked = re.findall(r'^\[\[package\]\]\nname = "([^"]+)"\nversion = "([^"]+)"',
                         CARGO_LOCK_PATH.read_text(), re.M)
-    actual = {f"{name} {version}" for name, version in locked if name != "crest-content-filter"}
+    actual = {f"{name} {version}" for name, version in locked if name != "zee-content-filter"}
     expected = catalog["contentFilterCrates"]
     if actual != set(expected):
         raise RuntimeError(

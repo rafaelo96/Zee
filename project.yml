@@ -1,12 +1,12 @@
-name: Crest
+name: Zee
 configs:
   Debug: debug
   Release: release
 configFiles:
-  Debug: Config/Sei.xcconfig
-  Release: Config/Sei.xcconfig
+  Debug: Config/Zee.xcconfig
+  Release: Config/Zee.xcconfig
 options:
-  bundleIdPrefix: dev.sei
+  bundleIdPrefix: dev.zee
   deploymentTarget:
     iOS: "26.1"
     macOS: "26.1"
@@ -15,7 +15,7 @@ settings:
   base:
     ARCHS: arm64
     CODE_SIGN_STYLE: Automatic
-    DEVELOPMENT_TEAM: "$(SEI_DEVELOPMENT_TEAM)"
+    DEVELOPMENT_TEAM: "$(ZEE_DEVELOPMENT_TEAM)"
     DEVELOPMENT_LANGUAGE: en
     ENABLE_HARDENED_RUNTIME: YES
     MACOSX_DEPLOYMENT_TARGET: "26.1"
@@ -44,9 +44,9 @@ targetTemplates:
     settings:
       base:
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited)"
-        SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/CrestContracts/include"
-        CREST_CORE_LIBRARY_DIR: "$(BUILT_PRODUCTS_DIR)/CrestCore"
-        OTHER_LDFLAGS: '$(inherited) "$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib"'
+        SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/ZeeContracts/include"
+        ZEE_CORE_LIBRARY_DIR: "$(BUILT_PRODUCTS_DIR)/ZeeCore"
+        OTHER_LDFLAGS: '$(inherited) "$(ZEE_CORE_LIBRARY_DIR)/ZeeCore.Native.dylib"'
         LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
         ENABLE_USER_SCRIPT_SANDBOXING: NO
     preBuildScripts:
@@ -54,29 +54,29 @@ targetTemplates:
         script: python3 "$SRCROOT/Scripts/control-plane/build-apple-core.py"
         basedOnDependencyAnalysis: false
         outputFiles:
-          - "$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib"
+          - "$(ZEE_CORE_LIBRARY_DIR)/ZeeCore.Native.dylib"
     postBuildScripts:
       - name: Embed portable core
         script: |
           set -eu
           mkdir -p "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH"
-          cp "$CREST_CORE_LIBRARY_DIR/CrestCore.Native.dylib" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/CrestCore.Native.dylib"
+          cp "$ZEE_CORE_LIBRARY_DIR/ZeeCore.Native.dylib" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/ZeeCore.Native.dylib"
           if [ "$CODE_SIGNING_ALLOWED" != "NO" ]; then
-            codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/CrestCore.Native.dylib"
+            codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/ZeeCore.Native.dylib"
           fi
         basedOnDependencyAnalysis: false
         inputFiles:
-          - "$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib"
+          - "$(ZEE_CORE_LIBRARY_DIR)/ZeeCore.Native.dylib"
         outputFiles:
-          - "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CrestCore.Native.dylib"
+          - "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ZeeCore.Native.dylib"
   PortableCoreMobile:
     settings:
       base:
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited)"
-        SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/CrestContracts/include"
-        CREST_CORE_FRAMEWORK_DIR: "$(BUILT_PRODUCTS_DIR)/CrestCore"
-        FRAMEWORK_SEARCH_PATHS: "$(inherited) $(CREST_CORE_FRAMEWORK_DIR)"
-        OTHER_LDFLAGS: "$(inherited) -framework CrestCoreABI"
+        SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/ZeeContracts/include"
+        ZEE_CORE_FRAMEWORK_DIR: "$(BUILT_PRODUCTS_DIR)/ZeeCore"
+        FRAMEWORK_SEARCH_PATHS: "$(inherited) $(ZEE_CORE_FRAMEWORK_DIR)"
+        OTHER_LDFLAGS: "$(inherited) -framework ZeeCoreABI"
         LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks"
         ENABLE_USER_SCRIPT_SANDBOXING: NO
     preBuildScripts:
@@ -84,21 +84,21 @@ targetTemplates:
         script: python3 "$SRCROOT/Scripts/control-plane/build-apple-core.py"
         basedOnDependencyAnalysis: false
         outputFiles:
-          - "$(CREST_CORE_FRAMEWORK_DIR)/CrestCoreABI.framework/CrestCoreABI"
+          - "$(ZEE_CORE_FRAMEWORK_DIR)/ZeeCoreABI.framework/ZeeCoreABI"
     postBuildScripts:
       - name: Embed portable core
         script: |
           set -eu
           mkdir -p "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH"
-          ditto "$CREST_CORE_FRAMEWORK_DIR/CrestCoreABI.framework" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/CrestCoreABI.framework"
+          ditto "$ZEE_CORE_FRAMEWORK_DIR/ZeeCoreABI.framework" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/ZeeCoreABI.framework"
           if [ "$CODE_SIGNING_ALLOWED" != "NO" ]; then
-            codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/CrestCoreABI.framework"
+            codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/ZeeCoreABI.framework"
           fi
         basedOnDependencyAnalysis: false
         inputFiles:
-          - "$(CREST_CORE_FRAMEWORK_DIR)/CrestCoreABI.framework/CrestCoreABI"
+          - "$(ZEE_CORE_FRAMEWORK_DIR)/ZeeCoreABI.framework/ZeeCoreABI"
         outputFiles:
-          - "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CrestCoreABI.framework/CrestCoreABI"
+          - "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ZeeCoreABI.framework/ZeeCoreABI"
   # The Chromium host framework has one composition and two identities: the
   # isolated review framework and the normal product framework. Only the Swift
   # compilation conditions differ, so both build from this template.
@@ -111,27 +111,27 @@ targetTemplates:
       # The WebKit composition (its entry point and the shell's WebKit host),
       # engine selection and engine-contributed views; the Chromium sources
       # supply their own.
-      - path: CrestShared
+      - path: ZeeShared
         excludes:
-          - Resources/CrestIcon/Sources
-          - Resources/CrestIcon/Validation
+          - Resources/ZeeIcon/Sources
+          - Resources/ZeeIcon/Validation
           - Infrastructure/Engines/BrowserEngineRegistration+Composition.swift
           - Features/Settings/Components/BrowserEngineExtensionSettingsPane.swift
           - Features/Settings/Components/BrowserEngineRegistration+FeatureFlags.swift
-      - path: CrestMac
+      - path: ZeeMac
         excludes:
           - App/Composition
           - Features/SiteSettings/Components/BrowserEngineSiteSections.swift
-      - path: CrestEngines/Chromium/Apple
+      - path: ZeeEngines/Chromium/Apple
         excludes:
-          - CrestChromiumHost.h
-      - path: CrestAgents
+          - ZeeChromiumHost.h
+      - path: ZeeAgents
     dependencies:
-      - target: CrestDockTilePlugin
+      - target: ZeeDockTilePlugin
         link: false
         embed: false
       # The packager copies the agent helper into Contents/Helpers.
-      - target: CrestBrowserHelper
+      - target: ZeeBrowserHelper
         link: false
         embed: false
       - package: Sparkle
@@ -146,16 +146,16 @@ targetTemplates:
       - sdk: Security.framework
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).chromium-ui"
-        PRODUCT_MODULE_NAME: CrestChromiumUI
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID).chromium-ui"
+        PRODUCT_MODULE_NAME: ZeeChromiumUI
         GENERATE_INFOPLIST_FILE: YES
-        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
-        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
+        ASSETCATALOG_COMPILER_APPICON_NAME: Zee
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "ZeeWinter ZeeLion ZeeStorm ZeeDragon ZeeMeadow ZeeIron ZeeRiver ZeeSun ZeeVigil"
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: ${hostCompilationConditions}
-        SWIFT_OBJC_BRIDGING_HEADER: "$(PROJECT_DIR)/CrestEngines/Chromium/Apple/CrestChromiumHost.h"
-        SWIFT_INCLUDE_PATHS: "$(PROJECT_DIR)/CrestContracts/include"
-        CREST_CORE_LIBRARY_DIR: "$(BUILT_PRODUCTS_DIR)/CrestCore"
-        OTHER_LDFLAGS: '$(inherited) "$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib"'
+        SWIFT_OBJC_BRIDGING_HEADER: "$(PROJECT_DIR)/ZeeEngines/Chromium/Apple/ZeeChromiumHost.h"
+        SWIFT_INCLUDE_PATHS: "$(PROJECT_DIR)/ZeeContracts/include"
+        ZEE_CORE_LIBRARY_DIR: "$(BUILT_PRODUCTS_DIR)/ZeeCore"
+        OTHER_LDFLAGS: '$(inherited) "$(ZEE_CORE_LIBRARY_DIR)/ZeeCore.Native.dylib"'
         LD_RUNPATH_SEARCH_PATHS: "$(inherited) @loader_path/../../.."
         SWIFT_EMIT_LOC_STRINGS: NO
         ENABLE_USER_SCRIPT_SANDBOXING: NO
@@ -164,49 +164,49 @@ targetTemplates:
         script: python3 "$SRCROOT/Scripts/control-plane/build-apple-core.py"
         basedOnDependencyAnalysis: false
         outputFiles:
-          - "$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib"
+          - "$(ZEE_CORE_LIBRARY_DIR)/ZeeCore.Native.dylib"
 targets:
-  CrestChromiumUI:
+  ZeeChromiumUI:
     templates:
       - ChromiumHostFramework
     templateAttributes:
-      hostCompilationConditions: "$(inherited) CREST_CHROMIUM_HOST CREST_REVIEW_BUILD"
+      hostCompilationConditions: "$(inherited) ZEE_CHROMIUM_HOST ZEE_REVIEW_BUILD"
     scheme: {}
   # The normal desktop composition: the same host framework without review
-  # isolation, so it uses Crest's persistent store, sync and update identity.
+  # isolation, so it uses Zee's persistent store, sync and update identity.
   # It keeps its own product name so a rebuild can never leave one
   # composition's resources inside the other's framework.
-  CrestChromiumUIProduct:
+  ZeeChromiumUIProduct:
     templates:
       - ChromiumHostFramework
     templateAttributes:
-      hostCompilationConditions: "$(inherited) CREST_CHROMIUM_HOST"
+      hostCompilationConditions: "$(inherited) ZEE_CHROMIUM_HOST"
     sources:
       # Names this framework's composition, and becomes the packaged bundle's
       # marker for a host that starts without launch switches.
-      - path: CrestEngines/Chromium/Composition/Crest-Native-Host
+      - path: ZeeEngines/Chromium/Composition/Zee-Native-Host
         buildPhase: resources
     scheme: {}
-  CrestNativeCore:
+  ZeeNativeCore:
     type: application
     platform: macOS
     sources:
       - path: Documentation/ReleaseNotes.json
         buildPhase: resources
-      - path: CrestShared
+      - path: ZeeShared
         excludes:
-          - Resources/CrestIcon/Sources
-          - Resources/CrestIcon/Validation
-      - path: CrestMac
-      - path: CrestAgents
+          - Resources/ZeeIcon/Sources
+          - Resources/ZeeIcon/Validation
+      - path: ZeeMac
+      - path: ZeeAgents
     dependencies:
-      - target: CrestDockTilePlugin
+      - target: ZeeDockTilePlugin
         embed: true
         link: false
         codeSign: true
         copy:
           destination: plugins
-      - target: CrestBrowserHelper
+      - target: ZeeBrowserHelper
         embed: true
         link: false
         codeSign: true
@@ -225,23 +225,23 @@ targets:
       - sdk: Security.framework
     settings:
       base:
-        CREST_NATIVE_CORE_ENTITLEMENTS: CrestNative/Apple/Composition/ControlPlane.entitlements
-        CODE_SIGN_ENTITLEMENTS: "$(CREST_NATIVE_CORE_ENTITLEMENTS)"
+        ZEE_NATIVE_CORE_ENTITLEMENTS: ZeeNative/Apple/Composition/ControlPlane.entitlements
+        CODE_SIGN_ENTITLEMENTS: "$(ZEE_NATIVE_CORE_ENTITLEMENTS)"
         # Release scripts supply the app profile without provisioning bundled plug-ins.
-        PROVISIONING_PROFILE_SPECIFIER: "$(CREST_PROVISIONING_PROFILE_SPECIFIER)"
+        PROVISIONING_PROFILE_SPECIFIER: "$(ZEE_PROVISIONING_PROFILE_SPECIFIER)"
         GENERATE_INFOPLIST_FILE: NO
-        INFOPLIST_FILE: CrestMac/Configuration/Crest-Info.plist
-        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
-        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
-        CREST_NATIVE_CORE_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).native-core"
-        PRODUCT_BUNDLE_IDENTIFIER: "$(CREST_NATIVE_CORE_BUNDLE_IDENTIFIER)"
-        PRODUCT_MODULE_NAME: Crest
-        PRODUCT_NAME: CrestNativeCore
-        CREST_DEFAULT_UPDATE_CHANNEL: development
-        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) CREST_REVIEW_BUILD"
-        SWIFT_INCLUDE_PATHS: "$(PROJECT_DIR)/CrestContracts/include"
-        CREST_CORE_LIBRARY_DIR: "$(PROJECT_DIR)/CrestCore/src/CrestCore.Native/bin/Release/net10.0/osx-arm64/publish"
-        OTHER_LDFLAGS: '$(inherited) "$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib"'
+        INFOPLIST_FILE: ZeeMac/Configuration/Zee-Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: Zee
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "ZeeWinter ZeeLion ZeeStorm ZeeDragon ZeeMeadow ZeeIron ZeeRiver ZeeSun ZeeVigil"
+        ZEE_NATIVE_CORE_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID).native-core"
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_NATIVE_CORE_BUNDLE_IDENTIFIER)"
+        PRODUCT_MODULE_NAME: Zee
+        PRODUCT_NAME: ZeeNativeCore
+        ZEE_DEFAULT_UPDATE_CHANNEL: development
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) ZEE_REVIEW_BUILD"
+        SWIFT_INCLUDE_PATHS: "$(PROJECT_DIR)/ZeeContracts/include"
+        ZEE_CORE_LIBRARY_DIR: "$(PROJECT_DIR)/ZeeCore/src/ZeeCore.Native/bin/Release/net10.0/osx-arm64/publish"
+        OTHER_LDFLAGS: '$(inherited) "$(ZEE_CORE_LIBRARY_DIR)/ZeeCore.Native.dylib"'
         LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
         SWIFT_EMIT_LOC_STRINGS: NO
     postBuildScripts:
@@ -249,18 +249,18 @@ targets:
         script: |
           set -eu
           mkdir -p "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH"
-          cp "$CREST_CORE_LIBRARY_DIR/CrestCore.Native.dylib" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/CrestCore.Native.dylib"
-          codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/CrestCore.Native.dylib"
+          cp "$ZEE_CORE_LIBRARY_DIR/ZeeCore.Native.dylib" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/ZeeCore.Native.dylib"
+          codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/ZeeCore.Native.dylib"
         basedOnDependencyAnalysis: false
         inputFiles:
-          - "$(CREST_CORE_LIBRARY_DIR)/CrestCore.Native.dylib"
+          - "$(ZEE_CORE_LIBRARY_DIR)/ZeeCore.Native.dylib"
         outputFiles:
-          - "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CrestCore.Native.dylib"
-  CrestNativeCoreTests:
+          - "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ZeeCore.Native.dylib"
+  ZeeNativeCoreTests:
     type: bundle.unit-test
     platform: macOS
     sources:
-      - path: CrestTests
+      - path: ZeeTests
         includes:
           - BrowserTabStateArchiveTests.swift
           - BrowserDataRetentionTests.swift
@@ -277,7 +277,7 @@ targets:
           - BrowserCloudSyncStateTests.swift
           - BrowserLaunchEnvironmentTests.swift
           - BrowserCoreSessionAuthorityTests.swift
-          - Support/CrestCore+ProfileErasure.swift
+          - Support/ZeeCore+ProfileErasure.swift
           - Support/BrowserPage+WebKitTestAccess.swift
           - Support/BrowserPagePool+Presenting.swift
           - Support/BrowserInstalledRelease.swift
@@ -286,37 +286,37 @@ targets:
           - Support/BrowserStoredSessionHarness.swift
           - Support/StoredSyncJournal.swift
     dependencies:
-      - target: CrestNativeCore
+      - target: ZeeNativeCore
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).native-core.tests"
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID).native-core.tests"
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited)"
-        SWIFT_INCLUDE_PATHS: "$(PROJECT_DIR)/CrestContracts/include"
+        SWIFT_INCLUDE_PATHS: "$(PROJECT_DIR)/ZeeContracts/include"
         GENERATE_INFOPLIST_FILE: YES
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/CrestNativeCore.app/Contents/MacOS/CrestNativeCore"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/ZeeNativeCore.app/Contents/MacOS/ZeeNativeCore"
         BUNDLE_LOADER: "$(TEST_HOST)"
         SWIFT_EMIT_LOC_STRINGS: NO
-  Crest:
+  Zee:
     templates: [PortableCoreMac]
     type: application
     platform: macOS
     sources:
       - path: Documentation/ReleaseNotes.json
         buildPhase: resources
-      - path: CrestShared
+      - path: ZeeShared
         excludes:
-          - Resources/CrestIcon/Sources
-          - Resources/CrestIcon/Validation
-      - path: CrestMac
-      - path: CrestAgents
+          - Resources/ZeeIcon/Sources
+          - Resources/ZeeIcon/Validation
+      - path: ZeeMac
+      - path: ZeeAgents
     dependencies:
-      - target: CrestDockTilePlugin
+      - target: ZeeDockTilePlugin
         embed: true
         link: false
         codeSign: true
         copy:
           destination: plugins
-      - target: CrestBrowserHelper
+      - target: ZeeBrowserHelper
         embed: true
         link: false
         codeSign: true
@@ -335,86 +335,86 @@ targets:
       - sdk: Security.framework
     settings:
       base:
-        CREST_MAC_ENTITLEMENTS: CrestMac/Configuration/Crest.entitlements
-        CODE_SIGN_ENTITLEMENTS: "$(CREST_MAC_ENTITLEMENTS)"
+        ZEE_MAC_ENTITLEMENTS: ZeeMac/Configuration/Zee.entitlements
+        CODE_SIGN_ENTITLEMENTS: "$(ZEE_MAC_ENTITLEMENTS)"
         # Release scripts supply the app profile without provisioning bundled plug-ins.
-        PROVISIONING_PROFILE_SPECIFIER: "$(CREST_PROVISIONING_PROFILE_SPECIFIER)"
+        PROVISIONING_PROFILE_SPECIFIER: "$(ZEE_PROVISIONING_PROFILE_SPECIFIER)"
         GENERATE_INFOPLIST_FILE: NO
-        INFOPLIST_FILE: CrestMac/Configuration/Crest-Info.plist
-        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
-        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
-        CREST_MAC_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID)"
-        PRODUCT_BUNDLE_IDENTIFIER: "$(CREST_MAC_BUNDLE_IDENTIFIER)"
-        PRODUCT_MODULE_NAME: Crest
-        PRODUCT_NAME: "$(SEI_PRODUCT_NAME)"
-        CREST_DEFAULT_UPDATE_CHANNEL: development
-  # crest-browser, the helper agents run over stdio to reach the Crest app it
+        INFOPLIST_FILE: ZeeMac/Configuration/Zee-Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: Zee
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "ZeeWinter ZeeLion ZeeStorm ZeeDragon ZeeMeadow ZeeIron ZeeRiver ZeeSun ZeeVigil"
+        ZEE_MAC_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID)"
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_MAC_BUNDLE_IDENTIFIER)"
+        PRODUCT_MODULE_NAME: Zee
+        PRODUCT_NAME: "$(ZEE_PRODUCT_NAME)"
+        ZEE_DEFAULT_UPDATE_CHANNEL: development
+  # zee-browser, the helper agents run over stdio to reach the Zee app it
   # ships inside (Contents/Helpers). Mac only.
-  CrestBrowserHelper:
+  ZeeBrowserHelper:
     type: tool
     platform: macOS
     sources:
-      - path: CrestAgentHelper
-      - path: CrestAgents
+      - path: ZeeAgentHelper
+      - path: ZeeAgents
     settings:
       base:
-        PRODUCT_NAME: crest-browser
-        PRODUCT_MODULE_NAME: CrestBrowserHelper
-        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).browser-helper"
+        PRODUCT_NAME: badge-browser
+        PRODUCT_MODULE_NAME: ZeeBrowserHelper
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID).browser-helper"
         GENERATE_INFOPLIST_FILE: YES
         CREATE_INFOPLIST_SECTION_IN_BINARY: YES
         SKIP_INSTALL: YES
         SWIFT_EMIT_LOC_STRINGS: NO
-  CrestDockTilePlugin:
+  ZeeDockTilePlugin:
     type: bundle
     platform: macOS
     sources:
-      - path: CrestDockTilePlugin
-      - path: CrestMac/Features/AppIcon/BrowserMacAppIconAssets.swift
-      - path: CrestMac/Features/AppIcon/BrowserMacDockTileView.swift
+      - path: ZeeDockTilePlugin
+      - path: ZeeMac/Features/AppIcon/BrowserMacAppIconAssets.swift
+      - path: ZeeMac/Features/AppIcon/BrowserMacDockTileView.swift
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).docktileplugin"
-        PRODUCT_NAME: CrestDockTilePlugin
-        PRODUCT_MODULE_NAME: CrestDockTilePlugin
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID).docktileplugin"
+        PRODUCT_NAME: ZeeDockTilePlugin
+        PRODUCT_MODULE_NAME: ZeeDockTilePlugin
         WRAPPER_EXTENSION: docktileplugin
         GENERATE_INFOPLIST_FILE: YES
-        INFOPLIST_KEY_NSPrincipalClass: CrestDockTilePlugin.CrestDockTilePlugin
+        INFOPLIST_KEY_NSPrincipalClass: ZeeDockTilePlugin.ZeeDockTilePlugin
         SKIP_INSTALL: YES
-  CrestTests:
+  ZeeTests:
     type: bundle.unit-test
     platform: macOS
     sources:
-      - path: CrestTests
+      - path: ZeeTests
         excludes:
           # Fixtures are read relative to #filePath. Bundling their loose files
           # flattens directories and collides on manifest.json/background.js.
           - Fixtures
     dependencies:
-      - target: Crest
+      - target: Zee
     settings:
       base:
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited)"
-        SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/CrestContracts/include"
+        SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/ZeeContracts/include"
         BUNDLE_LOADER: "$(TEST_HOST)"
         GENERATE_INFOPLIST_FILE: YES
-        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).tests"
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/$(SEI_PRODUCT_NAME).app/Contents/MacOS/$(SEI_PRODUCT_NAME)"
-  CrestMobileNativeCore:
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID).tests"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/$(ZEE_PRODUCT_NAME).app/Contents/MacOS/$(ZEE_PRODUCT_NAME)"
+  ZeeMobileNativeCore:
     type: application
     platform: iOS
     # Scheme BuildableName is derived from productName, not the PRODUCT_NAME
-    # build setting. Keep both as Crest so `xcodegen generate` reproduces the
-    # committed schemes instead of emitting CrestMobile.app.
-    productName: CrestNativeCore
+    # build setting. Keep both as Zee so `xcodegen generate` reproduces the
+    # committed schemes instead of emitting ZeeMobile.app.
+    productName: ZeeNativeCore
     sources:
       - path: Documentation/ReleaseNotes.json
         buildPhase: resources
-      - path: CrestShared
+      - path: ZeeShared
         excludes:
-          - Resources/CrestIcon/Sources
-          - Resources/CrestIcon/Validation
-      - path: CrestMobile
+          - Resources/ZeeIcon/Sources
+          - Resources/ZeeIcon/Validation
+      - path: ZeeMobile
     dependencies:
       - sdk: AuthenticationServices.framework
       - sdk: CloudKit.framework
@@ -424,23 +424,23 @@ targets:
       - sdk: Security.framework
     settings:
       base:
-        "CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]": CrestNative/Apple/Composition/MobileCloudReview.entitlements
+        "CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]": ZeeNative/Apple/Composition/MobileCloudReview.entitlements
         GENERATE_INFOPLIST_FILE: NO
-        INFOPLIST_FILE: CrestMobile/Configuration/CrestMobile-Info.plist
+        INFOPLIST_FILE: ZeeMobile/Configuration/ZeeMobile-Info.plist
         IPHONEOS_DEPLOYMENT_TARGET: "26.1"
-        CREST_MOBILE_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).mobile-native-core"
-        PRODUCT_BUNDLE_IDENTIFIER: "$(CREST_MOBILE_BUNDLE_IDENTIFIER)"
-        PRODUCT_MODULE_NAME: CrestMobile
-        PRODUCT_NAME: CrestNativeCore
+        ZEE_MOBILE_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID).mobile-native-core"
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_MOBILE_BUNDLE_IDENTIFIER)"
+        PRODUCT_MODULE_NAME: ZeeMobile
+        PRODUCT_NAME: ZeeNativeCore
         TARGETED_DEVICE_FAMILY: "1,2"
-        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
-        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
+        ASSETCATALOG_COMPILER_APPICON_NAME: Zee
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "ZeeWinter ZeeLion ZeeStorm ZeeDragon ZeeMeadow ZeeIron ZeeRiver ZeeSun ZeeVigil"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
-        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) CREST_REVIEW_BUILD"
-        SWIFT_INCLUDE_PATHS: "$(PROJECT_DIR)/CrestContracts/include"
-        CREST_CORE_FRAMEWORK_DIR: "$(PROJECT_DIR)/CrestCore/artifacts/$(PLATFORM_NAME)"
-        FRAMEWORK_SEARCH_PATHS: "$(inherited) $(CREST_CORE_FRAMEWORK_DIR)"
-        OTHER_LDFLAGS: "$(inherited) -framework CrestCoreABI"
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) ZEE_REVIEW_BUILD"
+        SWIFT_INCLUDE_PATHS: "$(PROJECT_DIR)/ZeeContracts/include"
+        ZEE_CORE_FRAMEWORK_DIR: "$(PROJECT_DIR)/ZeeCore/artifacts/$(PLATFORM_NAME)"
+        FRAMEWORK_SEARCH_PATHS: "$(inherited) $(ZEE_CORE_FRAMEWORK_DIR)"
+        OTHER_LDFLAGS: "$(inherited) -framework ZeeCoreABI"
         LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks"
         SWIFT_EMIT_LOC_STRINGS: NO
     postBuildScripts:
@@ -448,32 +448,32 @@ targets:
         script: |
           set -eu
           mkdir -p "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH"
-          ditto "$CREST_CORE_FRAMEWORK_DIR/CrestCoreABI.framework" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/CrestCoreABI.framework"
+          ditto "$ZEE_CORE_FRAMEWORK_DIR/ZeeCoreABI.framework" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/ZeeCoreABI.framework"
           if [ "$CODE_SIGNING_ALLOWED" != "NO" ]; then
-            codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/CrestCoreABI.framework"
+            codesign --force --sign "${EXPANDED_CODE_SIGN_IDENTITY:--}" "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/ZeeCoreABI.framework"
           fi
         inputFiles:
-          - "$(CREST_CORE_FRAMEWORK_DIR)/CrestCoreABI.framework/CrestCoreABI"
+          - "$(ZEE_CORE_FRAMEWORK_DIR)/ZeeCoreABI.framework/ZeeCoreABI"
         outputFiles:
-          - "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CrestCoreABI.framework/CrestCoreABI"
-  CrestMobile:
+          - "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ZeeCoreABI.framework/ZeeCoreABI"
+  ZeeMobile:
     templates: [PortableCoreMobile]
     type: application
     platform: iOS
     # Scheme BuildableName is derived from productName, not the PRODUCT_NAME
-    # build setting. Keep both as Crest so `xcodegen generate` reproduces the
-    # committed schemes instead of emitting CrestMobile.app.
-    productName: Crest
+    # build setting. Keep both as Zee so `xcodegen generate` reproduces the
+    # committed schemes instead of emitting ZeeMobile.app.
+    productName: Zee
     sources:
       - path: Documentation/ReleaseNotes.json
         buildPhase: resources
-      - path: CrestShared
+      - path: ZeeShared
         excludes:
-          - Resources/CrestIcon/Sources
-          - Resources/CrestIcon/Validation
-      - path: CrestMobile
+          - Resources/ZeeIcon/Sources
+          - Resources/ZeeIcon/Validation
+      - path: ZeeMobile
     dependencies:
-      - target: CrestShareExtension
+      - target: ZeeShareExtension
       - sdk: AuthenticationServices.framework
       - sdk: CloudKit.framework
       - sdk: CoreLocation.framework
@@ -482,110 +482,110 @@ targets:
       - sdk: Security.framework
     settings:
       base:
-        CODE_SIGN_ENTITLEMENTS: CrestMobile/Configuration/CrestMobile.entitlements
+        CODE_SIGN_ENTITLEMENTS: ZeeMobile/Configuration/ZeeMobile.entitlements
         GENERATE_INFOPLIST_FILE: NO
-        INFOPLIST_FILE: CrestMobile/Configuration/CrestMobile-Info.plist
+        INFOPLIST_FILE: ZeeMobile/Configuration/ZeeMobile-Info.plist
         IPHONEOS_DEPLOYMENT_TARGET: "26.1"
-        CREST_MOBILE_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID)"
-        PRODUCT_BUNDLE_IDENTIFIER: "$(CREST_MOBILE_BUNDLE_IDENTIFIER)"
-        PRODUCT_MODULE_NAME: CrestMobile
-        PRODUCT_NAME: Crest
+        ZEE_MOBILE_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID)"
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_MOBILE_BUNDLE_IDENTIFIER)"
+        PRODUCT_MODULE_NAME: ZeeMobile
+        PRODUCT_NAME: Zee
         TARGETED_DEVICE_FAMILY: "1,2"
-        ASSETCATALOG_COMPILER_APPICON_NAME: Sei
-        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "CrestWinter CrestLion CrestStorm CrestDragon CrestMeadow CrestIron CrestRiver CrestSun CrestVigil"
+        ASSETCATALOG_COMPILER_APPICON_NAME: Zee
+        ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES: "ZeeWinter ZeeLion ZeeStorm ZeeDragon ZeeMeadow ZeeIron ZeeRiver ZeeSun ZeeVigil"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
   # The share sheet entry hands shared links to the iOS app. It compiles the
   # hand-off it shares with the app, never the core, which an extension's
   # memory budget cannot hold.
-  CrestShareExtension:
+  ZeeShareExtension:
     type: app-extension
     platform: iOS
     sources:
-      - path: CrestShareExtension
-      - path: CrestMobile/Infrastructure/BrowserLinkSharing
-      - path: CrestShared/Resources/Localizable.xcstrings
+      - path: ZeeShareExtension
+      - path: ZeeMobile/Infrastructure/BrowserLinkSharing
+      - path: ZeeShared/Resources/Localizable.xcstrings
     settings:
       base:
         GENERATE_INFOPLIST_FILE: NO
-        INFOPLIST_FILE: CrestShareExtension/Info.plist
+        INFOPLIST_FILE: ZeeShareExtension/Info.plist
         IPHONEOS_DEPLOYMENT_TARGET: "26.1"
-        CREST_MOBILE_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID)"
-        PRODUCT_BUNDLE_IDENTIFIER: $(CREST_MOBILE_BUNDLE_IDENTIFIER).share
-        PRODUCT_MODULE_NAME: CrestShareExtension
-        PRODUCT_NAME: CrestShareExtension
+        ZEE_MOBILE_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID)"
+        PRODUCT_BUNDLE_IDENTIFIER: $(ZEE_MOBILE_BUNDLE_IDENTIFIER).share
+        PRODUCT_MODULE_NAME: ZeeShareExtension
+        PRODUCT_NAME: ZeeShareExtension
         TARGETED_DEVICE_FAMILY: "1,2"
-  CrestMobileTests:
+  ZeeMobileTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: CrestMobileTests
+      - path: ZeeMobileTests
     dependencies:
-      - target: CrestMobile
+      - target: ZeeMobile
     settings:
       base:
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited)"
-        SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/CrestContracts/include"
+        SWIFT_INCLUDE_PATHS: "$(inherited) $(PROJECT_DIR)/ZeeContracts/include"
         BUNDLE_LOADER: "$(TEST_HOST)"
         GENERATE_INFOPLIST_FILE: YES
-        PRODUCT_BUNDLE_IDENTIFIER: "$(SEI_BUNDLE_ID).mobile.tests"
+        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID).mobile.tests"
         TARGETED_DEVICE_FAMILY: "1,2"
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Crest.app/Crest"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Zee.app/Zee"
 schemes:
-  # The app schemes source Config/Crest.lldbinit, so the debugger never
+  # The app schemes source Config/Zee.lldbinit, so the debugger never
   # stops on the core runtime's own signals.
-  Crest:
+  Zee:
     build:
       targets:
-        Crest: all
+        Zee: all
     run:
-      customLLDBInit: "$(SRCROOT)/Config/Crest.lldbinit"
+      customLLDBInit: "$(SRCROOT)/Config/Zee.lldbinit"
     test:
       targets:
-        - CrestTests
-  CrestNativeCore:
+        - ZeeTests
+  ZeeNativeCore:
     build:
       targets:
-        CrestNativeCore: all
+        ZeeNativeCore: all
     run:
-      customLLDBInit: "$(SRCROOT)/Config/Crest.lldbinit"
+      customLLDBInit: "$(SRCROOT)/Config/Zee.lldbinit"
     test:
       targets:
-        - CrestNativeCoreTests
-  CrestMobile:
+        - ZeeNativeCoreTests
+  ZeeMobile:
     build:
       targets:
-        CrestMobile: all
+        ZeeMobile: all
     run:
-      customLLDBInit: "$(SRCROOT)/Config/Crest.lldbinit"
+      customLLDBInit: "$(SRCROOT)/Config/Zee.lldbinit"
     test:
       targets:
-        - CrestMobileTests
-  CrestMobileNativeCore:
+        - ZeeMobileTests
+  ZeeMobileNativeCore:
     build:
       targets:
-        CrestMobileNativeCore: all
+        ZeeMobileNativeCore: all
     run:
-      customLLDBInit: "$(SRCROOT)/Config/Crest.lldbinit"
-  CrestMobile Production:
+      customLLDBInit: "$(SRCROOT)/Config/Zee.lldbinit"
+  ZeeMobile Production:
     build:
       targets:
-        CrestMobile: all
+        ZeeMobile: all
     run:
       config: Release
-      customLLDBInit: "$(SRCROOT)/Config/Crest.lldbinit"
+      customLLDBInit: "$(SRCROOT)/Config/Zee.lldbinit"
     profile:
       config: Release
     analyze:
       config: Release
     archive:
       config: Release
-  CrestKeychainIntegration:
+  ZeeKeychainIntegration:
     build:
       targets:
-        Crest: all
-        CrestTests: [test]
+        Zee: all
+        ZeeTests: [test]
     test:
       environmentVariables:
-        CREST_RUN_KEYCHAIN_INTEGRATION: "1"
+        ZEE_RUN_KEYCHAIN_INTEGRATION: "1"
       targets:
-        - CrestTests
+        - ZeeTests

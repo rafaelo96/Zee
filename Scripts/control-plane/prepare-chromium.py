@@ -15,7 +15,7 @@ import urllib.request
 import zipfile
 
 REPO = Path(__file__).resolve().parents[2]
-ENGINE = REPO / "CrestEngines/Chromium"
+ENGINE = REPO / "ZeeEngines/Chromium"
 # A tarball build: what gclient sets for a checkout that is not a Git tree.
 DEPS_VARIABLES = {"host_os": "mac", "host_cpu": "arm64", "checkout_mac": True, "checkout_arm64": True,
                   "non_git_source": True}
@@ -125,15 +125,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", required=True, type=Path, help="New directory for the expanded source")
     parser.add_argument("--downloads", type=Path, help="Shared download cache; required to prepare")
-    parser.add_argument("--verify-only", action="store_true", help="Check the Crest patches the lock pins")
+    parser.add_argument("--verify-only", action="store_true", help="Check the Zee patches the lock pins")
     args = parser.parse_args()
     source = args.source.resolve()
     if source == REPO or REPO in source.parents:
-        parser.error("The Chromium source must be outside Crest")
+        parser.error("The Chromium source must be outside Zee")
     lock = json.loads((ENGINE / "source.lock.json").read_text())
-    for relative, expected in lock["crestPatches"].items():
+    for relative, expected in lock["zeePatches"].items():
         if digest(ENGINE / relative) != expected:
-            parser.error(f"Crest patch changed: {relative}")
+            parser.error(f"Zee patch changed: {relative}")
     if args.verify_only:
         version = source / "chrome/VERSION"
         if not version.is_file():
@@ -141,7 +141,7 @@ def main():
         parts = dict(line.split("=", 1) for line in version.read_text().split())
         if ".".join(parts[name] for name in ("MAJOR", "MINOR", "BUILD", "PATCH")) != lock["chromium"]["version"]:
             parser.error("The prepared source is a different Chromium version")
-        print("The prepared source and Crest build patches match the lock.")
+        print("The prepared source and Zee build patches match the lock.")
         return
     if source.exists():
         parser.error("Source directory already exists; use --verify-only or a new directory")
@@ -191,22 +191,22 @@ def main():
             shutil.rmtree(destination)
         unzip(download, destination)
 
-    for relative in lock["crestPatches"]:
+    for relative in lock["zeePatches"]:
         run(["patch", "-p1", "--forward", "--fuzz=0", "--input", ENGINE / relative], staging)
 
     # Generated build files name their source directory, so the tree takes
     # its final path before GN runs.
     staging.rename(source)
-    output = source / "out/CrestBaseline"
+    output = source / "out/ZeeBaseline"
     output.mkdir(parents=True)
     flags = {**lock["buildArguments"], **lock["developmentBuildArguments"]}
     (output / "args.gn").write_text("".join(f"{key}={json.dumps(value)}\n" for key, value in flags.items()))
-    run([sys.executable, source / "tools/gn/bootstrap/bootstrap.py", "-o", "out/CrestBaseline/gn",
+    run([sys.executable, source / "tools/gn/bootstrap/bootstrap.py", "-o", "out/ZeeBaseline/gn",
          "--skip-generate-buildfiles"], source)
     # Build steps such as V8's metagen run gn where DEPS installs it.
     (source / "buildtools/mac").mkdir(exist_ok=True)
     shutil.copy2(output / "gn", source / "buildtools/mac/gn")
-    run([output / "gn", "gen", "out/CrestBaseline", "--fail-on-unused-args"], source)
+    run([output / "gn", "gen", "out/ZeeBaseline", "--fail-on-unused-args"], source)
     print("Source prepared. Run build-chromium-baseline.py against it.")
 
 

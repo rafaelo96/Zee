@@ -1,5 +1,5 @@
 name: Bug report
-description: Report reproducible incorrect behavior in Crest.
+description: Report reproducible incorrect behavior in Zee.
 title: "bug: "
 labels: [bug]
 body:
@@ -9,7 +9,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: Crest version
+      label: Zee version
       placeholder: "For example: 0.4.0 (42), stable or nightly"
     validations:
       required: true

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Contract coverage for Crest's explicit release-note catalog."""
+"""Contract coverage for Zee's explicit release-note catalog."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ class ReleaseNoteCatalogTests(unittest.TestCase):
             capture_output=True,
         )
         subprocess.run(
-            ["git", "config", "user.name", "Crest Tests"],
+            ["git", "config", "user.name", "Zee Tests"],
             cwd=self.repository,
             check=True,
         )

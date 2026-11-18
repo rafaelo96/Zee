@@ -121,10 +121,10 @@ def review_body(version, plan, receipt, tag):
             f"{', a new milestone' if plan['milestone'] else ''}.\n\n{security}\n\n"
             f"The build {'advanced the pinned source in place' if plan['path'] == 'advance' else 'prepared a new source'}"
             f"{' and recompiled everything for the new PGO profile' if plan['pgoChanged'] else ''}. "
-            f"Every Crest patch applied without fuzz, and the engine passed its headless smoke check. "
+            f"Every Zee patch applied without fuzz, and the engine passed its headless smoke check. "
             f"Minutes per step: {json.dumps(minutes)}.\n\n"
             f"Engine `{tag}` is built on the build Mac and **not published**. Before this leaves draft:\n\n"
-            "1. Package Crest with `package-chromium-host.py --product --distribution` from the built engine and "
+            "1. Package Zee with `package-chromium-host.py --product --distribution` from the built engine and "
             "load real pages, extensions and sign-ins in an isolated copy.\n"
             "2. A maintainer publishes the engine with `publish-chromium-engine.py`.\n"
             "3. Merging then publishes it to Development.\n")

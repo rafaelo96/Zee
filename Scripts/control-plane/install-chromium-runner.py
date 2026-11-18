@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install Crest's dedicated GitHub Actions runner in its managed build workspace."""
+"""Install Zee's dedicated GitHub Actions runner in its managed build workspace."""
 import argparse
 import json
 from pathlib import Path
@@ -12,7 +12,7 @@ from chromium_fork import REPO, RUNNER_WORK, download, run, sha256, validate_wor
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--workspace", type=Path, default=Path.home() / "Dev/CrestChromium")
+    parser.add_argument("--workspace", type=Path, default=Path.home() / "Dev/ZeeChromium")
     parser.add_argument("--repository", default="pauljoda/Crest")
     args = parser.parse_args()
     if platform.system() != "Darwin" or platform.machine() != "arm64":
@@ -36,8 +36,8 @@ def main():
                                   f"repos/{args.repository}/actions/runners/registration-token", capture=True))
     # Do not print the registration token or store it in a command transcript.
     subprocess.run([str(runner / "config.sh"), "--unattended", "--url", f"https://github.com/{args.repository}",
-                    "--token", registration["token"], "--name", f"crest-chromium-{socket.gethostname().split('.')[0]}",
-                    "--labels", "crest-chromium", "--work", str(root / RUNNER_WORK)], cwd=runner, check=True)
+                    "--token", registration["token"], "--name", f"zee-chromium-{socket.gethostname().split('.')[0]}",
+                    "--labels", "zee-chromium", "--work", str(root / RUNNER_WORK)], cwd=runner, check=True)
     (runner / ".path").write_text(f"{root / 'tools/bin'}:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")
     run(runner / "svc.sh", "install", cwd=runner)
     run(runner / "svc.sh", "start", cwd=runner)

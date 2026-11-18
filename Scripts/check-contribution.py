@@ -13,7 +13,7 @@ import sys
 
 POLICY_START = datetime(2026, 10, 9, tzinfo=timezone.utc)
 AI_USED_MARKER = "AI tools helped produce this change"
-SKILL_MARKER = "crest-contribution"
+SKILL_MARKER = "zee-contribution"
 SIGN_OFF_LINE = re.compile(r"^Signed-off-by:\s+\S.*<[^<>\s]+@[^<>\s]+>\s*$")
 CHECKBOX_LINE = re.compile(r"^\s*[-*]\s*\[([ xX])\]\s*(.*)$")
 
@@ -46,9 +46,9 @@ def ai_declaration_problems(body: str) -> list[str]:
         ]
     if states[AI_USED_MARKER] and not states[SKILL_MARKER]:
         return [
-            "AI tools helped produce this change, so the crest-contribution skill "
+            "AI tools helped produce this change, so the zee-contribution skill "
             "must be run and its box ticked. See "
-            ".agents/skills/crest-contribution/SKILL.md."
+            ".agents/skills/zee-contribution/SKILL.md."
         ]
     return []
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Manage Crest's Chromium fork without relying on an agent's temporary directory."""
+"""Manage Zee's Chromium fork without relying on an agent's temporary directory."""
 from __future__ import annotations
 
 import argparse
@@ -29,10 +29,10 @@ def adopt(workspace, source):
     workspace.script("prepare-chromium.py", "--source", source, "--verify-only")
     validation = workspace.script("apply-chromium-host.py", "--source", source, capture=True)
     if "(after)" not in validation:
-        raise ValueError("Adoption requires the current Crest host to be installed")
+        raise ValueError("Adoption requires the current Zee host to be installed")
     for path in (REPO / ENGINE / "Overlay").rglob("*"):
         if path.is_file() and sha256(source / path.relative_to(REPO / ENGINE / "Overlay")) != sha256(path):
-            raise ValueError(f"Source overlay differs from Crest: {path}")
+            raise ValueError(f"Source overlay differs from Zee: {path}")
     if workspace.directory.exists():
         raise ValueError(f"Destination already exists: {workspace.directory}")
     workspace.directory.mkdir(parents=True)
@@ -58,7 +58,7 @@ def adopt(workspace, source):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--workspace", type=Path,
-                        default=Path(os.environ.get("CREST_CHROMIUM_WORKSPACE") or Path.home() / "Dev/CrestChromium"))
+                        default=Path(os.environ.get("ZEE_CHROMIUM_WORKSPACE") or Path.home() / "Dev/ZeeChromium"))
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("status")
     commands.add_parser("prune", help="Remove every prepared source except the one this checkout builds from")
@@ -66,7 +66,7 @@ def main():
     check.add_argument("--allow-major", action="store_true")
     adoption = commands.add_parser("adopt")
     adoption.add_argument("--source", type=Path, required=True)
-    planning = commands.add_parser("plan", help="Check an upstream release against Crest's patches; changes nothing")
+    planning = commands.add_parser("plan", help="Check an upstream release against Zee's patches; changes nothing")
     planning.add_argument("--version", default="auto", help="A release on the fork's channel, or auto for the newest eligible")
     planning.add_argument("--allow-major", action="store_true")
     planning.add_argument("--report", type=Path, help="Where to write the plan, rebased patches and conflicts")
@@ -142,13 +142,13 @@ def main():
             if not args.allow_major and release_version(args.version)[0] != release_version(current)[0]:
                 parser.error("Select a release on the current milestone, or explicitly pass --allow-major")
             if run("git", "-C", REPO, "status", "--porcelain", capture=True).strip():
-                parser.error("Start an upstream update from a clean Crest checkout")
+                parser.error("Start an upstream update from a clean Zee checkout")
             workspace, plan = prepare_update(REPO, workspace.root, args.version, args.allow_major, timings)
         workspace.build(args.sdk, args.ninja.resolve(), args.jobs, args.min_free_gib, timings)
         key = chromium_engine.engine_key(REPO)
         receipt = {"engineKey": key, "chromium": workspace.lock["chromium"]["version"],
                    "source": str(workspace.source), "configuration": "performance",
-                   "argsSHA256": sha256(workspace.source / "out/CrestBaseline/args.gn"),
+                   "argsSHA256": sha256(workspace.source / "out/ZeeBaseline/args.gn"),
                    "commit": run("git", "-C", REPO, "rev-parse", "HEAD", capture=True).strip(),
                    "secondsPerStep": timings}
         if plan:

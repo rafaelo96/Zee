@@ -1,6 +1,6 @@
 # Community code of conduct
 
-Crest welcomes people who want to improve the browser, review its security, or
+Zee welcomes people who want to improve the browser, review its security, or
 help other users. Participate with curiosity, patience, and respect.
 
 Expected behavior includes giving actionable technical feedback, assuming good

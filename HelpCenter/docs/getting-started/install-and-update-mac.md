@@ -1,30 +1,30 @@
 ---
-title: Install and update Crest for Mac
-description: Download Crest directly, install it in Applications, and understand automatic updates.
+title: Install and update Zee for Mac
+description: Download Zee directly, install it in Applications, and understand automatic updates.
 slug: /install-and-update-mac
 keywords: [download, install, update, macOS, GitHub Releases, Sparkle]
 ---
 
-# Install and update Crest for Mac
+# Install and update Zee for Mac
 
-Crest for Mac requires Apple silicon and macOS 26.1 or later. It is distributed directly as a signed and notarized app with Chromium and WebKit; see [Chromium and WebKit on Mac](../browsing/engines.md). Crest for iPhone and iPad is on the App Store and continues to use WebKit.
+Zee for Mac requires Apple silicon and macOS 26.1 or later. It is distributed directly as a signed and notarized app with Chromium and WebKit; see [Chromium and WebKit on Mac](../browsing/engines.md). Zee for iPhone and iPad is on the App Store and continues to use WebKit.
 
 ## Install the latest Mac release
 
-1. Open the [latest stable Crest release](https://github.com/pauljoda/Crest/releases/latest).
+1. Open the [latest stable Zee release](https://github.com/pauljoda/Crest/releases/latest).
 2. Download its `Installer-….dmg` file.
-3. Open the disk image, then drag Crest into **Applications**.
-4. Eject the disk image and open Crest from Applications.
+3. Open the disk image, then drag Zee into **Applications**.
+4. Eject the disk image and open Zee from Applications.
 
-Alternatively, Crest can be installed via Homebrew:
+Alternatively, Zee can be installed via Homebrew:
 1. Open Terminal.
 2. Run `brew install --cask crest-browser`
 
-Keeping Crest in Applications gives macOS and the updater one stable installed location. If Gatekeeper reports that the app cannot be verified, do not bypass the warning; download the current release again from the official Releases page.
+Keeping Zee in Applications gives macOS and the updater one stable installed location. If Gatekeeper reports that the app cannot be verified, do not bypass the warning; download the current release again from the official Releases page.
 
 ## Automatic updates
 
-Crest uses Sparkle to check for signed updates from inside the installed app. When an update is available, review the release, install it, and let Crest relaunch. Your Spaces and browsing data remain in their normal app storage rather than inside the application bundle.
+Zee uses Sparkle to check for signed updates from inside the installed app. When an update is available, review the release, install it, and let Zee relaunch. Your Spaces and browsing data remain in their normal app storage rather than inside the application bundle.
 
 Turn automatic checks and installs on or off in **Settings → About**, which also has **Check for Updates…**. You can also open the app menu and choose **Check for Updates**. A manual check uses the same signed update channel as the automatic check.
 
@@ -38,12 +38,12 @@ Use **Settings → About** to choose the update channel:
 
 Changing channels changes which future update is offered; it does not move or duplicate your profile.
 
-## Updating from an older Crest
+## Updating from an older Zee
 
-The same installer updates older WebKit-only versions and versions that already include Chromium. Your Spaces and browser records stay in place. Chromium and WebKit keep separate website sign-ins, and older WebKit extension installations do not carry over. See [Upgrading from a WebKit-only Crest](../browsing/engines.md#after-updating-from-a-webkit-only-crest) before switching engines.
+The same installer updates older WebKit-only versions and versions that already include Chromium. Your Spaces and browser records stay in place. Chromium and WebKit keep separate website sign-ins, and older WebKit extension installations do not carry over. See [Upgrading from a WebKit-only Zee](../browsing/engines.md#after-updating-from-a-webkit-only-zee) before switching engines.
 
-Crest checks pages for unsaved work before an update restart. Choose **Stay on Page** to keep working, then retry the restart when ready. Updates are offered only when your Mac meets the whole app's macOS requirement.
+Zee checks pages for unsaved work before an update restart. Choose **Stay on Page** to keep working, then retry the restart when ready. Updates are offered only when your Mac meets the whole app's macOS requirement.
 
 ## iPhone and iPad
 
-Install Crest for iPhone and iPad from the [App Store](https://apps.apple.com/us/app/crest-browser/id6797335023), or join the beta through [TestFlight](https://testflight.apple.com/join/vV1CM49Q). If iCloud sync is enabled, the same durable Space structure can follow you between Mac, iPad, and iPhone.
+Install Zee for iPhone and iPad from the [App Store](https://apps.apple.com/us/app/crest-browser/id6797335023), or join the beta through [TestFlight](https://testflight.apple.com/join/vV1CM49Q). If iCloud sync is enabled, the same durable Space structure can follow you between Mac, iPad, and iPhone.

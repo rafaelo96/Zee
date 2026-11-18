@@ -1,12 +1,12 @@
 // generate.mjs <uBlock source folder> <output.json>
 //
-// Builds the resources Crest's content filter loads for scriptlets (`##+js(...)`)
+// Builds the resources Zee's content filter loads for scriptlets (`##+js(...)`)
 // and `$redirect` filters from a uBlock Origin source release, in adblock-rust's
 // resource format: each scriptlet and each function it depends on, as source, and
-// each redirect resource, as data. uBlock Origin's resources are GPL-3.0; Crest
+// each redirect resource, as data. uBlock Origin's resources are GPL-3.0; Zee
 // fetches the generated file at runtime as data and never compiles it in.
 // Scriptlets uBlock runs only for trusted lists carry the permission only
-// Crest's own lists hold; those it runs only in an isolated world are left out.
+// Zee's own lists hold; those it runs only in an isolated world are left out.
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -22,7 +22,7 @@ const resources = [];
 const names = new Set();
 const skipped = [];
 // A scriptlet uBlock runs only for trusted lists needs adblock-rust's
-// permission bit 1, which only the lists Crest itself chooses carry.
+// permission bit 1, which only the lists Zee itself chooses carry.
 const trusted = 1;
 for (const scriptlet of builtinScriptlets) {
   if (scriptlet.world === 'ISOLATED') { skipped.push(scriptlet.name); continue; }

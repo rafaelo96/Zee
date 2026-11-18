@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Security fixes are shipped on the latest stable Crest release. Nightly builds
+Security fixes are shipped on the latest stable Zee release. Nightly builds
 are test builds and may receive a fix first, but they are not a separate
 supported release line.
 
@@ -11,7 +11,7 @@ supported release line.
 Use GitHub's **Report a vulnerability** form in the Security tab of this
 repository. Please do not open a public issue for a suspected vulnerability.
 
-Include the affected Crest version and platform, the security boundary you
+Include the affected Zee version and platform, the security boundary you
 expected, reproducible steps or a proof of concept, and the impact you believe
 is possible. Remove browsing data, account tokens, passwords, private URLs, and
 other personal information before attaching evidence.
