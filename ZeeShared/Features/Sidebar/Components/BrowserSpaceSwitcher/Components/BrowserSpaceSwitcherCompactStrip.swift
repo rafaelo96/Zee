@@ -69,15 +69,19 @@ struct BrowserSpaceSwitcherCompactStrip: View {
                     BrowserSpaceSwitcherLayout.compactStripHorizontalInset
                 )
 
-                BrowserSpaceSwitcherCompactPicker(
-                    spaces: spaces,
-                    selectedSpaceID: selectedSpaceID,
-                    reorderState: reorderState,
-                    metrics: metrics.scaled(by: scale),
-                    selectSpace: selectSpace,
-                    allocation: allocation,
-                    style: style
-                )
+                // One Space needs no switcher: the strip keeps its tools and
+                // shows the Spaces only once there are several to move among.
+                if spaces.count > 1 {
+                    BrowserSpaceSwitcherCompactPicker(
+                        spaces: spaces,
+                        selectedSpaceID: selectedSpaceID,
+                        reorderState: reorderState,
+                        metrics: metrics.scaled(by: scale),
+                        selectSpace: selectSpace,
+                        allocation: allocation,
+                        style: style
+                    )
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }

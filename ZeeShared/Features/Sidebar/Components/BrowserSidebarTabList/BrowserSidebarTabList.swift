@@ -39,8 +39,17 @@ private struct BrowserCurrentTabsSeam: View {
     let isSavedTabsExpanded: Bool
     let showsClearAction: Bool
 
+    @ViewBuilder
     var body: some View {
         let sidebar = context.space.sidebar
+        // Only a saved run needs a seam to set it apart. Without one the
+        // current tabs follow the pinned tabs directly, as Arc's do.
+        if !sidebar.section(.saved).isEmpty {
+            divider(sidebar)
+        }
+    }
+
+    private func divider(_ sidebar: SidebarModel) -> some View {
         BrowserCurrentTabsDivider(
             capabilities: context.capabilities,
             hasSavedTabsEndBand: isSavedTabsExpanded

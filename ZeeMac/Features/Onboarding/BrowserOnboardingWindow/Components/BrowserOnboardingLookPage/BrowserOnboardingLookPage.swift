@@ -13,7 +13,7 @@ struct BrowserOnboardingLookPage: View {
     /// The size each window takes: an equal share of the stage less the gaps,
     /// no taller than the stage leaves under the name.
     private func cardSize(in stage: CGSize) -> CGSize {
-        let count = CGFloat(SetupLook.all.count)
+        let count = CGFloat(SetupLook.offered.count)
         let width = min(
             (stage.width - BrowserOnboardingLookMetrics.spacing * (count - 1)) / count,
             BrowserOnboardingLookMetrics.maximumWidth)
@@ -28,7 +28,7 @@ struct BrowserOnboardingLookPage: View {
             GeometryReader { geometry in
                 let size = cardSize(in: geometry.size)
                 HStack(alignment: .top, spacing: BrowserOnboardingLookMetrics.spacing) {
-                    ForEach(SetupLook.all, id: \.self) { offered in
+                    ForEach(SetupLook.offered, id: \.self) { offered in
                         BrowserOnboardingLookCard(look: offered, isSelected: offered == look, size: size) {
                             choose(offered)
                         }
@@ -79,7 +79,7 @@ private struct BrowserOnboardingLookCard: View {
                         RoundedRectangle(
                             cornerRadius: BrowserOnboardingWindowPreviewMetrics.cornerRadius, style: .continuous
                         )
-                        .strokeBorder(isSelected ? ZeeBrandPalette.butter : .clear, lineWidth: 4)
+                        .strokeBorder(isSelected ? ZeeBrandTheme.stageSelection : .clear, lineWidth: 4)
                     }
                     .contentShape(
                         .rect(cornerRadius: BrowserOnboardingWindowPreviewMetrics.cornerRadius, style: .continuous))
@@ -98,7 +98,7 @@ private struct BrowserOnboardingLookCard: View {
 
 #if DEBUG
     #Preview("Look") {
-        BrowserOnboardingStage(step: .look, branding: SetupLook.heraldic.previewBranding) {
+        BrowserOnboardingStage(step: .look) {
             BrowserOnboardingLookPage(
                 look: .heraldic, choose: { _ in }, back: BrowserOnboardingBackAction(closes: false, action: {}),
                 continueSetup: {})

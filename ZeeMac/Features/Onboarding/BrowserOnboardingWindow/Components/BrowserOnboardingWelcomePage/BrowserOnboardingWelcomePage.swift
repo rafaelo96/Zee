@@ -1,14 +1,19 @@
 import SwiftUI
 
-/// The first page: the mark, one line, and what the welcome offers, beside a
-/// banner of a Space wearing Zee's own look.
+/// The first page: the mark, one line, and what the welcome offers on a pane
+/// of Liquid Glass, beside a banner of a Space wearing Zee's own look. The
+/// pane settles into place as the backdrop's waves rise.
 struct BrowserOnboardingWelcomePage: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     let action: BrowserOnboardingWelcomeAction
     let hasCompletedSetup: Bool
     let hasDisposableSeedState: Bool
     let continueSetup: () -> Void
     let setUpWithoutCloud: () -> Void
     let openZee: () -> Void
+
+    @State private var hasArrived = false
 
     private var cloudStatusDetail: String {
         if hasCompletedSetup {
@@ -31,9 +36,10 @@ struct BrowserOnboardingWelcomePage: View {
                     .padding(.leading, 80)
                 Spacer(minLength: 60)
                 BrowserOnboardingWindowPreview(
-                    branding: SpaceHouse.winter.look, symbol: "house.fill", name: String(localized: "Personal")
+                    branding: BrowserOnboardingWelcomeMetrics.previewBranding, symbol: "house.fill",
+                    name: String(localized: "Personal")
                 ) {
-                    BrowserSpaceBadgeIcon(branding: SpaceHouse.winter.look, size: 160)
+                    ZeeStartPageMark()
                         .frame(width: 160, height: 160)
                 }
                 .frame(width: 680, height: 460)
@@ -48,8 +54,21 @@ struct BrowserOnboardingWelcomePage: View {
     }
 
     private var column: some View {
-        VStack(alignment: .leading, spacing: 28) {
+        VStack(alignment: .leading, spacing: 0) {
             Spacer()
+            pane
+                .opacity(hasArrived ? 1 : 0)
+                .blur(radius: hasArrived ? 0 : 14)
+                .offset(y: hasArrived ? 0 : 28)
+                .animation(
+                    BrowserOnboardingWelcomeMetrics.arrival.unlessReducingMotion(reduceMotion), value: hasArrived)
+            Spacer()
+        }
+        .onAppear { hasArrived = true }
+    }
+
+    private var pane: some View {
+        VStack(alignment: .leading, spacing: 28) {
             ZeeStartPageMark()
                 .frame(width: 84, height: 84)
                 .accessibilityHidden(true)
@@ -59,8 +78,8 @@ struct BrowserOnboardingWelcomePage: View {
                     .foregroundStyle(ZeeBrandTheme.textDisplay)
                     .accessibilityAddTraits(.isHeader)
                 Text("Your browser, your way.")
-                    .font(ZeeTypography.sans(21))
-                    .foregroundStyle(ZeeBrandTheme.textSecondary)
+                    .font(ZeeTypography.sans(21, weight: .medium))
+                    .foregroundStyle(ZeeBrandTheme.textDisplay.opacity(0.88))
             }
             BrowserOnboardingWelcomeCallToAction(
                 action: action,
@@ -68,8 +87,13 @@ struct BrowserOnboardingWelcomePage: View {
                 perform: performAction,
                 setUpWithoutCloud: setUpWithoutCloud
             )
-            Spacer()
         }
+        .padding(BrowserOnboardingWelcomeMetrics.panePadding)
+        .glassEffect(
+            .regular.tint(ZeeBrandPalette.midnight.opacity(BrowserOnboardingWelcomeMetrics.paneShade)),
+            in: .rect(cornerRadius: BrowserOnboardingWelcomeMetrics.paneCornerRadius)
+        )
+        .padding(.leading, -BrowserOnboardingWelcomeMetrics.panePadding)
     }
 
     private func performAction() {
@@ -80,4 +104,15 @@ struct BrowserOnboardingWelcomePage: View {
             continueSetup()
         }
     }
+}
+
+enum BrowserOnboardingWelcomeMetrics {
+    static let panePadding: CGFloat = 40
+    static let paneCornerRadius: CGFloat = 36
+    /// How much midnight tints the pane, so its words read over any wave.
+    static let paneShade = 0.45
+    /// The pane arrives a beat after the waves begin to rise.
+    static let arrival = Animation.smooth(duration: 1.1).delay(0.45)
+    /// The Space the banner shows: the simple look in Zee's ocean blue.
+    static let previewBranding = BrowserSimpleSpaceColor.all[0].applied(to: SpaceHouse.winter.look)
 }

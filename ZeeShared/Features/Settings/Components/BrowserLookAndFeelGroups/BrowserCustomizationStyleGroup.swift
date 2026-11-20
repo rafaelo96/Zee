@@ -34,7 +34,7 @@ struct BrowserCustomizationStyleGroup: View {
     }
 }
 
-/// The three styles as preview buttons in a row, each a Zee window in the
+/// The offered styles as preview buttons in a row, each a Zee window in the
 /// style's look with its Space icons, or the icons the person chose.
 struct BrowserCustomizationStyleChoices<Badge: View>: View {
     // MARK: - Variables
@@ -62,7 +62,7 @@ struct BrowserCustomizationStyleChoices<Badge: View>: View {
             ? AnyLayout(HStackLayout(alignment: .top, spacing: BrowserCustomizationStyleMetrics.spacing))
             : AnyLayout(VStackLayout(spacing: BrowserCustomizationStyleMetrics.spacing))
         layout {
-            ForEach(BrowserCustomizationStyle.all) { style in
+            ForEach(BrowserCustomizationStyle.offered) { style in
                 VStack(spacing: 4) {
                     ZeePreviewButton(
                         title: Text(style.title), isSelected: style == selection,

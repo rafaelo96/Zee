@@ -264,7 +264,7 @@ struct BrowserBadgeForge: View {
         let style = context.setting(\.iconStyle)
         return ZeeSettingRow("Identity", setting: style.resettable("Identity")) {
             Picker("Identity", selection: style.binding) {
-                Text("Zee").tag(SpaceIconStyle.layeredBadge)
+                Text("Badge").tag(SpaceIconStyle.layeredBadge)
                 Text("Icon").tag(SpaceIconStyle.simpleSymbol)
             }
             .pickerStyle(.segmented)

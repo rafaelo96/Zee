@@ -2,59 +2,55 @@ import SwiftUI
 
 /// The scheme-aware semantic layer over `ZeeBrandPalette`.
 ///
-/// `ZeeBrandPalette` holds the fixed paper-and-ink identity used by the
-/// website and by light-only editorial surfaces. `ZeeBrandTheme` names the
-/// *roles* those hues play and flips each role between light and dark, so
+/// `ZeeBrandPalette` holds Zee's fixed all-blue identity. `ZeeBrandTheme` names
+/// the *roles* those hues play and flips each role between light and dark, so
 /// Zee-authored chrome can adopt the brand without hardcoding an appearance.
 ///
-/// Dark variants keep the light hue and lift luminance only as far as legibility
-/// demands: paper and ink simply trade places, and coral is lifted (hue held at
-/// roughly 8°, saturation held near 0.84) so it stays readable on ink without
-/// reading as a different colour. Every pair below clears WCAG AA for text
-/// (4.5:1) or non-text (3:1) in both schemes.
+/// Light is cloud white and mist under midnight text with an ocean-blue accent;
+/// dark is Big Sur's midnight with the accent lifted to sky blue so it stays
+/// legible. The warm half of the palette belongs to identity surfaces, not to
+/// controls. Every pair below clears WCAG AA for text (4.5:1) or non-text
+/// (3:1) in both schemes.
 enum ZeeBrandTheme {
     // MARK: - Static Variables
 
     // Component pairs
 
-    /// Coral, lifted for dark: same hue family as `ZeeBrandPalette.coral`, with
-    /// enough luminance to sit on ink.
-    static let accentLightComponents = ZeeBrandPalette.coralComponents
-    static let accentDarkComponents = ZeeColorComponents(red: 241, green: 117, blue: 98)
+    /// Ocean blue, lifted to sky blue for dark.
+    static let accentLightComponents = ZeeBrandPalette.oceanComponents
+    static let accentDarkComponents = ZeeBrandPalette.skyComponents
 
     /// The accent when it is *text* rather than a tint.
     ///
     /// `accent` is scoped to the 3:1 non-text minimum, which is all a fill, a stroke,
     /// or a glyph needs. A text-only control — `ZeeButtonStyle`'s `.tertiary` and
     /// `.destructive` roles — is text, and has to clear 4.5:1 against both `canvas`
-    /// and `surface`. Coral cannot do that in light, so this role holds it at the same
-    /// hue (roughly 8°) and saturation family while trading value for legibility:
-    /// darker on paper, lifted on ink.
-    static let accentTextLightComponents = ZeeColorComponents(red: 178, green: 64, blue: 47)
-    static let accentTextDarkComponents = ZeeColorComponents(red: 250, green: 120, blue: 101)
+    /// and `surface`. Ocean blue falls short on mist, so this role uses deep
+    /// blue in light and sky blue in dark.
+    static let accentTextLightComponents = ZeeBrandPalette.deepComponents
+    static let accentTextDarkComponents = ZeeBrandPalette.skyComponents
 
-    static let canvasLightComponents = ZeeBrandPalette.paperComponents
-    static let canvasDarkComponents = ZeeBrandPalette.inkComponents
+    static let canvasLightComponents = ZeeBrandPalette.cloudComponents
+    static let canvasDarkComponents = ZeeBrandPalette.midnightComponents
 
-    static let surfaceLightComponents = ZeeBrandPalette.parchmentComponents
-    static let surfaceDarkComponents = ZeeBrandPalette.inkSoftComponents
+    static let surfaceLightComponents = ZeeBrandPalette.mistComponents
+    static let surfaceDarkComponents = ZeeBrandPalette.midnightSoftComponents
 
-    static let textDisplayLightComponents = ZeeBrandPalette.inkComponents
-    static let textDisplayDarkComponents = ZeeBrandPalette.paperComponents
-    /// Display text held back for supporting copy. Ink at 0.7 keeps 5.4:1 or
-    /// more on paper and parchment; paper at 0.6 keeps 5.2:1 or more on ink
-    /// and its soft surface.
+    static let textDisplayLightComponents = ZeeBrandPalette.midnightComponents
+    static let textDisplayDarkComponents = ZeeBrandPalette.cloudComponents
+    /// Display text held back for supporting copy, at 0.7 on light surfaces
+    /// and 0.6 on dark ones.
     static let textSecondaryLightOpacity = 0.7
     static let textSecondaryDarkOpacity = 0.6
 
-    static let lineLightComponents = ZeeBrandPalette.inkComponents
-    static let lineDarkComponents = ZeeBrandPalette.paperComponents
-    /// Matches `ZeeBrandPalette.line`; the dark hairline is lifted because paper
-    /// on ink loses definition faster than ink on paper.
+    static let lineLightComponents = ZeeBrandPalette.midnightComponents
+    static let lineDarkComponents = ZeeBrandPalette.cloudComponents
+    /// Matches `ZeeBrandPalette.line`; the dark hairline is lifted because white
+    /// on Midnight loses definition faster than Midnight on white.
     static let lineLightOpacity = 0.18
     static let lineDarkOpacity = 0.22
 
-    /// A wash of display ink, faint enough to sit under text without taking
+    /// A wash of display text, faint enough to sit under text without taking
     /// from its contrast.
     static let quietFillLightOpacity = 0.05
     static let quietFillDarkOpacity = 0.08
@@ -63,6 +59,10 @@ enum ZeeBrandTheme {
 
     /// Brand accent for interactive emphasis and tint.
     static let accent = dynamic(light: accentLightComponents, dark: accentDarkComponents)
+    /// What marks the chosen item on Zee's always-dark brand stage (the
+    /// setup flow): white, because the stage's own blues would hide a blue
+    /// ring on a blue swatch.
+    static let stageSelection = ZeeBrandPalette.cloud
     /// Brand accent for text-weight controls. See `accentTextLightComponents`.
     static let accentText = dynamic(
         light: accentTextLightComponents,

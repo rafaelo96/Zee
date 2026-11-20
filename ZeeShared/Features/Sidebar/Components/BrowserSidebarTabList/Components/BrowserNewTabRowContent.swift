@@ -50,7 +50,7 @@ struct BrowserNewTabRowContent: View {
         .accessibilityAddTraits(.isButton)
         .accessibilityAction { action() }
         .accessibilityIdentifier("new-tab")
-        .foregroundStyle(.secondary)
+        .foregroundStyle(.tertiary)
         .modifier(BrowserNewTabRowSurface(metrics: metrics))
         .padding(
             .vertical,

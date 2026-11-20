@@ -51,7 +51,7 @@ private struct BrowserSidebarWidgetActionSurface: View {
                 )
                 .overlay {
                     shape.strokeBorder(
-                        ZeeBrandPalette.ink
+                        ZeeBrandPalette.midnight
                             .opacity(ZeeButtonMetrics.inkStrokeOpacity),
                         lineWidth: ZeeButtonMetrics.strokeWidth
                     )

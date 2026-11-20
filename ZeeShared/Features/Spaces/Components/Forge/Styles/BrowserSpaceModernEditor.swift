@@ -17,12 +17,8 @@ struct BrowserSpaceModernEditor: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    /// The color sets a modern Space may wear: the accents' own, each
-    /// scheme's, then each template's sidebar colors.
-    private var presets: [[BrandColor]] {
-        SpaceAccent.all.map(\.legacyColors) + SpaceScheme.all.map { Array($0.look.colors.colors) }
-            + SpaceHouse.all.map { Array($0.look.colors.colors) }
-    }
+    /// The color sets a modern Space may wear: Zee's own gradients.
+    private var presets: [[BrandColor]] { BrandColor.modernPresets }
 
     /// Whether the custom gradient is the choice: chosen, or already worn
     /// in place of a color set.

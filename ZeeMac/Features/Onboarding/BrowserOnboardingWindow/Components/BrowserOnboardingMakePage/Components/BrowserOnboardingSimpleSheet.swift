@@ -13,12 +13,12 @@ struct BrowserOnboardingSimpleSheet: View {
                     ForEach(BrowserSimpleSpaceColor.all, id: \.self) { color in
                         BrowserSimpleSpaceColorSwatch(
                             color: color, isSelected: BrowserSimpleSpaceColor.worn(by: branding) == color,
-                            diameter: 44, tint: ZeeBrandPalette.butter
+                            diameter: 44, tint: ZeeBrandTheme.stageSelection
                         ) {
                             $branding.editorUpdate { $0 = color.applied(to: $0) }
                         }
                     }
-                    BrowserSimpleSpaceCustomColor(branding: $branding, diameter: 44, tint: ZeeBrandPalette.butter)
+                    BrowserSimpleSpaceCustomColor(branding: $branding, diameter: 44, tint: ZeeBrandTheme.stageSelection)
                 }
             }
             BrowserOnboardingIconSection(branding: $branding, symbol: $symbol)

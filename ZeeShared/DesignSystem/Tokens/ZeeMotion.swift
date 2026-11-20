@@ -133,14 +133,6 @@ enum ZeeMotion {
     static var onboardingProgress: Animation { .snappy(duration: stepTransition) }
     /// Uses SwiftUI's native snappy curve for onboarding presentation state.
     static var onboardingPresentation: Animation { .snappy }
-    /// The slow cross-fade between the fields the welcome's stage drifts through.
-    static var onboardingBackdrop: Animation { .easeInOut(duration: onboardingBackdropFade) }
-    static let onboardingBackdropFade: TimeInterval = 1.6
-    /// The cross-fade to a field the person's choice changed.
-    static var onboardingBackdropChange: Animation { .easeInOut(duration: onboardingBackdropChangeFade) }
-    static let onboardingBackdropChangeFade: TimeInterval = 0.35
-    /// How long the welcome holds each template's field before fading to the next.
-    static let onboardingWelcomeHold: Duration = .seconds(7)
     static var press: Animation { .easeOut(duration: pressFeedback) }
     static var compactPress: Animation { .easeOut(duration: compactPressFeedback) }
     static var developerPress: Animation { .snappy(duration: developerPressFeedback) }

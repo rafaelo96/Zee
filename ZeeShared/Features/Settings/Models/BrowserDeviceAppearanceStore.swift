@@ -59,7 +59,7 @@ final class BrowserAddressAppearance {
     /// Whether a live site's address field offers a button that copies its
     /// URL, beside Site Controls. Only the Mac's sidebar field draws it.
     var showsCopyURLButton = false { didSet { changed() } }
-    var display: Display = .twoLines { didSet { changed() } }
+    var display: Display = .siteOnly { didSet { changed() } }
     var color: BrandColor? { didSet { changed() } }
     /// Called after any choice changes, so its owner can save it.
     @ObservationIgnored var changed: () -> Void = {}
@@ -117,7 +117,7 @@ extension BrowserAddressAppearance: @MainActor Codable {
         animatesIntoCommandPalette =
             (try? values.decode(Bool.self, forKey: .animatesIntoCommandPalette)) ?? true
         showsCopyURLButton = (try? values.decode(Bool.self, forKey: .showsCopyURLButton)) ?? false
-        display = (try? values.decode(Display.self, forKey: .display)) ?? .twoLines
+        display = (try? values.decode(Display.self, forKey: .display)) ?? .siteOnly
         color = try? values.decode(BrandColor.self, forKey: .color)
     }
 
@@ -154,6 +154,8 @@ final class BrowserDeviceAppearanceStore {
     static let surfaceToneKey = "zee.appearance.surfaceTone"
     static let modeKey = "zee.appearance.mode"
     static let darkSpaceDimmingKey = "zee.appearance.darkSpaceDimming"
+    static let sidebarTransparencyKey = "zee.appearance.sidebarTransparency"
+    static let sidebarBlurKey = "zee.appearance.sidebarBlur"
     static let spaceIconSizingKey = "zee.appearance.spaceIconSizing"
     static let spaceIconScaleKey = "zee.appearance.spaceIconScale"
     static let sidebarRevealWidthKey = "zee.appearance.sidebar-reveal-width"
@@ -277,6 +279,16 @@ final class BrowserDeviceAppearanceStore {
             dimsSpaceColors = Self.dims(in: shownColorScheme, by: darkSpaceDimming)
             saveSoon()
         }
+    }
+    /// How much of the desktop shows through the sidebar, blurred, from 0,
+    /// a solid sidebar, to 1, the most glass the Space's color allows.
+    var sidebarTransparency: Double {
+        didSet { saveSoon() }
+    }
+    /// How strongly a see-through floating sidebar blurs the page beneath
+    /// it, from 0, no blur, to 1, the most.
+    var sidebarBlur: Double {
+        didSet { saveSoon() }
     }
     /// Whether the Space switcher fits its icons to the sidebar or draws them
     /// at ``spaceIconScale``, stored by name.
@@ -455,6 +467,14 @@ final class BrowserDeviceAppearanceStore {
             (defaults.object(forKey: Self.darkSpaceDimmingKey) as? Double).flatMap {
                 $0.isFinite ? min(max($0, 0), 1) : nil
             } ?? BrowserLookAndFeelDefaults.darkSpaceDimming
+        sidebarTransparency =
+            (defaults.object(forKey: Self.sidebarTransparencyKey) as? Double).flatMap {
+                $0.isFinite ? min(max($0, 0), 1) : nil
+            } ?? BrowserLookAndFeelDefaults.sidebarTransparency
+        sidebarBlur =
+            (defaults.object(forKey: Self.sidebarBlurKey) as? Double).flatMap {
+                $0.isFinite ? min(max($0, 0), 1) : nil
+            } ?? BrowserLookAndFeelDefaults.sidebarBlur
         spaceIconSizing =
             BrowserSpaceIconSizing.named(defaults.string(forKey: Self.spaceIconSizingKey))
             ?? BrowserLookAndFeelDefaults.spaceIconSizing
@@ -597,6 +617,8 @@ final class BrowserDeviceAppearanceStore {
         write(surfaceTone.name, forKey: Self.surfaceToneKey, in: defaults)
         write(mode.name, forKey: Self.modeKey, in: defaults)
         write(darkSpaceDimming, forKey: Self.darkSpaceDimmingKey, in: defaults)
+        write(sidebarTransparency, forKey: Self.sidebarTransparencyKey, in: defaults)
+        write(sidebarBlur, forKey: Self.sidebarBlurKey, in: defaults)
         write(spaceIconSizing.name, forKey: Self.spaceIconSizingKey, in: defaults)
         write(spaceIconScale, forKey: Self.spaceIconScaleKey, in: defaults)
         write(customizationStyle.name, forKey: Self.customizationStyleKey, in: defaults)

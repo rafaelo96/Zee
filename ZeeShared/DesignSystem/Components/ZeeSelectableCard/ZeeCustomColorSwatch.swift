@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// The last swatch of a row of colors: a circle the size of the others that
-/// opens the system color picker, for a color of the person's own. It wears
+/// opens Zee's color field in a popover, for a color of the person's own. It wears
 /// that color, ringed, while it is the one chosen, and a plus before.
 struct ZeeCustomColorSwatch: View {
     // MARK: - Variables
@@ -13,11 +13,14 @@ struct ZeeCustomColorSwatch: View {
     var tint: Color? = nil
 
     @State private var isHovering = false
+    @State private var isPicking = false
 
     // MARK: - Actions - Drawing
 
     var body: some View {
-        ZStack {
+        Button {
+            isPicking.toggle()
+        } label: {
             Circle()
                 .fill(
                     isSelected
@@ -39,19 +42,16 @@ struct ZeeCustomColorSwatch: View {
                         )
                         .opacity(isSelected ? 1 : 0)
                 }
-                .accessibilityHidden(true)
-            // The system picker sits over the circle, all but clear, so a
-            // click or tap on the circle is a click on the picker itself.
-            ColorPicker(String(localized: title), selection: $color, supportsOpacity: false)
-                .labelsHidden()
-                .scaleEffect(1.6)
-                .opacity(0.02)
-                .frame(width: diameter, height: diameter)
-                .clipShape(Circle())
-                .accessibilityAddTraits(isSelected ? .isSelected : [])
+                .contentShape(Circle())
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text(title))
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
         .onHover { isHovering = $0 }
         .help(Text(title))
+        .zeePopover(isPresented: $isPicking, arrowEdge: .bottom) {
+            ZeeColorField(color: $color)
+        }
     }
 }
 

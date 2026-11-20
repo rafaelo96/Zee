@@ -56,7 +56,7 @@ struct BrowserOnboardingHeraldicSheet: View {
     private var emblem: some View {
         BrowserOnboardingMakeSection("Emblem") {
             Picker("Identity", selection: context.setting(\.iconStyle).binding) {
-                Text("Zee").tag(SpaceIconStyle.layeredBadge)
+                Text("Badge").tag(SpaceIconStyle.layeredBadge)
                 Text("Icon").tag(SpaceIconStyle.simpleSymbol)
             }
             .pickerStyle(.segmented)

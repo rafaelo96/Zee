@@ -62,6 +62,17 @@ public sealed class Tincture {
     public static readonly Tincture VigilBone = new("vigilBone", "Bone", new(0.812, 0.820, 0.831));
     public static readonly Tincture NeutralSmoke = new("neutralSmoke", "Smoke", new(0.337, 0.337, 0.337));
     public static readonly Tincture NeutralGray = new("neutralGray", "Gray", new(0.588, 0.588, 0.588));
+    /// Zee's own colors: bright color in the spirit of macOS Big Sur.
+    public static readonly Tincture ZeeDeep = new("zeeDeep", "Deep Blue", new(0.075, 0.400, 0.722));
+    public static readonly Tincture ZeeOcean = new("zeeOcean", "Ocean", new(0.090, 0.537, 0.867));
+    public static readonly Tincture ZeeSky = new("zeeSky", "Sky Blue", new(0.169, 0.706, 0.941));
+    public static readonly Tincture ZeeCyan = new("zeeCyan", "Cyan", new(0.247, 0.816, 0.961));
+    public static readonly Tincture ZeeSun = new("zeeSun", "Sun", new(1.000, 0.749, 0.122));
+    public static readonly Tincture ZeeOrange = new("zeeOrange", "Orange", new(1.000, 0.541, 0.122));
+    public static readonly Tincture ZeeCoral = new("zeeCoral", "Coral", new(1.000, 0.353, 0.282));
+    public static readonly Tincture ZeeRed = new("zeeRed", "Red", new(0.976, 0.000, 0.176));
+    public static readonly Tincture ZeeWhite = new("zeeWhite", "White", new(1.000, 1.000, 1.000));
+    public static readonly Tincture ZeeMidnight = new("zeeMidnight", "Midnight", new(0.055, 0.102, 0.200));
 
     public static IReadOnlyList<Tincture> All { get; } = [
         Ink, Indigo, Ocean, Sky, Teal, Sage, Gold, Ember, Rose, Sand, WinterSlate, WinterSteel, WinterIce, LionOxblood,
@@ -69,7 +80,8 @@ public sealed class Tincture {
         MeadowForest, MeadowMoss, MeadowWheat, IronBlack, IronPewter, IronPatina, RiverNavy, RiverLapis, RiverRust,
         SunUmber, SunTerracotta, SunDune, VigilOnyx, VigilCharcoal, VigilAsh, WinterArgent, WinterWolf, LionGules, LionOr,
         StormOr, StormSable, DragonSable, DragonFire, MeadowVert, MeadowRose, IronOr, RiverAzure, RiverGules, RiverArgent,
-        SunTenne, SunGules, SunOr, VigilBone, NeutralSmoke, NeutralGray
+        SunTenne, SunGules, SunOr, VigilBone, NeutralSmoke, NeutralGray, ZeeDeep, ZeeOcean, ZeeSky, ZeeCyan, ZeeSun,
+        ZeeOrange, ZeeCoral, ZeeMidnight, ZeeRed, ZeeWhite
     ];
 
     public string Name { get; }

@@ -4,8 +4,8 @@ import SwiftUI
 enum ZeeInteractiveSurfaceMetrics {
     static let defaultSelectedBorderWidth: CGFloat = 0.5
     static let increasedContrastBorderWidth: CGFloat = 1.5
-    static let selectedShadowRadius: CGFloat = 2
-    static let selectedShadowYOffset: CGFloat = 1
+    static let selectedShadowRadius: CGFloat = 4
+    static let selectedShadowYOffset: CGFloat = 1.5
 }
 
 struct ZeeInteractiveSurfaceModifier: ViewModifier {

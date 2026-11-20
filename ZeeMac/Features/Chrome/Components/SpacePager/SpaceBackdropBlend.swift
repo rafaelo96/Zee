@@ -179,7 +179,13 @@ final class SpaceBackdropBlendView<Background: View>: NSView {
                     })
             } else {
                 layer.removeAnimation(forKey: "spaceTransition.opacity")
-                layer.opacity = SpacePagerInterpolation.backdropOpacity(at: position, index: placed)
+                // At rest only the shown Space draws, so a background that
+                // lets the page through never shows another Space's beneath.
+                if let restingKey {
+                    layer.opacity = BrowserSpaceRuntimeAssignment(space: space) == restingKey ? 1 : 0
+                } else {
+                    layer.opacity = SpacePagerInterpolation.backdropOpacity(at: position, index: placed)
+                }
             }
         }
         CATransaction.commit()

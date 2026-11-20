@@ -119,7 +119,7 @@ struct MobileSpaceSetupWizard: View {
             HStack(spacing: 5) {
                 ForEach(0..<2) { index in
                     Capsule().fill(
-                        index <= step.position ? ZeeBrandPalette.butter : Color.secondary.opacity(0.15)
+                        index <= step.position ? ZeeBrandPalette.ocean : Color.secondary.opacity(0.15)
                     )
                     .frame(width: index == step.position ? 22 : 6, height: 6)
                 }
@@ -211,7 +211,7 @@ struct MobileSpaceSetupWizard: View {
                         Image(systemName: "arrow.right")
                     }
                 }
-                .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.butter))
+                .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.ocean))
                 .keyboardShortcut(.defaultAction)
                 .disabled(draft == nil)
                 .accessibilityIdentifier("space-setup-continue")

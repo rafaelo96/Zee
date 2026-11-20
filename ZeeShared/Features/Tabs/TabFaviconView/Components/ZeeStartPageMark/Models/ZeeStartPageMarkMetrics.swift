@@ -5,6 +5,9 @@ enum ZeeStartPageMarkMetrics {
     static let glyphWeightRatio: CGFloat = 0.1
     static let borderOpacity: CGFloat = 0.14
     static let borderWidth: CGFloat = 0.5
-    static let gradientTop = Color(red: 0.49, green: 0.42, blue: 1.0)
-    static let gradientBottom = Color(red: 0.33, green: 0.24, blue: 0.88)
+    /// The sky, deep blue at the left into sky blue at the top right, as the icon's.
+    static let skyColors = [ZeeBrandPalette.deep, ZeeBrandPalette.sky]
+    static let skyStart = UnitPoint(x: 0, y: 0.6)
+    static let skyEnd = UnitPoint(x: 1, y: 0)
+    static let glyphShadowOpacity = 0.25
 }

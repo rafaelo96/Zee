@@ -9,6 +9,6 @@ struct BrowserSidebarDensityFont: ViewModifier {
         let size =
             BrowserSidebarDensity.bodySize(touch: supportsTouch)
             * textSizeScale * BrowserSidebarDensity(scale).contentScale
-        content.font(scale == 1 ? nil : .system(size: size))
+        content.font(.system(size: size))
     }
 }

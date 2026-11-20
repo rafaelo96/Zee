@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// Zee's mark: a white "Z" on a violet gradient tile, matching the app icon.
+/// Zee's mark, matching the app icon: a white "Z" over Zee's landscape, a
+/// blue sky with coral, red, sun, cyan and ocean waves.
 struct ZeeStartPageMark: View {
     var body: some View {
         GeometryReader { proxy in
@@ -11,13 +12,15 @@ struct ZeeStartPageMark: View {
             )
 
             ZStack {
-                tile.fill(
-                    LinearGradient(
-                        colors: [ZeeStartPageMarkMetrics.gradientTop, ZeeStartPageMarkMetrics.gradientBottom],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
+                LinearGradient(
+                    colors: ZeeStartPageMarkMetrics.skyColors,
+                    startPoint: ZeeStartPageMarkMetrics.skyStart,
+                    endPoint: ZeeStartPageMarkMetrics.skyEnd
                 )
+                ForEach(ZeeLandscapeWave.all.indices, id: \.self) { index in
+                    let wave = ZeeLandscapeWave.all[index]
+                    wave.fill(wave.fill)
+                }
                 ZeeGlyphShape()
                     .stroke(
                         .white,
@@ -27,8 +30,12 @@ struct ZeeStartPageMark: View {
                             lineJoin: .round
                         )
                     )
+                    .shadow(
+                        color: .black.opacity(ZeeStartPageMarkMetrics.glyphShadowOpacity), radius: side * 0.03,
+                        y: side * 0.015)
             }
             .frame(width: side, height: side)
+            .clipShape(tile)
             .position(x: proxy.size.width / 2, y: proxy.size.height / 2)
             .overlay {
                 tile.strokeBorder(

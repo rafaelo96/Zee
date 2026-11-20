@@ -1,18 +1,31 @@
 import SwiftUI
 
-/// What a look shows of itself before any Space wears it: a template's look
-/// in the look's own sidebar mode and icon style, as the core gives them to
-/// the Spaces setup makes.
+/// What a look shows of itself before any Space wears it: Zee's own Space,
+/// in the look's sidebar mode and icon style, as the core gives them to the
+/// Spaces setup makes.
 extension SetupLook {
     // MARK: - Static Variables
 
-    /// The template every look's preview starts from.
-    private static let previewHouse = SpaceHouse.winter
+    /// The Space every look's preview starts from: a template's banner and
+    /// badge, worn in Zee's blues with a badge of waves.
+    private static let previewSpace: SpaceBranding = {
+        var branding = SpaceHouse.winter.look
+        branding.colors = ColorPalette(colors: [Tincture.zeeDeep.color, Tincture.zeeOcean.color, Tincture.zeeSky.color])
+        branding.badge.symbol = .waves
+        branding.badge.palette = ColorPalette(colors: [
+            Tincture.zeeOcean.color, Tincture.zeeSky.color, Tincture.zeeDeep.color, Tincture.zeeSun.color,
+            Tincture.zeeCoral.color, Tincture.zeeDeep.color,
+        ])
+        return branding
+    }()
+
+    /// The order the looks are offered in: the plainest first.
+    static let offered: [SetupLook] = [.simple, .modern]
 
     // MARK: - Variables
 
-    /// The look on the template every preview starts from.
-    var previewBranding: SpaceBranding { applying(to: Self.previewHouse.look) }
+    /// The look on the Space every preview starts from.
+    var previewBranding: SpaceBranding { applying(to: Self.previewSpace) }
 
     /// The symbol a previewed Space wears, which an icon shows and a zee
     /// keeps for the places too small for it.

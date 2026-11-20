@@ -61,10 +61,10 @@ public sealed class SpaceTemplate {
         tabs: (tabIds, now) => [.. PracticeTab.All.Select(tab => tab.Opened(tabIds(), now))]);
 
     /// The one Space a first launch starts with when nothing is carried to it:
-    /// Personal, wearing the Winter house look, with one Start Page tab. No
-    /// new Space comes from it.
+    /// Personal, in the simple look in Zee's ocean blue, with one Start Page tab.
+    /// No new Space comes from it.
     public static readonly SpaceTemplate FirstInstall = new(isPrivate: false, name: _ => "Personal", symbol: "person.fill",
-        accent: _ => SpaceAccent.Indigo, look: accent => accent.House, browsing: OrdinaryBrowsing, credentials: SavesPasswords,
+        accent: _ => SpaceAccent.Indigo, look: SetupLook.Simple.NewSpaceLook, browsing: OrdinaryBrowsing, credentials: SavesPasswords,
         tabs: StartPage);
 
     #endregion

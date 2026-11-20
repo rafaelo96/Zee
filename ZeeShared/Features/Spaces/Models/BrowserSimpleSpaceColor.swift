@@ -1,13 +1,16 @@
 import SwiftUI
 
 /// A color a simple Space wears: its sidebar laid thinly in it over the
-/// window, and its icon in it. The choices are the templates' tinctures that
-/// read as a tint and as an icon on a light sidebar and a dark one.
+/// window, and its icon in it. The choices are Zee's colors, cool to warm,
+/// plus pure white and a neutral gray; any other color is the person's own, from the
+/// custom swatch.
 struct BrowserSimpleSpaceColor: Hashable, Sendable {
     // MARK: - Static Variables
 
     static let all = [
-        Tincture.rose, .dragonScarlet, .ember, .sunOr, .sage, .teal, .sky, .riverAzure, .indigo, .neutralGray,
+        Tincture.zeeOcean, .zeeDeep, .zeeSky, .zeeCyan, .zeeSun, .zeeOrange, .zeeCoral, .zeeRed, .zeeWhite,
+        .zeeMidnight,
+        .neutralGray,
     ].map(BrowserSimpleSpaceColor.init(tincture:))
 
     // MARK: - Variables

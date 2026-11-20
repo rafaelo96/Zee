@@ -117,7 +117,7 @@ struct BrowserSpaceBrandingEditor: View {
                     title: "Space name", symbol: "rectangle.and.pencil.and.ellipsis", text: editableName)
             }
             Picker("Identity style", selection: context.setting(\.iconStyle).binding) {
-                Text("Zee").tag(SpaceIconStyle.layeredBadge)
+                Text("Badge").tag(SpaceIconStyle.layeredBadge)
                 Text("Icon").tag(SpaceIconStyle.simpleSymbol)
             }.pickerStyle(.segmented)
             if branding.iconStyle == .simpleSymbol {

@@ -16,20 +16,21 @@ public sealed class SetupLook {
     #region Static Variables
 
     /// A Space wears a template's banner and its layered badge.
-    public static readonly SetupLook Heraldic = new(Kinds.Heraldic, name: "heraldic", title: "Heraldic (Full)", SpaceThemeMode.Banner,
+    public static readonly SetupLook Heraldic = new(Kinds.Heraldic, name: "heraldic", title: "Badge", SpaceThemeMode.Banner,
         SpaceIconStyle.LayeredBadge, gradientAngle: null, tint: null, newSpaceLook: accent => accent.House);
 
     /// A Space wears a gradient of its colors, from top to bottom, and a
     /// plain icon.
     public static readonly SetupLook Modern = new(Kinds.Modern, name: "modern", title: "Modern", SpaceThemeMode.Gradient,
         SpaceIconStyle.SimpleSymbol, ModernGradientAngle, tint: null,
-        newSpaceLook: accent => SpaceBranding.Painted(accent.LegacyColors, SpaceBannerPattern.Diagonal, strength: 1,
+        newSpaceLook: accent => SpaceBranding.Painted(accent.ZeeColors, SpaceBannerPattern.Diagonal, strength: 1,
             SpaceBranding.LegacyReadabilityFade, SpaceThemeMode.Gradient, ModernGradientAngle, textureStrength: 0));
 
     /// A Space wears a plain sidebar in its accent color, and a plain icon in
     /// a shade of it that stands out from the sidebar.
     public static readonly SetupLook Simple = new(Kinds.Simple, name: "simple", title: "Simple", SpaceThemeMode.Gradient,
-        SpaceIconStyle.SimpleSymbol, gradientAngle: 0, SimpleTint, newSpaceLook: accent => Simple!.Applying(accent.House));
+        SpaceIconStyle.SimpleSymbol, gradientAngle: 0, SimpleTint, newSpaceLook: accent => Simple!.Applying(
+            accent.House with { Colors = new([accent.ZeeColors[0]]) }));
 
     public static IReadOnlyList<SetupLook> All { get; } = [Heraldic, Modern, Simple];
 

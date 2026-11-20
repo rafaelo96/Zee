@@ -26,6 +26,24 @@ extension BrandColor {
         .ink, .indigo, .ocean, .sky, .teal, .sage, .gold, .ember, .rose, .sand,
     ]
 
+    /// The color sets a modern Space offers, each a gradient from Zee's own
+    /// palette, cool sets first, then warm, then the quiet ones. The sets a
+    /// new modern Space starts in, each accent's, are among them. Red and blue
+    /// never meet in one set, since a gradient between them passes through
+    /// violet.
+    static let modernPresets: [[BrandColor]] = [
+        [Tincture.zeeOcean, .zeeSky],
+        [Tincture.zeeDeep, .zeeCyan],
+        [Tincture.zeeCyan, .zeeOcean],
+        [Tincture.zeeOrange, .zeeSun],
+        [Tincture.zeeOrange, .zeeRed],
+        [Tincture.zeeRed, .zeeCoral],
+        [Tincture.zeeCoral, .zeeSun],
+        [Tincture.zeeMidnight, .zeeDeep],
+        [Tincture.zeeWhite, .zeeSky],
+        [Tincture.zeeMidnight, .zeeOcean],
+    ].map { $0.map(\.color) }
+
     /// How bright a fully dimmed color draws, from its darkest to its
     /// brightest: a charcoal base tinted with its hue. The sidebar's layers
     /// lighten it a little, so a light gray Space shows as a neutral charcoal

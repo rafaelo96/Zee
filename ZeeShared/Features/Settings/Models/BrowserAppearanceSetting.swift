@@ -7,6 +7,10 @@ enum BrowserAppearanceSetting: Hashable, Sendable, CaseIterable {
     case windowBorder
     case material
     case materialColor
+    /// How much of the desktop shows through the sidebar.
+    case sidebarTransparency
+    /// How strongly a see-through floating sidebar blurs the page beneath.
+    case sidebarBlur
     case sidebarOnRight
     /// Fitting Space icons to the sidebar, and their size when they are not.
     case spaceIconSize

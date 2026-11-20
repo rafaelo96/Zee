@@ -113,15 +113,19 @@ struct BrowserBadgeStudioBackground: View {
             if context.compact {
                 BrowserBadgeStudioPreview(branding: context.value, symbol: symbol, compact: true)
             }
-            HStack(spacing: 16) {
-                ForEach(BrowserSpaceBrandColorRole.all) { role in
-                    BrowserSpacePaletteSlot(
-                        role: role, color: context.branding.editorColor(for: role),
-                        canAdd: role.slot == context.value.colors.count,
-                        canRemove: role.slot == context.value.colors.count - 1 && context.value.colors.count > 1,
-                        compact: true, addColor: { context.branding.editorAddColor(for: role) },
-                        removeColor: { context.branding.editorRemoveColor(for: role) })
+            BrowserSpaceColorCanvas(context: context)
+            DisclosureGroup("Exact colors") {
+                HStack(spacing: 16) {
+                    ForEach(BrowserSpaceBrandColorRole.all) { role in
+                        BrowserSpacePaletteSlot(
+                            role: role, color: context.branding.editorColor(for: role),
+                            canAdd: role.slot == context.value.colors.count,
+                            canRemove: role.slot == context.value.colors.count - 1 && context.value.colors.count > 1,
+                            compact: true, addColor: { context.branding.editorAddColor(for: role) },
+                            removeColor: { context.branding.editorRemoveColor(for: role) })
+                    }
                 }
+                .padding(.top, 8)
             }
             backgroundChoices
             if context.value.themeMode == .gradient {
@@ -138,7 +142,6 @@ struct BrowserBadgeStudioBackground: View {
             slider("Color intensity", \.bannerStrength)
             slider("Readability fade", \.readabilityFade)
             slider("Folder color intensity", \.folderColorIntensity)
-            slider("Texture", \.textureStrength, readout: .percent(zero: "None", full: "Full"))
             let text = context.setting(\.textColorMode)
             ZeeSettingRow("Text color", setting: text.resettable("Text color")) {
                 Picker("Text color", selection: text.binding) {

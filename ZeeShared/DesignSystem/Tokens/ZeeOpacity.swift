@@ -5,7 +5,7 @@ enum ZeeOpacity {
     static let hover = 0.08
     static let interactionSelection = 0.13
     static let interactionSelectionBorder = 0.10
-    static let interactionSelectionShadow = 0.08
+    static let interactionSelectionShadow = 0.1
     static let selection = interactionSelection
     static let chromeSurface = 0.055
     static let selectedSurface = selection
@@ -14,6 +14,11 @@ enum ZeeOpacity {
     /// How far a selected row lifts dark glass toward white, so it stands off
     /// a dark sidebar as light glass does off any.
     static let darkSelectionLift = 0.10
+    /// How white a selected row turns over light glass: all the way, as
+    /// Arc's active tab is a sheet of paper on the sidebar.
+    static let lightSelectionLift = 1.0
+    /// The faint edge a selected row keeps over light glass.
+    static let lightSelectionBorder = 0.04
     /// The edge a selected row's dark glass wears over a dark sidebar.
     static let darkSelectionBorder = 0.18
     static let disabled = 0.5

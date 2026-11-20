@@ -45,6 +45,23 @@ struct BrowserWindowAppearanceGroup<Extra: View>: View {
             )
             .browserAppearanceSetting(.windowBorder)
             ZeeSettingSlider(
+                "Sidebar transparency",
+                value: transparency,
+                range: 0...1,
+                readout: .percent(naming: [0: "Solid"]),
+                identifier: "sidebar-transparency"
+            )
+            .browserAppearanceSetting(.sidebarTransparency)
+            ZeeSettingSlider(
+                "Sidebar blur",
+                value: blur,
+                range: 0...1,
+                readout: .percent(naming: [0: "None"]),
+                identifier: "sidebar-blur"
+            )
+            .disabled(appearance.sidebarTransparency == 0)
+            .browserAppearanceSetting(.sidebarBlur)
+            ZeeSettingSlider(
                 "Material",
                 value: material,
                 range: 0...Double(ZeeSurfaceMaterial.all.count - 1),
@@ -85,6 +102,15 @@ struct BrowserWindowAppearanceGroup<Extra: View>: View {
         ZeeSettingValue($appearance.windowBorderWidth, default: BrowserLookAndFeelDefaults.windowBorderWidth)
     }
 
+    private var transparency: ZeeSettingValue<Double> {
+        ZeeSettingValue(
+            $appearance.sidebarTransparency, default: BrowserLookAndFeelDefaults.sidebarTransparency)
+    }
+
+    private var blur: ZeeSettingValue<Double> {
+        ZeeSettingValue($appearance.sidebarBlur, default: BrowserLookAndFeelDefaults.sidebarBlur)
+    }
+
     /// The sidebar's layer material, as a position from Ultra Thin to Ultra Thick.
     private var material: ZeeSettingValue<Double> {
         ZeeSettingValue(
@@ -121,7 +147,10 @@ struct BrowserWindowAppearanceGroup<Extra: View>: View {
 
     private var rows: [(BrowserAppearanceSetting, ZeeResettableSetting)] {
         [
-            (.windowBorder, border.resettable("Window border")), (.material, material.resettable("Material")),
+            (.windowBorder, border.resettable("Window border")),
+            (.sidebarTransparency, transparency.resettable("Sidebar transparency")),
+            (.sidebarBlur, blur.resettable("Sidebar blur")),
+            (.material, material.resettable("Material")),
             (.materialColor, materialColor.resettable("Material color")),
             (.sidebarOnRight, sidebar.resettable("Sidebar on right")),
             (.followSpaceAccent, accent.resettable("Follow Space accent")),

@@ -203,9 +203,9 @@ private struct BrowserAboutReleaseNoteMark: Sendable {
 
     static let new = BrowserAboutReleaseNoteMark(category: .new, symbol: "sparkles", color: ZeeBrandPalette.sky)
     static let improved = BrowserAboutReleaseNoteMark(
-        category: .improved, symbol: "arrow.up.circle.fill", color: ZeeBrandPalette.butter)
+        category: .improved, symbol: "arrow.up.circle.fill", color: ZeeBrandPalette.ocean)
     static let fixed = BrowserAboutReleaseNoteMark(
-        category: .fixed, symbol: "checkmark.circle.fill", color: ZeeBrandPalette.sage)
+        category: .fixed, symbol: "checkmark.circle.fill", color: ZeeBrandPalette.deep)
     static let `internal` = BrowserAboutReleaseNoteMark(
         category: .internal, symbol: "wrench.and.screwdriver.fill", color: .secondary)
 

@@ -12,16 +12,20 @@ public sealed class SpaceAccent {
 
     /// Winter.
     public static readonly SpaceAccent Indigo = new(name: "indigo", tint: SystemTint.Indigo,
-        legacyColors: [Tincture.Ink, Tincture.Ocean, Tincture.Gold], house: SpaceHouse.Winter.Look, swatch: Tincture.Indigo);
+        legacyColors: [Tincture.Ink, Tincture.Ocean, Tincture.Gold], house: SpaceHouse.Winter.Look, swatch: Tincture.Indigo,
+        zee: [Tincture.ZeeOcean, Tincture.ZeeSky]);
     /// Sun.
     public static readonly SpaceAccent Orange = new(name: "orange", tint: SystemTint.Orange,
-        legacyColors: [Tincture.Ember, Tincture.Gold, Tincture.Ocean], house: SpaceHouse.Sun.Look, swatch: Tincture.Ember);
+        legacyColors: [Tincture.Ember, Tincture.Gold, Tincture.Ocean], house: SpaceHouse.Sun.Look, swatch: Tincture.Ember,
+        zee: [Tincture.ZeeOrange, Tincture.ZeeSun]);
     /// Meadow.
     public static readonly SpaceAccent Teal = new(name: "teal", tint: SystemTint.Teal,
-        legacyColors: [Tincture.Teal, Tincture.Ocean, Tincture.Sand], house: SpaceHouse.Meadow.Look, swatch: Tincture.Teal);
+        legacyColors: [Tincture.Teal, Tincture.Ocean, Tincture.Sand], house: SpaceHouse.Meadow.Look, swatch: Tincture.Teal,
+        zee: [Tincture.ZeeCyan, Tincture.ZeeOcean]);
     /// Lion.
     public static readonly SpaceAccent Rose = new(name: "rose", tint: SystemTint.Pink,
-        legacyColors: [Tincture.Rose, Tincture.Indigo, Tincture.Sand], house: SpaceHouse.Lion.Look, swatch: Tincture.Rose);
+        legacyColors: [Tincture.Rose, Tincture.Indigo, Tincture.Sand], house: SpaceHouse.Lion.Look, swatch: Tincture.Rose,
+        zee: [Tincture.ZeeRed, Tincture.ZeeCoral]);
 
     public static IReadOnlyList<SpaceAccent> All { get; } = [Indigo, Orange, Teal, Rose];
 
@@ -47,16 +51,22 @@ public sealed class SpaceAccent {
     /// such as another browser's Space, is matched against.
     public BrandColor Swatch { get; }
 
+    /// The two colors of Zee's own palette a new simple or modern Space of
+    /// this accent wears, the first leading.
+    public IReadOnlyList<BrandColor> ZeeColors { get; }
+
     #endregion
 
     #region Constructors
 
-    private SpaceAccent(string name, SystemTint tint, IReadOnlyList<Tincture> legacyColors, SpaceBranding house, Tincture swatch) {
+    private SpaceAccent(string name, SystemTint tint, IReadOnlyList<Tincture> legacyColors, SpaceBranding house, Tincture swatch,
+        IReadOnlyList<Tincture> zee) {
         Name = name;
         Tint = tint;
         LegacyColors = [.. legacyColors.Select(tincture => tincture.Color)];
         House = house;
         Swatch = swatch.Color;
+        ZeeColors = [.. zee.Select(tincture => tincture.Color)];
     }
 
     #endregion

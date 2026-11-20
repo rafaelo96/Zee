@@ -61,11 +61,11 @@ struct BrowserOnboardingWindowPreview<Page: View>: View {
                 cardBar
             }
             ZStack {
-                Rectangle().fill(ZeeBrandPalette.paper)
+                Rectangle().fill(ZeeBrandPalette.cloud)
                 page
             }
             .clipShape(shape)
-            .background { shape.fill(ZeeBrandPalette.paper).shadow(color: .black.opacity(0.18), radius: 6, y: 2) }
+            .background { shape.fill(ZeeBrandPalette.cloud).shadow(color: .black.opacity(0.18), radius: 6, y: 2) }
         }
         .padding(.vertical, BrowserChromeLayout.pageFrameInset)
         .padding(.trailing, BrowserChromeLayout.pageFrameInset)

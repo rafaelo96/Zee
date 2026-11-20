@@ -16,7 +16,7 @@
                 VStack(spacing: 0) {
                     HStack(spacing: 6) {
                         ForEach(
-                            [ZeeBrandPalette.coral, ZeeBrandPalette.butter, ZeeBrandPalette.sage], id: \.self
+                            [ZeeBrandPalette.ocean, ZeeBrandPalette.ocean, ZeeBrandPalette.deep], id: \.self
                         ) {
                             color in
                             Circle().fill(color).frame(width: 8, height: 8)
@@ -64,7 +64,7 @@
                     BrowserSplitColumnsView(
                         members: members, focusedTabID: practice.selectedTabID,
                         frameInsets: EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10),
-                        accent: ZeeBrandPalette.coral,
+                        accent: ZeeBrandPalette.ocean,
                         placeholderIndex: nil, liftedTabID: nil, widthTransaction: $practice.splitWidths,
                         onResizeCommit: { _ in }, onFocus: practice.browser.selectTab,
                         usesTransparentInnerSurface: { _ in false }
@@ -102,7 +102,7 @@
                     }
                 } else {
                     Image(systemName: "mountain.2").font(.system(size: 54, weight: .ultraLight)).foregroundStyle(
-                        ZeeBrandPalette.sage)
+                        ZeeBrandPalette.deep)
                     Text("Weekend trail guide").font(ZeeTypography.display(30))
                     Text("Distance: 4.2 miles\nDuration: 2 hours\nRoute: lakeside loop")
                         .font(ZeeTypography.sans(13)).foregroundStyle(.secondary).fixedSize(
@@ -129,10 +129,10 @@
                 .font(ZeeTypography.sans(14)).foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
                 Button("Add Packing list", systemImage: "plus.rectangle.on.rectangle") { practice.makeSplit() }
-                    .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.butter))
+                    .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.ocean))
             } else if tab.title == "Packing list" {
                 Image(systemName: "arrow.left.arrow.right")
-                    .font(.system(size: 32, weight: .light)).foregroundStyle(ZeeBrandPalette.sage)
+                    .font(.system(size: 32, weight: .light)).foregroundStyle(ZeeBrandPalette.deep)
                 Text("Rearrange cards").font(ZeeTypography.display(26))
                 Text("Move this card to either side. Hold ⇧⌘, then click and drag a card to move it in the browser.")
                     .font(ZeeTypography.sans(13)).foregroundStyle(.secondary)

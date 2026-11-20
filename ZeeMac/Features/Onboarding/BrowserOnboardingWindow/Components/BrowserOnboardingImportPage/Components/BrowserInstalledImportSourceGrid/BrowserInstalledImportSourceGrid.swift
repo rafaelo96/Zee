@@ -47,7 +47,7 @@ private struct BrowserInstalledImportSourceCard: View {
     var body: some View {
         ZeeSelectableCard(
             isSelected: isSelected, accessibilityLabel: Text("Import from \(source.title)"), density: .compact,
-            tint: ZeeBrandPalette.butter, action: toggleSelection
+            tint: ZeeBrandTheme.stageSelection, action: toggleSelection
         ) {
             VStack(spacing: 12) {
                 Image(nsImage: source.icon)
@@ -70,9 +70,9 @@ private struct BrowserInstalledImportSourceCard: View {
                 if isSelected {
                     Image(systemName: "checkmark")
                         .font(.system(size: 11, weight: .bold))
-                        .foregroundStyle(ZeeBrandPalette.ink)
+                        .foregroundStyle(ZeeBrandPalette.cloud)
                         .frame(width: 22, height: 22)
-                        .background(ZeeBrandPalette.butter, in: .circle)
+                        .background(ZeeBrandPalette.ocean, in: .circle)
                         .padding(ZeeSpacing.extraExtraSmall)
                         .accessibilityHidden(true)
                 }

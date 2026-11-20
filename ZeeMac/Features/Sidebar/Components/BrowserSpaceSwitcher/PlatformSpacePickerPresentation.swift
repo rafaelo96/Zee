@@ -116,11 +116,12 @@ final class SpacePickerPresentationView: NSView {
         colors = [:]
         strokes = [:]
         for space in spaces {
-            let color = NSColor(selectionTint ?? space.branding.primaryColor.color)
+            // A soft shade of the colour the Space's text reads in, with no
+            // outline, as Arc marks the current Space: it holds on any
+            // Space's colour, white included.
             let reading: NSColor = space.branding.foregroundTone(system: system) == .light ? .white : .black
-            colors[space.id] = color
-            strokes[space.id] =
-                color.blended(withFraction: ZeeSpaceIconPickerMetrics.strokeLift, of: reading) ?? color
+            colors[space.id] = reading.withAlphaComponent(ZeeSpaceIconPickerMetrics.neutralSelectionShade)
+            strokes[space.id] = reading.withAlphaComponent(0)
         }
         if let snapshot = presentation.snapshot, snapshot.order(of: ids, id: { $0 }) != nil {
             receive(snapshot)

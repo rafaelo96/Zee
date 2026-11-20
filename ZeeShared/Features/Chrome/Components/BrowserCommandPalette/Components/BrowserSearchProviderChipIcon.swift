@@ -17,7 +17,7 @@ struct BrowserSearchProviderChipIcon: View {
             provider: provider, profileID: isLocked ? nil : profileID, size: BrowserCommandPaletteMetrics.chipIconSize
         )
         .frame(width: plate, height: plate)
-        .background(ZeeBrandPalette.paper, in: .circle)
+        .background(ZeeBrandPalette.cloud, in: .circle)
         .environment(\.colorScheme, .light)
         .accessibilityHidden(true)
     }

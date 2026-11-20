@@ -41,12 +41,12 @@ struct ZeeButtonSurface: View {
                     weight: .bold
                 )
             )
-            .foregroundStyle(ZeeBrandPalette.ink)
+            .foregroundStyle(ZeeBrandPalette.cloud)
             .padding(.horizontal, ZeeButtonMetrics.prominentHorizontalPadding)
             .frame(minHeight: ZeeButtonMetrics.prominentHeight)
             .background {
                 Capsule().fill(
-                    (tint ?? ZeeBrandPalette.butter)
+                    (tint ?? ZeeBrandPalette.ocean)
                         .opacity(
                             configuration.isPressed
                                 ? ZeeButtonMetrics.pressedFillOpacity
@@ -56,7 +56,7 @@ struct ZeeButtonSurface: View {
             }
             .overlay {
                 Capsule().strokeBorder(
-                    ZeeBrandPalette.ink
+                    ZeeBrandPalette.midnight
                         .opacity(ZeeButtonMetrics.inkStrokeOpacity),
                     lineWidth: ZeeButtonMetrics.strokeWidth
                 )

@@ -16,6 +16,7 @@ struct BrowserSpaceHeader: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @State private var isHovering = false
 
     init(
         space: some BrowserSpaceIdentifying, isPrivateBrowsing: Bool, isSavedTabsExpanded: Binding<Bool>,
@@ -33,11 +34,15 @@ struct BrowserSpaceHeader: View {
             HStack(spacing: 0) {
                 title
 
+                // The menu waits under the pointer, as a tab's close does,
+                // so a quiet header shows the Space's name alone.
                 BrowserSpaceHeaderActionsMenu(
                     isPrivateBrowsing: isPrivateBrowsing,
                     metrics: metrics,
                     actions: actions
                 )
+                .opacity(isMenuRevealed ? 1 : 0)
+                .animation(ZeeMotion.surface.unlessReducingMotion(reduceMotion), value: isMenuRevealed)
             }
             .padding(.leading, ZeeSpacing.small)
             .padding(.trailing, ZeeSpacing.extraSmall)
@@ -45,7 +50,12 @@ struct BrowserSpaceHeader: View {
         .zeeHoverSurface(
             cornerRadius: ZeeLayout.sidebarControlCornerRadius
         )
+        .onHover { isHovering = $0 }
         .padding(.horizontal, ZeeSpacing.small)
+    }
+
+    private var isMenuRevealed: Bool {
+        capabilities.trailingControlMetrics.isRevealed(isHovering: isHovering, isSelected: false)
     }
 
     private var title: some View {

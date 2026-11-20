@@ -127,6 +127,15 @@ struct BrowserRootSidebarSurfaceLayer<Content: View>: View {
             .mask {
                 shape.ignoresSafeArea(.container, edges: usesFloatingCardAppearance ? [] : .bottom)
             }
+            .background {
+                // The page beneath a see-through floating card blurs, so
+                // the rows on the card stay readable. SwiftUI's own material
+                // blurs the views the window draws beneath it.
+                if usesFloatingCardAppearance, cardTransparency > 0, let blur = cardBlur {
+                    shape.fill(blur.material)
+                        .opacity(blur.strength)
+                }
+            }
             .overlay {
                 shape
                     .strokeBorder(
@@ -150,6 +159,24 @@ struct BrowserRootSidebarSurfaceLayer<Content: View>: View {
                 y: BrowserRootMetrics.floatingSidebarShadowOffset
             )
             .contentShape(.interaction, shape)
+    }
+
+    /// How much of a floating card is glass, following the person's
+    /// transparency. The system's Reduce Transparency keeps it solid.
+    private var cardTransparency: Double {
+        reduceTransparency ? 0 : BrowserDeviceAppearanceStore.shared.sidebarTransparency
+    }
+
+    /// The glass a see-through floating card lays over the page, as the
+    /// person's Sidebar blur asks, or nil for none. Each quarter of the
+    /// slider is one thicker material, which fades in across the first.
+    private var cardBlur: (material: Material, strength: Double)? {
+        let blur = BrowserDeviceAppearanceStore.shared.sidebarBlur
+        guard blur > 0 else { return nil }
+        let materials: [Material] = [.ultraThinMaterial, .thinMaterial, .regularMaterial, .thickMaterial]
+        let step = min(Int((blur * Double(materials.count)).rounded(.up)) - 1, materials.count - 1)
+        let strength = step == 0 ? blur * Double(materials.count) : 1
+        return (materials[max(step, 0)], strength)
     }
 
     private var usesFloatingCardAppearance: Bool {

@@ -45,7 +45,7 @@ struct MobileOnboardingWelcomePage: View {
                             }
                         } icon: {
                             Image(systemName: "square.grid.2x2").frame(width: 28).foregroundStyle(
-                                ZeeBrandPalette.coral)
+                                ZeeBrandPalette.ocean)
                         }
                         Label {
                             VStack(alignment: .leading, spacing: 4) {
@@ -80,7 +80,7 @@ struct MobileOnboardingWelcomePage: View {
                     }
                     .frame(maxWidth: .infinity, minHeight: 32)
                 }
-                .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.butter))
+                .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.ocean))
                 .disabled(action.waitsOnCloud)
                 .accessibilityIdentifier(BrowserMobileAccessibilityID.welcomeContinue)
 

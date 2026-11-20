@@ -11,7 +11,7 @@ struct BrowserGettingStartedPinAction: View {
         Button("Pin Gmail", systemImage: "pin.fill") {
             if let mail = practice.tabID(.mail) { practice.browser.pinTab(mail) }
         }
-        .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.butter))
+        .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.ocean))
     }
 }
 
@@ -25,7 +25,7 @@ struct BrowserGettingStartedSaveAction: View {
         Button(title, systemImage: systemImage) {
             if let trail = practice.tabID(.trail) { practice.browser.saveTab(trail) }
         }
-        .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.butter))
+        .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.ocean))
     }
 }
 
@@ -58,6 +58,6 @@ struct BrowserGettingStartedCleanUpAction: View {
         Button("Clean Up Current Tabs", systemImage: "sparkles") {
             _ = practice.tabActions.clearCurrentTabs()
         }
-        .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.butter))
+        .buttonStyle(.zeePrimary(tint: ZeeBrandPalette.ocean))
     }
 }

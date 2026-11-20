@@ -49,7 +49,7 @@
                         HStack(alignment: .top, spacing: 12) {
                             Image(systemName: "hand.draw")
                                 .font(.title2)
-                                .foregroundStyle(ZeeBrandPalette.coral)
+                                .foregroundStyle(ZeeBrandPalette.ocean)
                             VStack(alignment: .leading, spacing: 6) {
                                 Text("Return to your tabs").font(.headline)
                                 Text(

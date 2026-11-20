@@ -45,6 +45,8 @@ struct BrowserSidebarAddressFieldContent<
                 prompt: configuration.prompt,
                 swapID: configuration.swapID,
                 display: BrowserDeviceAppearanceStore.shared.address.display,
+                // A sidebar reads from its leading edge, as its tabs do.
+                alignment: .leading,
                 submit: configuration.submit
             )
 

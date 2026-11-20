@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
-  <path d="M 328 307 L 696 307 L 328 717 L 696 717" fill="none" stroke="#FFFFFF" stroke-width="102" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- The Z as one filled outline: a 102pt stroke with round ends, drawn as a fill so the icon renderer shows no seams. -->
+  <path d="M 328 256 L 696 256 A 51 51 0 0 1 733.95 341.07 L 442.3 666 L 696 666 A 51 51 0 0 1 696 768 L 328 768 A 51 51 0 0 1 290.05 682.93 L 581.7 358 L 328 358 A 51 51 0 0 1 328 256 Z" fill="#FFFFFF"/>
 </svg>

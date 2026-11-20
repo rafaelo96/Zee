@@ -77,7 +77,13 @@ struct BrowserSidebarAddressFieldSurface: ViewModifier {
     private var layers: some View {
         ZStack(alignment: .leading) {
             if !isGlass {
-                ZeeSurfaceLayer(shape: fieldShape)
+                // A quiet inset, as Arc's field is: a shade of the sidebar
+                // rather than a raised pane of material over it.
+                if reduceTransparency {
+                    ZeeSurfaceLayer(shape: fieldShape)
+                } else {
+                    fieldShape.fill(.primary.opacity(ZeeOpacity.chromeSurface))
+                }
             }
             if !reduceTransparency {
                 fieldShape.fill(accent.opacity(BrowserTabAppearance.intensity(appearance.fill) * 0.4))

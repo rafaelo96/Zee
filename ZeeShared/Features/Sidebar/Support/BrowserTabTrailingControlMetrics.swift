@@ -61,13 +61,10 @@ struct BrowserTabTrailingControlMetrics: Equatable, Sendable {
     )
 
     /// Whether the control is drawn at all, given what the row can tell the
-    /// reader about itself right now.
-    ///
-    /// Selection counts alongside hover because the selected row is the one a
-    /// reader is most likely to want to close, and it is the one row a pointer
-    /// shell can reveal the control on without a pointer being there.
+    /// reader about itself right now: where a pointer can hover, only under
+    /// it, so a quiet sidebar shows titles alone, as Arc's does.
     func isRevealed(isHovering: Bool, isSelected: Bool) -> Bool {
-        isAlwaysVisible || isHovering || isSelected
+        isAlwaysVisible || isHovering
     }
 
     /// The opacity a revealed close control draws at.

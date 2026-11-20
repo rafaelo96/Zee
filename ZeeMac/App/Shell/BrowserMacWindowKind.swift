@@ -26,18 +26,18 @@ struct BrowserMacWindowKind: Hashable {
         name: "browser", title: ProductIdentity.name, styleMask: browsingStyle, hidesTitle: true,
         contentSize: browserContentSize,
         minimumContentSize: browserMinimumContentSize,
-        savesFrame: true, hasWindowModel: true, hasPageRow: true)
+        savesFrame: true, hasWindowModel: true, hasPageRow: true, showsDesktop: true)
     /// A browser window over a torn-off tab's own workspace, placed where the
     /// tab was dropped and never kept.
     static let temporary = BrowserMacWindowKind(
         name: "temporary", title: ProductIdentity.name, styleMask: browsingStyle, hidesTitle: true,
         contentSize: browserContentSize,
         minimumContentSize: browserMinimumContentSize,
-        hasWindowModel: true, hasPageRow: true)
+        hasWindowModel: true, hasPageRow: true, showsDesktop: true)
     /// The one private browsing window.
     static let `private` = BrowserMacWindowKind(
         name: "private", title: String(localized: "Private Browsing"), styleMask: browsingStyle, hidesTitle: true,
-        contentSize: CGSize(width: 1200, height: 820), hasPageRow: true, isSingleton: true)
+        contentSize: CGSize(width: 1200, height: 820), hasPageRow: true, isSingleton: true, showsDesktop: true)
     /// A Quick Window, which shows one page of a Space.
     static let quick = BrowserMacWindowKind(
         name: "quick", title: String(localized: "Quick Window"), styleMask: browsingStyle, hidesTitle: true,
@@ -45,7 +45,7 @@ struct BrowserMacWindowKind: Hashable {
             width: BrowserQuickWindowLayout.defaultWidth, height: BrowserQuickWindowLayout.defaultHeight),
         minimumContentSize: CGSize(
             width: BrowserQuickWindowLayout.minimumWidth, height: BrowserQuickWindowLayout.minimumHeight),
-        collectionBehavior: .moveToActiveSpace)
+        collectionBehavior: .moveToActiveSpace, showsDesktop: true)
     /// Zee Setup, which fills the screen it opens on. The setup content is
     /// fully flexible above its minimum, so the window keeps the size it opens
     /// at rather than the content's ideal one, which is that minimum.
@@ -105,6 +105,10 @@ struct BrowserMacWindowKind: Hashable {
     /// Window comes to the Space the person is on rather than taking them to
     /// the Space it opened on.
     let collectionBehavior: NSWindow.CollectionBehavior
+    /// Whether the window is clear behind its chrome, so the sidebar can let
+    /// the desktop show through as far as the person's Sidebar transparency
+    /// asks. The chrome paints its own background where it asks for none.
+    let showsDesktop: Bool
 
     // MARK: - Initializers
 
@@ -113,7 +117,8 @@ struct BrowserMacWindowKind: Hashable {
         hidesTitleBarSeparator: Bool = false, contentSize: CGSize, minimumContentSize: CGSize? = nil,
         sizingOptions: NSHostingSizingOptions? = nil,
         savesFrame: Bool = false, fillsScreen: Bool = false, hasWindowModel: Bool = false, hasPageRow: Bool = false,
-        isSingleton: Bool = false, identifier: String? = nil, collectionBehavior: NSWindow.CollectionBehavior = []
+        isSingleton: Bool = false, identifier: String? = nil, collectionBehavior: NSWindow.CollectionBehavior = [],
+        showsDesktop: Bool = false
     ) {
         self.name = name
         self.title = title
@@ -130,6 +135,7 @@ struct BrowserMacWindowKind: Hashable {
         self.isSingleton = isSingleton
         self.identifier = identifier
         self.collectionBehavior = collectionBehavior
+        self.showsDesktop = showsDesktop
     }
 
     // MARK: - Actions - Windows
@@ -161,6 +167,10 @@ struct BrowserMacWindowKind: Hashable {
             window.titlebarAppearsTransparent = true
         }
         if hidesTitleBarSeparator { window.titlebarSeparatorStyle = .none }
+        if showsDesktop {
+            window.isOpaque = false
+            window.backgroundColor = .clear
+        }
         return window
     }
 

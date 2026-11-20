@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// One Space's moving sidebar content: the pinned grid, the Space header, and
-/// the scrolling tab list. Address and navigation controls stay outside it.
+/// One Space's moving sidebar content: the pinned grid and the scrolling tab
+/// list. Address and navigation controls stay outside it.
 ///
 /// Everything here is composition and binding. The sections and the list are the
 /// shared ones; this shell supplies scrolling chrome and the page-facing
@@ -57,20 +57,6 @@ struct SpaceSidebarBrowsingContent: View {
             }
             .onDisappear { sidebarBands?.forget(space.id) }
 
-        BrowserSpaceHeader(
-            space: space,
-            isPrivateBrowsing: browser.isPrivateBrowsing,
-            isSavedTabsExpanded: $isSavedTabsExpanded,
-            capabilities: capabilities,
-            actions: BrowserSpaceHeaderActions(
-                openNewTab: openNewTab,
-                createFolder: beginCreatingFolder,
-                showHistory: showHistory,
-                cleanup: { _ = tabActions.clearCurrentTabs() },
-                toggleSavedTabs: toggleSavedTabs
-            )
-        )
-
         SpaceSidebarTabListScroll(browser: browser) {
             BrowserSidebarBackgroundInteractionView(
                 editSpace: editSpace,
@@ -93,8 +79,11 @@ struct SpaceSidebarBrowsingContent: View {
                 )
             )
         } content: {
+            // No Space header to fold the saved tabs away under: they always
+            // show, and the Space's name lives in the switcher below.
             BrowserSidebarTabList(
                 context: listContext,
+                alwaysShowsSavedTabs: true,
                 showsClearAction: isHoveringTabList,
                 openNewTab: openNewTab
             )

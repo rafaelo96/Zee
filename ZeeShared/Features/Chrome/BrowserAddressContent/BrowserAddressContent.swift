@@ -28,6 +28,9 @@ struct BrowserAddressContent: View {
     var swapID: UUID?
     /// How much of the address shows while it is not being edited.
     var display = BrowserAddressAppearance.Display.twoLines
+    /// Where the address sits in its field: centered, or at the leading edge
+    /// as a sidebar shows it.
+    var alignment = HorizontalAlignment.center
     let submit: () -> Void
 
     @FocusState private var isFocused: Bool
@@ -46,7 +49,7 @@ struct BrowserAddressContent: View {
                 BrowserAddressSwap(swapID: swapID) { addressSummary }
             }
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: Alignment(horizontal: alignment, vertical: .center))
         .onGeometryChange(for: CGFloat.self) { proxy in
             guard let centeringField, let field = proxy.bounds(of: centeringField) else { return 0 }
             return proxy.size.width - field.minX - field.maxX
@@ -96,7 +99,7 @@ struct BrowserAddressContent: View {
                 selection: $selection
             )
             .textFieldStyle(.plain)
-            .multilineTextAlignment(.center),
+            .multilineTextAlignment(textAlignment),
             measuring: text.isEmpty ? Text(prompt) : Text(verbatim: text)
         )
         #if os(iOS)
@@ -166,7 +169,7 @@ struct BrowserAddressContent: View {
                 addressSummaryLabel(presentation),
                 measuring: addressSummaryLabel(presentation)
             )
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, alignment: Alignment(horizontal: alignment, vertical: .center))
             .contentShape(.rect)
         }
     }
@@ -177,7 +180,7 @@ struct BrowserAddressContent: View {
     ) -> some View {
         switch display {
         case .twoLines:
-            VStack(spacing: -1) {
+            VStack(alignment: alignment, spacing: -1) {
                 domainLabel(presentation)
                     .truncationMode(.middle)
 
@@ -217,9 +220,16 @@ struct BrowserAddressContent: View {
     }
 
     private func domainText(_ presentation: BrowserAddressPresentation) -> Text {
+        // The prompt reads as a hint and a site as a label, never as a
+        // heading.
         Text(presentation.domain)
-            .fontWeight(.semibold)
+            .fontWeight(text.isEmpty ? .regular : .medium)
             .foregroundStyle(text.isEmpty ? .secondary : .primary)
+    }
+
+    /// The text alignment that matches `alignment`.
+    private var textAlignment: TextAlignment {
+        alignment == .leading ? .leading : .center
     }
 
     // MARK: - Actions - Centering

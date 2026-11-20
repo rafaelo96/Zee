@@ -6,12 +6,8 @@ struct BrowserOnboardingModernSheet: View {
     @Binding var branding: SpaceBranding
     @Binding var symbol: String
 
-    /// The color sets a modern Space may wear: the accents' own, each
-    /// scheme's, then each template's sidebar colors.
-    private var presets: [[BrandColor]] {
-        SpaceAccent.all.map(\.legacyColors) + SpaceScheme.all.map { Array($0.look.colors) }
-            + SpaceHouse.all.map { Array($0.look.colors) }
-    }
+    /// The color sets a modern Space may wear: Zee's own gradients.
+    private var presets: [[BrandColor]] { BrandColor.modernPresets }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
@@ -94,7 +90,7 @@ private struct BrowserOnboardingModernPresetSwatch: View {
         ZeeSelectableCard(
             isSelected: isSelected,
             accessibilityLabel: Text(colors.map { String(localized: $0.title) }.joined(separator: ", ")),
-            density: .swatch, tint: ZeeBrandPalette.butter, action: select
+            density: .swatch, tint: ZeeBrandTheme.stageSelection, action: select
         ) {
             Circle()
                 .fill(

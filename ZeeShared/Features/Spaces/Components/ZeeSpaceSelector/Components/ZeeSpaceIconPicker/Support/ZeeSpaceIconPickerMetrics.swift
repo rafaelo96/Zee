@@ -10,6 +10,9 @@ enum ZeeSpaceIconPickerMetrics {
     static let trackBorderOpacity = ZeeOpacity.border
     static let selectionFillOpacity = 0.20
     static let selectionStroke: CGFloat = 1.5
+    /// How much of the reading colour the sidebar's selection takes before
+    /// its fill opacity, so the drawn shade comes to the standard hover.
+    static let neutralSelectionShade = ZeeOpacity.hover / selectionFillOpacity
     /// A group's outline: half the selection's fill, the selection's stroke,
     /// and the selection set inside it by the track's padding.
     static let groupOutlineFillOpacity = selectionFillOpacity / 2
@@ -33,9 +36,10 @@ struct ZeeSpaceIconPickerStyle: Hashable, Sendable {
         fixedCornerRadius: ZeeSpaceIconPickerMetrics.cornerRadius,
         minimumSegmentWidth: ZeeSpaceIconPickerMetrics.segmentWidth, smallestSegment: .zero,
         overflowButtonWidth: ZeeSpaceIconPickerMetrics.overflowButtonWidth, fillsSegments: false,
-        trackFillOpacity: ZeeSpaceIconPickerMetrics.trackFillOpacity,
-        trackBorderOpacity: ZeeSpaceIconPickerMetrics.trackBorderOpacity, tintsSelection: true,
-        selectionFillOpacity: ZeeSpaceIconPickerMetrics.selectionFillOpacity)
+        // No track and no outline, as Arc's Space row: the badges stand on
+        // the sidebar and the current one sits in a soft neutral shade.
+        trackFillOpacity: 0, trackBorderOpacity: 0, tintsSelection: false,
+        selectionFillOpacity: ZeeOpacity.hover)
     /// How wide a dot's segment is under a pointer, and under a finger.
     private static let pointerDotSegmentWidth: CGFloat = 16
     private static let touchDotSegmentWidth: CGFloat = 26

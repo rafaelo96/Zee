@@ -19,8 +19,8 @@ struct BrowserOnboardingMakeSection<Accessory: View, Content: View>: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 10) {
                 Text(title)
-                    .font(ZeeTypography.sans(12, weight: .bold))
-                    .foregroundStyle(ZeeBrandTheme.textSecondary)
+                    .font(ZeeTypography.sans(13, weight: .semibold))
+                    .foregroundStyle(ZeeBrandTheme.textDisplay)
                     .accessibilityAddTraits(.isHeader)
                 accessory
             }
@@ -77,7 +77,7 @@ struct BrowserOnboardingMakeTile<Artwork: View>: View {
     var body: some View {
         ZeeSelectableCard(
             isSelected: isSelected, accessibilityLabel: Text(title), density: .compact,
-            tint: ZeeBrandPalette.butter, action: select
+            tint: ZeeBrandTheme.stageSelection, action: select
         ) {
             artwork
                 .frame(
@@ -109,7 +109,7 @@ struct BrowserOnboardingMakeSwatch: View {
                     .frame(
                         width: BrowserOnboardingMakeMetrics.swatchSize, height: BrowserOnboardingMakeMetrics.swatchSize
                     )
-                    .overlay { Circle().strokeBorder(ZeeBrandPalette.paper.opacity(0.3), lineWidth: 1.5) }
+                    .overlay { Circle().strokeBorder(ZeeBrandPalette.cloud.opacity(0.3), lineWidth: 1.5) }
                     .opacity(isDrawn ? 1 : 0.3)
                 Text(title)
                     .font(ZeeTypography.sans(10, weight: .semibold))

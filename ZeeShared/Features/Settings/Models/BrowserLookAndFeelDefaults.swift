@@ -9,6 +9,11 @@ enum BrowserLookAndFeelDefaults {
     static let appearanceMode = BrowserAppearanceMode.standard
     static let customizationStyle = BrowserCustomizationStyle.standard
     static let darkSpaceDimming = 0.0
+    /// A solid sidebar, as Arc draws one until the person asks for glass.
+    static let sidebarTransparency = 0.0
+    /// A clear blur, enough that the page beneath a see-through floating
+    /// sidebar never competes with its rows.
+    static let sidebarBlur = 0.5
     static let windowBorderWidth = BrowserChromeAppearance.defaultBorderWidth
     static let sidebarOnRight = false
     static let addressBarPlacement = BrowserAddressBarPlacement.standard
@@ -55,6 +60,8 @@ enum BrowserLookAndFeelDefaults {
         appearance.chosenSpaceIcons = nil
         appearance.mode = appearanceMode
         appearance.darkSpaceDimming = darkSpaceDimming
+        appearance.sidebarTransparency = sidebarTransparency
+        appearance.sidebarBlur = sidebarBlur
         appearance.cornerRadius = cornerRadius
         appearance.tabs = tabs
         appearance.address = address

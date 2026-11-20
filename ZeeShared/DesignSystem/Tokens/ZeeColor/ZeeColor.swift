@@ -7,7 +7,7 @@ enum ZeeColor {
     static let hover = Color.primary.opacity(ZeeOpacity.hover)
     static let subtleBorder = Color.primary.opacity(ZeeOpacity.border)
     static let selectedBorder = Color.primary.opacity(ZeeOpacity.selectedBorder)
-    static let dropIndicator = ZeeBrandPalette.paper.opacity(ZeeOpacity.dropIndicator)
+    static let dropIndicator = ZeeBrandPalette.cloud.opacity(ZeeOpacity.dropIndicator)
     static let textPrimary = Color.primary
     static let textSecondary = Color.secondary
 
@@ -22,7 +22,7 @@ enum ZeeColor {
 
     // The house tinctures ember, gold and sage, darkened in light and lifted
     // in dark until each reads as text at 4.5:1 or more on the window, form,
-    // grouped-list and paper surfaces Zee draws in either appearance. Dark
+    // grouped-list and cloud surfaces Zee draws in either appearance. Dark
     // danger also keeps 3:1 under a white glyph, as a remove button draws it.
 
     /// Something failed, was refused or is unsafe.

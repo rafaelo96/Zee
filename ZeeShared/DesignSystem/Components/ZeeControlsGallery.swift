@@ -74,7 +74,7 @@
                     } label: {
                         Image(systemName: "trash")
                     }
-                    .buttonStyle(.zeeIcon(tint: ZeeBrandPalette.sage))
+                    .buttonStyle(.zeeIcon(tint: ZeeBrandPalette.deep))
                     .accessibilityLabel("Remove")
                 }
 
@@ -157,7 +157,7 @@
                 ZeeSelectableCard(
                     isSelected: true,
                     accessibilityLabel: Text("Disabled"),
-                    tint: ZeeBrandPalette.sage
+                    tint: ZeeBrandPalette.deep
                 ) {
                 } content: {
                     Text("Disabled and selected")
@@ -179,7 +179,7 @@
                 }
 
                 HStack(spacing: ZeeSpacing.small) {
-                    let colors = [ZeeBrandPalette.coral, ZeeBrandPalette.butter, ZeeBrandPalette.sage]
+                    let colors = [ZeeBrandPalette.ocean, ZeeBrandPalette.ocean, ZeeBrandPalette.deep]
                     ForEach(Array(colors.enumerated()), id: \.offset) { index, color in
                         ZeeSelectableCard(
                             isSelected: selectedCard == index,

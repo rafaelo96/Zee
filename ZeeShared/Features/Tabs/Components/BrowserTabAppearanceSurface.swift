@@ -27,7 +27,8 @@ struct BrowserTabAppearanceSurface: ViewModifier {
                     isHovering: isHovering, cornerRadius: radius, isPressed: false,
                     showsRestingSurface: isPinned,
                     selectedBorderColor: selectedAccent ? accent : selectedBorder,
-                    selectedBorderWidth: isPinned ? ZeeLayout.pinnedAccentBorderWidth : 1,
+                    selectedBorderWidth: isPinned
+                        ? ZeeLayout.pinnedAccentBorderWidth : ZeeInteractiveSurfaceMetrics.defaultSelectedBorderWidth,
                     customSelectedFill: isPinned
                         ? (fill > 0 && !reduceTransparency ? accent.opacity(fill * 0.5) : nil) : selectionLift,
                     // Hover keeps its standard weight; the setting only decides how much of
@@ -47,16 +48,20 @@ struct BrowserTabAppearanceSurface: ViewModifier {
             }
     }
 
-    /// The lift a selected row's dark glass takes, which a pin's own plate
-    /// and light glass need none of.
+    /// The lift a selected row takes, so it reads as a pane floating above
+    /// the sidebar, as Arc's does: brighter than the sidebar, never darker.
+    /// Light glass turns nearly white; dark glass lifts a step.
     private var selectionLift: Color? {
-        colorScheme == .dark ? Color.white.opacity(ZeeOpacity.darkSelectionLift) : nil
+        colorScheme == .dark
+            ? Color.white.opacity(ZeeOpacity.darkSelectionLift)
+            : Color.white.opacity(ZeeOpacity.lightSelectionLift)
     }
 
     /// A selected row's edge: brighter over dark glass, where the standard
     /// hairline disappears into a dark sidebar.
     private var selectedBorder: Color {
-        guard !isPinned, colorScheme == .dark else { return ZeeColor.selectedBorder }
-        return Color.white.opacity(ZeeOpacity.darkSelectionBorder)
+        guard !isPinned else { return ZeeColor.selectedBorder }
+        return colorScheme == .dark
+            ? Color.white.opacity(ZeeOpacity.darkSelectionBorder) : Color.black.opacity(ZeeOpacity.lightSelectionBorder)
     }
 }

@@ -18793,7 +18793,7 @@ struct SetupLook: Hashable, Sendable {
         tag: 0,
         kind: .heraldic,
         name: "heraldic",
-        title: LocalizedStringResource("Heraldic (Full)"),
+        title: LocalizedStringResource("Badge"),
         themeMode: SpaceThemeMode.banner,
         iconStyle: SpaceIconStyle.layeredBadge,
         gradientAngle: nil,
@@ -22456,6 +22456,7 @@ struct SpaceAccent: Hashable, Sendable {
     var legacyColors: [BrandColor] { facts.legacyColors }
     var house: SpaceBranding { facts.house }
     var swatch: BrandColor { facts.swatch }
+    var zeeColors: [BrandColor] { facts.zeeColors }
     private let facts: Facts
 
     private init(
@@ -22464,10 +22465,18 @@ struct SpaceAccent: Hashable, Sendable {
         tint: SystemTint,
         legacyColors: [BrandColor],
         house: SpaceBranding,
-        swatch: BrandColor
+        swatch: BrandColor,
+        zeeColors: [BrandColor]
     ) {
         self.tag = tag
-        facts = Facts(name: name, tint: tint, legacyColors: legacyColors, house: house, swatch: swatch)
+        facts = Facts(
+            name: name,
+            tint: tint,
+            legacyColors: legacyColors,
+            house: house,
+            swatch: swatch,
+            zeeColors: zeeColors
+        )
     }
 
     static let indigo = SpaceAccent(
@@ -22541,7 +22550,11 @@ struct SpaceAccent: Hashable, Sendable {
             textColorMode: SpaceTextColorMode.automatic,
             hasCustomAppearance: false
         ),
-        swatch: BrandColor(red: 0.29, green: 0.25, blue: 0.58, alpha: 1)
+        swatch: BrandColor(red: 0.29, green: 0.25, blue: 0.58, alpha: 1),
+        zeeColors: [
+            BrandColor(red: 0.09, green: 0.537, blue: 0.867, alpha: 1),
+            BrandColor(red: 0.169, green: 0.706, blue: 0.941, alpha: 1)
+        ]
     )
     static let orange = SpaceAccent(
         tag: 1,
@@ -22614,7 +22627,11 @@ struct SpaceAccent: Hashable, Sendable {
             textColorMode: SpaceTextColorMode.automatic,
             hasCustomAppearance: false
         ),
-        swatch: BrandColor(red: 0.85, green: 0.27, blue: 0.2, alpha: 1)
+        swatch: BrandColor(red: 0.85, green: 0.27, blue: 0.2, alpha: 1),
+        zeeColors: [
+            BrandColor(red: 1, green: 0.541, blue: 0.122, alpha: 1),
+            BrandColor(red: 1, green: 0.749, blue: 0.122, alpha: 1)
+        ]
     )
     static let teal = SpaceAccent(
         tag: 2,
@@ -22687,7 +22704,11 @@ struct SpaceAccent: Hashable, Sendable {
             textColorMode: SpaceTextColorMode.automatic,
             hasCustomAppearance: false
         ),
-        swatch: BrandColor(red: 0.12, green: 0.49, blue: 0.52, alpha: 1)
+        swatch: BrandColor(red: 0.12, green: 0.49, blue: 0.52, alpha: 1),
+        zeeColors: [
+            BrandColor(red: 0.247, green: 0.816, blue: 0.961, alpha: 1),
+            BrandColor(red: 0.09, green: 0.537, blue: 0.867, alpha: 1)
+        ]
     )
     static let rose = SpaceAccent(
         tag: 3,
@@ -22760,7 +22781,11 @@ struct SpaceAccent: Hashable, Sendable {
             textColorMode: SpaceTextColorMode.automatic,
             hasCustomAppearance: false
         ),
-        swatch: BrandColor(red: 0.72, green: 0.25, blue: 0.42, alpha: 1)
+        swatch: BrandColor(red: 0.72, green: 0.25, blue: 0.42, alpha: 1),
+        zeeColors: [
+            BrandColor(red: 0.976, green: 0, blue: 0.176, alpha: 1),
+            BrandColor(red: 1, green: 0.353, blue: 0.282, alpha: 1)
+        ]
     )
 
     static let all: [SpaceAccent] = [indigo, orange, teal, rose]
@@ -22783,13 +22808,22 @@ struct SpaceAccent: Hashable, Sendable {
         let legacyColors: [BrandColor]
         let house: SpaceBranding
         let swatch: BrandColor
+        let zeeColors: [BrandColor]
 
-        init(name: String, tint: SystemTint, legacyColors: [BrandColor], house: SpaceBranding, swatch: BrandColor) {
+        init(
+            name: String,
+            tint: SystemTint,
+            legacyColors: [BrandColor],
+            house: SpaceBranding,
+            swatch: BrandColor,
+            zeeColors: [BrandColor]
+        ) {
             self.name = name
             self.tint = tint
             self.legacyColors = legacyColors
             self.house = house
             self.swatch = swatch
+            self.zeeColors = zeeColors
         }
     }
 }
@@ -24919,6 +24953,66 @@ struct Tincture: Hashable, Sendable {
         title: LocalizedStringResource("Gray"),
         color: BrandColor(red: 0.588, green: 0.588, blue: 0.588, alpha: 1)
     )
+    static let zeeDeep = Tincture(
+        tag: 57,
+        name: "zeeDeep",
+        title: LocalizedStringResource("Deep Blue"),
+        color: BrandColor(red: 0.075, green: 0.4, blue: 0.722, alpha: 1)
+    )
+    static let zeeOcean = Tincture(
+        tag: 58,
+        name: "zeeOcean",
+        title: LocalizedStringResource("Ocean"),
+        color: BrandColor(red: 0.09, green: 0.537, blue: 0.867, alpha: 1)
+    )
+    static let zeeSky = Tincture(
+        tag: 59,
+        name: "zeeSky",
+        title: LocalizedStringResource("Sky Blue"),
+        color: BrandColor(red: 0.169, green: 0.706, blue: 0.941, alpha: 1)
+    )
+    static let zeeCyan = Tincture(
+        tag: 60,
+        name: "zeeCyan",
+        title: LocalizedStringResource("Cyan"),
+        color: BrandColor(red: 0.247, green: 0.816, blue: 0.961, alpha: 1)
+    )
+    static let zeeSun = Tincture(
+        tag: 61,
+        name: "zeeSun",
+        title: LocalizedStringResource("Sun"),
+        color: BrandColor(red: 1, green: 0.749, blue: 0.122, alpha: 1)
+    )
+    static let zeeOrange = Tincture(
+        tag: 62,
+        name: "zeeOrange",
+        title: LocalizedStringResource("Orange"),
+        color: BrandColor(red: 1, green: 0.541, blue: 0.122, alpha: 1)
+    )
+    static let zeeCoral = Tincture(
+        tag: 63,
+        name: "zeeCoral",
+        title: LocalizedStringResource("Coral"),
+        color: BrandColor(red: 1, green: 0.353, blue: 0.282, alpha: 1)
+    )
+    static let zeeMidnight = Tincture(
+        tag: 64,
+        name: "zeeMidnight",
+        title: LocalizedStringResource("Midnight"),
+        color: BrandColor(red: 0.055, green: 0.102, blue: 0.2, alpha: 1)
+    )
+    static let zeeRed = Tincture(
+        tag: 65,
+        name: "zeeRed",
+        title: LocalizedStringResource("Red"),
+        color: BrandColor(red: 0.976, green: 0, blue: 0.176, alpha: 1)
+    )
+    static let zeeWhite = Tincture(
+        tag: 66,
+        name: "zeeWhite",
+        title: LocalizedStringResource("White"),
+        color: BrandColor(red: 1, green: 1, blue: 1, alpha: 1)
+    )
 
     static let all: [Tincture] = [
         ink,
@@ -24977,7 +25071,17 @@ struct Tincture: Hashable, Sendable {
         sunOr,
         vigilBone,
         neutralSmoke,
-        neutralGray
+        neutralGray,
+        zeeDeep,
+        zeeOcean,
+        zeeSky,
+        zeeCyan,
+        zeeSun,
+        zeeOrange,
+        zeeCoral,
+        zeeMidnight,
+        zeeRed,
+        zeeWhite
     ]
 
     static func named(_ name: String?) -> Tincture? {

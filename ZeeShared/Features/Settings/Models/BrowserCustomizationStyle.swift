@@ -17,7 +17,8 @@ struct BrowserCustomizationStyle: Hashable, Sendable, Identifiable {
     static let modern = BrowserCustomizationStyle(
         look: .modern, spaceIcons: .icons,
         settings: [
-            .sidebarOnRight, .appearanceMode, .followSpaceAccent, .spacePageMotion, .sidebarRevealDelay,
+            .sidebarOnRight, .sidebarTransparency, .sidebarBlur, .appearanceMode, .followSpaceAccent, .spacePageMotion,
+            .sidebarRevealDelay,
             .sidebarSlideDuration, .fullScreenSidebarReveal, .defaultPageZoom, .cornerRadius, .tabScale,
             .sidebarSpacing, .pinLayout,
             .websitePinColors, .dimUnloadedTabs, .tabStatus, .addressDisplay, .copyURLButton, .superCopy,
@@ -28,10 +29,18 @@ struct BrowserCustomizationStyle: Hashable, Sendable, Identifiable {
     /// The few choices most people make, with Space icons as dots.
     static let simple = BrowserCustomizationStyle(
         look: .simple, spaceIcons: .dots,
-        settings: [.sidebarOnRight, .appearanceMode, .defaultPageZoom, .tabScale, .sidebarSpacing, .appIcon])
+        settings: [
+            .sidebarOnRight, .sidebarTransparency, .sidebarBlur, .appearanceMode, .defaultPageZoom, .tabScale,
+            .sidebarSpacing,
+            .appIcon,
+        ])
 
+    /// Every style a Space can follow, the badge style included for Spaces
+    /// that already wear it.
     static let all = [heraldic, modern, simple]
-    static let standard = heraldic
+    /// The styles Zee offers to choose from.
+    static let offered = [simple, modern]
+    static let standard = simple
 
     // MARK: - Variables
 

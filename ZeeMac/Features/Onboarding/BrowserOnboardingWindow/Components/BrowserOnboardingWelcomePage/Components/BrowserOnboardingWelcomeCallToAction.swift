@@ -33,7 +33,7 @@ struct BrowserOnboardingWelcomeCallToAction: View {
                     : cloudStatusDetail
             )
             .font(ZeeTypography.sans(12, weight: .medium))
-            .foregroundStyle(ZeeBrandTheme.textSecondary)
+            .foregroundStyle(ZeeBrandTheme.textDisplay.opacity(0.8))
 
             if action.offersSetupWithoutCloud {
                 Button("Set Up Without iCloud", action: setUpWithoutCloud)

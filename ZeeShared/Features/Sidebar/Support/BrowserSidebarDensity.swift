@@ -18,7 +18,8 @@ struct BrowserSidebarDensity: Equatable, Sendable {
     /// The sizes the presets before the slider stored, which sit between its
     /// steps, and the steps that now carry their names.
     private static let presetSteps: [(stored: Double, step: Double)] = [(0.85, 0.8), (1.15, 1.2)]
-    private static let pointerBodySize: CGFloat = 13
+    /// A touch under the Mac's body size, as a quiet sidebar reads.
+    private static let pointerBodySize: CGFloat = 12.5
     private static let touchBodySize: CGFloat = 17
     private static let pointerCaptionSize: CGFloat = 10
     private static let touchCaptionSize: CGFloat = 12
