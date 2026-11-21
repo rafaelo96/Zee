@@ -21,6 +21,7 @@ and implementation details.
 
 ## Browser behavior
 
+- [Browser data format](Architecture/BrowserDataFormat.md)
 - [Content blocking](Architecture/ContentBlocking.md)
 - [Desktop Picture in Picture](Architecture/DesktopPictureInPicture.md)
 - [Link opening](LinkOpeningPolicy.md)

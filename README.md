@@ -278,7 +278,15 @@ of each platform.
 
 Zee source code is available under the [Mozilla Public License 2.0](LICENSE).
 The source is open for inspection, modification, and commercial use under that
-license. The Zee name, app icon, logos, and official distribution identity
+license. Zee is a fork of [Crest](https://github.com/pauljoda/Crest) by Paul
+Davis and keeps Crest's license: every file that comes from Crest, and every
+change made to one, stays under the MPL 2.0 with its source available, while
+new files may carry other compatible terms. Crest's name and marks are not part
+of that license, as [NOTICE](NOTICE) says.
+
+Your data stays yours: **Export Browser Data…** writes every Space to an open
+JSON format, documented in [Browser data format](Documentation/Architecture/BrowserDataFormat.md),
+that any program can read without Zee. The Zee name, app icon, logos, and official distribution identity
 are reserved; modified distributions must use their own branding as described
 in [TRADEMARKS.md](TRADEMARKS.md). Third-party notices are collected in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

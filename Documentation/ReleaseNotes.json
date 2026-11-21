@@ -5709,6 +5709,10 @@
     "chromium-suggestion": {
       "category": "new",
       "message": "When a site needs Chromium, such as the Chrome Web Store or Microsoft Teams, or keeps stopping in WebKit, a quiet bar offers to open it in Chromium and remember the choice."
+    },
+    "open-browser-data-format": {
+      "category": "internal",
+      "message": "Document the browser data export format, the MPL terms Zee keeps as a fork of Crest, and the After Arc roadmap; add sync convergence stress tests."
     }
   }
 }

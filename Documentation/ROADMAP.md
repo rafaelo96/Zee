@@ -59,6 +59,37 @@ These describe intended user outcomes rather than fixed implementation
 promises. Scope may change when WebKit capability, accessibility, or physical
 device evidence shows a better boundary.
 
+## After Arc
+
+Arc stops working on December 22, 2026. This work brings the people leaving it
+what they told us they need, and records what is still open.
+
+Delivered:
+
+- Import from Arc after it is deleted, as long as its data is on the Mac, with
+  nested folders, splits, each Space's profile, icons, colors and its archive.
+- A start page invitation to bring Arc's Spaces, and Arc chosen first in setup.
+- No AI built in: no AI assistants in search and no agent bridge.
+- Boosts: a site's colors, font, text size, hidden elements and the person's own
+  CSS and JavaScript, per Space or in every Space, on both engines, synced and
+  exported.
+- Each site's zoom, remembered on the device.
+- Open Link in New Quick Window on every page, beside Quick Window's global
+  shortcut, Space picker and Keep.
+- An engine per Space, Save Battery with WebKit, and a suggestion to open in
+  Chromium sites that need it.
+- An open, documented [browser data format](Architecture/BrowserDataFormat.md).
+
+Still open:
+
+- Importing Arc's Boosts, which needs a sample of how Arc stores them.
+- Removing the agent scripting the Chromium engine still carries, with the next
+  published engine.
+- Publishing this fork's content filter and Chromium engine, which the release
+  workflow downloads.
+- Reviewing how close Pinned tabs and Spaces are on iPhone and iPad, on a
+  device.
+
 ## Approval-gated capabilities
 
 - Obtain Apple's managed default-browser entitlement for `dev.zee.browser`, then enable and validate default-browser registration on physical devices.
