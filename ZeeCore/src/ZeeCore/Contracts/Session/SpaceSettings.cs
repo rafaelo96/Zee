@@ -13,6 +13,9 @@ namespace ZeeCore.Contracts;
 /// <see cref="ProtectionModifiedAt"/> is when someone last changed how the Space blocks
 /// content or how long it keeps what it browses, or null when nobody has since Zee
 /// kept that time.
+/// <see cref="PreferredEngine"/> is the engine the Space's new pages open on
+/// when no site's choice decides, or null to follow the device, and
+/// <see cref="PreferredEngineModifiedAt"/> when someone chose.
 /// <see cref="Boosts"/> are the sites the person restyled in the Space, and
 /// <see cref="BoostsModifiedAt"/> when someone last changed one, on any device.
 /// <see cref="Branding"/> is null for a Space stored before branding existed, which
@@ -35,7 +38,9 @@ public sealed record SpaceSettings(
     DateTimeOffset? SeparatesPinnedTabsModifiedAt = null,
     DateTimeOffset? ProtectionModifiedAt = null,
     IReadOnlyList<Boost>? Boosts = null,
-    DateTimeOffset? BoostsModifiedAt = null) {
+    DateTimeOffset? BoostsModifiedAt = null,
+    EngineKind? PreferredEngine = null,
+    DateTimeOffset? PreferredEngineModifiedAt = null) {
     #region Variables
 
     /// <summary>The branding the Space wears: its own, with a banner strength stored

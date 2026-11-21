@@ -131,6 +131,10 @@ internal sealed class Page {
     /// loading or the person asked for one.
     private int crashes;
 
+    /// Whether the page's renderer stopped since it last loaded what the
+    /// person asked for, even if it came back.
+    public bool StoppedSinceLoad { get; private set; }
+
     /// Why the page's renderer stopped while nobody could see it, until a
     /// window shows the page and the core brings it back.
     private (string Domain, long Code)? stoppedUnseen;
@@ -222,6 +226,7 @@ internal sealed class Page {
         record = null;
         Icon = null;
         crashes = 0;
+        StoppedSinceLoad = false;
         stoppedUnseen = null;
     }
 
@@ -311,6 +316,7 @@ internal sealed class Page {
     public void Load(string url) {
         failure = null;
         crashes = 0;
+        StoppedSinceLoad = false;
         stoppedUnseen = null;
         shown = shown with { PendingUrl = url };
     }
@@ -390,6 +396,7 @@ internal sealed class Page {
     /// budget lasts, and past it the page shows the failure.
     private bool Stopped(string domain, long code) {
         crashes++;
+        StoppedSinceLoad = true;
         if (ProcessRecoveryAction.For(crashes).Reloads) return true;
         failure = new PageFailure(NavigationError.WebContentProcessStopped, shown.Url, ReplacedDocument: true, domain, code);
         shown = shown with { PendingUrl = null, IsLoading = false };

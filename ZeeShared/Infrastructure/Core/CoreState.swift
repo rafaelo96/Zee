@@ -50,7 +50,8 @@ final class CoreState {
         get { observed(\.enginePreferencesStorage, as: \.enginePreferences) }
         set { publish(newValue, into: \.enginePreferencesStorage, as: \.enginePreferences) }
     }
-    @ObservationIgnored private var enginePreferencesStorage = EnginePreferences(defaultEngine: nil, rules: [])
+    @ObservationIgnored private var enginePreferencesStorage = EnginePreferences(
+        defaultEngine: nil, rules: [], savesBattery: false)
     /// The newest file revision the core has on disk, counting the stored
     /// session's edits and this device's saved windows; zero before its first
     /// save and for a core that keeps nothing.

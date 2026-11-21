@@ -171,6 +171,7 @@ internal sealed class SqliteConnection : IDisposable {
         Execute("CREATE TABLE IF NOT EXISTS device_custom_filters (id INTEGER PRIMARY KEY CHECK (id = 0), text TEXT NOT NULL)");
         Execute("CREATE TABLE IF NOT EXISTS device_content_blocking (id INTEGER PRIMARY KEY CHECK (id = 0), level TEXT NOT NULL)");
         Execute("CREATE TABLE IF NOT EXISTS device_import_invitation (source TEXT PRIMARY KEY)");
+        Execute("CREATE TABLE IF NOT EXISTS device_power (id INTEGER PRIMARY KEY CHECK (id = 0), saves_battery INTEGER NOT NULL)");
         Execute("CREATE TABLE IF NOT EXISTS device_site_zoom (host TEXT PRIMARY KEY, zoom REAL NOT NULL, position INTEGER NOT NULL)");
     }
 
@@ -187,8 +188,15 @@ internal sealed class SqliteConnection : IDisposable {
         CustomFilterLists = ReadCustomFilterLists(),
         CustomFilters = ReadCustomFilters(),
         SettledInvitations = ReadSettledInvitations(),
-        SiteZooms = ReadSiteZooms()
+        SiteZooms = ReadSiteZooms(),
+        SavesBattery = ReadSavesBattery()
     };
+
+    private bool ReadSavesBattery() {
+        bool saves = false;
+        Rows("SELECT saves_battery FROM device_power", statement => saves = Sqlite.sqlite3_column_int(statement, 0) != 0);
+        return saves;
+    }
 
     /// The zoom each site keeps, the most recently chosen last. A row whose
     /// zoom is no number is left out.
@@ -471,6 +479,11 @@ internal sealed class SqliteConnection : IDisposable {
         if (written is null || !records.SettledInvitations.SetEquals(written.SettledInvitations))
             WriteSettledInvitations(records.SettledInvitations);
         if (written is null || !records.SiteZooms.SequenceEqual(written.SiteZooms)) WriteSiteZooms(records.SiteZooms);
+        if (written is null || records.SavesBattery != written.SavesBattery) {
+            Execute("DELETE FROM device_power");
+            Insert("INSERT INTO device_power(id, saves_battery) VALUES(0,?)",
+                statement => Checked(Sqlite.sqlite3_bind_int64(statement, 1, records.SavesBattery ? 1 : 0)));
+        }
     }
 
     /// The search catalog as its one document, or no row before it was first restored.

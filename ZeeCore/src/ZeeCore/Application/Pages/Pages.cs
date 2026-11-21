@@ -185,9 +185,15 @@ internal sealed class Pages(Device device, Engines engines, IClock clock, IIdSou
     /// The engine a new page in `space` opens on: its opener's, when another
     /// page opened it, so a page never leaves the engine of the page that
     /// opened it; otherwise the registered engine chosen for the site `tab`
-    /// shows, or the default engine. Null when no engine is the default.
+    /// shows, then the Space's own engine, then WebKit while the device saves
+    /// battery, then the default engine. Null when no engine is the default.
+    /// The Space's engine and the battery decide only where a page opens, never
+    /// a move as it navigates.
     internal Engine? Opening(SpaceState space, TabState? tab, Page? opener) =>
-        opener?.Engine ?? Chosen(space, tab) ?? engines.Default;
+        opener?.Engine ?? Chosen(space, tab)
+        ?? (space.Settings.PreferredEngine is { } preferred ? engines.Registered(preferred) : null)
+        ?? (device.OpensForBattery ? engines.Registered(EngineKind.WebKit) : null)
+        ?? engines.Default;
 
     /// The page `pageId` names as the opener of a new page in `space` of
     /// `workspaceId`: one the core hosts in that workspace and the Space's

@@ -11,6 +11,8 @@ final class BrowserMacApplication {
     let cloudSync: BrowserCloudSyncController
     /// Keeps the filter lists content blocking uses up to date.
     let filterLists: BrowserFilterListUpdater
+    /// Tells the core when the Mac saves power, for Save Battery.
+    let powerConstraint: BrowserPowerConstraintMonitor
     let onboardingProgress: BrowserOnboardingProgressStore
     let pages: BrowserPagePool
     let chrome: BrowserChromeState
@@ -265,6 +267,7 @@ final class BrowserMacApplication {
         self.browser = browser
         self.cloudSync = cloudSync
         filterLists = BrowserFilterListUpdater(core: core)
+        powerConstraint = BrowserPowerConstraintMonitor(core: core)
         self.onboardingProgress = onboardingProgress
         let initialLayout = windowLayouts.layout(for: BrowserMacWindowRequest.initial.id)
         self.chrome = BrowserChromeState(

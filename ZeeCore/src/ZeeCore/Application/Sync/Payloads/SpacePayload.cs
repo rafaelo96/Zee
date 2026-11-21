@@ -34,7 +34,9 @@ internal sealed partial record SpacePayload(
     IReadOnlyList<SplitGroupPayload>? SplitGroups,
     string OrderToken,
     IReadOnlyList<Boost>? Boosts = null,
-    SyncTime? BoostsModifiedAt = null) : SyncPayload {
+    SyncTime? BoostsModifiedAt = null,
+    EngineKind? PreferredEngine = null,
+    SyncTime? PreferredEngineModifiedAt = null) : SyncPayload {
     #region Static Variables
 
     /// The members a Space's value carries; a record keeps what a newer build
@@ -47,7 +49,8 @@ internal sealed partial record SpacePayload(
         StoredSessionCodec.Key.MembershipModifiedAt, StoredSessionCodec.Key.SeparatesPinnedTabs,
         StoredSessionCodec.Key.SeparatesPinnedTabsModifiedAt, StoredSessionCodec.Key.ProtectionModifiedAt, StoredSessionCodec.Key.IsSavedTabsExpanded,
         StoredSessionCodec.Key.SavedTabsExpansionModifiedAt, StoredSessionCodec.Key.SplitGroups, SyncPayload.Key.OrderToken,
-        StoredSessionCodec.Key.Boosts, StoredSessionCodec.Key.BoostsModifiedAt
+        StoredSessionCodec.Key.Boosts, StoredSessionCodec.Key.BoostsModifiedAt, StoredSessionCodec.Key.PreferredEngine,
+        StoredSessionCodec.Key.PreferredEngineModifiedAt
     ];
 
     /// The most splits a Space's record names.
@@ -84,6 +87,7 @@ internal sealed partial record SpacePayload(
             : ((Guid?)null, (Guid?)null, (SyncTime?)null);
         var (separatesPins, separatesPinsModifiedAt) = value.OptionalTime(StoredSessionCodec.Key.SeparatesPinnedTabsModifiedAt) is { } pinsChosenAt
             ? (value.OptionalFlag(StoredSessionCodec.Key.SeparatesPinnedTabs) ?? false, pinsChosenAt) : ((bool?)null, (SyncTime?)null);
+        var engineChosenAt = value.OptionalTime(StoredSessionCodec.Key.PreferredEngineModifiedAt);
         var (boosts, boostsModifiedAt) = value.OptionalTime(StoredSessionCodec.Key.BoostsModifiedAt) is { } boostsChosenAt
             ? (StoredSessionCodec.DecodeBoosts(value.Value[StoredSessionCodec.Key.Boosts]) ?? [], boostsChosenAt)
             : ((IReadOnlyList<Boost>?)null, (SyncTime?)null);
@@ -107,7 +111,9 @@ internal sealed partial record SpacePayload(
             value.OptionalArray(StoredSessionCodec.Key.SplitGroups) is { } groups ? SplitGroupPayload.Normalized(groups, value.Form) : null,
             value.Text(Key.OrderToken),
             boosts,
-            boostsModifiedAt);
+            boostsModifiedAt,
+            engineChosenAt is null ? null : EngineKind.Named(value.OptionalText(StoredSessionCodec.Key.PreferredEngine)),
+            engineChosenAt);
     }
 
     public override JsonObject EncodeValue(SyncPayloadForm form) {
@@ -144,6 +150,10 @@ internal sealed partial record SpacePayload(
         if (BoostsModifiedAt is { } boostsModifiedAt) {
             value[StoredSessionCodec.Key.Boosts] = StoredSessionCodec.EncodeBoosts(Boosts ?? []);
             Put(value, StoredSessionCodec.Key.BoostsModifiedAt, boostsModifiedAt, form);
+        }
+        if (PreferredEngineModifiedAt is { } engineModifiedAt) {
+            if (PreferredEngine is { } engine) value[StoredSessionCodec.Key.PreferredEngine] = engine.Name;
+            Put(value, StoredSessionCodec.Key.PreferredEngineModifiedAt, engineModifiedAt, form);
         }
         return value;
     }

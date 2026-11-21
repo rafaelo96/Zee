@@ -52,10 +52,13 @@ public static class NativeSyncMaterializer {
                 : (local?.Settings.SeparatesPinnedTabs ?? false, local?.Settings.SeparatesPinnedTabsModifiedAt);
             var (boosts, boostsModifiedAt) = remote is { BoostsModifiedAt: { } boostsChosenAt }
                 ? (remote.Boosts, boostsChosenAt.Moment) : (local?.Settings.Boosts, local?.Settings.BoostsModifiedAt);
+            var (engine, engineModifiedAt) = remote is { PreferredEngineModifiedAt: { } engineChosenAt }
+                ? (remote.PreferredEngine, engineChosenAt.Moment)
+                : (local?.Settings.PreferredEngine, local?.Settings.PreferredEngineModifiedAt);
             var settings = new SpaceSettings(remote.Name, remote.Symbol, remote.Accent, brandingIds.Contains(remote.Id) ? remote.Branding : null, remote.BrowsingPreferences,
                 credentials, accessPolicy, remote.IsSavedTabsExpanded, remote.SavedTabsExpansionModifiedAt?.Moment,
                 credentialsModifiedAt, accessModifiedAt, separatesPins, separatesPinsModifiedAt, ProtectionModifiedAt(local, remote, now),
-                boosts, boostsModifiedAt);
+                boosts, boostsModifiedAt, engine, engineModifiedAt);
             spaces.Add(new(remote.Id, remote.ProfileId, settings, folders, tabs, groups, archive, history, Membership(local, remote)));
         }
         foreach (var id in pending.Where(id => spaces.All(space => space.Id != id))) {

@@ -124,6 +124,7 @@ final class BrowserMacShell {
         mouseButtons.start()
         recentTabSwitcher.start(in: self)
         application.filterLists.start()
+        application.powerConstraint.start()
         Task { await application.cloudSync.start() }
         if !background { NSApp.activate(ignoringOtherApps: true) }
         openPending()

@@ -5697,6 +5697,18 @@
     "quick-window-from-any-link": {
       "category": "improved",
       "message": "Right-click any link on Mac and choose Open Link in New Quick Window to look at it without adding a tab, as Little Arc did."
+    },
+    "space-engine": {
+      "category": "new",
+      "message": "Each Space can open its new pages in an engine of its own, such as Chromium for a work Space with its extensions and WebKit for a personal one. The choice syncs with the Space."
+    },
+    "battery-saver-engine": {
+      "category": "new",
+      "message": "Save Battery opens new pages in WebKit while your Mac is in Low Power Mode or its battery runs low, keeping the sites and Spaces you chose an engine for."
+    },
+    "chromium-suggestion": {
+      "category": "new",
+      "message": "When a site needs Chromium, such as the Chrome Web Store or Microsoft Teams, or keeps stopping in WebKit, a quiet bar offers to open it in Chromium and remember the choice."
     }
   }
 }

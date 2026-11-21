@@ -16375,6 +16375,24 @@
     },
     "Hide Element with Boost" : {
 
+    },
+    "Save Battery" : {
+
+    },
+    "While your Mac is in Low Power Mode or its battery runs low, new pages open in WebKit, which uses less power, except sites and Spaces you chose an engine for." : {
+
+    },
+    "Device Default" : {
+
+    },
+    "New pages in this Space open on this engine unless you chose one for their site. Open pages keep their engine." : {
+
+    },
+    "This site works better in Chromium." : {
+      "comment" : "A bar over a web page suggesting it open in another browser engine."
+    },
+    "This site keeps stopping in WebKit." : {
+      "comment" : "A bar over a web page suggesting it open in another browser engine."
     }
   },
   "version" : "1.3"

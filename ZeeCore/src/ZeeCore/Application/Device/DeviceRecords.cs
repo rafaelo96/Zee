@@ -62,6 +62,9 @@ internal sealed record DeviceRecords(IReadOnlyList<SavedWindow> Windows, IReadOn
     /// The person's own filters.
     public string CustomFilters { get; init; } = "";
 
+    /// Whether new pages open in WebKit while the system saves power.
+    public bool SavesBattery { get; init; }
+
     /// The zoom each site keeps, the most recently chosen last.
     public IReadOnlyList<(string Host, double Zoom)> SiteZooms { get; init; } = [];
 
@@ -101,7 +104,8 @@ internal sealed record DeviceRecords(IReadOnlyList<SavedWindow> Windows, IReadOn
         && BlockingSites.SequenceEqual(other.BlockingSites)
         && CustomFilterLists.SequenceEqual(other.CustomFilterLists) && CustomFilters == other.CustomFilters
         && SettledInvitations.SetEquals(other.SettledInvitations)
-        && SiteZooms.SequenceEqual(other.SiteZooms);
+        && SiteZooms.SequenceEqual(other.SiteZooms)
+        && SavesBattery == other.SavesBattery;
 
     public override int GetHashCode() => HashCode.Combine(Windows.Count, SitePermissions.Count, Adopted.Count);
 

@@ -21,6 +21,9 @@ struct BrowserWebPageSurface: View {
     var goToSharingCounterpart: (() -> Void)? = nil
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    /// The engine Zee suggests for the page's site, which the core answers as
+    /// each document commits.
+    @State private var engineSuggestion: EngineSuggestion?
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -68,7 +71,16 @@ struct BrowserWebPageSurface: View {
                 if page.elementPicker.isActive {
                     BrowserElementPickerBar(picker: page.elementPicker)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
+                } else if let engineSuggestion, engineSuggestion.engine != nil {
+                    BrowserEngineSuggestionBar(
+                        suggestion: engineSuggestion, open: { openSuggestedEngine(engineSuggestion) },
+                        dismiss: { dismissEngineSuggestion(engineSuggestion) }
+                    )
+                    .transition(.opacity)
                 }
+            }
+            .task(id: page.committedNavigationCount) {
+                engineSuggestion = try? browser.core.query(SuggestedEngine(pageID: page.corePage.id))
             }
             .padding(BrowserWebPageSurfaceMetrics.overlayPadding)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
@@ -237,5 +249,22 @@ private struct BrowserPageLoadingPresentation: View {
 
     private var showsInitialStatus: Bool {
         isNavigating && page.committedNavigationCount == 0 && !hasFailure
+    }
+}
+
+// MARK: - Actions - Engine suggestion
+
+extension BrowserWebPageSurface {
+    /// Moves the page to the suggested engine and remembers it for the site.
+    fileprivate func openSuggestedEngine(_ suggestion: EngineSuggestion) {
+        guard let engine = suggestion.engine else { return }
+        _ = try? browser.core.send(RehostPage(pageID: page.corePage.id, engine: engine, remembersSite: true))
+        engineSuggestion = nil
+    }
+
+    /// Leaves the site on its engine without asking again until Zee quits.
+    fileprivate func dismissEngineSuggestion(_ suggestion: EngineSuggestion) {
+        if let origin = suggestion.origin { _ = try? browser.core.send(DismissEngineSuggestion(origin: origin)) }
+        engineSuggestion = nil
     }
 }

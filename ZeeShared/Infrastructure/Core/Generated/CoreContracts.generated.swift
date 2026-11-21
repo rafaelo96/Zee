@@ -2228,6 +2228,10 @@ struct DiscardStagedLink: Intent, PageIntent, Equatable, Sendable {
     let stagedLinkID: UUID
 }
 
+struct DismissEngineSuggestion: Intent, Equatable, Sendable {
+    let origin: SiteOrigin
+}
+
 struct DismissShownTab: Intent, WindowIntent, Equatable, Sendable {
     let windowID: UUID
     let spaceID: UUID
@@ -2600,6 +2604,7 @@ struct EngineNotRegistered: Equatable, Sendable {
 struct EnginePreferences: Equatable, Sendable {
     let defaultEngine: EngineKind?
     let rules: [SiteEngineRule]
+    let savesBattery: Bool
 }
 
 struct EnginePreferencesChanged: CoreChange, Equatable, Sendable {
@@ -2658,6 +2663,12 @@ struct EngineState: Equatable, Sendable {
     let kind: EngineKind
     let capabilities: [EngineCapability]
     let isDefault: Bool
+}
+
+struct EngineSuggestion: Equatable, Sendable {
+    let engine: EngineKind?
+    let reason: EngineSuggestionReason?
+    let origin: SiteOrigin?
 }
 
 struct EngineWindowPlace: Equatable, Sendable {
@@ -5509,6 +5520,10 @@ struct ReportMemoryPressure: Intent, PageIntent, Equatable, Sendable {
     let level: MemoryPressureLevel
 }
 
+struct ReportPowerConstraint: Intent, Equatable, Sendable {
+    let constrained: Bool
+}
+
 struct RequestCloudPull: Intent, CloudSyncControlIntent, Equatable, Sendable {
 }
 
@@ -6073,6 +6088,10 @@ struct SetPrivateSearch: Intent, SearchCatalogIntent, Equatable, Sendable {
     let provider: SearchProvider.Seed
 }
 
+struct SetSavesBattery: Intent, Equatable, Sendable {
+    let saves: Bool
+}
+
 struct SetSearchOption: Intent, SearchCatalogIntent, Equatable, Sendable {
     let provider: BuiltInSearchProvider
     let option: SearchProviderOption
@@ -6123,6 +6142,12 @@ struct SetSpaceBranding: Intent, SessionIntent, Equatable, Sendable {
     let workspaceID: UUID
     let spaceID: UUID
     let branding: SpaceBranding
+}
+
+struct SetSpaceEngine: Intent, SessionIntent, Equatable, Sendable {
+    let workspaceID: UUID
+    let spaceID: UUID
+    let engine: EngineKind?
 }
 
 struct SetSpaceIdentity: Intent, SessionIntent, Equatable, Sendable {
@@ -6792,6 +6817,8 @@ struct SpaceSettings: Equatable, Sendable {
     let protectionModifiedAt: Date?
     let boosts: [Boost]?
     let boostsModifiedAt: Date?
+    let preferredEngine: EngineKind?
+    let preferredEngineModifiedAt: Date?
     let look: SpaceBranding
     let requiresAuthentication: Bool
     let shownBoosts: [Boost]
@@ -6815,6 +6842,8 @@ struct SpaceSettings: Equatable, Sendable {
         var protectionModifiedAt: Date?
         var boosts: [Boost]?
         var boostsModifiedAt: Date?
+        var preferredEngine: EngineKind?
+        var preferredEngineModifiedAt: Date?
     }
 
     /// The record's fields alone, as a platform sends it back.
@@ -6835,7 +6864,9 @@ struct SpaceSettings: Equatable, Sendable {
             separatesPinnedTabsModifiedAt: separatesPinnedTabsModifiedAt,
             protectionModifiedAt: protectionModifiedAt,
             boosts: boosts,
-            boostsModifiedAt: boostsModifiedAt
+            boostsModifiedAt: boostsModifiedAt,
+            preferredEngine: preferredEngine,
+            preferredEngineModifiedAt: preferredEngineModifiedAt
         )
     }
 }
@@ -7123,6 +7154,12 @@ struct StrongPassword: Query, Equatable, Sendable {
 struct StrongPasswordRecipe: Equatable, Sendable {
     let length: Int
     let groups: [String]
+}
+
+struct SuggestedEngine: Query, Equatable, Sendable {
+    typealias Answer = EngineSuggestion
+
+    let pageID: UUID
 }
 
 struct SweepExpiredRecords: Intent, SessionIntent, Equatable, Sendable {
@@ -13499,6 +13536,54 @@ struct EngineKind: Hashable, Sendable {
             self.title = title
             self.mark = mark
             self.pageDescription = pageDescription
+        }
+    }
+}
+
+/// The members of the core's `EngineSuggestionReason`. A member's wire tag is its index in `all`.
+struct EngineSuggestionReason: Hashable, Sendable {
+    let tag: Int
+    var name: String { facts.name }
+    var message: LocalizedStringResource { facts.message }
+    private let facts: Facts
+
+    private init(tag: Int, name: String, message: LocalizedStringResource) {
+        self.tag = tag
+        facts = Facts(name: name, message: message)
+    }
+
+    static let knownSite = EngineSuggestionReason(
+        tag: 0,
+        name: "knownSite",
+        message: LocalizedStringResource("This site works better in Chromium.", comment: "A bar over a web page suggesting it open in another browser engine.")
+    )
+    static let unstable = EngineSuggestionReason(
+        tag: 1,
+        name: "unstable",
+        message: LocalizedStringResource("This site keeps stopping in WebKit.", comment: "A bar over a web page suggesting it open in another browser engine.")
+    )
+
+    static let all: [EngineSuggestionReason] = [knownSite, unstable]
+
+    static func named(_ name: String?) -> EngineSuggestionReason? {
+        all.first { $0.name == name }
+    }
+
+    static func == (lhs: EngineSuggestionReason, rhs: EngineSuggestionReason) -> Bool {
+        lhs.tag == rhs.tag
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(tag)
+    }
+
+    private final class Facts: Sendable {
+        let name: String
+        let message: LocalizedStringResource
+
+        init(name: String, message: LocalizedStringResource) {
+            self.name = name
+            self.message = message
         }
     }
 }
@@ -25419,6 +25504,14 @@ final class SpaceSettingsModel: ObservedModel {
         access(keyPath: \.boostsModifiedAt)
         return boostsModifiedAtStorage
     }
+    var preferredEngine: EngineKind? {
+        access(keyPath: \.preferredEngine)
+        return preferredEngineStorage
+    }
+    var preferredEngineModifiedAt: Date? {
+        access(keyPath: \.preferredEngineModifiedAt)
+        return preferredEngineModifiedAtStorage
+    }
     var look: SpaceBranding {
         access(keyPath: \.look)
         return lookStorage
@@ -25448,6 +25541,8 @@ final class SpaceSettingsModel: ObservedModel {
     @ObservationIgnored private var protectionModifiedAtStorage: Date?
     @ObservationIgnored private var boostsStorage: [Boost]?
     @ObservationIgnored private var boostsModifiedAtStorage: Date?
+    @ObservationIgnored private var preferredEngineStorage: EngineKind?
+    @ObservationIgnored private var preferredEngineModifiedAtStorage: Date?
     @ObservationIgnored private var lookStorage: SpaceBranding
     @ObservationIgnored private var requiresAuthenticationStorage: Bool
     @ObservationIgnored private var shownBoostsStorage: [Boost]
@@ -25470,6 +25565,8 @@ final class SpaceSettingsModel: ObservedModel {
             protectionModifiedAt: protectionModifiedAt,
             boosts: boosts,
             boostsModifiedAt: boostsModifiedAt,
+            preferredEngine: preferredEngine,
+            preferredEngineModifiedAt: preferredEngineModifiedAt,
             look: look,
             requiresAuthentication: requiresAuthentication,
             shownBoosts: shownBoosts
@@ -25493,6 +25590,8 @@ final class SpaceSettingsModel: ObservedModel {
         protectionModifiedAtStorage = value.protectionModifiedAt
         boostsStorage = value.boosts
         boostsModifiedAtStorage = value.boostsModifiedAt
+        preferredEngineStorage = value.preferredEngine
+        preferredEngineModifiedAtStorage = value.preferredEngineModifiedAt
         lookStorage = value.look
         requiresAuthenticationStorage = value.requiresAuthentication
         shownBoostsStorage = value.shownBoosts
@@ -25562,6 +25661,14 @@ final class SpaceSettingsModel: ObservedModel {
         if boostsModifiedAtStorage != value.boostsModifiedAt {
             boostsModifiedAtStorage = value.boostsModifiedAt
             withMutation(keyPath: \.boostsModifiedAt) {}
+        }
+        if preferredEngineStorage != value.preferredEngine {
+            preferredEngineStorage = value.preferredEngine
+            withMutation(keyPath: \.preferredEngine) {}
+        }
+        if preferredEngineModifiedAtStorage != value.preferredEngineModifiedAt {
+            preferredEngineModifiedAtStorage = value.preferredEngineModifiedAt
+            withMutation(keyPath: \.preferredEngineModifiedAt) {}
         }
         if lookStorage != value.look {
             lookStorage = value.look

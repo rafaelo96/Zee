@@ -173,6 +173,7 @@ struct BrowserSettingsSpacePage: View {
     private var browsingPane: some View {
         BrowserSettingsPane(.spaces) {
             BrowserSpaceBrowsingSection(browser: browser, space: space)
+            BrowserSpaceEngineSection(browser: browser, space: space)
             BrowserSpaceGroupPinnedTabsSection(browser: browser, space: space)
             BrowserSpaceDownloadsSection(settings: downloads.settings(for: space))
             BrowserSpaceBoostsSection(browser: browser, space: space)

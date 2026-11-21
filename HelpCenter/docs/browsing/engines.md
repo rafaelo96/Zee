@@ -41,6 +41,18 @@ Choosing **Opens in** saves a website rule. Rules are listed under **Zee Setting
 
 Rules match the website's scheme, host and port. A rule for `example.com` does not cover its subdomains. A choice made while browsing privately is not saved as a rule; it lasts until you quit Zee.
 
+## A Space's engine
+
+Each Space can open its new pages in an engine of its own, such as a work Space in Chromium for its extensions and a personal one in WebKit. Choose it under **Zee Settings**, on the Space's **Browsing** page, in **Engine**; **Device Default** follows the default engine. A website rule still wins, and open pages keep their engine. The choice syncs with the Space.
+
+## Save battery
+
+Turn on **Save Battery** in **Zee Settings → Engines** and, while your Mac is in Low Power Mode or its battery runs at 20% or less, new pages open in WebKit, which uses less power. Websites and Spaces you chose an engine for keep it, and open pages stay where they are.
+
+## Suggestions to use Chromium
+
+When a page in WebKit shows a site known to need Chromium, such as the Chrome Web Store or Microsoft Teams, or keeps stopping in WebKit, a small bar at the foot of the page offers **Open in Chromium**. Choosing it moves the page and saves a website rule; the close button leaves the site alone until Zee quits.
+
 ## Protected video
 
 Protected video plays in WebKit, with Apple's FairPlay. Netflix, Disney+, Max and Prime Video open in WebKit unless you choose an engine for them.

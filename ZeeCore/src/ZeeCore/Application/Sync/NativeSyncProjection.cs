@@ -89,7 +89,8 @@ public static class NativeSyncProjection {
                 StoredSessionCodec.Key.SavedTabsExpansionModifiedAt, StoredSessionCodec.Key.PrimarySpaceId, StoredSessionCodec.Key.SharedProfileId,
                 StoredSessionCodec.Key.MembershipModifiedAt, StoredSessionCodec.Key.SeparatesPinnedTabs,
                 StoredSessionCodec.Key.SeparatesPinnedTabsModifiedAt, StoredSessionCodec.Key.ProtectionModifiedAt,
-                StoredSessionCodec.Key.Boosts, StoredSessionCodec.Key.BoostsModifiedAt);
+                StoredSessionCodec.Key.Boosts, StoredSessionCodec.Key.BoostsModifiedAt, StoredSessionCodec.Key.PreferredEngine,
+                StoredSessionCodec.Key.PreferredEngineModifiedAt);
             spaceValue[StoredSessionCodec.Key.ProfileId] = space[StoredSessionCodec.Key.Profile]![StoredSessionCodec.Key.Id]!.DeepClone();
             if (space[StoredSessionCodec.Key.CredentialsEnabledModifiedAt] is { } credentialsModifiedAt) {
                 spaceValue[SyncPayload.Key.CredentialsEnabled] = StoredSessionCodec.DecodeCredentialPreferences(

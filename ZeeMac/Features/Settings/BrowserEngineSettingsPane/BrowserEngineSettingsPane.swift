@@ -43,6 +43,19 @@ struct BrowserEngineSettingsPane: View {
             } footer: {
                 ZeeFormFootnote("Open pages keep their engine.")
             }
+            if availableEngines.contains(.webKit), availableEngines.count > 1 {
+                Section {
+                    Toggle(
+                        "Save Battery",
+                        isOn: Binding(get: { preferences.savesBattery }, set: { saveBattery($0) })
+                    )
+                    .accessibilityIdentifier("engines-save-battery")
+                } footer: {
+                    ZeeFormFootnote(
+                        "While your Mac is in Low Power Mode or its battery runs low, new pages open in WebKit, which uses less power, except sites and Spaces you chose an engine for."
+                    )
+                }
+            }
             Section {
                 if preferences.rules.isEmpty {
                     Text("No website rules")
@@ -93,6 +106,13 @@ struct BrowserEngineSettingsPane: View {
     private func selectDefault(_ engine: EngineKind?) {
         do {
             try core.send(SelectDefaultEngine(engine: engine))
+            failure = nil
+        } catch { failure = error.explanation }
+    }
+
+    private func saveBattery(_ saves: Bool) {
+        do {
+            try core.send(SetSavesBattery(saves: saves))
             failure = nil
         } catch { failure = error.explanation }
     }

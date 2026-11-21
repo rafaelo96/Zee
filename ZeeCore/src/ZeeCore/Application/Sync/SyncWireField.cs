@@ -51,6 +51,8 @@ internal sealed class SyncWireField {
         new(StoredSessionCodec.Key.SeparatesPinnedTabsModifiedAt, Kinds.Timestamp);
     public static readonly SyncWireField ProtectionModifiedAt = new(StoredSessionCodec.Key.ProtectionModifiedAt, Kinds.Timestamp);
     public static readonly SyncWireField BoostsModifiedAt = new(StoredSessionCodec.Key.BoostsModifiedAt, Kinds.Timestamp);
+    public static readonly SyncWireField PreferredEngineModifiedAt =
+        new(StoredSessionCodec.Key.PreferredEngineModifiedAt, Kinds.Timestamp);
     public static readonly SyncWireField EmptiedAt = new(SyncPayload.Key.EmptiedAt, Kinds.Timestamp);
     public static readonly SyncWireField HeldAt = new(SyncPayload.Key.HeldAt, Kinds.Timestamp);
 
@@ -58,7 +60,8 @@ internal sealed class SyncWireField {
         Id, RawValue, ProfileId, SpaceId, DeviceId, FolderId, ParentId, OrderAnchorTabId, SplitGroupId, LastActivatedAt,
         PositionModifiedAt, TitleModifiedAt, SavedTabsExpansionModifiedAt, CollapseModifiedAt, IconModifiedAt, TintModifiedAt,
         ArchivedAt, DeletedAt, FirstVisitedAt, LastVisitedAt, CredentialsEnabledModifiedAt, AccessPolicyModifiedAt, SharedProfileId,
-        MembershipModifiedAt, SeparatesPinnedTabsModifiedAt, ProtectionModifiedAt, EmptiedAt, HeldAt, BoostsModifiedAt
+        MembershipModifiedAt, SeparatesPinnedTabsModifiedAt, ProtectionModifiedAt, EmptiedAt, HeldAt, BoostsModifiedAt,
+        PreferredEngineModifiedAt
     ];
 
     /// Every member by its key, since every field of every compared record

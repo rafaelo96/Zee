@@ -119,6 +119,7 @@ internal sealed partial class Device {
         searchCatalog = records.SearchCatalog;
         settledInvitations.UnionWith(records.SettledInvitations);
         siteZooms.AddRange(records.SiteZooms.TakeLast(MaximumSiteZooms));
+        savesBattery = records.SavesBattery;
         RestoreContentBlocking(records);
     }
 
@@ -353,7 +354,8 @@ internal sealed partial class Device {
         CustomFilterLists = [.. customFilterLists],
         CustomFilters = customFilters,
         SettledInvitations = new HashSet<ImportSource>(settledInvitations),
-        SiteZooms = [.. siteZooms]
+        SiteZooms = [.. siteZooms],
+        SavesBattery = savesBattery
     };
 
     #endregion

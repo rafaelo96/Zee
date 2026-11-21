@@ -121,6 +121,8 @@ internal static partial class StoredSessionCodec {
         public const string ParentId = "parentID";
         public const string Placement = "placement";
         public const string PositionModifiedAt = "positionModifiedAt";
+        public const string PreferredEngine = "preferredEngine";
+        public const string PreferredEngineModifiedAt = "preferredEngineModifiedAt";
         public const string PrefersOpenTabs = "prefersOpenTabs";
         public const string PrimarySpaceId = "primarySpaceID";
         public const string ProtectionModifiedAt = "protectionModifiedAt";

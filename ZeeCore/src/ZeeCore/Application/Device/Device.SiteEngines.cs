@@ -15,6 +15,12 @@ internal sealed partial class Device {
     /// Every other Space's choices, which live as long as the process.
     private readonly SiteEngineLedger passingEngines = new();
     private EngineKind? defaultEngine;
+    /// Whether new pages open in WebKit while the system saves power.
+    private bool savesBattery;
+    /// Whether the system saves power now: Low Power Mode, or a low battery.
+    private bool powerConstrained;
+    /// The sites whose engine suggestion the person dismissed, until Zee quits.
+    private readonly HashSet<SiteOrigin> dismissedSuggestions = [];
 
     /// The person's default choice, separate from what this composition carries.
     internal EngineKind? DefaultEngine => defaultEngine;
@@ -22,7 +28,9 @@ internal sealed partial class Device {
     /// Persistent engine choices only. Private choices never enter Settings.
     internal EnginePreferences EnginePreferences {
         get {
-            lock (gate) return new(defaultEngine, [.. keptEngines.Choices.Select(choice => new SiteEngineRule(choice.Origin, choice.Engine))]);
+            lock (gate)
+                return new(defaultEngine, [.. keptEngines.Choices.Select(choice => new SiteEngineRule(choice.Origin, choice.Engine))],
+                    savesBattery);
         }
     }
 
@@ -83,6 +91,38 @@ internal sealed partial class Device {
         lock (gate) {
             if (keptEngines.Forget(null, origin)) KeepEnginePreferences(changes);
         }
+    }
+
+    /// Opens new pages in WebKit while the system saves power, or stops.
+    internal void SaveBattery(bool saves, ChangeFeed changes) {
+        lock (gate) {
+            if (savesBattery == saves) return;
+            savesBattery = saves;
+            KeepEnginePreferences(changes);
+        }
+    }
+
+    /// The system started or stopped saving power.
+    internal void ConstrainPower(bool constrained) {
+        lock (gate) powerConstrained = constrained;
+    }
+
+    /// Whether new pages that no site or Space decides for open in WebKit
+    /// now, to save power.
+    internal bool OpensForBattery {
+        get {
+            lock (gate) return savesBattery && powerConstrained;
+        }
+    }
+
+    /// Whether the person dismissed the engine suggestion for `origin`.
+    internal bool DismissedEngineSuggestion(SiteOrigin origin) {
+        lock (gate) return dismissedSuggestions.Contains(origin);
+    }
+
+    internal void DismissEngineSuggestion(SiteOrigin origin) {
+        ArgumentNullException.ThrowIfNull(origin);
+        lock (gate) dismissedSuggestions.Add(origin);
     }
 
     private void KeepEnginePreferences(ChangeFeed changes) {
