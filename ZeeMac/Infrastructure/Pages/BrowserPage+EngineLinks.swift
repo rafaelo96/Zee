@@ -36,7 +36,7 @@ extension BrowserPage {
     }
 
     /// Opens `url` in a Quick Window of its own over this page's window, in
-    /// this page's Space, as a person asks from a page without a tab.
+    /// this page's Space, as a person asks from its context menu.
     @discardableResult
     func openInQuickWindow(_ url: URL) -> Bool {
         guard ExternalWebLink.accepts(url), let pool = windowRouting?.pool, let present = pool.popupWindowPresenter

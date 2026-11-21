@@ -77,8 +77,9 @@ struct BrowserPageContextMenuAction {
         }
     }
 
-    /// Opens `linkURL` in a Quick Window of its own, in the page's Space, from
-    /// a page without a tab, whose new-tab rows have no tab to open after.
+    /// Opens `linkURL` in a Quick Window of its own, in the page's Space, as
+    /// Little Arc did: from any page, and the only way out of a page without a
+    /// tab, whose new-tab rows have no tab to open after.
     static func quickWindow(_ linkURL: URL) -> BrowserPageContextMenuAction {
         BrowserPageContextMenuAction(
             kind: .quickWindow, title: String(localized: "Open Link in New Quick Window"),
@@ -277,6 +278,7 @@ extension BrowserPage: BrowserPageContextMenuHost {
                 actions.append(.space(space, opening: linkURL))
             }
             actions.append(.peek(linkURL))
+            actions.append(.quickWindow(linkURL))
             if splitLinkHost.canOpenLink(context.tabID, context.assignment) {
                 actions.append(.split(linkURL))
             }

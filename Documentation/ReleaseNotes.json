@@ -5693,6 +5693,10 @@
     "site-zoom": {
       "category": "new",
       "message": "Zee remembers the zoom you choose for each site: its pages open at that zoom in every Space, on Chromium and WebKit, until Actual Size returns it to your default. Private windows use it without remembering new ones."
+    },
+    "quick-window-from-any-link": {
+      "category": "improved",
+      "message": "Right-click any link on Mac and choose Open Link in New Quick Window to look at it without adding a tab, as Little Arc did."
     }
   }
 }

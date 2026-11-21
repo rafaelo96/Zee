@@ -31,7 +31,7 @@ On iPhone and iPad, touch and hold a link to open it in Peek, which grows from t
 
 Quick Window handles a link from another app without dropping it immediately into the durable sidebar. It uses the configured Space’s cookies and passwords. When the page matters, move it into a normal window and choose the right Space.
 
-To see a link under another account on Mac, right-click it and choose a Space from **Open Link in**: it opens in a Quick Window with that Space's sign-ins, and **Open in** moves it into that Space. **Open This Page in** in Site Controls does the same for the current page.
+On Mac, right-click any link and choose **Open Link in New Quick Window** to look at it without adding a tab, as Little Arc did. To see a link under another account, right-click it and choose a Space from **Open Link in**: it opens in a Quick Window with that Space's sign-ins, and **Open in** moves it into that Space. **Open This Page in** in Site Controls does the same for the current page.
 
 On Mac, a Quick Window has a browser window's controls: Back and Forward, Site Controls for the page's permissions and extensions, and the Space's pinned extensions, with the ones that don't fit behind **»**. Click its address or press **Command-L** to search or go somewhere else in the same Quick Window. Right-click a link and choose **Open Link in New Quick Window** to open it in another Quick Window.
 
