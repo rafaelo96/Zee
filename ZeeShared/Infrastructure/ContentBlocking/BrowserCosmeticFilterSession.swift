@@ -65,6 +65,7 @@ final class BrowserCosmeticFilterSession {
             if let selector = message["block"] as? String {
                 // Only what the running picker holds, as the bar shows it.
                 guard picker.isActive, selector == picker.selector else { return }
+                if let hide = picker.hideWithBoost { return hide(selector) }
                 _ = try? core.send(BlockElement(pageURL: site.absoluteString, selector: selector))
                 return
             }

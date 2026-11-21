@@ -26,6 +26,7 @@ internal static partial class StoredSessionCodec {
     internal static class Key {
         public const string AccessPolicy = "accessPolicy";
         public const string Accent = "accent";
+        public const string AllSpaces = "allSpaces";
         public const string AlsoOffersSaveToSystemPasswords = "alsoOffersSaveToSystemPasswords";
         public const string Alpha = "alpha";
         public const string AppPreferences = "appPreferences";
@@ -35,11 +36,14 @@ internal static partial class StoredSessionCodec {
         public const string AutomaticallyEntersPictureInPicture = "automaticallyEntersPictureInPicture";
         public const string AutomaticallyShowsDeveloperToolbar = "automaticallyShowsDeveloperToolbar";
         public const string AutomaticallyTranslates = "automaticallyTranslates";
+        public const string Background = "background";
         public const string Backplate = "backplate";
         public const string BackplateColorIndex = "backplateColorIndex";
         public const string BannerPattern = "bannerPattern";
         public const string BannerStrength = "bannerStrength";
         public const string Blue = "blue";
+        public const string Boosts = "boosts";
+        public const string BoostsModifiedAt = "boostsModifiedAt";
         public const string Branding = "branding";
         public const string BrowsingPreferences = "browsingPreferences";
         public const string Charge = "charge";
@@ -53,6 +57,7 @@ internal static partial class StoredSessionCodec {
         public const string ContentBlockingPolicy = "contentBlockingPolicy";
         public const string CredentialPreferences = "credentialPreferences";
         public const string Badge = "zee";
+        public const string Css = "css";
         public const string CurrentTabCleanupPolicy = "currentTabCleanupPolicy";
         public const string CustomIconSymbol = "customIconSymbol";
         public const string CustomSearchProviders = "customSearchProviders";
@@ -62,6 +67,7 @@ internal static partial class StoredSessionCodec {
         public const string DeletionOrigin = "deletionOrigin";
         public const string Depth = "depth";
         public const string DisposableSeedMarker = "disposableSeedMarker";
+        public const string Domain = "domain";
         public const string Downloads = "downloads";
         public const string EdgeColorIndex = "edgeColorIndex";
         public const string ErasedProfileIds = "erasedProfileIDs";
@@ -72,9 +78,11 @@ internal static partial class StoredSessionCodec {
         public const string FolderColorIntensity = "folderColorIntensity";
         public const string FolderId = "folderID";
         public const string Folders = "folders";
+        public const string Font = "font";
         public const string GradientAngle = "gradientAngle";
         public const string Green = "green";
         public const string HasCustomAppearance = "hasCustomAppearance";
+        public const string Hidden = "hidden";
         public const string History = "history";
         public const string IconAccent = "iconAccent";
         public const string IconModifiedAt = "iconModifiedAt";
@@ -83,6 +91,7 @@ internal static partial class StoredSessionCodec {
         public const string IsCollapsed = "isCollapsed";
         public const string IsEnabled = "isEnabled";
         public const string IsGroup = "isGroup";
+        public const string IsOn = "isOn";
         public const string IsSavedTabsExpanded = "isSavedTabsExpanded";
         public const string KeepsControlsReadable = "keepsControlsReadable";
         public const string KeepsPageLoaded = "keepsPageLoaded";
@@ -96,7 +105,9 @@ internal static partial class StoredSessionCodec {
         public const string LegacySelectedTab = "selectedTabID";
         public const string Limit = "limit";
         public const string Location = "location";
+        public const string Look = "look";
         public const string MembershipModifiedAt = "membershipModifiedAt";
+        public const string ModifiedAt = "modifiedAt";
         public const string Name = "name";
         public const string NativeContent = "nativeContent";
         public const string NewTabPosition = "newTabPosition";
@@ -132,6 +143,7 @@ internal static partial class StoredSessionCodec {
         public const string SavedTitle = "savedTitle";
         public const string SavedTitleUrl = "savedTitleURL";
         public const string SavedUrl = "savedURL";
+        public const string Script = "script";
         public const string SearchesSitesWithTab = "searchesSitesWithTab";
         public const string SearchFollowsDefault = "searchFollowsDefault";
         public const string SearchSuggestionsEnabled = "searchSuggestionsEnabled";
@@ -168,7 +180,9 @@ internal static partial class StoredSessionCodec {
         public const string Tab = "tab";
         public const string Tabs = "tabs";
         public const string TargetId = "targetID";
+        public const string Text = "text";
         public const string TextColorMode = "textColorMode";
+        public const string TextScale = "textScale";
         public const string TextureStrength = "textureStrength";
         public const string ThemeMode = "themeMode";
         public const string Tint = "tint";

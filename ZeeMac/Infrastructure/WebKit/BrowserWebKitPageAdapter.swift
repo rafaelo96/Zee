@@ -44,6 +44,7 @@ final class BrowserWebKitPageAdapter: BrowserPageEngineAdapter {
     private var mediaSessionMessageProxy: BrowserScriptMessageProxy?
     private var hostedNotificationMessageProxy: BrowserScriptMessageProxy?
     private var cosmeticFilterMessageProxy: BrowserScriptMessageProxy?
+    private var boostMessageProxy: BrowserScriptMessageProxy?
     /// Names the document the hosted notification bridge answers; a new one
     /// begins with each navigation.
     var hostedNotificationDocumentIdentifier = UUID().uuidString
@@ -172,6 +173,9 @@ final class BrowserWebKitPageAdapter: BrowserPageEngineAdapter {
                 [weak page] message in
                 page?.receiveCosmeticFilterMessage(message)
             }
+            boostMessageProxy = BrowserBoostContentBridge.install(in: controller) { [weak page] message in
+                page?.receiveBoostMessage(message)
+            }
         }
         let dialogPresenter = page.dialogPresenter
         geolocationCoordinator = BrowserGeolocationCoordinator(
@@ -227,6 +231,7 @@ final class BrowserWebKitPageAdapter: BrowserPageEngineAdapter {
             hostedNotificationMessageProxy = nil
             mediaSessionMessageProxy = nil
             cosmeticFilterMessageProxy = nil
+            boostMessageProxy = nil
             return
         }
         let controller = webView.configuration.userContentController
@@ -266,6 +271,10 @@ final class BrowserWebKitPageAdapter: BrowserPageEngineAdapter {
             cosmeticFilterMessageProxy, name: BrowserCosmeticFilterContentBridge.messageHandlerName,
             world: BrowserCosmeticFilterContentBridge.contentWorld)
         cosmeticFilterMessageProxy = nil
+        remove(
+            boostMessageProxy, name: BrowserBoostContentBridge.messageHandlerName,
+            world: BrowserBoostContentBridge.contentWorld)
+        boostMessageProxy = nil
     }
 
     // MARK: - Actions - Page services

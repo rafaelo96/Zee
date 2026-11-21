@@ -25,8 +25,13 @@ final class BrowserElementPicker {
     private(set) var selector: String?
     private(set) var canWiden = false
     private(set) var canNarrow = false
+    /// Whether what the person picks is hidden by the site's Boost rather than
+    /// blocked by their own filters.
+    private(set) var hidesWithBoost = false
     /// Gives the page's bridge a command; the page's cosmetic session sets it.
     @ObservationIgnored var send: ((Command) -> Void)?
+    /// Hides the picked element in the site's Boost, while the picker serves one.
+    @ObservationIgnored private(set) var hideWithBoost: ((String) -> Void)?
 
     // MARK: - Actions - Commands
 
@@ -44,6 +49,13 @@ final class BrowserElementPicker {
 
     // MARK: - Mutators
 
+    /// Hides what the person picks next with `hide`, the site's Boost, until
+    /// the picker stops.
+    func serveBoost(_ hide: @escaping (String) -> Void) {
+        hidesWithBoost = true
+        hideWithBoost = hide
+    }
+
     /// What the bridge reports, `report`, read once here.
     func apply(_ report: [String: Any]) {
         guard report["active"] as? Bool == true else { return end() }
@@ -55,6 +67,8 @@ final class BrowserElementPicker {
 
     /// The picker stopped, or its document went away.
     func end() {
+        hidesWithBoost = false
+        hideWithBoost = nil
         isActive = false
         selector = nil
         canWiden = false

@@ -16297,6 +16297,84 @@
     },
     "No AI built in. Your tabs stay yours." : {
 
+    },
+    "Boost" : {
+
+    },
+    "Boost On" : {
+
+    },
+    "Hide Boost Editor" : {
+
+    },
+    "Edit Boost" : {
+
+    },
+    "Boost This Site" : {
+
+    },
+    "Font" : {
+
+    },
+    "Text Size" : {
+
+    },
+    "Use in Every Space" : {
+
+    },
+    "Delete Boost" : {
+
+    },
+    "Hide an Element…" : {
+
+    },
+    "Show Again" : {
+
+    },
+    "CSS" : {
+
+    },
+    "JavaScript" : {
+
+    },
+    "Apply" : {
+
+    },
+    "The script runs on this site each time a page opens, in a world of its own the site can’t see. Reload to run a changed script." : {
+
+    },
+    "Hide" : {
+
+    },
+    "Click what you want to hide" : {
+
+    },
+    "Tap what you want to hide" : {
+
+    },
+    "No Boosts yet" : {
+
+    },
+    "Every Space" : {
+
+    },
+    "Boosts" : {
+
+    },
+    "A Boost restyles a site and its subdomains in this Space. Make or edit one from the site’s Site Controls." : {
+
+    },
+    "Site's Own" : {
+      "comment" : "A font a Boost can give a website's text."
+    },
+    "Rounded" : {
+      "comment" : "A font a Boost can give a website's text."
+    },
+    "Monospaced" : {
+      "comment" : "A font a Boost can give a website's text."
+    },
+    "Hide Element with Boost" : {
+
     }
   },
   "version" : "1.3"

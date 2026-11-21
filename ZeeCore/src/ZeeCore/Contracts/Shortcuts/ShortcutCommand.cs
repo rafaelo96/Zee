@@ -82,7 +82,8 @@ public sealed class ShortcutCommand {
         ToggleSelectedTabSaved,
         BlockElement,
         ShowBlockedElements,
-        OpenNextExtension
+        OpenNextExtension,
+        HideElementWithBoost
     }
 
     #endregion
@@ -332,6 +333,11 @@ public sealed class ShortcutCommand {
         shortcuts: [new(DevicePlatform.Desktop, Character("e", Command), YieldsToOverrides: true)],
         searchTerms: "extensions popup menu cycle pinned toolbar", requiredCapability: EngineCapability.Extensions,
         availableWhen: ShowingSpace);
+    /// Points at an element of the page to hide with its site's Boost, which
+    /// any engine that runs Zee's content bridges applies.
+    public static readonly ShortcutCommand HideElementWithBoost = new(Kinds.HideElementWithBoost, name: "hideElementWithBoost",
+        ShortcutSection.Page, title: "Hide Element with Boost", symbol: "paintbrush.pointed",
+        searchTerms: "boost restyle customize hide remove element picker site arc", availableWhen: ShowingWebPage);
 
     public static IReadOnlyList<ShortcutCommand> All { get; } = [
         NewWindow, NewBlankWindow, NewTab, NewQuickWindow, NewPrivateWindow, CloseTabOrWindow, CloseWindow, OpenLocation, Back,
@@ -344,7 +350,7 @@ public sealed class ShortcutCommand {
         SplitWithNextTab, FocusNextSplitCard, FocusPreviousSplitCard, RemoveTabFromSplit, SeparateSplitTabs,
         MoveSplitCardLeft, MoveSplitCardRight, ToggleDeveloperToolbar, ToggleTranslationToolbar, OpenFile, FindNext,
         FindPrevious, CapturePage, MostRecentTabBackward, ClearSiteCookies, ClearSiteCache, ToggleSelectedTabSaved,
-        OpenNextExtension
+        OpenNextExtension, HideElementWithBoost
     ];
 
     public Kinds Kind { get; }

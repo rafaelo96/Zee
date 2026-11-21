@@ -104,6 +104,19 @@ extension BrowserPage {
         session.receive(scriptMessage)
     }
 
+    /// Applies this page's Boosts as its web view's top document starts, or
+    /// hands a popup's message to the popup's own page.
+    func receiveBoostMessage(_ scriptMessage: WKScriptMessage) {
+        guard let webView = webKitView else { return }
+        if let source = scriptMessage.webView, source !== webView {
+            webKitEnginePage?.binding?.page(showing: source)?.host?.receiveBoostMessage(scriptMessage)
+            return
+        }
+        let session = boosts ?? BrowserBoostSession(webView: webView, core: downloadCenter.core, pageID: corePage.id)
+        boosts = session
+        session.receive(scriptMessage)
+    }
+
     /// Records the link the person just right-clicked, moments before WebKit
     /// hands AppKit the menu that right-click opens.
     func receiveLinkContextMessage(_ scriptMessage: WKScriptMessage) {

@@ -21,6 +21,7 @@ struct BrowserSiteControlContent: View {
                 page: configuration.page,
                 dismiss: dismiss
             )
+            BrowserSiteBoostSection(page: configuration.page, space: configuration.space, dismiss: dismiss)
             BrowserEngineSiteControlsSection(
                 page: configuration.page,
                 space: configuration.space,

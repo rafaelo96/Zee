@@ -86,6 +86,9 @@ struct BrowserMacCommand {
                 && $0.browser.core.state.filterLists.level.blocksContent
         },
         run: { $0.blockElement() })
+    static let hideElementWithBoost = BrowserMacCommand(
+        .hideElementWithBoost, actsOnPage: true, isAvailable: { $0.commandPageShowsSite },
+        run: { $0.hideElementWithBoost() })
     static let showBlockedElements = BrowserMacCommand(
         .showBlockedElements, actsOnPage: true,
         isAvailable: { $0.supportsEngineCapability(.contentBlocking) && $0.commandPageBlockedElements.exist },
@@ -178,7 +181,7 @@ struct BrowserMacCommand {
         splitWithNextTab, focusNextSplitCard,
         focusPreviousSplitCard, removeTabFromSplit, separateSplitTabs, moveSplitCardLeft, moveSplitCardRight,
         previousSpace, nextSpace,
-        toggleReaderMode, toggleContentBlocking, blockElement, showBlockedElements,
+        toggleReaderMode, toggleContentBlocking, blockElement, showBlockedElements, hideElementWithBoost,
         findInPage, findNext, findPrevious, zoomIn, zoomOut,
         actualSize,
         copyPageLink,

@@ -6,14 +6,14 @@ using ZeeCore.Domain;
 namespace ZeeCore.Application;
 
 /// A Space as a Zee browser-data file keeps it: its name and look, folders,
-/// tabs, splits, archive, history and browsing preferences, with the
+/// tabs, splits, archive, history, browsing preferences and Boosts, with the
 /// identities the file spells. The Space's identity, profile, credential
 /// preferences and lock never leave the device, and an import gives every
 /// record a new identity.
 internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent Accent, SpaceBranding? Branding,
     IReadOnlyList<BrowserDataFolder> Folders, IReadOnlyList<BrowserDataTab> Tabs, IReadOnlyList<BrowserDataSplit>? Splits,
     IReadOnlyList<BrowserDataArchivedTab> ArchivedTabs, IReadOnlyList<BrowserDataHistoryEntry> History,
-    BrowsingPreferences BrowsingPreferences, Guid? SelectedTabId) {
+    BrowsingPreferences BrowsingPreferences, Guid? SelectedTabId, IReadOnlyList<Boost>? Boosts = null) {
     #region Static Variables
 
     /// The most open and archived tabs a Space in a file holds.
@@ -31,7 +31,8 @@ internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent 
             [.. value.Items("folders").Select(BrowserDataFolder.Read)], [.. value.Items("tabs").Select(BrowserDataTab.Read)],
             value.OptionalItems("splitGroups")?.Select(BrowserDataSplit.Read).ToArray(),
             [.. value.Items("archivedTabs").Select(BrowserDataArchivedTab.Read)],
-            [.. value.Items("history").Select(BrowserDataHistoryEntry.Read)], browsing, value.OptionalIdentity("selectedTabID"));
+            [.. value.Items("history").Select(BrowserDataHistoryEntry.Read)], browsing, value.OptionalIdentity("selectedTabID"),
+            StoredSessionCodec.DecodeBoosts(value.Object["boosts"]));
     }
 
     /// The Space an import brings: every record with a new identity from
@@ -93,6 +94,8 @@ internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent 
         var settings = new SpaceSettings(Name, Symbol, Accent, SpaceBranding.Kept(Branding, Accent, Symbol), BrowsingPreferences,
             StoredSessionCodec.DefaultCredentialPreferences, SpaceAccessPolicy.Open, IsSavedTabsExpanded: true,
             SavedTabsExpansionModifiedAt: null);
+        if (Boosts is { Count: > 0 } boosts)
+            settings = settings.Boosting([.. boosts.Take(Boost.MaximumPerSpace).Select(boost => boost with { Id = ids.Next() })], now);
         return new(ids.Next(), ids.Next(), settings,
             [.. ordered.Select(folder => folder with {
                 OrderAnchorTabId = folder.OrderAnchorTabId is { } anchor && tabIds.TryGetValue(anchor, out var tab) ? tab : null
@@ -116,7 +119,8 @@ internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent 
         return new(settings.Name, settings.Symbol, settings.Accent, SpaceBranding.Announced(settings.Look),
             [.. space.Folders.Select(BrowserDataFolder.From)], [.. space.Tabs.Select(BrowserDataTab.From)],
             [.. space.SplitGroups.Select(BrowserDataSplit.From)], [.. space.ArchivedTabs.Select(BrowserDataArchivedTab.From)],
-            [.. space.History.Select(BrowserDataHistoryEntry.From)], settings.BrowsingPreferences, SelectedTabId: null);
+            [.. space.History.Select(BrowserDataHistoryEntry.From)], settings.BrowsingPreferences, SelectedTabId: null,
+            settings.Boosts);
     }
 
     public JsonObject Write() {
@@ -133,6 +137,7 @@ internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent 
         value["history"] = new JsonArray([.. History.Select(entry => (JsonNode)entry.Write())]);
         value["browsingPreferences"] = StoredSessionCodec.Encode(BrowsingPreferences);
         if (SelectedTabId is { } selected) value["selectedTabID"] = BrowserDataFile.Identity(selected);
+        if (Boosts is { Count: > 0 } boosts) value["boosts"] = StoredSessionCodec.EncodeBoosts(boosts);
         return value;
     }
 

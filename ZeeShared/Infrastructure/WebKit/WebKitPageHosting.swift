@@ -29,4 +29,7 @@ protocol WebKitPageHosting: BrowserPromptPresenting {
     /// Answers a message from the cosmetic bridge in this page's web view,
     /// handed on the same way.
     func receiveCosmeticFilterMessage(_ message: WKScriptMessage)
+    /// Answers a message from the Boost bridge in this page's web view,
+    /// handed on the same way.
+    func receiveBoostMessage(_ message: WKScriptMessage)
 }

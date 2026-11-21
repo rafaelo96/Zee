@@ -39,7 +39,9 @@ internal static partial class StoredSessionCodec {
                 OptionalDate(value[Key.AccessPolicyModifiedAt]),
                 Flag(value[Key.SeparatesPinnedTabs]) ?? false,
                 OptionalDate(value[Key.SeparatesPinnedTabsModifiedAt]),
-                OptionalDate(value[Key.ProtectionModifiedAt])),
+                OptionalDate(value[Key.ProtectionModifiedAt]),
+                DecodeBoosts(value[Key.Boosts]),
+                OptionalDate(value[Key.BoostsModifiedAt])),
             [.. Items(value[Key.Folders]).Select(DecodeFolder)],
             [.. Items(value[Key.Tabs]).Select(DecodeTab)],
             [.. Items(value[Key.SplitGroups]).Select(DecodeSplitGroup)],
@@ -78,6 +80,8 @@ internal static partial class StoredSessionCodec {
         if (settings.SeparatesPinnedTabs) value[Key.SeparatesPinnedTabs] = true;
         Put(value, Key.SeparatesPinnedTabsModifiedAt, settings.SeparatesPinnedTabsModifiedAt);
         Put(value, Key.ProtectionModifiedAt, settings.ProtectionModifiedAt);
+        if (settings.Boosts is { } boosts) value[Key.Boosts] = EncodeBoosts(boosts);
+        Put(value, Key.BoostsModifiedAt, settings.BoostsModifiedAt);
         if (space.Membership is { } membership) {
             if (membership.PrimaryId is { } primary) value[Key.PrimarySpaceId] = WrappedIdentity(primary);
             if (membership.SharedProfileId is { } profile) value[Key.SharedProfileId] = BareIdentity(profile);

@@ -202,6 +202,9 @@ enum Rejection: Equatable, Error, Sendable {
     case bookmarksOverLimits(BookmarksOverLimits)
     case bookmarksTooLarge(BookmarksTooLarge)
     case bookmarksUnrecognized(BookmarksUnrecognized)
+    case boostDomainInvalid(BoostDomainInvalid)
+    case boostTooLarge(BoostTooLarge)
+    case boostsFull(BoostsFull)
     case borrowedProfileRequiresOwner(BorrowedProfileRequiresOwner)
     case borrowedWorkspaceRequiresSpace(BorrowedWorkspaceRequiresSpace)
     case cannotBecomeGroup(CannotBecomeGroup)
@@ -340,6 +343,7 @@ enum Rejection: Equatable, Error, Sendable {
     case transientAlreadyCompleted(TransientAlreadyCompleted)
     case translationRuleLimitReached(TranslationRuleLimitReached)
     case unknownArchivedTab(UnknownArchivedTab)
+    case unknownBoost(UnknownBoost)
     case unknownCloudMerge(UnknownCloudMerge)
     case unknownExtension(UnknownExtension)
     case unknownFolder(UnknownFolder)
@@ -1264,6 +1268,62 @@ struct BookmarksUnrecognized: Equatable, Sendable {
     }
 }
 
+struct Boost: Equatable, Sendable, Identifiable {
+    static let maximumSourceBytes: Int = 65536
+    static let maximumHiddenElements: Int = 200
+    static let maximumSelectorLength: Int = 1024
+    static let maximumPerSpace: Int = 200
+    static let maximumDomainLength: Int = 253
+
+    var id: UUID
+    var domain: String
+    var isOn: Bool
+    var appliesToAllSpaces: Bool
+    var look: BoostLook
+    var css: String
+    var script: String
+    var hiddenElements: [String]
+    var modifiedAt: Date
+}
+
+struct BoostDomainInvalid: Equatable, Sendable {
+}
+
+struct BoostLook: Equatable, Sendable {
+    static let minimumTextScale: Double = 0.5
+    static let maximumTextScale: Double = 2
+    static let unchanged = BoostLook(background: nil, text: nil, accent: nil, font: BoostFont.site, textScale: 1)
+
+    var background: BrandColor?
+    var text: BrandColor?
+    var accent: BrandColor?
+    var font: BoostFont
+    var textScale: Double
+}
+
+struct BoostScript: Equatable, Sendable, Identifiable {
+    let id: UUID
+    let stylesheet: String
+    let script: String
+}
+
+struct BoostTooLarge: Equatable, Sendable {
+    let maximumBytes: Int
+    let maximumHiddenElements: Int
+}
+
+struct BoostsFor: Query, Equatable, Sendable {
+    typealias Answer = [BoostScript]
+
+    let workspaceID: UUID
+    let spaceID: UUID
+    let host: String?
+}
+
+struct BoostsFull: Equatable, Sendable {
+    let maximum: Int
+}
+
 struct BorrowSpace: Intent, WorkspaceIntent, Equatable, Sendable {
     let workspaceID: UUID
     let spaceID: UUID
@@ -2100,6 +2160,12 @@ struct DecideSitePermission: Intent, SitePermissionIntent, Equatable, Sendable {
 
 struct DefaultEngineAlreadyRegistered: Equatable, Sendable {
     let current: EngineKind
+}
+
+struct DeleteBoost: Intent, SessionIntent, Equatable, Sendable {
+    let workspaceID: UUID
+    let spaceID: UUID
+    let boostID: UUID
 }
 
 struct DeleteBrowsingData: Intent, DataDeletionIntent, Equatable, Sendable {
@@ -3167,6 +3233,14 @@ struct HasSidePanel: PageRequest, Equatable, Sendable {
 
     let pageID: UUID
     let extensionID: String
+}
+
+struct HideElementInBoost: Intent, SessionIntent, Equatable, Sendable {
+    let workspaceID: UUID
+    let spaceID: UUID
+    let host: String
+    let selector: String
+    let newBoostID: UUID
 }
 
 struct HidePage: PageRequest, Equatable, Sendable {
@@ -5569,6 +5643,12 @@ struct SamePage: Query, Equatable, Sendable {
     let second: String
 }
 
+struct SaveBoost: Intent, SessionIntent, Equatable, Sendable {
+    let workspaceID: UUID
+    let spaceID: UUID
+    let boost: Boost
+}
+
 struct SaveCloudEngineState: Intent, CloudTransportIntent, Equatable, Sendable {
     let serialization: Data
 }
@@ -6691,8 +6771,11 @@ struct SpaceSettings: Equatable, Sendable {
     let separatesPinnedTabs: Bool
     let separatesPinnedTabsModifiedAt: Date?
     let protectionModifiedAt: Date?
+    let boosts: [Boost]?
+    let boostsModifiedAt: Date?
     let look: SpaceBranding
     let requiresAuthentication: Bool
+    let shownBoosts: [Boost]
 
     /// The fields of a `SpaceSettings` alone, as a platform builds one to send. The
     /// core resolves the rest when it reads it.
@@ -6711,6 +6794,8 @@ struct SpaceSettings: Equatable, Sendable {
         var separatesPinnedTabs: Bool
         var separatesPinnedTabsModifiedAt: Date?
         var protectionModifiedAt: Date?
+        var boosts: [Boost]?
+        var boostsModifiedAt: Date?
     }
 
     /// The record's fields alone, as a platform sends it back.
@@ -6729,7 +6814,9 @@ struct SpaceSettings: Equatable, Sendable {
             accessPolicyModifiedAt: accessPolicyModifiedAt,
             separatesPinnedTabs: separatesPinnedTabs,
             separatesPinnedTabsModifiedAt: separatesPinnedTabsModifiedAt,
-            protectionModifiedAt: protectionModifiedAt
+            protectionModifiedAt: protectionModifiedAt,
+            boosts: boosts,
+            boostsModifiedAt: boostsModifiedAt
         )
     }
 }
@@ -7345,6 +7432,10 @@ struct UnblockElements: Intent, Equatable, Sendable {
 
 struct UnknownArchivedTab: Equatable, Sendable {
     let tabID: UUID
+}
+
+struct UnknownBoost: Equatable, Sendable {
+    let boostID: UUID
 }
 
 struct UnknownCloudMerge: Equatable, Sendable {
@@ -10496,6 +10587,77 @@ struct BlockedPopupStatus: Hashable, Sendable {
             self.symbol = symbol
             self.guidance = guidance
             self.offersAllow = offersAllow
+        }
+    }
+}
+
+/// The members of the core's `BoostFont`. A member's wire tag is its index in `all`.
+struct BoostFont: Hashable, Sendable {
+    let tag: Int
+    var name: String { facts.name }
+    var title: LocalizedStringResource { facts.title }
+    var family: String? { facts.family }
+    private let facts: Facts
+
+    private init(tag: Int, name: String, title: LocalizedStringResource, family: String?) {
+        self.tag = tag
+        facts = Facts(name: name, title: title, family: family)
+    }
+
+    static let site = BoostFont(
+        tag: 0,
+        name: "site",
+        title: LocalizedStringResource("Site's Own", comment: "A font a Boost can give a website's text."),
+        family: nil
+    )
+    static let system = BoostFont(
+        tag: 1,
+        name: "system",
+        title: LocalizedStringResource("System", comment: "A font a Boost can give a website's text."),
+        family: "-apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    )
+    static let serif = BoostFont(
+        tag: 2,
+        name: "serif",
+        title: LocalizedStringResource("Serif", comment: "A font a Boost can give a website's text."),
+        family: "\"New York\", ui-serif, Georgia, serif"
+    )
+    static let rounded = BoostFont(
+        tag: 3,
+        name: "rounded",
+        title: LocalizedStringResource("Rounded", comment: "A font a Boost can give a website's text."),
+        family: "ui-rounded, \"SF Pro Rounded\", system-ui, sans-serif"
+    )
+    static let mono = BoostFont(
+        tag: 4,
+        name: "mono",
+        title: LocalizedStringResource("Monospaced", comment: "A font a Boost can give a website's text."),
+        family: "ui-monospace, \"SF Mono\", Menlo, monospace"
+    )
+
+    static let all: [BoostFont] = [site, system, serif, rounded, mono]
+
+    static func named(_ name: String?) -> BoostFont? {
+        all.first { $0.name == name }
+    }
+
+    static func == (lhs: BoostFont, rhs: BoostFont) -> Bool {
+        lhs.tag == rhs.tag
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(tag)
+    }
+
+    private final class Facts: Sendable {
+        let name: String
+        let title: LocalizedStringResource
+        let family: String?
+
+        init(name: String, title: LocalizedStringResource, family: String?) {
+            self.name = name
+            self.title = title
+            self.family = family
         }
     }
 }
@@ -18593,6 +18755,7 @@ struct ShortcutCommand: Hashable, Sendable {
         case blockElement
         case showBlockedElements
         case openNextExtension
+        case hideElementWithBoost
     }
 
     let tag: Int
@@ -20723,6 +20886,24 @@ struct ShortcutCommand: Hashable, Sendable {
         isReservedFromPages: false,
         defaultPreference: ShortcutPreference.preferWebsite
     )
+    static let hideElementWithBoost = ShortcutCommand(
+        tag: 78,
+        kind: .hideElementWithBoost,
+        name: "hideElementWithBoost",
+        section: ShortcutSection.page,
+        title: LocalizedStringResource("Hide Element with Boost"),
+        searchTerms: LocalizedStringResource("boost restyle customize hide remove element picker site arc"),
+        menuTitle: nil,
+        symbol: "paintbrush.pointed",
+        requiredCapability: nil,
+        selects: nil,
+        number: nil,
+        defaultShortcuts: [],
+        paletteRest: nil,
+        offersInPalette: true,
+        isReservedFromPages: false,
+        defaultPreference: ShortcutPreference.preferWebsite
+    )
 
     static let all: [ShortcutCommand] = [
         newWindow,
@@ -20802,7 +20983,8 @@ struct ShortcutCommand: Hashable, Sendable {
         clearSiteCookies,
         clearSiteCache,
         toggleSelectedTabSaved,
-        openNextExtension
+        openNextExtension,
+        hideElementWithBoost
     ]
 
     static func named(_ name: String?) -> ShortcutCommand? {
@@ -20993,7 +21175,8 @@ struct ShortcutMenu: Hashable, Sendable {
                 ShortcutCommand.toggleReaderMode,
                 ShortcutCommand.toggleContentBlocking,
                 ShortcutCommand.blockElement,
-                ShortcutCommand.showBlockedElements
+                ShortcutCommand.showBlockedElements,
+                ShortcutCommand.hideElementWithBoost
             ],
             [ShortcutCommand.openNextExtension],
             [ShortcutCommand.findInPage, ShortcutCommand.findNext, ShortcutCommand.findPrevious],
@@ -25209,6 +25392,14 @@ final class SpaceSettingsModel: ObservedModel {
         access(keyPath: \.protectionModifiedAt)
         return protectionModifiedAtStorage
     }
+    var boosts: [Boost]? {
+        access(keyPath: \.boosts)
+        return boostsStorage
+    }
+    var boostsModifiedAt: Date? {
+        access(keyPath: \.boostsModifiedAt)
+        return boostsModifiedAtStorage
+    }
     var look: SpaceBranding {
         access(keyPath: \.look)
         return lookStorage
@@ -25216,6 +25407,10 @@ final class SpaceSettingsModel: ObservedModel {
     var requiresAuthentication: Bool {
         access(keyPath: \.requiresAuthentication)
         return requiresAuthenticationStorage
+    }
+    var shownBoosts: [Boost] {
+        access(keyPath: \.shownBoosts)
+        return shownBoostsStorage
     }
 
     @ObservationIgnored private var nameStorage: String
@@ -25232,8 +25427,11 @@ final class SpaceSettingsModel: ObservedModel {
     @ObservationIgnored private var separatesPinnedTabsStorage: Bool
     @ObservationIgnored private var separatesPinnedTabsModifiedAtStorage: Date?
     @ObservationIgnored private var protectionModifiedAtStorage: Date?
+    @ObservationIgnored private var boostsStorage: [Boost]?
+    @ObservationIgnored private var boostsModifiedAtStorage: Date?
     @ObservationIgnored private var lookStorage: SpaceBranding
     @ObservationIgnored private var requiresAuthenticationStorage: Bool
+    @ObservationIgnored private var shownBoostsStorage: [Boost]
 
     var value: SpaceSettings {
         SpaceSettings(
@@ -25251,8 +25449,11 @@ final class SpaceSettingsModel: ObservedModel {
             separatesPinnedTabs: separatesPinnedTabs,
             separatesPinnedTabsModifiedAt: separatesPinnedTabsModifiedAt,
             protectionModifiedAt: protectionModifiedAt,
+            boosts: boosts,
+            boostsModifiedAt: boostsModifiedAt,
             look: look,
-            requiresAuthentication: requiresAuthentication
+            requiresAuthentication: requiresAuthentication,
+            shownBoosts: shownBoosts
         )
     }
 
@@ -25271,8 +25472,11 @@ final class SpaceSettingsModel: ObservedModel {
         separatesPinnedTabsStorage = value.separatesPinnedTabs
         separatesPinnedTabsModifiedAtStorage = value.separatesPinnedTabsModifiedAt
         protectionModifiedAtStorage = value.protectionModifiedAt
+        boostsStorage = value.boosts
+        boostsModifiedAtStorage = value.boostsModifiedAt
         lookStorage = value.look
         requiresAuthenticationStorage = value.requiresAuthentication
+        shownBoostsStorage = value.shownBoosts
     }
 
     func update(_ value: SpaceSettings) {
@@ -25332,6 +25536,14 @@ final class SpaceSettingsModel: ObservedModel {
             protectionModifiedAtStorage = value.protectionModifiedAt
             withMutation(keyPath: \.protectionModifiedAt) {}
         }
+        if boostsStorage != value.boosts {
+            boostsStorage = value.boosts
+            withMutation(keyPath: \.boosts) {}
+        }
+        if boostsModifiedAtStorage != value.boostsModifiedAt {
+            boostsModifiedAtStorage = value.boostsModifiedAt
+            withMutation(keyPath: \.boostsModifiedAt) {}
+        }
         if lookStorage != value.look {
             lookStorage = value.look
             withMutation(keyPath: \.look) {}
@@ -25339,6 +25551,10 @@ final class SpaceSettingsModel: ObservedModel {
         if requiresAuthenticationStorage != value.requiresAuthentication {
             requiresAuthenticationStorage = value.requiresAuthentication
             withMutation(keyPath: \.requiresAuthentication) {}
+        }
+        if shownBoostsStorage != value.shownBoosts {
+            shownBoostsStorage = value.shownBoosts
+            withMutation(keyPath: \.shownBoosts) {}
         }
     }
 }

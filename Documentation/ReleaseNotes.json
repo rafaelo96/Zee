@@ -5685,6 +5685,10 @@
     "no-ai": {
       "category": "improved",
       "message": "Zee has no AI built in. AI assistants are gone from search, and the bridge that let coding agents use Zee is removed, along with every agent you allowed."
+    },
+    "boosts": {
+      "category": "new",
+      "message": "Boosts restyle any site, as Arc's did: pick its colors, font and text size, hide elements you point at, or add your own CSS and JavaScript. A Boost applies to the site and its subdomains in its Space, or in every Space, on both engines, and syncs with your other devices."
     }
   }
 }

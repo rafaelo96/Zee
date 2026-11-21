@@ -157,6 +157,8 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
     @ObservationIgnored let spaceID: UUID
     /// Answers the page's cosmetic bridge, once it first posts.
     @ObservationIgnored var cosmeticFilters: BrowserCosmeticFilterSession?
+    /// Applies the page's Boosts to its top document.
+    @ObservationIgnored var boosts: BrowserBoostSession?
     /// The element picker the page's bar shows while the person picks
     /// something to block.
     @ObservationIgnored let elementPicker = BrowserElementPicker()
@@ -398,6 +400,14 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
                 )
             ) { [weak self] message in
                 self?.cosmeticFilters?.receive(message.body, from: message.frame)
+            }
+            boosts = BrowserBoostSession(
+                core: downloadCenter.core, pageID: corePage.id,
+                evaluate: { body, arguments, frame in
+                    try await scripting.callAsyncJavaScript(body, arguments: arguments, in: frame)
+                })
+            _ = scripting.install(BrowserBoostContentBridge.script) { [weak self] message in
+                self?.boosts?.receive(message.body, from: message.frame)
             }
         }
     }
@@ -774,6 +784,67 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
     @discardableResult
     func pickElementToBlock(fromContextMenu: Bool = false) async -> Bool {
         await cosmeticFilters?.pickElement(fromContextMenu: fromContextMenu) ?? false
+    }
+
+    // MARK: - Actions - Boosts
+
+    /// Lets the person point at an element of the page to hide with its
+    /// site's Boost, which the core makes when the Space has none for the site
+    /// yet. Answers whether the picker started.
+    @discardableResult
+    func pickElementToHideWithBoost() async -> Bool {
+        elementPicker.serveBoost { [weak self] selector in self?.hideWithBoost(selector) }
+        let started = await cosmeticFilters?.pickElement(fromContextMenu: false) ?? false
+        if !started { elementPicker.end() }
+        return started
+    }
+
+    /// Restyles the page's top document with its Boosts as they are now.
+    func refreshBoosts() {
+        boosts?.refresh()
+    }
+
+    /// The site the page's Boosts match, or nil for a page no Boost reaches.
+    var boostSite: String? {
+        guard let url = pageEngine.currentURL ?? live.documentURL,
+            ["http", "https"].contains(url.scheme?.lowercased() ?? ""),
+            let host = url.host(), host.contains(".")
+        else { return nil }
+        let lowered = host.lowercased()
+        return lowered.hasPrefix("www.") ? String(lowered.dropFirst(4)) : lowered
+    }
+
+    /// The Boost `space` keeps for the page's site, if any.
+    func boost(in space: SpaceModel) -> Boost? {
+        guard let site = boostSite else { return nil }
+        return space.settings.shownBoosts.first { $0.domain == site }
+    }
+
+    /// Keeps `boost` in `space` and restyles the page. Throws the rule the
+    /// core refused it with.
+    func save(_ boost: Boost, in space: SpaceModel) throws(Rejection) {
+        guard let workspace = downloadCenter.core.state.pages[corePage.id]?.workspaceID else { return }
+        _ = try downloadCenter.core.send(SaveBoost(workspaceID: workspace, spaceID: space.id, boost: boost))
+        refreshBoosts()
+    }
+
+    /// Removes `boost` from `space` and restyles the page.
+    func delete(_ boost: Boost, in space: SpaceModel) {
+        guard let workspace = downloadCenter.core.state.pages[corePage.id]?.workspaceID else { return }
+        _ = try? downloadCenter.core.send(DeleteBoost(workspaceID: workspace, spaceID: space.id, boostID: boost.id))
+        refreshBoosts()
+    }
+
+    private func hideWithBoost(_ selector: String) {
+        let core = downloadCenter.core
+        guard let state = core.state.pages[corePage.id],
+            let host = (pageEngine.currentURL ?? live.documentURL)?.host()
+        else { return }
+        _ = try? core.send(
+            HideElementInBoost(
+                workspaceID: state.workspaceID, spaceID: state.spaceID, host: host, selector: selector,
+                newBoostID: UUID()))
+        refreshBoosts()
     }
 
     // MARK: - Actions - Reader and info bars

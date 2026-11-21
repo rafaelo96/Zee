@@ -39,6 +39,7 @@ const sidebars = {
         'browsing/peek-and-quick-window',
         'browsing/link-routing',
         'browsing/page-tools',
+        'browsing/boosts',
         'browsing/localhost-developer-tools',
       ],
     },

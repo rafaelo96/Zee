@@ -71,7 +71,7 @@ struct BrowserElementPickerBar: View {
             .disabled(!picker.canNarrow)
             Spacer(minLength: ZeeSpacing.small)
             Button("Cancel", role: .cancel, action: picker.cancel)
-            Button("Block", action: picker.block)
+            Button(picker.hidesWithBoost ? "Hide" : "Block", action: picker.block)
                 .buttonStyle(.glassProminent)
                 // The accent the page's outline takes, on every platform.
                 .tint(ZeeBrandTheme.accent)
@@ -82,10 +82,17 @@ struct BrowserElementPickerBar: View {
     }
 
     private var hint: LocalizedStringKey {
+        if picker.hidesWithBoost {
+            #if os(iOS)
+                return "Tap what you want to hide"
+            #else
+                return "Click what you want to hide"
+            #endif
+        }
         #if os(iOS)
-            "Tap what you want to block"
+            return "Tap what you want to block"
         #else
-            "Click what you want to block"
+            return "Click what you want to block"
         #endif
     }
 }

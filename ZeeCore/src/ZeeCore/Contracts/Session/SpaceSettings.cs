@@ -13,6 +13,8 @@ namespace ZeeCore.Contracts;
 /// <see cref="ProtectionModifiedAt"/> is when someone last changed how the Space blocks
 /// content or how long it keeps what it browses, or null when nobody has since Zee
 /// kept that time.
+/// <see cref="Boosts"/> are the sites the person restyled in the Space, and
+/// <see cref="BoostsModifiedAt"/> when someone last changed one, on any device.
 /// <see cref="Branding"/> is null for a Space stored before branding existed, which
 /// wears the look its accent and symbol give it; <see cref="Look"/> is what it wears.
 /// </summary>
@@ -31,7 +33,9 @@ public sealed record SpaceSettings(
     DateTimeOffset? AccessPolicyModifiedAt = null,
     bool SeparatesPinnedTabs = false,
     DateTimeOffset? SeparatesPinnedTabsModifiedAt = null,
-    DateTimeOffset? ProtectionModifiedAt = null) {
+    DateTimeOffset? ProtectionModifiedAt = null,
+    IReadOnlyList<Boost>? Boosts = null,
+    DateTimeOffset? BoostsModifiedAt = null) {
     #region Variables
 
     /// <summary>The branding the Space wears: its own, with a banner strength stored
@@ -45,6 +49,18 @@ public sealed record SpaceSettings(
     /// `StoredSessionCodec`), so only an open Space skips authentication.</summary>
     [Resolved]
     public bool RequiresAuthentication => AccessPolicy != SpaceAccessPolicy.Open;
+
+    #endregion
+
+    #region Actions - Boosts
+
+    /// The Boosts the Space holds, none for a Space stored before Boosts.
+    [Resolved]
+    public IReadOnlyList<Boost> ShownBoosts => Boosts ?? [];
+
+    /// These settings with `boosts`, changed now.
+    internal SpaceSettings Boosting(IReadOnlyList<Boost> boosts, DateTimeOffset now) =>
+        this with { Boosts = boosts, BoostsModifiedAt = Chosen(BoostsModifiedAt, now) };
 
     #endregion
 

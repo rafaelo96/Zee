@@ -8,7 +8,8 @@ namespace ZeeCore.Application;
 /// browses, who may open it and when someone last chose, whether it uses
 /// Zee Passwords once someone chose, its saved tabs' disclosure, the session
 /// it browses with as a Sub-Space or a primary once someone chose, its splits'
-/// metadata and its position among the Spaces. Where it keeps its passwords
+/// metadata, its position among the Spaces, and its Boosts once someone
+/// changed one, which older clients carry as they are. Where it keeps its passwords
 /// stays with each device.
 internal sealed partial record SpacePayload(
     Guid Id,
@@ -31,7 +32,9 @@ internal sealed partial record SpacePayload(
     bool IsSavedTabsExpanded,
     SyncTime? SavedTabsExpansionModifiedAt,
     IReadOnlyList<SplitGroupPayload>? SplitGroups,
-    string OrderToken) : SyncPayload {
+    string OrderToken,
+    IReadOnlyList<Boost>? Boosts = null,
+    SyncTime? BoostsModifiedAt = null) : SyncPayload {
     #region Static Variables
 
     /// The members a Space's value carries; a record keeps what a newer build
@@ -43,7 +46,8 @@ internal sealed partial record SpacePayload(
         StoredSessionCodec.Key.CredentialsEnabledModifiedAt, StoredSessionCodec.Key.PrimarySpaceId, StoredSessionCodec.Key.SharedProfileId,
         StoredSessionCodec.Key.MembershipModifiedAt, StoredSessionCodec.Key.SeparatesPinnedTabs,
         StoredSessionCodec.Key.SeparatesPinnedTabsModifiedAt, StoredSessionCodec.Key.ProtectionModifiedAt, StoredSessionCodec.Key.IsSavedTabsExpanded,
-        StoredSessionCodec.Key.SavedTabsExpansionModifiedAt, StoredSessionCodec.Key.SplitGroups, SyncPayload.Key.OrderToken
+        StoredSessionCodec.Key.SavedTabsExpansionModifiedAt, StoredSessionCodec.Key.SplitGroups, SyncPayload.Key.OrderToken,
+        StoredSessionCodec.Key.Boosts, StoredSessionCodec.Key.BoostsModifiedAt
     ];
 
     /// The most splits a Space's record names.
@@ -80,6 +84,9 @@ internal sealed partial record SpacePayload(
             : ((Guid?)null, (Guid?)null, (SyncTime?)null);
         var (separatesPins, separatesPinsModifiedAt) = value.OptionalTime(StoredSessionCodec.Key.SeparatesPinnedTabsModifiedAt) is { } pinsChosenAt
             ? (value.OptionalFlag(StoredSessionCodec.Key.SeparatesPinnedTabs) ?? false, pinsChosenAt) : ((bool?)null, (SyncTime?)null);
+        var (boosts, boostsModifiedAt) = value.OptionalTime(StoredSessionCodec.Key.BoostsModifiedAt) is { } boostsChosenAt
+            ? (StoredSessionCodec.DecodeBoosts(value.Value[StoredSessionCodec.Key.Boosts]) ?? [], boostsChosenAt)
+            : ((IReadOnlyList<Boost>?)null, (SyncTime?)null);
         return new(value.WrappedIdentity(StoredSessionCodec.Key.Id), value.Identity(StoredSessionCodec.Key.ProfileId), name, symbol, accent,
             value.OptionalNested(StoredSessionCodec.Key.Branding) is { } branding ? ReadBranding(branding) : SpaceBranding.Legacy(accent, symbol),
             value.OptionalNested(StoredSessionCodec.Key.BrowsingPreferences) is { } browsing ? ReadBrowsingPreferences(browsing)
@@ -98,7 +105,9 @@ internal sealed partial record SpacePayload(
             value.OptionalFlag(StoredSessionCodec.Key.IsSavedTabsExpanded) ?? true,
             value.OptionalTime(StoredSessionCodec.Key.SavedTabsExpansionModifiedAt),
             value.OptionalArray(StoredSessionCodec.Key.SplitGroups) is { } groups ? SplitGroupPayload.Normalized(groups, value.Form) : null,
-            value.Text(Key.OrderToken));
+            value.Text(Key.OrderToken),
+            boosts,
+            boostsModifiedAt);
     }
 
     public override JsonObject EncodeValue(SyncPayloadForm form) {
@@ -132,6 +141,10 @@ internal sealed partial record SpacePayload(
         if (SplitGroups is { } groups)
             value[StoredSessionCodec.Key.SplitGroups] = new JsonArray([.. groups.Select(group => (JsonNode?)group.Encode(form))]);
         value[Key.OrderToken] = OrderToken;
+        if (BoostsModifiedAt is { } boostsModifiedAt) {
+            value[StoredSessionCodec.Key.Boosts] = StoredSessionCodec.EncodeBoosts(Boosts ?? []);
+            Put(value, StoredSessionCodec.Key.BoostsModifiedAt, boostsModifiedAt, form);
+        }
         return value;
     }
 

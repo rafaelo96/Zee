@@ -175,6 +175,7 @@ struct BrowserSettingsSpacePage: View {
             BrowserSpaceBrowsingSection(browser: browser, space: space)
             BrowserSpaceGroupPinnedTabsSection(browser: browser, space: space)
             BrowserSpaceDownloadsSection(settings: downloads.settings(for: space))
+            BrowserSpaceBoostsSection(browser: browser, space: space)
             BrowserSpaceDeletionSection(browser: browser, spaceID: space.id, dataDeleter: dataDeleter)
         }
         .task(id: space.id) { downloads.refresh(for: space.id) }

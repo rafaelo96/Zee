@@ -387,6 +387,13 @@ struct BrowserCommandActions: BrowserNumberedSelectionPerformer {
         Task { await page.pickElementToBlock() }
     }
 
+    /// Starts the element picker in the page the window shows, hiding what
+    /// the person picks with the site's Boost.
+    func hideElementWithBoost() {
+        guard let page = commandPage else { return }
+        Task { await page.pickElementToHideWithBoost() }
+    }
+
     /// What the person blocked on the site of the page the window shows.
     var commandPageBlockedElements: BrowserBlockedElements {
         BrowserBlockedElements(core: browser.core, pageURL: commandPage?.live.displayURL)

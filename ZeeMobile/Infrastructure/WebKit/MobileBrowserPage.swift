@@ -140,6 +140,9 @@ final class MobileBrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
     }
     @ObservationIgnored private var credentialMessageProxy: BrowserScriptMessageProxy?
     @ObservationIgnored private var cosmeticFilterMessageProxy: BrowserScriptMessageProxy?
+    @ObservationIgnored private var boostMessageProxy: BrowserScriptMessageProxy?
+    /// Applies the page's Boosts to its top document.
+    @ObservationIgnored private var boosts: BrowserBoostSession?
     /// Answers the page's cosmetic bridge, once it first posts.
     @ObservationIgnored private var cosmeticFilters: BrowserCosmeticFilterSession?
     /// The element picker the page's bar shows while the person picks
@@ -386,6 +389,10 @@ final class MobileBrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
             ) { [weak self] message in
                 self?.receiveCosmeticFilterMessage(message)
             }
+            boostMessageProxy = BrowserBoostContentBridge.install(in: webView.configuration.userContentController) {
+                [weak self] message in
+                self?.receiveBoostMessage(message)
+            }
         }
         pullToRefreshControl.addTarget(
             self,
@@ -588,6 +595,7 @@ final class MobileBrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
             blockedPopupMessageProxy = nil
             mediaSessionMessageProxy = nil
             cosmeticFilterMessageProxy = nil
+            boostMessageProxy = nil
             mediaSessionCoordinator = nil
             geolocationCoordinator = nil
             userActivityHandler = nil
@@ -650,6 +658,12 @@ final class MobileBrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
                 )
         }
         cosmeticFilterMessageProxy = nil
+        if boostMessageProxy != nil {
+            webView.configuration.userContentController.removeScriptMessageHandler(
+                forName: BrowserBoostContentBridge.messageHandlerName,
+                contentWorld: BrowserBoostContentBridge.contentWorld)
+        }
+        boostMessageProxy = nil
         mediaSessionCoordinator = nil
         geolocationCoordinator = nil
         userActivityHandler = nil
@@ -1128,6 +1142,18 @@ final class MobileBrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
             ?? BrowserCosmeticFilterSession(
                 webView: webView, core: downloadCenter.core, spaceID: spaceID, picker: elementPicker)
         cosmeticFilters = session
+        session.receive(scriptMessage)
+    }
+
+    /// Applies this page's Boosts as its web view's top document starts, or
+    /// hands a popup's message to the popup's own page.
+    func receiveBoostMessage(_ scriptMessage: WKScriptMessage) {
+        if let source = scriptMessage.webView, source !== webView {
+            webKitPage.binding?.page(showing: source)?.host?.receiveBoostMessage(scriptMessage)
+            return
+        }
+        let session = boosts ?? BrowserBoostSession(webView: webView, core: downloadCenter.core, pageID: corePage.id)
+        boosts = session
         session.receive(scriptMessage)
     }
 
