@@ -12,7 +12,7 @@ namespace ZeeCore.Contracts;
 /// where they came from, as an Arc profile's do, keep sharing one: they come
 /// in as one group, or, when the review brings one of them into an existing
 /// Space, the others join that Space's group as its Sub-Spaces, opening with
-/// it here and reached by the agents that reach it. Over a first launch's
+/// it here. Over a first launch's
 /// disposable Spaces, the reviewed Spaces replace them.
 ///
 /// Refused with `NoSetup` when setup holds no review for the workspace, and
@@ -35,7 +35,7 @@ public sealed record ImportReviewedSpaces(Guid WorkspaceId, Guid WindowId) : Imp
 
     /// Each new Space the import brought into a group the workspace already
     /// held opens with that group while this process holds its grant, and
-    /// shares the group's agent access and site permissions, as joining it
+    /// shares the group's site permissions, as joining it
     /// would.
     internal override void Commit(ZeeApp app, ChangeFeed changes) {
         var before = app.Device.Workspace(WorkspaceId).Current;
@@ -46,7 +46,6 @@ public sealed record ImportReviewedSpaces(Guid WorkspaceId, Guid WindowId) : Imp
             if (session.GroupOf(joined.Id) is not { } group) continue;
             app.Access.Changing(changes, authority => authority.Extend(new(group.Primary.Id, group.Primary.OwnProfileId),
                 new(joined.Id, joined.OwnProfileId)));
-            app.Device.ShareAgents(joined.Id, group.Primary.Id, changes);
             app.Device.ShareSitePermissions(joined.Id, changes);
         }
     }

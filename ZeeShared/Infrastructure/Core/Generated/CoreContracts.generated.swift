@@ -39,9 +39,6 @@ protocol EngineQuestion: Sendable {
     static func decodeAnswer(from reader: inout WireReader) throws(WireError) -> Answer
 }
 
-/// The members of `Intent` that derive from the core's `AgentIntent`.
-protocol AgentIntent: Intent {}
-
 /// The members of `Intent` that derive from the core's `CloseIntent`.
 protocol CloseIntent: Intent {}
 
@@ -122,8 +119,6 @@ protocol WorkspaceIntent: Intent {}
 
 /// Everything an intent can change. `CoreState.apply` keeps the read model current.
 enum Change: Equatable, Sendable {
-    case agentPreferencesChanged(AgentPreferencesChanged)
-    case agentSessionsChanged(AgentSessionsChanged)
     case appPreferencesChanged(AppPreferencesChanged)
     case archiveChanged(ArchiveChanged)
     case authenticationAsked(AuthenticationAsked)
@@ -198,14 +193,6 @@ enum Change: Equatable, Sendable {
 
 /// The rule that refused an intent or a query.
 enum Rejection: Equatable, Error, Sendable {
-    case agentNotApproved(AgentNotApproved)
-    case agentSessionsFull(AgentSessionsFull)
-    case agentSpaceUnavailable(AgentSpaceUnavailable)
-    case agentTabStopped(AgentTabStopped)
-    case agentTabUnavailable(AgentTabUnavailable)
-    case agentsFull(AgentsFull)
-    case agentsOff(AgentsOff)
-    case agentsUnavailable(AgentsUnavailable)
     case alreadyInSpace(AlreadyInSpace)
     case alreadyInSplit(AlreadyInSplit)
     case archiveInvalid(ArchiveInvalid)
@@ -249,7 +236,6 @@ enum Rejection: Equatable, Error, Sendable {
     case groupHoldsOnlyTabs(GroupHoldsOnlyTabs)
     case guideSpaceLocked(GuideSpaceLocked)
     case incompleteSplit(IncompleteSplit)
-    case invalidAgent(InvalidAgent)
     case invalidBlockedPopup(InvalidBlockedPopup)
     case invalidCredentialDate(InvalidCredentialDate)
     case invalidCredentialFile(InvalidCredentialFile)
@@ -353,7 +339,6 @@ enum Rejection: Equatable, Error, Sendable {
     case tabLimitReached(TabLimitReached)
     case transientAlreadyCompleted(TransientAlreadyCompleted)
     case translationRuleLimitReached(TranslationRuleLimitReached)
-    case unknownAgentSession(UnknownAgentSession)
     case unknownArchivedTab(UnknownArchivedTab)
     case unknownCloudMerge(UnknownCloudMerge)
     case unknownExtension(UnknownExtension)
@@ -381,14 +366,6 @@ enum Rejection: Equatable, Error, Sendable {
 
     var message: LocalizedStringResource? {
         switch self {
-        case .agentNotApproved(let value): value.message
-        case .agentSessionsFull(let value): value.message
-        case .agentSpaceUnavailable(let value): value.message
-        case .agentTabStopped(let value): value.message
-        case .agentTabUnavailable(let value): value.message
-        case .agentsFull(let value): value.message
-        case .agentsOff(let value): value.message
-        case .agentsUnavailable(let value): value.message
         case .archiveInvalid(let value): value.message
         case .archiveTooLarge(let value): value.message
         case .bookmarksHaveNoLinks(let value): value.message
@@ -405,7 +382,6 @@ enum Rejection: Equatable, Error, Sendable {
         case .fileUnreadable(let value): value.message
         case .guideSpaceLocked(let value): value.message
         case .incompleteSplit(let value): value.message
-        case .invalidAgent(let value): value.message
         case .invalidImport(let value): value.message
         case .invalidSearchShortcut(let value): value.message
         case .invalidSyncRecords(let value): value.message
@@ -444,7 +420,6 @@ enum Rejection: Equatable, Error, Sendable {
         case .spaceProfileChanged(let value): value.message
         case .splitLimitReached(let value): value.message
         case .splitNeedsTwoTabs(let value): value.message
-        case .unknownAgentSession(let value): value.message
         case .unknownCloudMerge(let value): value.message
         case .unknownExtension(let value): value.message
         case .unpreparedImport(let value): value.message
@@ -584,8 +559,6 @@ extension Change {
     /// Applies the change to the read model, as its own `apply(to:)` does.
     @MainActor func apply(to state: CoreState) {
         switch self {
-        case .agentPreferencesChanged(let change): change.apply(to: state)
-        case .agentSessionsChanged(let change): change.apply(to: state)
         case .appPreferencesChanged(let change): change.apply(to: state)
         case .archiveChanged(let change): change.apply(to: state)
         case .authenticationAsked(let change): change.apply(to: state)
@@ -663,8 +636,6 @@ extension Change {
     /// tells those who follow the batch, as its own `apply(to:in:)` does.
     @MainActor func apply(to core: ZeeCore, in batch: inout CoreChangeBatch) {
         switch self {
-        case .agentPreferencesChanged(let change): change.apply(to: core, in: &batch)
-        case .agentSessionsChanged(let change): change.apply(to: core, in: &batch)
         case .appPreferencesChanged(let change): change.apply(to: core, in: &batch)
         case .archiveChanged(let change): change.apply(to: core, in: &batch)
         case .authenticationAsked(let change): change.apply(to: core, in: &batch)
@@ -742,8 +713,6 @@ extension Change {
     /// it answers, as its own `note(in:)` does.
     func note(in receipts: inout CloudTransportReceipts) {
         switch self {
-        case .agentPreferencesChanged(let change): change.note(in: &receipts)
-        case .agentSessionsChanged(let change): change.note(in: &receipts)
         case .appPreferencesChanged(let change): change.note(in: &receipts)
         case .archiveChanged(let change): change.note(in: &receipts)
         case .authenticationAsked(let change): change.note(in: &receipts)
@@ -916,143 +885,6 @@ struct AdoptWindowRecords: Intent, WindowIntent, Equatable, Sendable {
     let records: Data?
 }
 
-struct AgentActivity: Equatable, Sendable {
-    let kind: AgentActivityKind
-    let subject: String
-    let at: Date
-}
-
-struct AgentIdentity: Equatable, Sendable {
-    static let maximumField: Int = 255
-    static let maximumPath: Int = 1024
-
-    var teamID: String?
-    var signingID: String?
-    var path: String?
-    var client: String?
-}
-
-struct AgentNotApproved: Equatable, Sendable {
-    var message: LocalizedStringResource {
-        LocalizedStringResource("The person hasn’t allowed this agent to use Zee.")
-    }
-}
-
-struct AgentPreferences: Equatable, Sendable {
-    static let maximumAgents: Int = 32
-    static let maximumName: Int = 64
-
-    let isOn: Bool
-    let runsScripts: Bool
-    let spaceIDs: [UUID]
-    let agents: [ApprovedAgent]
-}
-
-struct AgentPreferencesChanged: CoreChange, Equatable, Sendable {
-    let preferences: AgentPreferences
-}
-
-struct AgentReach: Query, Equatable, Sendable {
-    typealias Answer = AgentReachList
-
-    let sessionID: UUID
-}
-
-struct AgentReachList: Equatable, Sendable {
-    let workspaceID: UUID?
-    let spaces: [AgentSpace]
-}
-
-struct AgentSessionState: Equatable, Sendable {
-    let sessionID: UUID
-    let identity: AgentIdentity
-    let name: String
-    let color: BrandColor?
-    let tabIDs: [UUID]
-    let opensWindows: Bool
-    let activity: [AgentActivity]
-}
-
-struct AgentSessionsChanged: CoreChange, Equatable, Sendable {
-    let sessions: [AgentSessionState]
-}
-
-struct AgentSessionsFull: Equatable, Sendable {
-    let maximum: Int
-
-    var message: LocalizedStringResource {
-        LocalizedStringResource("Too many agents are using Zee right now.")
-    }
-}
-
-struct AgentSpace: Equatable, Sendable {
-    let spaceID: UUID
-    let name: String
-    let isLocked: Bool
-    let tabs: [AgentTab]
-}
-
-struct AgentSpaceUnavailable: Equatable, Sendable {
-    let spaceID: UUID
-
-    var message: LocalizedStringResource {
-        LocalizedStringResource("That Space isn’t one agents may use.")
-    }
-}
-
-struct AgentTab: Equatable, Sendable {
-    let tabID: UUID
-    let title: String
-    let url: String?
-    let placement: TabPlacement
-    let claimed: Bool
-}
-
-struct AgentTabStopped: Equatable, Sendable {
-    let tabID: UUID
-
-    var message: LocalizedStringResource {
-        LocalizedStringResource("The person stopped agents from using this tab.")
-    }
-}
-
-struct AgentTabUnavailable: Equatable, Sendable {
-    let tabID: UUID
-
-    var message: LocalizedStringResource {
-        LocalizedStringResource("That tab isn’t one agents may use.")
-    }
-}
-
-struct AgentsFull: Equatable, Sendable {
-    let maximum: Int
-
-    var message: LocalizedStringResource {
-        LocalizedStringResource("Too many agents are allowed. Forget one in Settings first.")
-    }
-}
-
-struct AgentsOff: Equatable, Sendable {
-    var message: LocalizedStringResource {
-        LocalizedStringResource("Agents are turned off in Zee’s settings.")
-    }
-}
-
-struct AgentsUnavailable: Equatable, Sendable {
-    var message: LocalizedStringResource {
-        LocalizedStringResource("Agents can’t use Zee on this device.")
-    }
-}
-
-struct AllowAgentSpace: Intent, AgentIntent, Equatable, Sendable {
-    let spaceID: UUID
-    let allowed: Bool
-}
-
-struct AllowAgentWindows: Intent, AgentIntent, Equatable, Sendable {
-    let sessionID: UUID
-}
-
 struct AlreadyInSpace: Equatable, Sendable {
     let spaceID: UUID
 }
@@ -1201,19 +1033,10 @@ struct ApplyManualSetup: Intent, ImportWorkspace, SessionIntent, Equatable, Send
     let windowID: UUID
 }
 
-struct ApproveAgent: Intent, AgentIntent, Equatable, Sendable {
-    let agent: ApprovedAgent
-}
-
 struct ApproveEngineDownload: Equatable, Sendable {
     let profileID: UUID
     let downloadID: String
     let approvalToken: String
-}
-
-struct ApprovedAgent: Equatable, Sendable {
-    var identity: AgentIdentity
-    var name: String
 }
 
 struct ArchiveChanged: CoreChange, Equatable, Sendable {
@@ -1352,12 +1175,6 @@ struct BadgeCharge: Equatable, Sendable {
 struct BeforeUnloadAnswered: EngineEvent, Equatable, Sendable {
     let pageID: UUID
     let proceeds: Bool
-}
-
-struct BeginAgentSession: Intent, AgentIntent, Equatable, Sendable {
-    let sessionID: UUID
-    let identity: AgentIdentity
-    let name: String
 }
 
 struct BeginCloudMerge: Intent, CloudTransportIntent, Equatable, Sendable {
@@ -1672,11 +1489,6 @@ struct ChooseTabIcon: Intent, SessionIntent, Equatable, Sendable {
     let mode: TabIconMode
     let emoji: String?
     let accent: TabIconAccent?
-}
-
-struct ClaimAgentTab: Intent, AgentIntent, Equatable, Sendable {
-    let sessionID: UUID
-    let tabID: UUID
 }
 
 struct CleanUpCurrentTabs: Intent, SessionIntent, Equatable, Sendable {
@@ -2664,10 +2476,6 @@ struct ElementSelectorInvalid: Equatable, Sendable {
     let selector: String
 }
 
-struct EndAgentSession: Intent, AgentIntent, Equatable, Sendable {
-    let sessionID: UUID
-}
-
 struct EndExtensionInstall: Equatable, Sendable {
     let installID: UUID
 }
@@ -3294,10 +3102,6 @@ struct FoldersChanged: CoreChange, Equatable, Sendable {
     let order: [UUID]?
 }
 
-struct ForgetAgent: Intent, AgentIntent, Equatable, Sendable {
-    let identity: AgentIdentity
-}
-
 struct ForgetCloudZone: Intent, CloudTransportIntent, Equatable, Sendable {
     let loss: CloudZoneLoss
 }
@@ -3312,11 +3116,6 @@ struct ForgetPaletteChoices: Intent, PaletteIntent, Equatable, Sendable {
     let spaceID: UUID?
 }
 
-struct GetAgentPreferences: Query, Equatable, Sendable {
-    typealias Answer = AgentPreferences
-
-}
-
 struct GetEnginePreferences: Query, Equatable, Sendable {
     typealias Answer = EnginePreferences
 
@@ -3325,6 +3124,12 @@ struct GetEnginePreferences: Query, Equatable, Sendable {
 struct GetFilterLists: Query, Equatable, Sendable {
     typealias Answer = FilterLists
 
+}
+
+struct GetImportInvitation: Query, Equatable, Sendable {
+    typealias Answer = ImportInvitation
+
+    let found: [ImportSource]
 }
 
 struct GetSiteContentBlocking: Query, Equatable, Sendable {
@@ -3414,12 +3219,6 @@ struct HoverPage: PageRequest, Equatable, Sendable {
     let point: PagePoint
 }
 
-struct IdentifyAgent: Intent, AgentIntent, Equatable, Sendable {
-    let sessionID: UUID
-    let name: String?
-    let color: BrandColor?
-}
-
 struct ImportAppPreferences: Intent, SessionIntent, Equatable, Sendable {
     let workspaceID: UUID
     let legacy: LegacyAppPreferences
@@ -3453,6 +3252,11 @@ struct ImportFoundBrowser: Equatable, Sendable {
     let name: String
     let dataFolder: String
     let data: ImportData
+}
+
+struct ImportInvitation: Equatable, Sendable {
+    let source: ImportSource?
+    let stopsWorkingAt: Date?
 }
 
 struct ImportLeftOut: Equatable, Sendable {
@@ -3640,14 +3444,6 @@ struct InstalledExtensionsChanged: CoreChange, Equatable, Sendable {
 
 struct InteractionState: Equatable, Sendable {
     let state: Data?
-}
-
-struct InvalidAgent: Equatable, Sendable {
-    let maximumName: Int
-
-    var message: LocalizedStringResource {
-        LocalizedStringResource("Zee couldn’t tell which program this agent is.")
-    }
 }
 
 struct InvalidBlockedPopup: Equatable, Sendable {
@@ -4397,12 +4193,6 @@ struct NotAnArchive: Equatable, Sendable {
 
 struct NotPrivateWorkspace: Equatable, Sendable {
     let workspaceID: UUID
-}
-
-struct NoteAgentActivity: Intent, AgentIntent, Equatable, Sendable {
-    let sessionID: UUID
-    let kind: AgentActivityKind
-    let subject: String
 }
 
 struct NotificationDisplayCheck: Query, Equatable, Sendable {
@@ -6108,14 +5898,6 @@ struct SessionUnrecognized: Equatable, Sendable {
     }
 }
 
-struct SetAgentScripts: Intent, AgentIntent, Equatable, Sendable {
-    let runsScripts: Bool
-}
-
-struct SetAgents: Intent, AgentIntent, Equatable, Sendable {
-    let isOn: Bool
-}
-
 struct SetAppPreferences: Intent, SessionIntent, Equatable, Sendable {
     let workspaceID: UUID
     let preferences: AppPreferences
@@ -6300,6 +6082,10 @@ struct SettleExtensionInstall: Equatable, Sendable {
     let promptID: UUID
     let accepted: Bool
     let withholdsSiteAccess: Bool
+}
+
+struct SettleImportInvitation: Intent, Equatable, Sendable {
+    let source: ImportSource
 }
 
 struct SettlePermission: Equatable, Sendable {
@@ -7161,13 +6947,6 @@ struct StepSplitMember: Intent, SessionIntent, Equatable, Sendable {
     let offset: Int
 }
 
-struct StopAgentTab: Intent, AgentIntent, Equatable, Sendable {
-    let tabID: UUID
-}
-
-struct StopAllAgents: Intent, AgentIntent, Equatable, Sendable {
-}
-
 struct StopLoading: PageRequest, Equatable, Sendable {
     typealias Answer = Bool
 
@@ -7562,14 +7341,6 @@ struct UnassignShortcut: Intent, ShortcutIntent, Equatable, Sendable {
 
 struct UnblockElements: Intent, Equatable, Sendable {
     let pageURL: String
-}
-
-struct UnknownAgentSession: Equatable, Sendable {
-    let sessionID: UUID
-
-    var message: LocalizedStringResource {
-        LocalizedStringResource("This agent is no longer connected to Zee.")
-    }
 }
 
 struct UnknownArchivedTab: Equatable, Sendable {
@@ -8231,97 +8002,6 @@ struct AdjacentDirection: Hashable, Sendable {
         init(name: String, step: Int) {
             self.name = name
             self.step = step
-        }
-    }
-}
-
-/// The members of the core's `AgentActivityKind`. A member's wire tag is its index in `all`.
-struct AgentActivityKind: Hashable, Sendable {
-    let tag: Int
-    var name: String { facts.name }
-    var title: LocalizedStringResource { facts.title }
-    var symbol: String { facts.symbol }
-    private let facts: Facts
-
-    private init(tag: Int, name: String, title: LocalizedStringResource, symbol: String) {
-        self.tag = tag
-        facts = Facts(name: name, title: title, symbol: symbol)
-    }
-
-    static let openedTab = AgentActivityKind(
-        tag: 0,
-        name: "openedTab",
-        title: LocalizedStringResource("Opened a tab"),
-        symbol: "plus.square"
-    )
-    static let loadedPage = AgentActivityKind(
-        tag: 1,
-        name: "loadedPage",
-        title: LocalizedStringResource("Loaded a page"),
-        symbol: "arrow.right.circle"
-    )
-    static let closedTab = AgentActivityKind(
-        tag: 2,
-        name: "closedTab",
-        title: LocalizedStringResource("Closed a tab"),
-        symbol: "xmark.square"
-    )
-    static let openedWindow = AgentActivityKind(
-        tag: 3,
-        name: "openedWindow",
-        title: LocalizedStringResource("Opened a window"),
-        symbol: "macwindow.badge.plus"
-    )
-    static let openedPrivateWindow = AgentActivityKind(
-        tag: 4,
-        name: "openedPrivateWindow",
-        title: LocalizedStringResource("Opened a private window"),
-        symbol: "eyeglasses"
-    )
-    static let deletedHistory = AgentActivityKind(
-        tag: 5,
-        name: "deletedHistory",
-        title: LocalizedStringResource("Deleted history"),
-        symbol: "clock.arrow.trianglehead.counterclockwise.rotate.90"
-    )
-    static let ranScript = AgentActivityKind(
-        tag: 6,
-        name: "ranScript",
-        title: LocalizedStringResource("Ran a script"),
-        symbol: "curlybraces"
-    )
-
-    static let all: [AgentActivityKind] = [
-        openedTab,
-        loadedPage,
-        closedTab,
-        openedWindow,
-        openedPrivateWindow,
-        deletedHistory,
-        ranScript
-    ]
-
-    static func named(_ name: String?) -> AgentActivityKind? {
-        all.first { $0.name == name }
-    }
-
-    static func == (lhs: AgentActivityKind, rhs: AgentActivityKind) -> Bool {
-        lhs.tag == rhs.tag
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(tag)
-    }
-
-    private final class Facts: Sendable {
-        let name: String
-        let title: LocalizedStringResource
-        let symbol: String
-
-        init(name: String, title: LocalizedStringResource, symbol: String) {
-            self.name = name
-            self.title = title
-            self.symbol = symbol
         }
     }
 }
@@ -11141,111 +10821,8 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         isEnabledByDefault: false,
         options: [SearchProviderOption.qwantRegion]
     )
-    static let chatGPT = BuiltInSearchProvider(
-        tag: 9,
-        name: "chatGPT",
-        title: "ChatGPT",
-        kind: SearchProviderKind.assistant,
-        shortcuts: ["chatgpt", "gpt"],
-        color: BrandColor(red: 0.06274509803921569, green: 0.6392156862745098, blue: 0.4980392156862745, alpha: 1),
-        logo: nil,
-        isEnabledByDefault: true,
-        options: [
-            SearchProviderOption.chatGPTSearchesWeb,
-            SearchProviderOption.chatGPTTemporaryChat,
-            SearchProviderOption.chatGPTModel
-        ]
-    )
-    static let claude = BuiltInSearchProvider(
-        tag: 10,
-        name: "claude",
-        title: "Claude",
-        kind: SearchProviderKind.assistant,
-        shortcuts: ["claude"],
-        color: BrandColor(red: 0.8509803921568627, green: 0.4666666666666667, blue: 0.3411764705882353, alpha: 1),
-        logo: nil,
-        isEnabledByDefault: true,
-        options: []
-    )
-    static let perplexity = BuiltInSearchProvider(
-        tag: 11,
-        name: "perplexity",
-        title: "Perplexity",
-        kind: SearchProviderKind.assistant,
-        shortcuts: ["perplexity", "pplx"],
-        color: BrandColor(red: 0.12549019607843137, green: 0.7215686274509804, blue: 0.803921568627451, alpha: 1),
-        logo: nil,
-        isEnabledByDefault: true,
-        options: []
-    )
-    static let googleAIMode = BuiltInSearchProvider(
-        tag: 12,
-        name: "googleAIMode",
-        title: "Google AI Mode",
-        kind: SearchProviderKind.assistant,
-        shortcuts: ["aimode", "gai"],
-        color: BrandColor(red: 0.25882352941176473, green: 0.5215686274509804, blue: 0.9568627450980393, alpha: 1),
-        logo: nil,
-        isEnabledByDefault: true,
-        options: []
-    )
-    static let grok = BuiltInSearchProvider(
-        tag: 13,
-        name: "grok",
-        title: "Grok",
-        kind: SearchProviderKind.assistant,
-        shortcuts: ["grok"],
-        color: BrandColor(red: 0.44313725490196076, green: 0.4627450980392157, blue: 0.4823529411764706, alpha: 1),
-        logo: nil,
-        isEnabledByDefault: false,
-        options: []
-    )
-    static let leChat = BuiltInSearchProvider(
-        tag: 14,
-        name: "leChat",
-        title: "Le Chat",
-        kind: SearchProviderKind.assistant,
-        shortcuts: ["mistral", "lechat"],
-        color: BrandColor(red: 0.9803921568627451, green: 0.3215686274509804, blue: 0.058823529411764705, alpha: 1),
-        logo: nil,
-        isEnabledByDefault: false,
-        options: []
-    )
-    static let duckAI = BuiltInSearchProvider(
-        tag: 15,
-        name: "duckAI",
-        title: "Duck.ai",
-        kind: SearchProviderKind.assistant,
-        shortcuts: ["duckai", "ai"],
-        color: BrandColor(red: 0.8705882352941177, green: 0.34509803921568627, blue: 0.2, alpha: 1),
-        logo: nil,
-        isEnabledByDefault: false,
-        options: []
-    )
-    static let copilotSearch = BuiltInSearchProvider(
-        tag: 16,
-        name: "copilotSearch",
-        title: "Copilot Search",
-        kind: SearchProviderKind.assistant,
-        shortcuts: ["copilot"],
-        color: BrandColor(red: 0.1568627450980392, green: 0.4392156862745098, blue: 0.9176470588235294, alpha: 1),
-        logo: nil,
-        isEnabledByDefault: false,
-        options: []
-    )
-    static let kagiAssistant = BuiltInSearchProvider(
-        tag: 17,
-        name: "kagiAssistant",
-        title: "Kagi Assistant",
-        kind: SearchProviderKind.assistant,
-        shortcuts: ["kagiai"],
-        color: BrandColor(red: 1, green: 0.7019607843137254, blue: 0.09803921568627451, alpha: 1),
-        logo: nil,
-        isEnabledByDefault: false,
-        options: [SearchProviderOption.kagiAssistantModel, SearchProviderOption.kagiAssistantWebAccess]
-    )
     static let youTube = BuiltInSearchProvider(
-        tag: 18,
+        tag: 9,
         name: "youTube",
         title: "YouTube",
         kind: SearchProviderKind.website,
@@ -11256,7 +10833,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.youTubeShows]
     )
     static let wikipedia = BuiltInSearchProvider(
-        tag: 19,
+        tag: 10,
         name: "wikipedia",
         title: "Wikipedia",
         kind: SearchProviderKind.website,
@@ -11267,7 +10844,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.wikipediaLanguage, SearchProviderOption.wikipediaListsResults]
     )
     static let gitHub = BuiltInSearchProvider(
-        tag: 20,
+        tag: 11,
         name: "gitHub",
         title: "GitHub",
         kind: SearchProviderKind.website,
@@ -11278,7 +10855,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.gitHubSearchesFor, SearchProviderOption.gitHubSort]
     )
     static let reddit = BuiltInSearchProvider(
-        tag: 21,
+        tag: 12,
         name: "reddit",
         title: "Reddit",
         kind: SearchProviderKind.website,
@@ -11289,7 +10866,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: []
     )
     static let x = BuiltInSearchProvider(
-        tag: 22,
+        tag: 13,
         name: "x",
         title: "X",
         kind: SearchProviderKind.website,
@@ -11300,7 +10877,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.xLatestFirst]
     )
     static let stackOverflow = BuiltInSearchProvider(
-        tag: 23,
+        tag: 14,
         name: "stackOverflow",
         title: "Stack Overflow",
         kind: SearchProviderKind.website,
@@ -11311,7 +10888,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.stackOverflowSort]
     )
     static let mdn = BuiltInSearchProvider(
-        tag: 24,
+        tag: 15,
         name: "mdn",
         title: "MDN",
         kind: SearchProviderKind.website,
@@ -11322,7 +10899,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.mdnLanguage]
     )
     static let amazon = BuiltInSearchProvider(
-        tag: 25,
+        tag: 16,
         name: "amazon",
         title: "Amazon",
         kind: SearchProviderKind.website,
@@ -11333,7 +10910,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.amazonStore]
     )
     static let imDb = BuiltInSearchProvider(
-        tag: 26,
+        tag: 17,
         name: "imdb",
         title: "IMDb",
         kind: SearchProviderKind.website,
@@ -11344,7 +10921,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.imDbFinds]
     )
     static let spotify = BuiltInSearchProvider(
-        tag: 27,
+        tag: 18,
         name: "spotify",
         title: "Spotify",
         kind: SearchProviderKind.website,
@@ -11355,7 +10932,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.spotifyShows]
     )
     static let figmaCommunity = BuiltInSearchProvider(
-        tag: 28,
+        tag: 19,
         name: "figmaCommunity",
         title: "Figma Community",
         kind: SearchProviderKind.website,
@@ -11366,7 +10943,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: []
     )
     static let googleMaps = BuiltInSearchProvider(
-        tag: 29,
+        tag: 20,
         name: "googleMaps",
         title: "Google Maps",
         kind: SearchProviderKind.website,
@@ -11377,7 +10954,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: []
     )
     static let appleMaps = BuiltInSearchProvider(
-        tag: 30,
+        tag: 21,
         name: "appleMaps",
         title: "Apple Maps",
         kind: SearchProviderKind.website,
@@ -11388,7 +10965,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.appleMapsShows]
     )
     static let googleImages = BuiltInSearchProvider(
-        tag: 31,
+        tag: 22,
         name: "googleImages",
         title: "Google Images",
         kind: SearchProviderKind.website,
@@ -11399,7 +10976,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.googleImagesSafeSearch]
     )
     static let googleTranslate = BuiltInSearchProvider(
-        tag: 32,
+        tag: 23,
         name: "googleTranslate",
         title: "Google Translate",
         kind: SearchProviderKind.website,
@@ -11410,7 +10987,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.translateInto]
     )
     static let wolframAlpha = BuiltInSearchProvider(
-        tag: 33,
+        tag: 24,
         name: "wolframAlpha",
         title: "Wolfram|Alpha",
         kind: SearchProviderKind.website,
@@ -11421,7 +10998,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: []
     )
     static let hackerNews = BuiltInSearchProvider(
-        tag: 34,
+        tag: 25,
         name: "hackerNews",
         title: "Hacker News",
         kind: SearchProviderKind.website,
@@ -11432,7 +11009,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: [SearchProviderOption.hackerNewsSort, SearchProviderOption.hackerNewsShows]
     )
     static let npm = BuiltInSearchProvider(
-        tag: 35,
+        tag: 26,
         name: "npm",
         title: "npm",
         kind: SearchProviderKind.website,
@@ -11443,7 +11020,7 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         options: []
     )
     static let appleDeveloper = BuiltInSearchProvider(
-        tag: 36,
+        tag: 27,
         name: "appleDeveloper",
         title: "Apple Developer",
         kind: SearchProviderKind.website,
@@ -11464,15 +11041,6 @@ struct BuiltInSearchProvider: Hashable, Sendable {
         kagi,
         yahoo,
         qwant,
-        chatGPT,
-        claude,
-        perplexity,
-        googleAIMode,
-        grok,
-        leChat,
-        duckAI,
-        copilotSearch,
-        kagiAssistant,
         youTube,
         wikipedia,
         gitHub,
@@ -14551,6 +14119,8 @@ struct ImportSource: Hashable, Sendable {
     var numberedSpaceName: LocalizedStringResource? { facts.numberedSpaceName }
     var namesItsSpaces: Bool { facts.namesItsSpaces }
     var isListed: Bool { facts.isListed }
+    var outlivingFile: String? { facts.outlivingFile }
+    var isChosenFirst: Bool { facts.isChosenFirst }
     private let facts: Facts
 
     private init(
@@ -14571,7 +14141,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: LocalizedStringResource?,
         numberedSpaceName: LocalizedStringResource?,
         namesItsSpaces: Bool,
-        isListed: Bool
+        isListed: Bool,
+        outlivingFile: String?,
+        isChosenFirst: Bool
     ) {
         self.tag = tag
         facts = Facts(
@@ -14591,7 +14163,9 @@ struct ImportSource: Hashable, Sendable {
             spaceName: spaceName,
             numberedSpaceName: numberedSpaceName,
             namesItsSpaces: namesItsSpaces,
-            isListed: isListed
+            isListed: isListed,
+            outlivingFile: outlivingFile,
+            isChosenFirst: isChosenFirst
         )
     }
 
@@ -14613,7 +14187,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: LocalizedStringResource("Imported Arc Tabs"),
         numberedSpaceName: LocalizedStringResource("Imported Arc Space %lld"),
         namesItsSpaces: true,
-        isListed: true
+        isListed: true,
+        outlivingFile: "StorableSidebar.json",
+        isChosenFirst: true
     )
     static let zen = ImportSource(
         tag: 1,
@@ -14633,7 +14209,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: LocalizedStringResource("Imported Zen Tabs"),
         numberedSpaceName: LocalizedStringResource("Imported Zen Space %lld"),
         namesItsSpaces: true,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let chrome = ImportSource(
         tag: 2,
@@ -14653,7 +14231,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let safari = ImportSource(
         tag: 3,
@@ -14673,7 +14253,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let firefox = ImportSource(
         tag: 4,
@@ -14693,7 +14275,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let chromeBeta = ImportSource(
         tag: 5,
@@ -14713,7 +14297,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let chromeDev = ImportSource(
         tag: 6,
@@ -14733,7 +14319,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let chromeCanary = ImportSource(
         tag: 7,
@@ -14753,7 +14341,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let chromium = ImportSource(
         tag: 8,
@@ -14773,7 +14363,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let brave = ImportSource(
         tag: 9,
@@ -14793,7 +14385,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let edge = ImportSource(
         tag: 10,
@@ -14813,7 +14407,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let vivaldi = ImportSource(
         tag: 11,
@@ -14833,7 +14429,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let opera = ImportSource(
         tag: 12,
@@ -14853,7 +14451,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let dia = ImportSource(
         tag: 13,
@@ -14873,7 +14473,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let comet = ImportSource(
         tag: 14,
@@ -14893,7 +14495,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let aside = ImportSource(
         tag: 15,
@@ -14913,7 +14517,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let egoLite = ImportSource(
         tag: 16,
@@ -14933,7 +14539,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: true
+        isListed: true,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
     static let otherChromium = ImportSource(
         tag: 17,
@@ -14953,7 +14561,9 @@ struct ImportSource: Hashable, Sendable {
         spaceName: nil,
         numberedSpaceName: nil,
         namesItsSpaces: false,
-        isListed: false
+        isListed: false,
+        outlivingFile: nil,
+        isChosenFirst: false
     )
 
     static let all: [ImportSource] = [
@@ -15007,6 +14617,8 @@ struct ImportSource: Hashable, Sendable {
         let numberedSpaceName: LocalizedStringResource?
         let namesItsSpaces: Bool
         let isListed: Bool
+        let outlivingFile: String?
+        let isChosenFirst: Bool
 
         init(
             name: String,
@@ -15025,7 +14637,9 @@ struct ImportSource: Hashable, Sendable {
             spaceName: LocalizedStringResource?,
             numberedSpaceName: LocalizedStringResource?,
             namesItsSpaces: Bool,
-            isListed: Bool
+            isListed: Bool,
+            outlivingFile: String?,
+            isChosenFirst: Bool
         ) {
             self.name = name
             self.title = title
@@ -15044,6 +14658,8 @@ struct ImportSource: Hashable, Sendable {
             self.numberedSpaceName = numberedSpaceName
             self.namesItsSpaces = namesItsSpaces
             self.isListed = isListed
+            self.outlivingFile = outlivingFile
+            self.isChosenFirst = isChosenFirst
         }
     }
 }
@@ -17791,16 +17407,8 @@ struct SearchProviderKind: Hashable, Sendable {
         symbol: "magnifyingglass",
         canBeDefault: true
     )
-    static let assistant = SearchProviderKind(
-        tag: 1,
-        name: "assistant",
-        title: LocalizedStringResource("AI Assistants"),
-        itemTitle: LocalizedStringResource("AI Assistant"),
-        symbol: "sparkles",
-        canBeDefault: true
-    )
     static let website = SearchProviderKind(
-        tag: 2,
+        tag: 1,
         name: "website",
         title: LocalizedStringResource("Websites"),
         itemTitle: LocalizedStringResource("Website"),
@@ -17808,7 +17416,7 @@ struct SearchProviderKind: Hashable, Sendable {
         canBeDefault: false
     )
 
-    static let all: [SearchProviderKind] = [engine, assistant, website]
+    static let all: [SearchProviderKind] = [engine, website]
 
     static func named(_ name: String?) -> SearchProviderKind? {
         all.first { $0.name == name }
@@ -18115,63 +17723,8 @@ struct SearchProviderOption: Hashable, Sendable {
         ],
         namesRegions: false
     )
-    static let chatGPTSearchesWeb = SearchProviderOption(
-        tag: 15,
-        name: "chatGPTSearchesWeb",
-        title: LocalizedStringResource("Search the Web"),
-        isSwitch: true,
-        acceptsText: false,
-        textExample: nil,
-        choices: [],
-        locales: [],
-        namesRegions: false
-    )
-    static let chatGPTTemporaryChat = SearchProviderOption(
-        tag: 16,
-        name: "chatGPTTemporaryChat",
-        title: LocalizedStringResource("Temporary Chat"),
-        isSwitch: true,
-        acceptsText: false,
-        textExample: nil,
-        choices: [],
-        locales: [],
-        namesRegions: false
-    )
-    static let chatGPTModel = SearchProviderOption(
-        tag: 17,
-        name: "chatGPTModel",
-        title: LocalizedStringResource("Model"),
-        isSwitch: false,
-        acceptsText: true,
-        textExample: "gpt-5",
-        choices: [],
-        locales: [],
-        namesRegions: false
-    )
-    static let kagiAssistantModel = SearchProviderOption(
-        tag: 18,
-        name: "kagiAssistantModel",
-        title: LocalizedStringResource("Model"),
-        isSwitch: false,
-        acceptsText: true,
-        textExample: "claude-4-sonnet",
-        choices: [],
-        locales: [],
-        namesRegions: false
-    )
-    static let kagiAssistantWebAccess = SearchProviderOption(
-        tag: 19,
-        name: "kagiAssistantWebAccess",
-        title: LocalizedStringResource("Web Access"),
-        isSwitch: true,
-        acceptsText: false,
-        textExample: nil,
-        choices: [],
-        locales: [],
-        namesRegions: false
-    )
     static let youTubeShows = SearchProviderOption(
-        tag: 20,
+        tag: 15,
         name: "youTubeShows",
         title: LocalizedStringResource("Show"),
         isSwitch: false,
@@ -18188,7 +17741,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let wikipediaLanguage = SearchProviderOption(
-        tag: 21,
+        tag: 16,
         name: "wikipediaLanguage",
         title: LocalizedStringResource("Language"),
         isSwitch: false,
@@ -18228,7 +17781,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let wikipediaListsResults = SearchProviderOption(
-        tag: 22,
+        tag: 17,
         name: "wikipediaListsResults",
         title: LocalizedStringResource("Always List Results"),
         isSwitch: true,
@@ -18239,7 +17792,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let gitHubSearchesFor = SearchProviderOption(
-        tag: 23,
+        tag: 18,
         name: "gitHubSearchesFor",
         title: LocalizedStringResource("Search For"),
         isSwitch: false,
@@ -18257,7 +17810,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let gitHubSort = SearchProviderOption(
-        tag: 24,
+        tag: 19,
         name: "gitHubSort",
         title: LocalizedStringResource("Sort By"),
         isSwitch: false,
@@ -18268,7 +17821,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let xLatestFirst = SearchProviderOption(
-        tag: 25,
+        tag: 20,
         name: "xLatestFirst",
         title: LocalizedStringResource("Latest First"),
         isSwitch: true,
@@ -18279,7 +17832,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let stackOverflowSort = SearchProviderOption(
-        tag: 26,
+        tag: 21,
         name: "stackOverflowSort",
         title: LocalizedStringResource("Sort By"),
         isSwitch: false,
@@ -18290,7 +17843,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let mdnLanguage = SearchProviderOption(
-        tag: 27,
+        tag: 22,
         name: "mdnLanguage",
         title: LocalizedStringResource("Language"),
         isSwitch: false,
@@ -18312,7 +17865,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let amazonStore = SearchProviderOption(
-        tag: 28,
+        tag: 23,
         name: "amazonStore",
         title: LocalizedStringResource("Store"),
         isSwitch: false,
@@ -18340,7 +17893,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: true
     )
     static let imDbFinds = SearchProviderOption(
-        tag: 29,
+        tag: 24,
         name: "imdbFinds",
         title: LocalizedStringResource("Find"),
         isSwitch: false,
@@ -18357,7 +17910,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let spotifyShows = SearchProviderOption(
-        tag: 30,
+        tag: 25,
         name: "spotifyShows",
         title: LocalizedStringResource("Show"),
         isSwitch: false,
@@ -18375,7 +17928,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let appleMapsShows = SearchProviderOption(
-        tag: 31,
+        tag: 26,
         name: "appleMapsShows",
         title: LocalizedStringResource("Map"),
         isSwitch: false,
@@ -18386,7 +17939,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let googleImagesSafeSearch = SearchProviderOption(
-        tag: 32,
+        tag: 27,
         name: "googleImagesSafeSearch",
         title: LocalizedStringResource("SafeSearch"),
         isSwitch: true,
@@ -18397,7 +17950,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let translateInto = SearchProviderOption(
-        tag: 33,
+        tag: 28,
         name: "translateInto",
         title: LocalizedStringResource("Translate Into"),
         isSwitch: false,
@@ -18427,7 +17980,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let hackerNewsSort = SearchProviderOption(
-        tag: 34,
+        tag: 29,
         name: "hackerNewsSort",
         title: LocalizedStringResource("Sort By"),
         isSwitch: false,
@@ -18438,7 +17991,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let hackerNewsShows = SearchProviderOption(
-        tag: 35,
+        tag: 30,
         name: "hackerNewsShows",
         title: LocalizedStringResource("Show"),
         isSwitch: false,
@@ -18449,7 +18002,7 @@ struct SearchProviderOption: Hashable, Sendable {
         namesRegions: false
     )
     static let appleDeveloperSkipsAI = SearchProviderOption(
-        tag: 36,
+        tag: 31,
         name: "appleDeveloperSkipsAI",
         title: LocalizedStringResource("Skip the AI Answer"),
         isSwitch: true,
@@ -18476,11 +18029,6 @@ struct SearchProviderOption: Hashable, Sendable {
         kagiExactWords,
         yahooStrictSafeSearch,
         qwantRegion,
-        chatGPTSearchesWeb,
-        chatGPTTemporaryChat,
-        chatGPTModel,
-        kagiAssistantModel,
-        kagiAssistantWebAccess,
         youTubeShows,
         wikipediaLanguage,
         wikipediaListsResults,

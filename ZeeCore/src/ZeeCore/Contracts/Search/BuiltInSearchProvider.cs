@@ -2,8 +2,7 @@ using ZeeCore.Domain;
 
 namespace ZeeCore.Contracts;
 
-/// A search provider Zee ships: a search engine, an AI assistant or a
-/// website, each describing itself whole: its brand, the shortcuts that name
+/// A search provider Zee ships: a search engine or a website, each describing itself whole: its brand, the shortcuts that name
 /// it in the palette, its search address and suggestions, the options a
 /// person may set for it, and whether a device that never chose offers it.
 /// A device may turn any of them off, give one its own shortcuts and set its
@@ -46,32 +45,6 @@ public sealed class BuiltInSearchProvider {
     public static readonly BuiltInSearchProvider Qwant = new(name: "qwant", title: "Qwant", SearchProviderKind.Engine, ["qw", "qwant"],
         "https://www.qwant.com/?q=%s", suggestions: "https://api.qwant.com/v3/suggest/?q=%s&client=opensearch", color: 0x5C97FF, logo: null,
         isEnabledByDefault: false, options: [SearchProviderOption.QwantRegion]);
-    public static readonly BuiltInSearchProvider ChatGPT = new(name: "chatGPT", title: "ChatGPT", SearchProviderKind.Assistant,
-        ["chatgpt", "gpt"], "https://chatgpt.com/?q=%s", suggestions: null, color: 0x10A37F, logo: null, isEnabledByDefault: true,
-        options: [SearchProviderOption.ChatGPTSearchesWeb, SearchProviderOption.ChatGPTTemporaryChat, SearchProviderOption.ChatGPTModel]);
-    public static readonly BuiltInSearchProvider Claude = new(name: "claude", title: "Claude", SearchProviderKind.Assistant, ["claude"],
-        "https://claude.ai/new?q=%s", suggestions: null, color: 0xD97757, logo: null, isEnabledByDefault: true, options: []);
-    public static readonly BuiltInSearchProvider Perplexity = new(name: "perplexity", title: "Perplexity", SearchProviderKind.Assistant,
-        ["perplexity", "pplx"], "https://www.perplexity.ai/search?q=%s", suggestions: null, color: 0x20B8CD, logo: null,
-        isEnabledByDefault: true, options: []);
-    public static readonly BuiltInSearchProvider GoogleAIMode = new(name: "googleAIMode", title: "Google AI Mode",
-        SearchProviderKind.Assistant, ["aimode", "gai"], "https://www.google.com/search?udm=50&q=%s",
-        suggestions: "https://www.google.com/complete/search?client=chrome&q=%s", color: 0x4285F4, logo: null, isEnabledByDefault: true,
-        options: []);
-    public static readonly BuiltInSearchProvider Grok = new(name: "grok", title: "Grok", SearchProviderKind.Assistant, ["grok"],
-        "https://grok.com/?q=%s", suggestions: null, color: 0x71767B, logo: null, isEnabledByDefault: false, options: []);
-    public static readonly BuiltInSearchProvider LeChat = new(name: "leChat", title: "Le Chat", SearchProviderKind.Assistant,
-        ["mistral", "lechat"], "https://chat.mistral.ai/chat?q=%s", suggestions: null, color: 0xFA520F, logo: null,
-        isEnabledByDefault: false, options: []);
-    public static readonly BuiltInSearchProvider DuckAI = new(name: "duckAI", title: "Duck.ai", SearchProviderKind.Assistant,
-        ["duckai", "ai"], "https://duckduckgo.com/?q=%s&ia=chat", suggestions: null, color: 0xDE5833, logo: null, isEnabledByDefault: false,
-        options: []);
-    public static readonly BuiltInSearchProvider CopilotSearch = new(name: "copilotSearch", title: "Copilot Search",
-        SearchProviderKind.Assistant, ["copilot"], "https://www.bing.com/copilotsearch?q=%s",
-        suggestions: "https://www.bing.com/osjson.aspx?query=%s", color: 0x2870EA, logo: null, isEnabledByDefault: false, options: []);
-    public static readonly BuiltInSearchProvider KagiAssistant = new(name: "kagiAssistant", title: "Kagi Assistant",
-        SearchProviderKind.Assistant, ["kagiai"], "https://kagi.com/assistant?q=%s", suggestions: null, color: 0xFFB319, logo: null,
-        isEnabledByDefault: false, options: [SearchProviderOption.KagiAssistantModel, SearchProviderOption.KagiAssistantWebAccess]);
     public static readonly BuiltInSearchProvider YouTube = new(name: "youTube", title: "YouTube", SearchProviderKind.Website, ["yt", "youtube"],
         "https://www.youtube.com/results?search_query=%s",
         suggestions: "https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=%s", color: 0xFF0000, logo: null,
@@ -136,7 +109,7 @@ public sealed class BuiltInSearchProvider {
 
     /// Every built-in, in the order Settings lists them within their kind.
     public static IReadOnlyList<BuiltInSearchProvider> All { get; } = [Google, DuckDuckGo, Bing, Ecosia, Brave, Startpage, Kagi, Yahoo,
-        Qwant, ChatGPT, Claude, Perplexity, GoogleAIMode, Grok, LeChat, DuckAI, CopilotSearch, KagiAssistant, YouTube, Wikipedia, GitHub,
+        Qwant, YouTube, Wikipedia, GitHub,
         Reddit, X, StackOverflow, MDN, Amazon, IMDb, Spotify, FigmaCommunity, GoogleMaps, AppleMaps, GoogleImages, GoogleTranslate,
         WolframAlpha, HackerNews, Npm, AppleDeveloper];
 

@@ -31,7 +31,8 @@ public sealed class ImportSource {
         dataFolder: "Library/Application Support/Arc", description: "Spaces, tabs, folders, colors, icons, and passwords",
         symbol: "sidebar.left", accent: SpaceAccent.Indigo, spaceHeaderStyle: ImportSpaceHeaderStyle.SectionLabel,
         safeStorageService: "Arc Safe Storage", pinnedSectionTitle: "FAVORITES", listsNewTab: true, spaceName: "Imported Arc Tabs",
-        numberedSpaceName: "Imported Arc Space %lld");
+        numberedSpaceName: "Imported Arc Space %lld", outlivingFile: "StorableSidebar.json", isChosenFirst: true,
+        stopsWorkingAt: new DateTimeOffset(2026, 12, 22, 0, 0, 0, TimeSpan.Zero));
     public static readonly ImportSource Zen = new(name: "zen", title: "Zen", bundleIdentifier: "app.zen-browser.zen",
         dataFolder: "Library/Application Support/zen/Profiles",
         description: "Spaces, Essentials, pinned tabs, folders, open tabs, and colors", symbol: "circle.hexagongrid.fill",
@@ -155,6 +156,20 @@ public sealed class ImportSource {
     /// own; `OtherChromium` stands for any browser setup finds by looking.
     public bool IsListed { get; }
 
+    /// The file in `DataFolder` that shows the browser's data is still there
+    /// once its app is gone, or null for a browser offered only while
+    /// installed. Arc stopped working, so a person who deleted it can still
+    /// bring what it kept.
+    public string? OutlivingFile { get; }
+
+    /// Setup chooses the browser when it first offers it, since a person
+    /// who has it most likely came to Zee to leave it.
+    public bool IsChosenFirst { get; }
+
+    /// When the browser stops working, for one its makers are shutting down,
+    /// or null. Zee urges a person to bring its data before then.
+    internal DateTimeOffset? StopsWorkingAt { get; }
+
     #endregion
 
     #region Constructors
@@ -162,7 +177,8 @@ public sealed class ImportSource {
     private ImportSource(string name, string title, string bundleIdentifier, string dataFolder, string description, string symbol,
         SpaceAccent accent, ImportSpaceHeaderStyle spaceHeaderStyle, string? safeStorageService = null,
         string pinnedSectionTitle = "PINNED", string savedSectionTitle = "SAVED", bool listsNewTab = false, string? spaceName = null,
-        string? numberedSpaceName = null, bool isListed = true) {
+        string? numberedSpaceName = null, bool isListed = true, string? outlivingFile = null, bool isChosenFirst = false,
+        DateTimeOffset? stopsWorkingAt = null) {
         Name = name;
         Title = title;
         BundleIdentifier = bundleIdentifier;
@@ -178,6 +194,9 @@ public sealed class ImportSource {
         SpaceName = spaceName;
         NumberedSpaceName = numberedSpaceName;
         IsListed = isListed;
+        OutlivingFile = outlivingFile;
+        IsChosenFirst = isChosenFirst;
+        StopsWorkingAt = stopsWorkingAt;
     }
 
     #endregion

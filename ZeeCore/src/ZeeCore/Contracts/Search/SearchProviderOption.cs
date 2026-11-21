@@ -83,14 +83,6 @@ public sealed class SearchProviderOption {
         code => new AddsParameter("locale", code), Codes(("en_US", "en-US"), ("en_GB", "en-GB"), ("de_DE", "de-DE"), ("de_AT", "de-AT"),
             ("de_CH", "de-CH"), ("fr_FR", "fr-FR"), ("fr_BE", "fr-BE"), ("fr_CH", "fr-CH"), ("es_ES", "es-ES"), ("it_IT", "it-IT"),
             ("nl_NL", "nl-NL"), ("pt_PT", "pt-PT")));
-    public static readonly SearchProviderOption ChatGPTSearchesWeb = Switch("chatGPTSearchesWeb", "Search the Web",
-        new AddsParameter("hints", "search"));
-    public static readonly SearchProviderOption ChatGPTTemporaryChat = Switch("chatGPTTemporaryChat", "Temporary Chat",
-        new AddsParameter("temporary-chat", "true"));
-    public static readonly SearchProviderOption ChatGPTModel = Text("chatGPTModel", "Model", parameter: "model", example: "gpt-5");
-    public static readonly SearchProviderOption KagiAssistantModel = Text("kagiAssistantModel", "Model", parameter: "profile", example: "claude-4-sonnet");
-    public static readonly SearchProviderOption KagiAssistantWebAccess = Switch("kagiAssistantWebAccess", "Web Access",
-        new AddsParameter("internet", "true"));
     public static readonly SearchProviderOption YouTubeShows = Menu("youTubeShows", "Show", (SearchChoice.Everything, []),
         (SearchChoice.Videos, [new AddsParameter("sp", "EgIQAQ%3D%3D")]), (SearchChoice.Shorts, [new AddsParameter("sp", "EgIQCQ%3D%3D")]),
         (SearchChoice.Channels, [new AddsParameter("sp", "EgIQAg%3D%3D")]), (SearchChoice.Playlists, [new AddsParameter("sp", "EgIQAw%3D%3D")]));
@@ -143,8 +135,7 @@ public sealed class SearchProviderOption {
     /// Every option, in the order they were added.
     public static IReadOnlyList<SearchProviderOption> All { get; } = [GoogleHidesAIOverviews, GoogleSafeSearch, GoogleExactWords, DuckDuckGoHidesAI,
         DuckDuckGoSafeSearch, DuckDuckGoRegion, BingMarket, BingStrictSafeSearch, BraveHidesAIAnswers, BraveSafeSearch, BraveCountry,
-        StartpageSafeSearch, KagiExactWords, YahooStrictSafeSearch, QwantRegion, ChatGPTSearchesWeb, ChatGPTTemporaryChat, ChatGPTModel,
-        KagiAssistantModel, KagiAssistantWebAccess, YouTubeShows, WikipediaLanguage, WikipediaListsResults, GitHubSearchesFor, GitHubSort,
+        StartpageSafeSearch, KagiExactWords, YahooStrictSafeSearch, QwantRegion, YouTubeShows, WikipediaLanguage, WikipediaListsResults, GitHubSearchesFor, GitHubSort,
         XLatestFirst, StackOverflowSort, MDNLanguage, AmazonStore, IMDbFinds, SpotifyShows, AppleMapsShows, GoogleImagesSafeSearch,
         TranslateInto, HackerNewsSort, HackerNewsShows, AppleDeveloperSkipsAI];
 

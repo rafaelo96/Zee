@@ -10,7 +10,6 @@ struct SpacePageObjects {
     let downloadFeedback: BrowserMacDownloadFeedbackState?
     let passkeyAccess: BrowserPasskeyAccessController?
     let softwareUpdates: BrowserSoftwareUpdateService?
-    let agentEndpoint: BrowserAgentEndpointStatus?
     let core: ZeeCore?
     let sidebarBands: SpaceSidebarBands?
 }
@@ -31,7 +30,6 @@ struct SpacePageEnvironment: DynamicProperty {
     @Environment(BrowserMacDownloadFeedbackState.self) private var downloadFeedback: BrowserMacDownloadFeedbackState?
     @Environment(BrowserPasskeyAccessController.self) private var passkeyAccess: BrowserPasskeyAccessController?
     @Environment(BrowserSoftwareUpdateService.self) private var softwareUpdates: BrowserSoftwareUpdateService?
-    @Environment(BrowserAgentEndpointStatus.self) private var agentEndpoint: BrowserAgentEndpointStatus?
     @Environment(ZeeCore.self) private var core: ZeeCore?
     @Environment(\.spaceSidebarBands) private var sidebarBands
 
@@ -41,6 +39,6 @@ struct SpacePageEnvironment: DynamicProperty {
         SpacePageObjects(
             sidebarInteraction: sidebarInteraction, extensionSidePanel: extensionSidePanel,
             downloadFeedback: downloadFeedback, passkeyAccess: passkeyAccess, softwareUpdates: softwareUpdates,
-            agentEndpoint: agentEndpoint, core: core, sidebarBands: sidebarBands)
+            core: core, sidebarBands: sidebarBands)
     }
 }

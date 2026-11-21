@@ -11,13 +11,13 @@ public sealed class DevicePlatform {
     /// is never taken. A manual setup left unfinished starts over at the next
     /// launch, setup asks which look its Spaces wear, and it imports from the
     /// browsers installed on it. First-run setup opens in a window of its own
-    /// before any browser window. Agents the person runs on the Mac may use it.
+    /// before any browser window.
     public static readonly DevicePlatform Desktop = new(name: "desktop", warningReleaseLimit: _ => 1,
         criticalReleaseLimit: eligible => Math.Max(1, (eligible + 1) / 2), keepsSetupDraft: false, choosesLook: true,
         importsBrowsers: true,
         sharesPagesAcrossWindows: true,
         forcesSetup: environment => environment.ForcesOnboardingWelcome || environment.ForcesDesktopSetup,
-        setupHoldsFirstWindow: true, showcaseOpensStartPage: false, offersAgents: true, filterConditions: [],
+        setupHoldsFirstWindow: true, showcaseOpensStartPage: false, filterConditions: [],
         engineConditions: ["env_chromium", "ext_ublock"]);
 
     /// iPhone and iPad hold on under warning pressure and give back one page
@@ -26,13 +26,12 @@ public sealed class DevicePlatform {
     /// back through crash recovery when it is shown. An unfinished manual setup
     /// waits for the next launch, since the system may end the app while it is
     /// in the background. Setup asks which look its Spaces wear. First-run
-    /// setup covers the browser, which opens beneath it as the person chose. No
-    /// agent uses it.
+    /// setup covers the browser, which opens beneath it as the person chose.
     public static readonly DevicePlatform Mobile = new(name: "mobile", warningReleaseLimit: _ => 0,
         criticalReleaseLimit: _ => 1, keepsSetupDraft: true, choosesLook: true, importsBrowsers: false,
         sharesPagesAcrossWindows: false,
         forcesSetup: environment => environment.ForcesOnboardingWelcome || environment.ForcesMobileSetup,
-        setupHoldsFirstWindow: false, showcaseOpensStartPage: true, offersAgents: false, filterConditions: ["env_mobile"],
+        setupHoldsFirstWindow: false, showcaseOpensStartPage: true, filterConditions: ["env_mobile"],
         engineConditions: ["env_safari", "ext_ublock"]);
 
     public static IReadOnlyList<DevicePlatform> All { get; } = [Desktop, Mobile];
@@ -68,10 +67,6 @@ public sealed class DevicePlatform {
     /// The core's own rule, which no platform reads.
     internal bool ShowcaseOpensStartPage { get; }
 
-    /// Whether agents the person runs on the device, such as coding agents,
-    /// may use Zee. The core's own rule, which no platform reads.
-    internal bool OffersAgents { get; }
-
     /// The `!#if` tokens that hold on this platform in the filter lists the
     /// core prepares, beside its engine's own. The core's own rule, which no
     /// platform reads.
@@ -96,7 +91,7 @@ public sealed class DevicePlatform {
 
     private DevicePlatform(string name, Func<int, int> warningReleaseLimit, Func<int, int> criticalReleaseLimit,
         bool keepsSetupDraft, bool choosesLook, bool importsBrowsers, bool sharesPagesAcrossWindows,
-        Func<LaunchEnvironment, bool> forcesSetup, bool setupHoldsFirstWindow, bool showcaseOpensStartPage, bool offersAgents,
+        Func<LaunchEnvironment, bool> forcesSetup, bool setupHoldsFirstWindow, bool showcaseOpensStartPage,
         IReadOnlyList<string> filterConditions, IReadOnlyList<string> engineConditions) {
         Name = name;
         KeepsSetupDraft = keepsSetupDraft;
@@ -105,7 +100,6 @@ public sealed class DevicePlatform {
         SharesPagesAcrossWindows = sharesPagesAcrossWindows;
         SetupHoldsFirstWindow = setupHoldsFirstWindow;
         ShowcaseOpensStartPage = showcaseOpensStartPage;
-        OffersAgents = offersAgents;
         FilterConditions = filterConditions;
         EngineConditions = engineConditions;
         this.forcesSetup = forcesSetup;

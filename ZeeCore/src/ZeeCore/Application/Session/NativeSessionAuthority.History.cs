@@ -50,13 +50,12 @@ public sealed partial class NativeSessionAuthority {
     /// The tabs cleanup keeps open in this workspace however long they went
     /// unused: those its windows show or its saved windows will show, those
     /// whose pages run media, such as a video playing in Picture in Picture or
-    /// a screen being shared, and those an agent uses.
+    /// a screen being shared.
     internal IReadOnlySet<Guid>? TabsCleanupKeeps(SessionTurn turn) {
         var shown = Device?.ShownTabs(WorkspaceId);
         var media = turn.Pages?.TabsRunningMedia(WorkspaceId);
-        var agents = Device?.AgentTabs;
         IEnumerable<Guid>? kept = null;
-        foreach (var set in new[] { shown, media, agents }) {
+        foreach (var set in new[] { shown, media }) {
             if (set is { Count: > 0 }) kept = kept is null ? set : kept.Union(set);
         }
         return kept?.ToHashSet() ?? shown;

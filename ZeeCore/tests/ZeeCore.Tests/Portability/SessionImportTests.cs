@@ -89,6 +89,36 @@ public sealed partial class BrowserContractsTests {
         Assert.All(work.Tabs, tab => Assert.Equal(tab.CustomTitle is null ? null : ImportedAt, tab.TitleModifiedAt));
     }
 
+    /// Arc's pinned folders come in nested however deep Zee keeps them, with a
+    /// split view inside a folder kept as a split there. Its archive comes in
+    /// too: each tab in the Space its record names, else the first, once,
+    /// newest first, with an address Zee cannot open left out, and an archive
+    /// file Arc wrote differently, or broken, bringing nothing without failing
+    /// the import.
+    [Fact]
+    public void ArcBringsDeepFoldersSplitsInFoldersAndItsArchive() {
+        var spaces = ReadSession("arc", "arc-archive", "StorableSidebar.json");
+
+        Assert.Equal(["Alpha", "Beta"], spaces.Select(space => space.Settings.Name));
+        var alpha = spaces[0];
+        Assert.Equal([("Top", null), ("Middle", "Top"), ("Bottom", "Middle")], FoldersOf(alpha));
+        Assert.Equal([
+            ("Deepest", TabPlacement.Saved, "https://deepest.example/", "Bottom"),
+            ("Left", TabPlacement.Saved, "https://left.example/", "Top"),
+            ("Right", TabPlacement.Saved, "https://right.example/", "Top")
+        ], TabsOf(alpha));
+        var split = Assert.Single(alpha.SplitGroups);
+        Assert.Equal([null, split.Id, split.Id], alpha.Tabs.Select(tab => tab.SplitGroupId));
+
+        var unplaced = Assert.Single(alpha.ArchivedTabs);
+        Assert.Equal(("Unplaced", TabPlacement.Current, ArchiveReason.Closed),
+            (unplaced.Tab.Title, unplaced.Tab.Placement, unplaced.Reason));
+        var beta = Assert.Single(spaces[1].ArchivedTabs);
+        Assert.Equal(("Old in Beta", "https://old-beta.example/", ArchiveReason.AutoCleanup),
+            (beta.Tab.Title, beta.Tab.Url, beta.Reason));
+        Assert.Equal(ImportDate.FromReferenceSeconds(790000100), beta.ArchivedAt);
+    }
+
     [Fact]
     public void ZenBringsItsSpacesWithTheirEssentialsFoldersAndThemes() {
         var spaces = ReadSession("zen", "zen-rich", Path.Combine("profile", "zen-sessions.jsonlz4"));

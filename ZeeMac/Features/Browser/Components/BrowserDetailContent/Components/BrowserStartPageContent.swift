@@ -22,6 +22,10 @@ struct BrowserStartPageContent: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.browserMacWindows) private var windows
+    /// The core's invitation to bring another browser's data, which the page
+    /// asks for each time it appears.
+    @State private var invitation: ImportInvitation?
 
     var body: some View {
         if let space {
@@ -47,11 +51,41 @@ struct BrowserStartPageContent: View {
                 // The page shows the Space's backdrop, so its title reads in
                 // the Space's scheme, as the sidebar's text does.
                 headerColorScheme: space.settings.look.shown.colorScheme(over: colorScheme),
-                commands: commands
+                commands: commands,
+                invitation: shownInvitation
             )
+            .task { loadInvitation() }
         } else {
             BrowserUnloadedPageSurface()
         }
+    }
+
+    /// The invitation as the page offers it, once the core made one.
+    private var shownInvitation: BrowserStartPageInvitation? {
+        guard let source = invitation?.source, !browser.isPrivateBrowsing else { return nil }
+        return BrowserStartPageInvitation(
+            source: source, stopsWorkingAt: invitation?.stopsWorkingAt,
+            bring: {
+                settle(source)
+                windows?.openOnboardingWindow(.importBrowser)
+            },
+            dismiss: { settle(source) })
+    }
+
+    /// Asks the core which browser, among those whose app or data is on this
+    /// Mac, it invites the person to bring. Finding them reads none of their
+    /// data.
+    private func loadInvitation() {
+        guard !browser.isPrivateBrowsing else { return }
+        let found = BrowserInstalledImportSourceDetector.installedSources().map(\.application)
+        invitation = try? browser.core.query(GetImportInvitation(found: found))
+    }
+
+    /// The person brought `source` or dismissed its invitation, so Zee never
+    /// offers it again here.
+    private func settle(_ source: ImportSource) {
+        _ = try? browser.core.send(SettleImportInvitation(source: source))
+        withAnimation(ZeeMotion.contentNavigation.unlessReducingMotion(reduceMotion)) { invitation = nil }
     }
 
     private func openStartPageURL(

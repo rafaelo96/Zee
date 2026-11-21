@@ -45,4 +45,30 @@ public sealed partial class BrowserContractsTests {
         using var reopened = new ZeeApp(new AppConfiguration(adopting.Path, DevicePlatform.Desktop));
         Assert.Contains(new SetupCompletedChanged(true), reopened.Send(new AdoptSetupCompletion(Completed: false)));
     }
+
+    /// Once setup is done, Zee invites the person to bring Arc while its data
+    /// is on the device, until they import or dismiss it; the device store
+    /// keeps that they did. A browser setup does not choose first brings no
+    /// invitation.
+    [Fact]
+    public void ArcInvitationShowsAfterSetupUntilSettledAndStaysSettled() {
+        using var directory = new StorageDirectory();
+        var document = SavedSession().Document["session"]!.AsObject();
+        var configuration = new AppConfiguration(directory.Path, DevicePlatform.Desktop);
+        using (var app = new ZeeApp(configuration)) {
+            app.Send(Adoption(document));
+            var workspace = TestWorkspaces.OpenStored(app).Workspace;
+            app.Send(new AdoptSetupCompletion(Completed: false));
+            Assert.Null(app.Query(new GetImportInvitation([ImportSource.Arc])).Source);
+            app.Send(new StartSetup(workspace, SetupEntry.FirstRun));
+            app.Send(new FinishSetup(Guid.NewGuid()));
+            Assert.Null(app.Query(new GetImportInvitation([ImportSource.Chrome])).Source);
+            Assert.Equal(ImportSource.Arc, app.Query(new GetImportInvitation([ImportSource.Chrome, ImportSource.Arc])).Source);
+            app.Send(new SettleImportInvitation(ImportSource.Arc));
+            Assert.Null(app.Query(new GetImportInvitation([ImportSource.Arc])).Source);
+        }
+        using var reopened = new ZeeApp(configuration);
+        TestWorkspaces.OpenStored(reopened);
+        Assert.Null(reopened.Query(new GetImportInvitation([ImportSource.Arc])).Source);
+    }
 }

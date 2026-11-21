@@ -1,8 +1,8 @@
 ---
 title: Use the command palette
-description: Search, navigate, switch tabs, revisit history, search any site or ask an AI assistant, and run Zee commands from one field.
+description: Search, navigate, switch tabs, revisit history, search any site, and run Zee commands from one field.
 slug: /command-palette
-keywords: [command palette, address bar, search, commands, tabs, history, top hit, recent tabs, search providers, site search, AI assistant, Tab, autocomplete, scopes, calculator]
+keywords: [command palette, address bar, search, commands, tabs, history, top hit, recent tabs, search providers, site search, Tab, autocomplete, scopes, calculator]
 ---
 
 # Use the command palette
@@ -23,11 +23,11 @@ Before you type, the palette shows **Recent Tabs**, the tabs you used most recen
 
 As you type the start of a site you've typed or opened before, or one a tab shows, the palette fills in the rest of its address in gray. It completes the site name, without `www.`, and once you type a `/`, the next part of the path. **Return** opens what the field shows. Press **Tab**, **Right Arrow**, or **End** to accept the completion and keep typing, or **Escape** or **Delete** to reject it, which makes **Return** run what you typed.
 
-## Search a site or ask an assistant
+## Search a site
 
-Type a provider's shortcut, such as **g** for Google, **ddg** for DuckDuckGo, **yt** for YouTube, **w** for Wikipedia, or **claude**, and press **Tab**; this needs **Tab to search providers**, which is on unless you turn it off. While you type the first word, every provider it names or starts to name shows as a chip under the field, with its shortcut; the first is the one **Tab** chooses, and you can click any of them. Once a provider is chosen, a chip with its icon and color appears beside the field. Type your search and press **Return** to search that provider, or to ask an AI assistant. When what you typed is exactly a shortcut, **Tab** chooses the provider even while the field completes an address. Type `$` before a shortcut, such as `$yt`, and a space to choose the provider without pressing **Tab**. **Space to search providers** in **Settings → Search** turns this off, or lets a shortcut alone, such as `yt`, and a space choose the provider too. Its suggestions, where it offers them, come only from that provider. Press **Escape**, **Delete** in an empty field, or the chip's close control to leave and keep your text.
+Type a provider's shortcut, such as **g** for Google, **ddg** for DuckDuckGo, **yt** for YouTube or **w** for Wikipedia, and press **Tab**; this needs **Tab to search providers**, which is on unless you turn it off. While you type the first word, every provider it names or starts to name shows as a chip under the field, with its shortcut; the first is the one **Tab** chooses, and you can click any of them. Once a provider is chosen, a chip with its icon and color appears beside the field. Type your search and press **Return** to search that provider. When what you typed is exactly a shortcut, **Tab** chooses the provider even while the field completes an address. Type `$` before a shortcut, such as `$yt`, and a space to choose the provider without pressing **Tab**. **Space to search providers** in **Settings → Search** turns this off, or lets a shortcut alone, such as `yt`, and a space choose the provider too. Its suggestions, where it offers them, come only from that provider. Press **Escape**, **Delete** in an empty field, or the chip's close control to leave and keep your text.
 
-Zee offers search engines such as Google, DuckDuckGo, Bing, Brave Search and Startpage; AI assistants such as ChatGPT, Claude and Perplexity; and websites such as YouTube, Wikipedia, GitHub, Reddit and Amazon. Turn providers on or off, change their shortcuts, set their options, choose your default search and the one private windows use, and add your own in **Settings → Search**. Search providers stay on this device.
+Zee offers search engines such as Google, DuckDuckGo, Bing, Brave Search and Startpage, and websites such as YouTube, Wikipedia, GitHub, Reddit and Amazon. Turn providers on or off, change their shortcuts, set their options, choose your default search and the one private windows use, and add your own in **Settings → Search**. Search providers stay on this device.
 
 ## Narrow to one kind of result
 
@@ -52,3 +52,5 @@ Type arithmetic such as `24 * 7` to see the answer; **Return** copies it.
 The palette learns which result you choose for what you type, so the result you usually pick for "gi" leads next time. It remembers this for each Space, or each Sub-Space group, on this device only, never syncs it, and never learns in a private window. Clearing a Space's history forgets it too, and **Settings → Search → Clear Learned Choices** forgets everything it learned.
 
 Search suggestions from your search engine are optional, never fetched in a private window, and separate from the tabs, history, and actions the palette finds on your device.
+
+Zee has no AI built in and ships no AI assistant. Google, DuckDuckGo and Brave Search each have an option that hides their AI answers.

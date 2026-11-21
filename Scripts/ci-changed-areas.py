@@ -52,7 +52,7 @@ SHARED_METADATA = Area(
 )
 MAC_ONLY = Area(
     name="macOS only",
-    folders=("ZeeMac/", "ZeeEngines/", "ZeeDockTilePlugin/", "ZeeTests/", "ZeeAgents/", "ZeeAgentHelper/"))
+    folders=("ZeeMac/", "ZeeEngines/", "ZeeDockTilePlugin/", "ZeeTests/"))
 IOS_ONLY = Area(name="iOS only", folders=("ZeeMobile/", "ZeeMobileTests/"))
 
 

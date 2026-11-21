@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// The start page's column: the header, then the palette.
+/// The start page's column: the header, the palette, then any invitation to
+/// bring another browser's data.
 struct BrowserStartPageStack: View {
     let page: BrowserStartPage
 
@@ -21,6 +22,9 @@ struct BrowserStartPageStack: View {
                 .environment(
                     \.colorScheme,
                     ZeeSurfaceTone.shownScheme(over: page.headerColorScheme ?? colorScheme, window: colorScheme))
+            if let invitation = page.invitation, !page.isPrivateBrowsing {
+                BrowserStartPageInvitationCard(invitation: invitation)
+            }
         }
         .padding(page.layout.padding)
         .frame(maxWidth: page.layout.maximumWidth)

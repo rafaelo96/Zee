@@ -110,7 +110,6 @@ internal sealed partial class Device {
         defaultEngine = records.DefaultEngine;
         shortcuts = records.Shortcuts;
         links = records.Links;
-        agents = records.Agents;
         keptSetupDraft = platform.KeepsSetupDraft ? records.SetupDraft : null;
         setupCompleted = records.SetupCompleted;
         reopeningPages = quitWhileReopening = records.ReopeningPages;
@@ -118,6 +117,7 @@ internal sealed partial class Device {
         keptTabGroups.AddRange(records.TabGroups);
         paletteMemories = records.PaletteMemories.ToImmutableDictionary();
         searchCatalog = records.SearchCatalog;
+        settledInvitations.UnionWith(records.SettledInvitations);
         RestoreContentBlocking(records);
     }
 
@@ -345,13 +345,13 @@ internal sealed partial class Device {
         new HashSet<DeviceAdoption>(adopted), [.. keptTabGroups], defaultEngine) {
         PaletteMemories = paletteMemories,
         SearchCatalog = searchCatalog,
-        Agents = agents,
         ReopeningPages = reopeningPages,
         ContentBlockingLevel = contentBlockingLevel,
         FilterListChoices = new Dictionary<FilterList, bool>(filterListChoices),
         BlockingSites = [.. keptBlockingSites],
         CustomFilterLists = [.. customFilterLists],
-        CustomFilters = customFilters
+        CustomFilters = customFilters,
+        SettledInvitations = new HashSet<ImportSource>(settledInvitations)
     };
 
     #endregion

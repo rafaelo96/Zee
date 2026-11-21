@@ -149,7 +149,6 @@ final class ZeeCore {
         let installed = zee_app_set_wake(handle, relayCoreWake, Unmanaged.passUnretained(wake).toOpaque())
         guard installed == ZEE_OK else { Self.buildBug(installed, "set its wake callback") }
         state.enginePreferences = try query(GetEnginePreferences())
-        state.agentPreferences = try query(GetAgentPreferences())
         state.filterLists = try query(GetFilterLists())
         state.blockingSites = try query(GetSiteContentBlocking())
     }

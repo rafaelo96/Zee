@@ -14,8 +14,7 @@ final class BrowserDialogPresenter {
 
     /// The window a question attaches to as a sheet: the key or main window,
     /// or Zee's frontmost window while Zee is in the background, so a
-    /// question waiting on the person never holds up the rest of Zee, such
-    /// as an agent answering a page's dialog.
+    /// question waiting on the person never holds up the rest of Zee.
     private var hostWindow: NSWindow? {
         NSApp.keyWindow ?? NSApp.mainWindow
             ?? NSApp.orderedWindows.first { $0.isVisible && $0.canBecomeKey && $0.sheetParent == nil }
@@ -430,128 +429,6 @@ final class BrowserDialogPresenter {
                     returning: response == (keeps ? .alertSecondButtonReturn : .alertFirstButtonReturn))
             }
         }
-    }
-
-    /// Whether `agent`, which macOS vouches for by its code signature, may use
-    /// Zee. The question names the program macOS verified, never what the
-    /// agent says of itself, except for a general interpreter, whose approval
-    /// covers the agent by the name it gives. Zee comes forward, since the
-    /// person is likely in the agent's terminal when it asks, and declining is
-    /// the default. A `dismissal` closes the question unanswered.
-    func approveAgent(
-        _ agent: BrowserAgentPeer.Program, client: AgentClientInfo?, dismissal: BrowserPromptDismissal? = nil
-    ) async -> Bool {
-        await withCheckedContinuation { continuation in
-            let alert = NSAlert()
-            alert.messageText = String(localized: "Allow “\(agent.name)” to use Zee?")
-            // A signed program is known by its signer; an unsigned one only by
-            // where it is.
-            var lines =
-                agent.signer.map { [String(localized: "Signed by \($0).")] }
-                ?? [String(localized: "This program isn’t signed by a developer."), agent.path]
-            if agent.isInterpreter, let named = client.map({ Self.shown($0.name) }), !named.isEmpty {
-                lines.append(
-                    String(
-                        localized:
-                            "\(agent.name) runs other programs. Allowing it lets any program it runs that calls itself “\(named)” use Zee."
-                    ))
-            }
-            lines.append(
-                String(
-                    localized:
-                        "It can read and act on tabs and history in the Spaces you choose in Settings › Agents, and open windows. Every tab it uses shows its badge."
-                ))
-            alert.informativeText = lines.joined(separator: "\n\n")
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: String(localized: "Don’t Allow"))
-            alert.addButton(withTitle: String(localized: "Allow"))
-            if !NSApp.isActive { NSApp.requestUserAttention(.criticalRequest) }
-            present(alert, comesForward: true, dismissal: dismissal) { response in
-                continuation.resume(returning: response == .alertSecondButtonReturn)
-            }
-        }
-    }
-
-    /// Whether the agent may remove every visit to an address from a Space's
-    /// history. Keeping the history is the default, and Zee comes forward,
-    /// since the person is likely in the agent's terminal when it asks.
-    func approveHistoryDeletion(_ deletion: BrowserAgentHistoryDeletion, dismissal: BrowserPromptDismissal? = nil)
-        async -> Bool
-    {
-        await withCheckedContinuation { continuation in
-            let alert = NSAlert()
-            let agent = Self.shown(deletion.agentName)
-            let space = Self.shown(deletion.spaceName)
-            alert.messageText = String(localized: "Let “\(agent)” delete history?")
-            alert.informativeText = String(
-                localized:
-                    "It removes every visit to \(Self.shown(address: deletion.address)) from the \(space) Space’s history."
-            )
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: String(localized: "Keep History"))
-            alert.addButton(withTitle: String(localized: "Delete"))
-            alert.buttons[1].hasDestructiveAction = true
-            if !NSApp.isActive { NSApp.requestUserAttention(.criticalRequest) }
-            present(alert, comesForward: true, dismissal: dismissal) { response in
-                continuation.resume(returning: response == .alertSecondButtonReturn)
-            }
-        }
-    }
-
-    /// Whether the agent may open a window, and whether it may again without
-    /// asking until it disconnects. Not opening one is the default, and Zee
-    /// comes forward, since the person is likely in the agent's terminal when
-    /// it asks.
-    func approveWindow(_ opening: BrowserAgentWindowOpening, dismissal: BrowserPromptDismissal? = nil) async
-        -> BrowserAgentAnswer
-    {
-        await withCheckedContinuation { continuation in
-            let alert = NSAlert()
-            alert.messageText = opening.kind.question(naming: Self.shown(opening.agentName))
-            if let detail = opening.kind.detail(
-                space: opening.spaceName.map { Self.shown($0) },
-                address: opening.address.map { Self.shown(address: $0) })
-            {
-                alert.informativeText = detail
-            }
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: String(localized: "Don’t Allow"))
-            alert.addButton(withTitle: String(localized: "Allow"))
-            alert.showsSuppressionButton = !opening.kind.asksEachTime
-            alert.suppressionButton?.title = String(localized: "Don’t ask again until it disconnects")
-            if !NSApp.isActive { NSApp.requestUserAttention(.criticalRequest) }
-            present(alert, comesForward: true, dismissal: dismissal) { [weak alert] response in
-                guard response == .alertSecondButtonReturn else { return continuation.resume(returning: .declined) }
-                let lasts = alert?.suppressionButton?.state == .on
-                continuation.resume(returning: lasts ? .whileConnected : .once)
-            }
-        }
-    }
-
-    /// `name` as a question may show it: without control or formatting
-    /// characters, such as the ones that reverse text, and at most 64
-    /// characters.
-    private static func shown(_ name: String) -> String {
-        printable(name).split(whereSeparator: \.isWhitespace).joined(separator: " ").prefix(64).description
-    }
-
-    /// `address` as a question may show it: without control or formatting
-    /// characters, and at most 200 characters, cut in the middle.
-    private static func shown(address: String) -> String {
-        let kept = printable(address)
-        guard kept.count > 200 else { return kept }
-        return "\(kept.prefix(120))…\(kept.suffix(79))"
-    }
-
-    /// `text` without control or formatting characters.
-    private static func printable(_ text: String) -> String {
-        let kept = text.unicodeScalars.filter { scalar in
-            switch scalar.properties.generalCategory {
-            case .control, .format, .lineSeparator, .paragraphSeparator, .surrogate, .privateUse, .unassigned: false
-            default: true
-            }
-        }
-        return String(String.UnicodeScalarView(kept))
     }
 
     /// Whether to quit and stop the `count` downloads still in progress.

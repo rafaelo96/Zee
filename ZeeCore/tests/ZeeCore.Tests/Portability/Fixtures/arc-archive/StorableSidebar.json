@@ -1,0 +1,19 @@
+{"sidebar":{"containers":[
+  {"items":[
+    "pinned-a",{"id":"pinned-a","childrenIds":["top"],"data":{"itemContainer":{}}},
+    "top",{"id":"top","title":"Top","childrenIds":["middle","split"],"data":{"list":{}}},
+    "middle",{"id":"middle","title":"Middle","childrenIds":["bottom"],"data":{"list":{}}},
+    "bottom",{"id":"bottom","title":"Bottom","childrenIds":["deepest"],"data":{"list":{}}},
+    "deepest",{"id":"deepest","data":{"tab":{"savedTitle":"Deepest","savedURL":"https://deepest.example/"}}},
+    "split",{"id":"split","childrenIds":["left","right"],"data":{"splitView":{}}},
+    "left",{"id":"left","data":{"tab":{"savedTitle":"Left","savedURL":"https://left.example/"}}},
+    "right",{"id":"right","data":{"tab":{"savedTitle":"Right","savedURL":"https://right.example/"}}},
+    "today-b",{"id":"today-b","childrenIds":["open-b"],"data":{"itemContainer":{}}},
+    "open-b",{"id":"open-b","data":{"tab":{"savedTitle":"Open B","savedURL":"https://open-b.example/"}}}
+  ],
+  "spaces":[
+    "space-a",{"id":"space-a","title":"Alpha","profile":{"default":true},"containerIDs":["pinned","pinned-a"]},
+    "space-b",{"id":"space-b","title":"Beta","profile":{"default":true},"containerIDs":["unpinned","today-b"]}
+  ],
+  "topAppsContainerIDs":[]}
+]}}

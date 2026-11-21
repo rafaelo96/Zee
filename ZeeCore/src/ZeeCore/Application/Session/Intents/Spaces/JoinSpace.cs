@@ -47,8 +47,7 @@ public sealed record JoinSpace(Guid WorkspaceId, Guid SpaceId, Guid GroupSpaceId
     /// The group stays open on this device where either side was: the
     /// joining Space takes the grant this process holds for the group's
     /// primary, and a group that locks because the joining Space was locked
-    /// takes the joining Space's grant. Agents reach the joining Space only
-    /// while they reach the group, and where the group already chose for a
+    /// takes the joining Space's grant. Where the group already chose for a
     /// site, its choice stands.
     internal override void Commit(ZeeApp app, ChangeFeed changes) {
         base.Commit(app, changes);
@@ -57,7 +56,6 @@ public sealed record JoinSpace(Guid WorkspaceId, Guid SpaceId, Guid GroupSpaceId
         SpaceAccessAssignment primary = new(group.Primary.Id, group.Primary.OwnProfileId), joining = new(joined.Id, joined.OwnProfileId);
         app.Access.Changing(changes, authority => [.. authority.Extend(primary, joining),
             .. group.Members.SelectMany(member => authority.Extend(joining, new(member.Id, member.OwnProfileId)))]);
-        app.Device.ShareAgents(joined.Id, group.Primary.Id, changes);
         app.Device.ShareSitePermissions(joined.Id, changes);
     }
 

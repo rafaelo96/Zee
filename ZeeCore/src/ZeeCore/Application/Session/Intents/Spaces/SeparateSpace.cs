@@ -26,15 +26,4 @@ public sealed record SeparateSpace(Guid WorkspaceId, Guid SpaceId) : SessionInte
     }
 
     #endregion
-
-    #region Actions - Routing
-
-    /// The separated Space keeps the agent choice of the group it left.
-    internal override void Commit(ZeeApp app, ChangeFeed changes) {
-        var primaryId = app.Device.Workspace(WorkspaceId).Current.Space(SpaceId)?.PrimaryId;
-        base.Commit(app, changes);
-        if (primaryId is { } primary) app.Device.ShareAgents(SpaceId, primary, changes);
-    }
-
-    #endregion
 }

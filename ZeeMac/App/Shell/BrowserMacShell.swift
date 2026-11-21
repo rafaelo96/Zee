@@ -18,7 +18,6 @@ final class BrowserMacShell {
         let menuBar: BrowserMacMenuBar
         let dockMenu: BrowserMacDockMenu
         let externalOpening: BrowserMacExternalOpening
-        let agents: BrowserMacAgents
     }
 
     /// Links and documents that arrived before the launch finished, and the
@@ -104,8 +103,7 @@ final class BrowserMacShell {
             application: application, windows: windows,
             quit: BrowserMacQuit(application: application, windows: windows), menuBar: menuBar,
             dockMenu: BrowserMacDockMenu(application: application, windows: windows),
-            externalOpening: BrowserMacExternalOpening(application: application, windows: windows),
-            agents: BrowserMacAgents(application: application, windows: windows))
+            externalOpening: BrowserMacExternalOpening(application: application, windows: windows))
         recovery?.close()
         recovery = nil
         guard application.presentsInstalledApplicationUI else { return }
@@ -125,7 +123,6 @@ final class BrowserMacShell {
         quickWindowShortcut?.start()
         mouseButtons.start()
         recentTabSwitcher.start(in: self)
-        running?.agents.start()
         application.filterLists.start()
         Task { await application.cloudSync.start() }
         if !background { NSApp.activate(ignoringOtherApps: true) }
@@ -156,11 +153,7 @@ final class BrowserMacShell {
     /// or once the quit was finished, so the entry point quits at once.
     func requestQuit(finish: @escaping @MainActor (_ allowed: Bool) -> Void) -> Bool {
         guard let running else { return false }
-        return running.quit.request { allowed in
-            // No agent reaches a Zee that is going.
-            if allowed { running.agents.stop() }
-            finish(allowed)
-        }
+        return running.quit.request { allowed in finish(allowed) }
     }
 
     /// A Dock click or `Open` with no Zee window. An open window comes

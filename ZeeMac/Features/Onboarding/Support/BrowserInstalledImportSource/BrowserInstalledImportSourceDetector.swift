@@ -2,22 +2,33 @@ import AppKit
 
 @MainActor
 enum BrowserInstalledImportSourceDetector {
-    /// Each browser Zee imports from that is installed, found by its app
-    /// alone. Reading another app's data can make macOS warn that Zee
-    /// looked at it, so setup reads none until the person asks.
+    /// Each browser Zee imports from that is installed, found by its app,
+    /// and each whose data outlives its app, found by that file being there.
+    /// Reading another app's data can make macOS warn that Zee looked at it,
+    /// so setup reads none until the person asks.
     static func installedSources(
         workspace: NSWorkspace = .shared
     ) -> [BrowserInstalledImportSource] {
         ImportSource.all.compactMap { application in
-            guard
-                let url = workspace.urlForApplication(
-                    withBundleIdentifier: application.bundleIdentifier
-                )
-            else { return nil }
-            let icon = workspace.icon(forFile: url.path)
-            icon.size = NSSize(width: 64, height: 64)
-            return BrowserInstalledImportSource(application: application, applicationURL: url, icon: icon)
+            if let url = workspace.urlForApplication(withBundleIdentifier: application.bundleIdentifier) {
+                let icon = workspace.icon(forFile: url.path)
+                icon.size = NSSize(width: 64, height: 64)
+                return BrowserInstalledImportSource(application: application, applicationURL: url, icon: icon)
+            }
+            return leftBehind(application)
         }
+    }
+
+    /// `application` without its app, when the file its data outlives the
+    /// app by is still in its data folder, under the browser's own symbol.
+    private static func leftBehind(_ application: ImportSource) -> BrowserInstalledImportSource? {
+        let folder = application.defaultDataDirectory
+        guard let file = application.outlivingFile,
+            FileManager.default.fileExists(atPath: folder.appendingPathComponent(file).path),
+            let icon = NSImage(systemSymbolName: application.symbol, accessibilityDescription: application.title)
+        else { return nil }
+        icon.size = NSSize(width: 64, height: 64)
+        return BrowserInstalledImportSource(application: application, applicationURL: folder, icon: icon)
     }
 
     /// `source` with what the core finds in its data folder.

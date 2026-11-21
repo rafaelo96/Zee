@@ -33,7 +33,6 @@ struct BrowserSettingsDestination: Hashable, Identifiable, Sendable {
         case featureFlags
         case advanced
         case about
-        case agents
     }
 
     // MARK: - Static Variables
@@ -112,11 +111,6 @@ struct BrowserSettingsDestination: Hashable, Identifiable, Sendable {
         kind: .advanced, name: "advanced", title: "Advanced", subtitle: "Import, export, and runtime",
         searchTerms: "import export backup portability data records", symbol: "switch.2",
         tincture: .stormGunmetal)
-    static let agents = BrowserSettingsDestination(
-        kind: .agents, name: "agents", title: "Agents", subtitle: "Coding agents and scripts",
-        searchTerms:
-            "agents AI MCP model context protocol coding agents scripts automation Claude Codex Cursor command line terminal",
-        symbol: "sparkles", tincture: .meadowForest)
     static let about = BrowserSettingsDestination(
         kind: .about, name: "about", title: "About", subtitle: "Version, updates, and support",
         searchTerms:
@@ -126,7 +120,7 @@ struct BrowserSettingsDestination: Hashable, Identifiable, Sendable {
     /// Every destination, in catalog order.
     static let all: [BrowserSettingsDestination] = [
         general, tabs, search, engines, lookAndFeel, links, shortcuts, spaces, sync, privacy, adBlocking, passwords,
-        extensions, featureFlags, agents, advanced, about,
+        extensions, featureFlags, advanced, about,
     ]
 
     // MARK: - Variables

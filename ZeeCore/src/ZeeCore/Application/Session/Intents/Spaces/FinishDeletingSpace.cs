@@ -39,7 +39,7 @@ public sealed record FinishDeletingSpace(Guid WorkspaceId, Guid WindowId, Guid S
     /// A Space's deletion finishes only once this run erased, on every
     /// registered engine, the data of each profile its deletion erases; a
     /// Space the session no longer holds is the session's to refuse. A deleted
-    /// Space leaves nothing in this device's link, agent or site preferences,
+    /// Space leaves nothing in this device's link or site preferences,
     /// except the site choices a primary kept for the group it handed over,
     /// which its successor keeps.
     internal override void Commit(ZeeApp app, ChangeFeed changes) {
@@ -50,7 +50,6 @@ public sealed record FinishDeletingSpace(Guid WorkspaceId, Guid WindowId, Guid S
         if (deletion?.SuccessorId is { } successor) app.Device.HandOverSitePermissions(SpaceId, successor, changes);
         app.Device.ForgetSitePermissions(SpaceId, changes);
         app.Device.ForgetLinks(SpaceId, changes);
-        app.Device.ForgetAgents(SpaceId, changes);
         app.Device.ForgetBlockingSites(SpaceId, changes);
     }
 

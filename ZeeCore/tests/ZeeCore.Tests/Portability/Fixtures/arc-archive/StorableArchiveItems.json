@@ -1,0 +1,10 @@
+{"version":1,"items":[
+  "a1",{"id":"a1","spaceID":"space-b","archivedAt":790000100,"reason":{"autoArchived":{}},
+    "sidebarItem":{"id":"s1","data":{"tab":{"savedTitle":"Old in Beta","savedURL":"https://old-beta.example/","timeLastActiveAt":790000000}}}},
+  "a2",{"id":"a2","archivedAt":790000200,"reason":"closedManually",
+    "sidebarItem":{"id":"s2","data":{"tab":{"savedTitle":"Unplaced","savedURL":"https://unplaced.example/"}}}},
+  "a3",{"id":"a3","spaceID":"space-b","archivedAt":790000300,
+    "sidebarItem":{"id":"s3","data":{"tab":{"savedTitle":"Arc note","savedURL":"arc://notes/abc"}}}},
+  "a1",{"id":"a1","spaceID":"space-b","archivedAt":790000100,"reason":{"autoArchived":{}},
+    "sidebarItem":{"id":"s1","data":{"tab":{"savedTitle":"Old in Beta","savedURL":"https://old-beta.example/","timeLastActiveAt":790000000}}}}
+]}

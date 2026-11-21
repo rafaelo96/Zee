@@ -46,8 +46,8 @@ public sealed partial class BrowserContractsTests {
         Assert.Equal(("brave", "brave", true), (Stored()["selectedSearchProviderID"]!.GetValue<string>(),
             Stored()["searchProvider"]!.GetValue<string>(), Stored()["searchFollowsDefault"]!.GetValue<bool>()));
         Assert.Empty(Stored()["customSearchProviders"]!.AsArray());
-        device.Send(new SetDefaultSearch(core.SearchCatalog.Resolving(BuiltInSearchProvider.ChatGPT)));
-        Assert.Equal("chatGPT", Searches().Name);
+        device.Send(new SetDefaultSearch(core.SearchCatalog.Resolving(BuiltInSearchProvider.Qwant)));
+        Assert.Equal("qwant", Searches().Name);
 
         Assert.IsType<UnsuitableDefaultSearch>(Assert.Throws<Rejected>(() => device.Send(new SetSpaceSearch(device.Workspace, space,
             core.SearchCatalog.Resolving(BuiltInSearchProvider.YouTube), null))).Rejection);

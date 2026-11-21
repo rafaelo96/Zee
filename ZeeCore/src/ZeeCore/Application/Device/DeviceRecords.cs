@@ -21,8 +21,7 @@ internal sealed record TabGroupRecord(Guid Id, Guid SpaceId, EngineKind Engine, 
 /// unfinished manual setup it keeps for the next launch, whether this device
 /// has completed setup, what it has adopted from an installed release, the
 /// tab groups whose folders follow them, the site searches, what each
-/// persistent Space's palette remembers, the agent preferences, and whether a
-/// launch is reopening its windows' pages.
+/// persistent Space's palette remembers, and whether a launch is reopening its windows' pages.
 internal sealed record DeviceRecords(IReadOnlyList<SavedWindow> Windows, IReadOnlyList<Guid> Reopening,
     IReadOnlyList<SitePermissionRecord> SitePermissions, IReadOnlyList<SiteEngineChoice> SiteEngines, ShortcutOverrides Shortcuts,
     LinkPreferences Links, KeptSetupDraft? SetupDraft, bool SetupCompleted, IReadOnlySet<DeviceAdoption> Adopted,
@@ -41,9 +40,6 @@ internal sealed record DeviceRecords(IReadOnlyList<SavedWindow> Windows, IReadOn
 
     /// The device's search catalog, or null before the platform first restored it.
     public SearchCatalog? SearchCatalog { get; init; }
-
-    /// Whether agents may use Zee, and what the person allowed them.
-    public AgentPreferences Agents { get; init; } = AgentPreferences.Off;
 
     /// A launch is reopening its windows' pages, which it does until they
     /// settle or the person agrees to quit.
@@ -65,6 +61,9 @@ internal sealed record DeviceRecords(IReadOnlyList<SavedWindow> Windows, IReadOn
 
     /// The person's own filters.
     public string CustomFilters { get; init; } = "";
+
+    /// The browsers whose import invitation the person settled.
+    public IReadOnlySet<ImportSource> SettledInvitations { get; init; } = new HashSet<ImportSource>();
 
     #endregion
 
@@ -92,13 +91,13 @@ internal sealed record DeviceRecords(IReadOnlyList<SavedWindow> Windows, IReadOn
         && Equals(SearchCatalog, other.SearchCatalog)
         && PaletteMemories.Count == other.PaletteMemories.Count
         && PaletteMemories.All(entry => other.PaletteMemories.TryGetValue(entry.Key, out var memory) && ReferenceEquals(memory, entry.Value))
-        && Agents.Equals(other.Agents)
         && ReopeningPages == other.ReopeningPages
         && ContentBlockingLevel == other.ContentBlockingLevel
         && FilterListChoices.Count == other.FilterListChoices.Count
         && FilterListChoices.All(entry => other.FilterListChoices.TryGetValue(entry.Key, out bool isOn) && isOn == entry.Value)
         && BlockingSites.SequenceEqual(other.BlockingSites)
-        && CustomFilterLists.SequenceEqual(other.CustomFilterLists) && CustomFilters == other.CustomFilters;
+        && CustomFilterLists.SequenceEqual(other.CustomFilterLists) && CustomFilters == other.CustomFilters
+        && SettledInvitations.SetEquals(other.SettledInvitations);
 
     public override int GetHashCode() => HashCode.Combine(Windows.Count, SitePermissions.Count, Adopted.Count);
 

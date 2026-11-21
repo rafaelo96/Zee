@@ -59,11 +59,10 @@ public sealed partial class BrowserContractsTests {
         Assert.IsType<SetupFlowChanged>(changes.Last(change => change is SetupFlowChanged)).Flow!;
 
     /// Opens setup over `device`'s workspace and reviews `spaces`, as Arc
-    /// brought them.
+    /// brought them. Setup chooses Arc itself when it first offers it.
     private static SetupImportReview Reviewing(TestDevice device, params JsonNode[] spaces) {
         device.Send(new StartSetup(device.Workspace, SetupEntry.ImportBrowser));
-        device.Send(new OfferImportSources([ImportSource.Arc]));
-        device.Send(new ToggleImportSource(ImportSource.Arc));
+        Assert.Equal([ImportSource.Arc], Flowing(device.Send(new OfferImportSources([ImportSource.Chrome, ImportSource.Arc]))).Selected);
         device.Send(new ContinueImport());
         return Flowing(device.Send(new ReviewImport(ImportSource.Arc, ReadSpaces(spaces), []))).Review!;
     }

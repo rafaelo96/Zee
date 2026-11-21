@@ -29,7 +29,7 @@ Every Space of a group uses the same:
 - Extensions on Mac
 - Site permissions and content-blocking choices
 - How long History, Archived Tabs and Download Records are kept
-- Lock, and whether coding agents may use it
+- Lock
 
 Each Space keeps its own:
 

@@ -80,6 +80,9 @@ struct BrowserOnboardingWelcomePage: View {
                 Text("Your browser, your way.")
                     .font(ZeeTypography.sans(21, weight: .medium))
                     .foregroundStyle(ZeeBrandTheme.textDisplay.opacity(0.88))
+                Text("No AI built in. Your tabs stay yours.")
+                    .font(ZeeTypography.sans(15, weight: .regular))
+                    .foregroundStyle(ZeeBrandTheme.textDisplay.opacity(0.72))
             }
             BrowserOnboardingWelcomeCallToAction(
                 action: action,

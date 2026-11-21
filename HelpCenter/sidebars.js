@@ -40,7 +40,6 @@ const sidebars = {
         'browsing/link-routing',
         'browsing/page-tools',
         'browsing/localhost-developer-tools',
-        'browsing/coding-agents',
       ],
     },
     {

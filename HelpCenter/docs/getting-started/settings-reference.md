@@ -11,7 +11,7 @@ Open **Zee → Settings** on Mac. On iPhone and iPad, open Settings from the bro
 
 On Mac and wider iPad windows, Settings opens as a browser tab and keeps your place when you switch away. In compact layouts, including iPhone, it opens as a dismissible sheet while your current page stays selected.
 
-On Mac, the Settings sidebar lists General, Tabs, Search, Appearance, Links, Engines, Shortcuts, Sync, and Privacy, then each of your Spaces by name and badge, then Agents, Advanced and About. iPhone and iPad keep their own layout; see [iPhone and iPad](#iphone-and-ipad).
+On Mac, the Settings sidebar lists General, Tabs, Search, Appearance, Links, Engines, Shortcuts, Sync, and Privacy, then each of your Spaces by name and badge, then Advanced and About. iPhone and iPad keep their own layout; see [iPhone and iPad](#iphone-and-ipad).
 
 ## General
 
@@ -23,7 +23,7 @@ Choose whether tabs opened from links get focus with **Switch to tabs opened fro
 
 ## Search
 
-- **Default search**: the search engine or AI assistant every Space uses unless it chose its own, the one **Private windows** use, and whether the default gives **Search suggestions**. **Tab to search providers** lets Tab choose a provider by its name or shortcut in the command palette, and **Space to search providers** lets a space after `$` and a shortcut, or after a shortcut alone, choose it.
+- **Default search**: the search engine every Space uses unless it chose its own, the one **Private windows** use, and whether the default gives **Search suggestions**. **Tab to search providers** lets Tab choose a provider by its name or shortcut in the command palette, and **Space to search providers** lets a space after `$` and a shortcut, or after a shortcut alone, choose it.
 
 The command palette settings come next:
 
@@ -34,8 +34,8 @@ The command palette settings come next:
 
 The search providers come last:
 
-- **Search Engines**, **AI Assistants** and **Websites**: every provider Zee offers, each with its main shortcut. Turn a provider off to stop its shortcut; the default stays on. Click a provider to open it and see its options, such as Google's **Hide AI Overviews** or ChatGPT's **Model**, and to change its shortcuts.
-- **Add Provider…** adds your own search engine, AI assistant or website with a name, shortcuts, search URL and color. **Restore Defaults…** puts the built-in providers' shortcuts and options back; providers you added stay.
+- **Search Engines** and **Websites**: every provider Zee offers, each with its main shortcut. Turn a provider off to stop its shortcut; the default stays on. Click a provider to open it and see its options, such as Google's **Hide AI Overviews**, and to change its shortcuts.
+- **Add Provider…** adds your own search engine or website with a name, shortcuts, search URL and color. **Restore Defaults…** puts the built-in providers' shortcuts and options back; providers you added stay.
 
 Search providers and their settings stay on this device.
 
@@ -86,10 +86,6 @@ Click **+** next to the Spaces heading to add a Space. Its Appearance page opens
 Right-click a Space, or use the **…** menu on its page, for **Rename**, **Edit Badge…**, **Move Up**, **Move Down**, **New Sub-Space**, **Make Sub-Space of**, **Separate from "Primary"…**, **Lock Space**, and **Delete**, or **Delete "Primary" and Its Sub-Spaces…** for a group's primary. Zee needs at least one Space.
 
 [Sub-Spaces](../spaces/sub-spaces.md) are indented under their primary, and a group's page shows the badges of its Spaces, with **+** to add one. Drag a Space onto another, or among a group's Sub-Spaces, to add it to that group; drag it out to separate it. The Privacy and Passwords pages of a group say they are shared by its Sub-Spaces, and its Browsing page has **Separate Pinned Tabs**.
-
-## Agents
-
-On Mac, choose whether coding agents on your Mac may use Zee, which Spaces they reach, and whether they may run scripts in pages; connect an agent, and see the agents connected now and the ones you allowed. See [Let coding agents use Zee](../browsing/coding-agents.md).
 
 ## Advanced
 

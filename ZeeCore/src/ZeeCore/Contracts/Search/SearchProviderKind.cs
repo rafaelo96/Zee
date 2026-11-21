@@ -1,7 +1,8 @@
 namespace ZeeCore.Contracts;
 
-/// What a search provider is: a search engine, an AI assistant a person asks,
-/// or a website they search. The kind names its group in Settings and what
+/// What a search provider is: a search engine, or a website a person searches.
+/// A kind a later or earlier build stored that this one does not know reads
+/// as an engine. The kind names its group in Settings and what
 /// the palette's row for it says, and decides whether a provider of the kind
 /// may be the default search. A kind travels as its index in `All`, so `All`
 /// is append-only.
@@ -10,13 +11,11 @@ public sealed class SearchProviderKind {
 
     public static readonly SearchProviderKind Engine = new(name: "engine", title: "Search Engines", itemTitle: "Search Engine",
         verb: "Search", symbol: "magnifyingglass", canBeDefault: true);
-    public static readonly SearchProviderKind Assistant = new(name: "assistant", title: "AI Assistants", itemTitle: "AI Assistant",
-        verb: "Ask", symbol: "sparkles", canBeDefault: true);
     public static readonly SearchProviderKind Website = new(name: "website", title: "Websites", itemTitle: "Website", verb: "Search",
         symbol: "globe", canBeDefault: false);
 
     /// The kinds, in the order Settings groups them.
-    public static IReadOnlyList<SearchProviderKind> All { get; } = [Engine, Assistant, Website];
+    public static IReadOnlyList<SearchProviderKind> All { get; } = [Engine, Website];
 
     #endregion
 
@@ -40,7 +39,7 @@ public sealed class SearchProviderKind {
     public bool CanBeDefault { get; }
 
     /// The word that leads what the palette's row for a provider says, as
-    /// "Search" in "Search Google" or "Ask" in "Ask Claude".
+    /// "Search" in "Search Google".
     private readonly string verb;
 
     #endregion

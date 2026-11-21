@@ -6,8 +6,7 @@ import SwiftUI
 /// what pressing it offers, and how it dresses the whole tab. A mark with one
 /// action is a button that runs it; one with several opens a menu of them.
 /// Sound is blue, as a playing tab is elsewhere on the Mac; sharing is purple,
-/// as the system marks a screen being shared; an agent wears its own brand's
-/// colour.
+/// as the system marks a screen being shared.
 @MainActor
 struct BrowserTabStatusMark: Equatable {
     // MARK: - Static Variables
@@ -82,24 +81,6 @@ struct BrowserTabStatusMark: Equatable {
         self.surface = surface
     }
 
-    // MARK: - Actions - Agents
-
-    #if os(macOS)
-        /// The tab an agent uses, in the agent's colour, named for it.
-        static func agent(_ session: AgentSessionState) -> Self {
-            let tint = (session.color ?? .agentDefault).color
-            return Self(
-                symbol: "sparkles",
-                tint: tint,
-                glyph: tint.readableForeground(colorScheme: .light),
-                title: LocalizedStringResource(
-                    "Used by \(session.name)", comment: "A tab's mark while an agent uses it."),
-                actions: [.stopAgent, .disconnectAgent],
-                surface: .outline
-            )
-        }
-    #endif
-
     // MARK: - Equatable
 
     /// A mark is its symbol, colour and words; its actions follow from them.
@@ -115,11 +96,6 @@ struct BrowserTabStatusMark: Equatable {
 @MainActor
 struct BrowserTabStatus {
     // MARK: - Static Variables
-
-    #if os(macOS)
-        /// An agent the person allowed uses the tab.
-        static let agent = Self { tab in tab.agentSession.map(BrowserTabStatusMark.agent) }
-    #endif
 
     /// Another page shows this tab.
     static let shared = Self { tab in tab.isShared ? .shared : nil }
@@ -137,11 +113,7 @@ struct BrowserTabStatus {
         return session.isAudible ? .playing : nil
     }
 
-    #if os(macOS)
-        static let all = [agent, shared, sharing, audio]
-    #else
-        static let all = [shared, sharing, audio]
-    #endif
+    static let all = [shared, sharing, audio]
 
     // MARK: - Variables
 

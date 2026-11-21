@@ -28,6 +28,15 @@ internal static class ArcSidebar {
     private const string UnpinnedSection = "unpinned";
     private const string PinnedSection = "pinned";
 
+    /// Where Arc keeps its archive beside the sidebar: the items file, and
+    /// the dated files it writes as it archives.
+    private const string ArchiveItemsFile = "StorableArchiveItems.json";
+    private const string DatedArchivePattern = "StorableArchive*.json";
+    /// The largest archive file an import reads.
+    private const long MaximumArchiveBytes = 128L * 1024 * 1024;
+    /// How deep into an archive file the reader looks for tabs.
+    private const int MaximumArchiveDepth = 24;
+
     #endregion
 
     #region Types
@@ -72,7 +81,7 @@ internal static class ArcSidebar {
                 if (id is not null) items[id] = ReadItem(value);
             var favorites = Favorites(ImportJson.Member(container, "topAppsContainerIDs"));
             int spaceIndex = 0;
-            foreach (var (value, _) in Objects(ImportJson.Member(container, "spaces"))) {
+            foreach (var (value, spaceId) in Objects(ImportJson.Member(container, "spaces"))) {
                 var space = ReadSpace(value);
                 spaceIndex++;
                 string name = space.Title ?? $"Arc Space {spaceIndex}";
@@ -93,7 +102,7 @@ internal static class ArcSidebar {
                 var colors = Colors(space.CustomInfo);
                 drafts.Add(new SessionDraft(drafts.Count + 1, name, draft.Folders, draft.Tabs,
                     symbol, colors.Count == 0 ? null : SpaceAccent.Nearest(colors[0]), Look(colors), space.ProfileFolder,
-                    Group: space.ProfileKey));
+                    Group: space.ProfileKey, SourceId: spaceId));
             }
         }
         return drafts;
@@ -207,6 +216,103 @@ internal static class ArcSidebar {
         }
         foreach (var child in item.Children) Append(child, placement, parent, depth, items, draft, importedAt);
     }
+
+    #endregion
+
+    #region Actions - Archive
+
+    /// `drafts` with the tabs of Arc's archive kept beside the sidebar at
+    /// `sidebarPath`, each in the Space its record names, or else the first
+    /// Space. Arc never documented the archive, so the reader looks for its
+    /// tab records wherever they sit and takes the time and Space they come
+    /// with; a file it cannot read brings nothing, and never fails the import.
+    public static IReadOnlyList<SessionDraft> WithArchive(string sidebarPath, IReadOnlyList<SessionDraft> drafts, DateTimeOffset importedAt) {
+        if (drafts.Count == 0 || System.IO.Path.GetDirectoryName(sidebarPath) is not { } folder) return drafts;
+        List<(string? SpaceId, SessionArchivedTab Tab)> found = [];
+        HashSet<string> seen = new(StringComparer.Ordinal);
+        foreach (string file in ArchiveFiles(folder)) {
+            try {
+                var contents = ImportFile.Read(file, MaximumArchiveBytes, new SessionTooLarge(), new SessionUnrecognized());
+                using var document = ImportJson.Parse(contents);
+                if (document is not null) CollectArchived(document.RootElement, new(null, null, null), 0, importedAt, found, seen);
+            } catch (Exception error) when (error is Rejected or JsonException or IOException or UnauthorizedAccessException) {
+                // An archive Arc wrote differently, or one Zee may not read, brings nothing.
+            }
+        }
+        if (found.Count == 0) return drafts;
+        var byId = drafts.Select((draft, index) => (draft, index)).Where(pair => pair.draft.SourceId is not null)
+            .ToDictionary(pair => pair.draft.SourceId!, pair => pair.index, StringComparer.Ordinal);
+        var archived = drafts.Select(_ => new List<SessionArchivedTab>()).ToArray();
+        foreach (var (spaceId, tab) in found)
+            archived[spaceId is not null && byId.TryGetValue(spaceId, out int index) ? index : 0].Add(tab);
+        return [.. drafts.Select((draft, index) => archived[index].Count == 0 ? draft
+            : draft with { Archived = [.. draft.Archived ?? [], .. archived[index]] })];
+    }
+
+    private static IEnumerable<string> ArchiveFiles(string folder) {
+        string items = System.IO.Path.Combine(folder, ArchiveItemsFile);
+        if (File.Exists(items)) yield return items;
+        string[] dated;
+        try {
+            dated = Directory.GetFiles(folder, DatedArchivePattern);
+        } catch (Exception error) when (error is IOException or UnauthorizedAccessException) {
+            yield break;
+        }
+        foreach (string file in dated.Where(file => !string.Equals(System.IO.Path.GetFileName(file), ArchiveItemsFile, StringComparison.Ordinal))
+                     .OrderByDescending(File.GetLastWriteTimeUtc))
+            yield return file;
+    }
+
+    /// What a record of the archive says about the tabs below it: the Space
+    /// it names, when it was archived and why.
+    private sealed record ArchiveContext(string? SpaceId, DateTimeOffset? ArchivedAt, ArchiveReason? Reason);
+
+    /// Adds each tab record at or below `value` to `found`, once each.
+    private static void CollectArchived(JsonElement value, ArchiveContext context, int depth, DateTimeOffset importedAt,
+        List<(string? SpaceId, SessionArchivedTab Tab)> found, HashSet<string> seen) {
+        if (depth > MaximumArchiveDepth) return;
+        if (value.ValueKind == JsonValueKind.Array) {
+            foreach (var item in value.EnumerateArray()) CollectArchived(item, context, depth + 1, importedAt, found, seen);
+            return;
+        }
+        if (value.ValueKind != JsonValueKind.Object) return;
+        context = Narrowed(value, context);
+        var tab = ImportJson.Object(ImportJson.Member(ImportJson.Member(value, "data"), "tab"));
+        if (tab is not null && ImportJson.Text(ImportJson.Member(tab, "savedURL")) is { } url && ImportAddress.Read(url) is { } address) {
+            string? title = ImportJson.Text(ImportJson.Member(tab, "savedTitle")) ?? ImportJson.Text(ImportJson.Member(value, "title"));
+            var lastActive = Time(ImportJson.Member(tab, "timeLastActiveAt"));
+            var archivedAt = context.ArchivedAt ?? lastActive ?? importedAt;
+            string key = $"{ImportJson.Text(ImportJson.Member(value, "id")) ?? address.Spelling}|{archivedAt.ToUnixTimeSeconds()}";
+            if (seen.Add(key))
+                found.Add((context.SpaceId, new(new(title ?? "", address, TabPlacement.Current, null, lastActive), archivedAt,
+                    context.Reason ?? ArchiveReason.Closed)));
+            return;
+        }
+        foreach (var member in value.EnumerateObject()) CollectArchived(member.Value, context, depth + 1, importedAt, found, seen);
+    }
+
+    /// `context` with what `record` says itself: a Space identity under a
+    /// name that spells one, a time under a name that speaks of archiving,
+    /// and a reason that speaks of archiving on its own.
+    private static ArchiveContext Narrowed(JsonElement record, ArchiveContext context) {
+        foreach (var member in record.EnumerateObject()) {
+            string name = member.Name;
+            if (name.Equals("spaceID", StringComparison.OrdinalIgnoreCase) || name.Equals("spaceIdentifier", StringComparison.OrdinalIgnoreCase)) {
+                if (ImportJson.Text(member.Value) is { Length: > 0 } space) context = context with { SpaceId = space };
+            } else if (name.Contains("archived", StringComparison.OrdinalIgnoreCase) && Time(member.Value) is { } time) {
+                context = context with { ArchivedAt = time };
+            } else if (name.Equals("reason", StringComparison.OrdinalIgnoreCase)) {
+                string spelled = member.Value.ValueKind == JsonValueKind.String ? member.Value.GetString() ?? "" : member.Value.GetRawText();
+                context = context with {
+                    Reason = spelled.Contains("auto", StringComparison.OrdinalIgnoreCase) ? ArchiveReason.AutoCleanup : ArchiveReason.Closed
+                };
+            }
+        }
+        return context;
+    }
+
+    private static DateTimeOffset? Time(JsonElement? value) =>
+        ImportJson.Number(value) is { } raw && double.IsFinite(raw) ? ImportDate.FromUnixOrReferenceSeconds(raw) : null;
 
     #endregion
 

@@ -103,7 +103,6 @@ public sealed class SearchPolicyTests {
     [Fact]
     public void TheCatalogSurvivesTheDeviceStore() {
         var assistant = Added("Kagi", "https://kagi.com/search?q=%s", "https://kagi.com/api/autosuggest?q=%s", shortcuts: ["kg"]) with {
-            Kind = SearchProviderKind.Assistant,
             Color = new BrandColor(0.5, 0.25, 0.75)
         };
         var catalog = Catalog("fr", "BE")
@@ -116,6 +115,16 @@ public sealed class SearchPolicyTests {
 
         Assert.Equal(catalog, SearchCatalogDocument.Read(SearchCatalogDocument.Write(catalog)));
         Assert.Null(SearchCatalogDocument.Read("[]"));
+        // The AI assistants Zee no longer ships are left out; a default search
+        // that was one falls back to Google, and a custom provider stored as an
+        // assistant reads as an engine.
+        var withoutAI = SearchCatalogDocument.Read("""
+            {"default":"chatGPT","builtIns":[{"name":"chatGPT","enabled":true},{"name":"claude","enabled":true}],
+             "custom":[{"id":"7d4b1a52-0d2c-4a3b-9a77-6f1f3f2b9c10","name":"Ask","search":"https://ask.example/?q=%s","kind":"assistant"}]}
+            """)!;
+        Assert.Equal("google", withoutAI.Default.Name);
+        Assert.DoesNotContain(withoutAI.BuiltIns, kept => kept.Provider.Name is "chatGPT" or "claude");
+        Assert.All(withoutAI.Custom, custom => Assert.Equal(SearchProviderKind.Engine, custom.Provider.Kind));
         // What a later build stored and this one cannot read is left out.
         var later = SearchCatalogDocument.Read("""
             {"default":"youTube","builtIns":[{"name":"future","enabled":true},{"name":"google","enabled":false,

@@ -51,14 +51,12 @@ public sealed record AddSubSpace(Guid WorkspaceId, Guid WindowId, Guid SpaceId, 
     #region Actions - Routing
 
     /// The new Space opens with its group while this process holds the
-    /// grant for the Space it was made from, and agents reach it while they
-    /// reach the group.
+    /// grant for the Space it was made from.
     internal override void Commit(ZeeApp app, ChangeFeed changes) {
         base.Commit(app, changes);
         var session = app.Device.Workspace(WorkspaceId).Current;
         if (session.Space(SpaceId) is not { PrimaryId: { } primaryId } added || session.Space(FromSpaceId) is not { } from) return;
         app.Access.Changing(changes, authority => authority.Extend(new(from.Id, from.OwnProfileId), new(added.Id, added.OwnProfileId)));
-        app.Device.ShareAgents(added.Id, primaryId, changes);
     }
 
     #endregion

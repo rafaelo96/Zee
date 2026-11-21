@@ -14,7 +14,7 @@ internal sealed partial class InstalledBrowser {
     #region Static Variables
 
     public static readonly InstalledBrowser Arc = new(ImportSource.Arc, ArcProfiles, folder => ChromiumPasswordStores(folder.Child("User Data")),
-        ArcSidebar.Read, bookmarks: null, extensions: true);
+        ArcSidebar.Read, bookmarks: null, extensions: true, archives: ArcSidebar.WithArchive);
     public static readonly InstalledBrowser Zen = new(ImportSource.Zen, ZenProfiles, _ => [], ZenSessions.Read, bookmarks: null);
     public static readonly InstalledBrowser Chrome = new(ImportSource.Chrome, ChromiumProfiles, ChromiumPasswordStores,
         (contents, importedAt) => ChromiumSession.Read(contents, importedAt), ChromeBookmarks.Read, extensions: true,
@@ -80,6 +80,11 @@ internal sealed partial class InstalledBrowser {
 
     private delegate void BookmarkReader(byte[] contents, DateTimeOffset importedAt, BookmarkDraft draft);
 
+    /// The drafts a session file at a path made, with the tabs the browser
+    /// archived beside it.
+    private delegate IReadOnlyList<SessionDraft> ArchiveReader(string sessionPath, IReadOnlyList<SessionDraft> drafts,
+        DateTimeOffset importedAt);
+
     #endregion
 
     #region Variables
@@ -95,6 +100,7 @@ internal sealed partial class InstalledBrowser {
     private readonly Func<string, IReadOnlyList<string>> sessionFiles;
     private readonly Func<string, IReadOnlyList<string>> bookmarkFiles;
     private readonly bool offersExtensions;
+    private readonly ArchiveReader? archives;
 
     #endregion
 
@@ -103,8 +109,9 @@ internal sealed partial class InstalledBrowser {
     private InstalledBrowser(ImportSource source, Func<ImportFolder, IReadOnlyList<ImportProfile>> profiles,
         Func<ImportFolder, IReadOnlyList<ImportPasswordStore>> passwordStores, SessionReader sessions, BookmarkReader? bookmarks,
         bool extensions = false, Func<string, IReadOnlyList<string>>? sessionFiles = null,
-        Func<string, IReadOnlyList<string>>? bookmarkFiles = null) {
+        Func<string, IReadOnlyList<string>>? bookmarkFiles = null, ArchiveReader? archives = null) {
         Source = source;
+        this.archives = archives;
         offersExtensions = extensions;
         this.profiles = profiles;
         this.passwordStores = passwordStores;
@@ -137,7 +144,7 @@ internal sealed partial class InstalledBrowser {
     }
 
     private static IReadOnlyList<ImportProfile> ArcProfiles(ImportFolder folder) =>
-        folder.File("StorableSidebar.json") is { } sidebar
+        folder.File(ImportSource.Arc.OutlivingFile!) is { } sidebar
             ? [new ImportProfile("arc", ImportSource.Arc.Title, null, sidebar, folder.Child("User Data").Child(ChromiumDefaultProfile).Path)] : [];
 
     /// Zen's profiles that keep a session, each named as the person named it,
@@ -401,7 +408,8 @@ internal sealed partial class InstalledBrowser {
     private IReadOnlyList<SessionDraft> Session(string path, DateTimeOffset now) {
         var contents = ImportFile.Read(path, MaximumSessionBytes, new SessionTooLarge(), new SessionUnrecognized());
         try {
-            return sessions(contents, now);
+            var drafts = sessions(contents, now);
+            return archives is null ? drafts : archives(path, drafts, now);
         } catch (Exception error) when (error is not Rejected) {
             throw new Rejected(new SessionUnrecognized());
         }

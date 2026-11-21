@@ -17,3 +17,7 @@ internal sealed record SessionFolder(string SourceId, string Title, string? Pare
 /// name the person gave it there, where the browser keeps one.
 internal sealed record SessionTab(string Title, ImportAddress Address, TabPlacement Placement, string? FolderSourceId,
     DateTimeOffset? LastActivatedAt, string? SplitSourceId = null, string? CustomTitle = null);
+
+/// A tab in another browser's archive: the tab, when it went there, and
+/// why, as the nearest of Zee's reasons.
+internal sealed record SessionArchivedTab(SessionTab Tab, DateTimeOffset ArchivedAt, ArchiveReason Reason);

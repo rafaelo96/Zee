@@ -14,15 +14,17 @@ public sealed record StartSetup(Guid WorkspaceId, SetupEntry Entry) : SetupFlowI
 
     /// Opens setup for `Entry` over its workspace. A manual setup the
     /// device holds is kept for the manual-setup step only where the platform
-    /// keeps one and the entry does not start it over.
+    /// keeps one and the entry does not start it over. Of the browsers offered
+    /// before, setup chooses those it chooses first, as a first offer does.
     internal override void Apply(Device device, DeviceTurn turn) {
         var authority = device.Workspace(WorkspaceId);
         if (!authority.Kind.KeepsAppPreferences) throw new Rejected(new PersistentWorkspaceRequired(WorkspaceId));
         var session = authority.Current;
         lock (device.Gate) {
             if (Entry.StartsManualSetupOver || !device.Platform.KeepsSetupDraft) device.KeepSetup(null, turn.Changes);
+            var offered = device.SetupFlow?.Offered ?? [];
             var flow = new SetupFlowState(WorkspaceId, Entry, Entry.FirstStep, BackStep: null, NextStep: null,
-                SetupPhase.Idle, Offered: device.SetupFlow?.Offered ?? [], Selected: [], Queue: null, Source: null, Review: null,
+                SetupPhase.Idle, offered, Selected: [.. offered.Where(source => source.IsChosenFirst)], Queue: null, Source: null, Review: null,
                 Failure: null, Summary: null, OpensGuide: false, OpensZeeFromWelcome: false, SetupLook.Simple);
             if (flow.Step == SetupStep.ManualSetup)
                 device.BeginSetup(WorkspaceId, session, startsOver: false, flow.Look, turn.Changes, turn.Ids);

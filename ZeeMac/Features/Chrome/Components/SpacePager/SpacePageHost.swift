@@ -23,7 +23,6 @@ struct SpacePageRoot<Content: View>: View {
             .environment(objects.downloadFeedback)
             .environment(objects.passkeyAccess)
             .environment(objects.softwareUpdates)
-            .environment(objects.agentEndpoint)
             .environment(objects.core)
             .environment(\.spaceSidebarBands, objects.sidebarBands)
     }

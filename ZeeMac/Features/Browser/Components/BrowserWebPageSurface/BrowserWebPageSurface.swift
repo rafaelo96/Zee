@@ -22,12 +22,6 @@ struct BrowserWebPageSurface: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    /// The agent using the page's tab now, when one does.
-    private var agent: AgentSessionState? {
-        guard let tabID = browser.core.state.pages[page.corePage.id]?.tabID else { return nil }
-        return browser.core.state.agentSessions.first { $0.tabIDs.contains(tabID) }
-    }
-
     var body: some View {
         ZStack(alignment: .top) {
             BrowserPlatformWebView(
@@ -69,25 +63,11 @@ struct BrowserWebPageSurface: View {
                 BrowserEngineInfoBarStack(page: page, goToSharingCounterpart: goToSharingCounterpart)
             }
 
-            if let agent, let pointer = page.agentPointer {
-                BrowserAgentPointerOverlay(pointer: pointer, session: agent, zoom: page.renderedPageZoom)
-                    .zIndex(BrowserWebPageSurfaceMetrics.agentPointerZIndex)
-            }
-
-            // The bars along the page's foot stack, the picker's above an
-            // agent's.
+            // The bars along the page's foot.
             VStack(spacing: BrowserWebPageSurfaceMetrics.overlayPadding) {
                 if page.elementPicker.isActive {
                     BrowserElementPickerBar(picker: page.elementPicker)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-                if let agent {
-                    BrowserAgentPageBar(session: agent) {
-                        if let tabID = browser.core.state.pages[page.corePage.id]?.tabID {
-                            _ = try? browser.core.send(StopAgentTab(tabID: tabID))
-                        }
-                    }
-                    .transition(.opacity)
                 }
             }
             .padding(BrowserWebPageSurfaceMetrics.overlayPadding)

@@ -125,13 +125,8 @@ targetTemplates:
       - path: ZeeEngines/Chromium/Apple
         excludes:
           - ZeeChromiumHost.h
-      - path: ZeeAgents
     dependencies:
       - target: ZeeDockTilePlugin
-        link: false
-        embed: false
-      # The packager copies the agent helper into Contents/Helpers.
-      - target: ZeeBrowserHelper
         link: false
         embed: false
       - package: Sparkle
@@ -198,7 +193,6 @@ targets:
           - Resources/ZeeIcon/Sources
           - Resources/ZeeIcon/Validation
       - path: ZeeMac
-      - path: ZeeAgents
     dependencies:
       - target: ZeeDockTilePlugin
         embed: true
@@ -206,12 +200,6 @@ targets:
         codeSign: true
         copy:
           destination: plugins
-      - target: ZeeBrowserHelper
-        embed: true
-        link: false
-        codeSign: true
-        copy:
-          destination: wrapper
           subpath: Contents/Helpers
       - package: Sparkle
         product: Sparkle
@@ -308,7 +296,6 @@ targets:
           - Resources/ZeeIcon/Sources
           - Resources/ZeeIcon/Validation
       - path: ZeeMac
-      - path: ZeeAgents
     dependencies:
       - target: ZeeDockTilePlugin
         embed: true
@@ -316,12 +303,6 @@ targets:
         codeSign: true
         copy:
           destination: plugins
-      - target: ZeeBrowserHelper
-        embed: true
-        link: false
-        codeSign: true
-        copy:
-          destination: wrapper
           subpath: Contents/Helpers
       - package: Sparkle
         product: Sparkle
@@ -348,23 +329,6 @@ targets:
         PRODUCT_MODULE_NAME: Zee
         PRODUCT_NAME: "$(ZEE_PRODUCT_NAME)"
         ZEE_DEFAULT_UPDATE_CHANNEL: development
-  # zee-browser, the helper agents run over stdio to reach the Zee app it
-  # ships inside (Contents/Helpers). Mac only.
-  ZeeBrowserHelper:
-    type: tool
-    platform: macOS
-    sources:
-      - path: ZeeAgentHelper
-      - path: ZeeAgents
-    settings:
-      base:
-        PRODUCT_NAME: badge-browser
-        PRODUCT_MODULE_NAME: ZeeBrowserHelper
-        PRODUCT_BUNDLE_IDENTIFIER: "$(ZEE_BUNDLE_ID).browser-helper"
-        GENERATE_INFOPLIST_FILE: YES
-        CREATE_INFOPLIST_SECTION_IN_BINARY: YES
-        SKIP_INSTALL: YES
-        SWIFT_EMIT_LOC_STRINGS: NO
   ZeeDockTilePlugin:
     type: bundle
     platform: macOS

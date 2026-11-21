@@ -45,6 +45,9 @@ struct BrowserStartPage: View {
     /// tap on the page outside the palette calls it. Absent where the shell
     /// has no such keyboard.
     var endEditing: (@MainActor () -> Void)? = nil
+    /// The core's invitation to bring another browser's data, for a shell
+    /// that can import. Absent elsewhere.
+    var invitation: BrowserStartPageInvitation? = nil
 
     var body: some View {
         ZStack {

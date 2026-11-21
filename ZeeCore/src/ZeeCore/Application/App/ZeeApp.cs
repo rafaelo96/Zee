@@ -177,8 +177,6 @@ public sealed partial class ZeeApp : IQueryAnswers, IDisposable {
             prompts.Prune(changes);
             closePreparations.Prune(changes, Issue);
             extensions.Prune(changes, Issue);
-            // Agents let go of the tabs they may no longer use.
-            device.PruneAgents(changes);
             published = [.. TakePending(), .. changes.Published];
         }
         Deliver();

@@ -160,11 +160,9 @@ internal sealed class SqliteConnection : IDisposable {
         Execute("CREATE TABLE IF NOT EXISTS device_launch (id INTEGER PRIMARY KEY CHECK (id = 0), reopening_pages INTEGER NOT NULL)");
         Execute("CREATE TABLE IF NOT EXISTS device_tab_group (id TEXT PRIMARY KEY, space TEXT NOT NULL, engine TEXT NOT NULL, "
             + "title TEXT NOT NULL, color TEXT NOT NULL, position INTEGER NOT NULL)");
-        Execute("CREATE TABLE IF NOT EXISTS device_agents (id INTEGER PRIMARY KEY CHECK (id = 0), is_on INTEGER NOT NULL, "
-            + "runs_scripts INTEGER NOT NULL)");
-        Execute("CREATE TABLE IF NOT EXISTS device_agent_space (space TEXT PRIMARY KEY, position INTEGER NOT NULL)");
-        Execute("CREATE TABLE IF NOT EXISTS device_agent (position INTEGER PRIMARY KEY, team TEXT, signing TEXT, path TEXT, "
-            + "client TEXT, name TEXT NOT NULL)");
+        // Zee no longer lets agents use it, so it forgets the agents earlier
+        // builds allowed and the Spaces they could reach.
+        foreach (var table in new[] { "device_agents", "device_agent_space", "device_agent" }) Execute($"DROP TABLE IF EXISTS {table}");
         Execute("CREATE TABLE IF NOT EXISTS device_filter_list (name TEXT PRIMARY KEY, is_on INTEGER NOT NULL)");
         Execute("CREATE TABLE IF NOT EXISTS device_blocking_site (space TEXT NOT NULL, scheme TEXT NOT NULL, host TEXT NOT NULL, "
             + "port INTEGER NOT NULL, position INTEGER NOT NULL, PRIMARY KEY (space, scheme, host, port))");
@@ -172,6 +170,7 @@ internal sealed class SqliteConnection : IDisposable {
             + "position INTEGER NOT NULL)");
         Execute("CREATE TABLE IF NOT EXISTS device_custom_filters (id INTEGER PRIMARY KEY CHECK (id = 0), text TEXT NOT NULL)");
         Execute("CREATE TABLE IF NOT EXISTS device_content_blocking (id INTEGER PRIMARY KEY CHECK (id = 0), level TEXT NOT NULL)");
+        Execute("CREATE TABLE IF NOT EXISTS device_import_invitation (source TEXT PRIMARY KEY)");
     }
 
     /// Everything the device store holds. A row whose identities or names do
@@ -180,14 +179,24 @@ internal sealed class SqliteConnection : IDisposable {
         ReadLinks(), ReadSetupDraft(), ReadSetupCompleted(), ReadAdoptions(), ReadTabGroups(), ReadDefaultEngine()) {
         PaletteMemories = ReadPaletteMemories(),
         SearchCatalog = ReadSearchCatalog(),
-        Agents = ReadAgents(),
         ReopeningPages = ReadReopeningPages(),
         ContentBlockingLevel = ReadContentBlockingLevel(),
         FilterListChoices = ReadFilterListChoices(),
         BlockingSites = ReadBlockingSites(),
         CustomFilterLists = ReadCustomFilterLists(),
-        CustomFilters = ReadCustomFilters()
+        CustomFilters = ReadCustomFilters(),
+        SettledInvitations = ReadSettledInvitations()
     };
+
+    /// The browsers whose import invitation the person settled. A source this
+    /// build does not know is left out.
+    private HashSet<ImportSource> ReadSettledInvitations() {
+        var settled = new HashSet<ImportSource>();
+        Rows("SELECT source FROM device_import_invitation", statement => {
+            if (ImportSource.Named(Sqlite.ColumnText(statement, 0)) is { } source) settled.Add(source);
+        });
+        return settled;
+    }
 
     /// The lists the person turned on or off. A list this build does not know
     /// is left out.
@@ -388,32 +397,6 @@ internal sealed class SqliteConnection : IDisposable {
         return links with { Routes = routes, RememberedSites = sites };
     }
 
-    /// The agent preferences: off, reaching nothing and trusting no agent for a
-    /// device that never chose any. A Space or agent that does not read is
-    /// left out.
-    private AgentPreferences ReadAgents() {
-        bool isOn = false;
-        bool runsScripts = false;
-        Rows("SELECT is_on, runs_scripts FROM device_agents", statement => {
-            isOn = Sqlite.sqlite3_column_int(statement, 0) != 0;
-            runsScripts = Sqlite.sqlite3_column_int(statement, 1) != 0;
-        });
-        var spaces = new List<Guid>();
-        Rows("SELECT space FROM device_agent_space ORDER BY position", statement => {
-            if (Identity(statement, 0) is { } space) spaces.Add(space);
-        });
-        var approved = new List<ApprovedAgent>();
-        static string? Optional(nint statement, int column) =>
-            Sqlite.ColumnIsNull(statement, column) ? null : Sqlite.ColumnText(statement, column);
-        Rows("SELECT team, signing, path, client, name FROM device_agent ORDER BY position", statement => {
-            var identity = new AgentIdentity(Optional(statement, 0), Optional(statement, 1), Optional(statement, 2),
-                Optional(statement, 3));
-            if (identity.IsValid && AgentPreferences.CleanName(Sqlite.ColumnText(statement, 4)) is { } name)
-                approved.Add(new ApprovedAgent(identity, name));
-        });
-        return new(isOn, runsScripts, spaces, approved);
-    }
-
     /// The unfinished manual setup, or null when the store keeps none or it
     /// does not read.
     private KeptSetupDraft? ReadSetupDraft() {
@@ -463,7 +446,6 @@ internal sealed class SqliteConnection : IDisposable {
         if (written is null || !records.TabGroups.SequenceEqual(written.TabGroups)) WriteTabGroups(records.TabGroups);
         WritePaletteMemories(records.PaletteMemories, written?.PaletteMemories);
         if (written is null || !ReferenceEquals(records.SearchCatalog, written.SearchCatalog)) WriteSearchCatalog(records.SearchCatalog);
-        if (written is null || !records.Agents.Equals(written.Agents)) WriteAgents(records.Agents);
         if (written is null || records.ReopeningPages != written.ReopeningPages) WriteReopeningPages(records.ReopeningPages);
         if (written is null || records.ContentBlockingLevel != written.ContentBlockingLevel)
             WriteContentBlockingLevel(records.ContentBlockingLevel);
@@ -473,6 +455,8 @@ internal sealed class SqliteConnection : IDisposable {
         if (written is null || !records.CustomFilterLists.SequenceEqual(written.CustomFilterLists))
             WriteCustomFilterLists(records.CustomFilterLists);
         if (written is null || records.CustomFilters != written.CustomFilters) WriteCustomFilters(records.CustomFilters);
+        if (written is null || !records.SettledInvitations.SetEquals(written.SettledInvitations))
+            WriteSettledInvitations(records.SettledInvitations);
     }
 
     /// The search catalog as its one document, or no row before it was first restored.
@@ -496,30 +480,6 @@ internal sealed class SqliteConnection : IDisposable {
                 Bind(statement, 2, PaletteMemoryDocument.Write(memory));
             });
         }
-    }
-
-    /// The agent preferences: whether they are on and run scripts in pages,
-    /// and the allowed Spaces and approved agents in order.
-    private void WriteAgents(AgentPreferences preferences) {
-        foreach (var table in new[] { "device_agents", "device_agent_space", "device_agent" })
-            Execute($"DELETE FROM {table}");
-        Insert("INSERT INTO device_agents(id, is_on, runs_scripts) VALUES(0,?,?)", statement => {
-            Checked(Sqlite.sqlite3_bind_int64(statement, 1, preferences.IsOn ? 1 : 0));
-            Checked(Sqlite.sqlite3_bind_int64(statement, 2, preferences.RunsScripts ? 1 : 0));
-        });
-        InsertInOrder("INSERT INTO device_agent_space(space, position) VALUES(?,?)", preferences.SpaceIds, (statement, space, index) => {
-            Bind(statement, 1, Spelling(space));
-            Checked(Sqlite.sqlite3_bind_int64(statement, 2, index));
-        });
-        InsertInOrder("INSERT INTO device_agent(position, team, signing, path, client, name) VALUES(?,?,?,?,?,?)",
-            preferences.Agents, (statement, agent, index) => {
-                Checked(Sqlite.sqlite3_bind_int64(statement, 1, index));
-                Bind(statement, 2, agent.Identity.TeamId);
-                Bind(statement, 3, agent.Identity.SigningId);
-                Bind(statement, 4, agent.Identity.Path);
-                Bind(statement, 5, agent.Identity.Client);
-                Bind(statement, 6, agent.Name);
-            });
     }
 
     /// The tab groups in order, each engine and color by its `Name`.
@@ -712,6 +672,12 @@ internal sealed class SqliteConnection : IDisposable {
                 Checked(Sqlite.sqlite3_bind_int64(statement, 3, list.IsOn ? 1 : 0));
                 Checked(Sqlite.sqlite3_bind_int64(statement, 4, index));
             });
+    }
+
+    private void WriteSettledInvitations(IReadOnlySet<ImportSource> settled) {
+        Execute("DELETE FROM device_import_invitation");
+        foreach (var source in settled.OrderBy(source => source.Name, StringComparer.Ordinal))
+            Insert("INSERT INTO device_import_invitation(source) VALUES(?)", statement => Bind(statement, 1, source.Name));
     }
 
     private void WriteCustomFilters(string text) {

@@ -11,9 +11,12 @@ namespace ZeeCore.Application;
 /// Space's own profile, `Profile`, when it is not the browser's first. Drafts
 /// that name one `Group` shared one session where they came from, as the
 /// Spaces of one Arc profile or the workspaces of one Zen profile do, and come
-/// in as one group.
+/// in as one group. A browser that archives tabs, as Arc does, brings them in
+/// `Archived`, newest first; `SourceId` is the identity the browser spells for
+/// the Space, which its archive names.
 internal sealed record SessionDraft(int Ordinal, string? Name, IReadOnlyList<SessionFolder> Folders, IReadOnlyList<SessionTab> Tabs,
-    string? Symbol = null, SpaceAccent? Accent = null, SpaceBranding? Branding = null, string? Profile = null, string? Group = null) {
+    string? Symbol = null, SpaceAccent? Accent = null, SpaceBranding? Branding = null, string? Profile = null, string? Group = null,
+    string? SourceId = null, IReadOnlyList<SessionArchivedTab>? Archived = null) {
     #region Static Variables
 
     /// The most tabs one window or Space brings.
@@ -174,12 +177,28 @@ internal sealed record SessionDraft(int Ordinal, string? Name, IReadOnlyList<Ses
                 rename is null ? null : BrowserEditTimestamp.Normalize(importedAt)));
         }
         var splits = Split(ordered, tabs, ids);
+        var archived = Archive(ids, importedAt);
 
         string name = ImportText.Bounded(Name, Fallback(names, numbered), ImportText.MaximumSpaceName)
             ?? throw new Rejected(new SessionOverLimits());
         string symbol = Symbol ?? source.Symbol;
         return new(name, symbol, Accent ?? source.Accent, Branding ?? SpaceBranding.NeutralImport(symbol), Ordered(folders), tabs,
-            splits, ArchivedTabs: [], History: [], StoredSessionCodec.DefaultBrowsingPreferences, SelectedTabId: null);
+            splits, archived, History: [], StoredSessionCodec.DefaultBrowsingPreferences, SelectedTabId: null);
+    }
+
+    /// The archived tabs the Space keeps: the newest, as many as an archive
+    /// holds, each an open tab with its title bounded as a tab's is. A tab
+    /// whose title cannot be kept stays behind.
+    private List<BrowserDataArchivedTab> Archive(IIdSource ids, DateTimeOffset importedAt) {
+        List<BrowserDataArchivedTab> archived = [];
+        foreach (var entry in (Archived ?? []).OrderByDescending(entry => entry.ArchivedAt).Take(MaximumTabs)) {
+            var tab = entry.Tab;
+            if (ImportText.Bounded(tab.Title, tab.Address.Host, ImportText.MaximumTitle) is not { } title) continue;
+            archived.Add(new(new(ids.Next(), title, NativeContent: null, tab.Address.Spelling, SavedUrl: null, TabIconMode.WebSymbol,
+                TabPlacement.Current, FolderId: null, SplitGroupId: null, tab.LastActivatedAt ?? entry.ArchivedAt, CustomTitle: null,
+                TitleModifiedAt: null), entry.ArchivedAt > importedAt ? importedAt : entry.ArchivedAt, entry.Reason));
+        }
+        return archived;
     }
 
     /// The split views of the browser's tabs that Zee keeps, joining their

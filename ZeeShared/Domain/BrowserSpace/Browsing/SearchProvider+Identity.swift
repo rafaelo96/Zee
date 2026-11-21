@@ -18,11 +18,9 @@ extension SearchProvider: Identifiable {
         return URL(string: "https://\(site)/")
     }
 
-    /// What the palette's row for the provider says, as "Search Google" or "Ask Claude".
+    /// What the palette's row for the provider says, as "Search Google".
     var actionTitle: String {
-        kind == .assistant
-            ? String(localized: "Ask \(title)", comment: "A palette row that asks an AI assistant.")
-            : String(localized: "Search \(title)", comment: "A palette row that searches a search engine or website.")
+        String(localized: "Search \(title)", comment: "A palette row that searches a search engine or website.")
     }
 }
 
