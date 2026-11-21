@@ -743,20 +743,46 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
     @discardableResult
     func zoomIn() -> Bool {
         guard developerViewport == nil else { return false }
-        return setTemporaryPageZoom(pageZoom.pageZoomIncreased)
+        return rememberingSiteZoom(setTemporaryPageZoom(pageZoom.pageZoomIncreased))
     }
 
     @discardableResult
     func zoomOut() -> Bool {
         guard developerViewport == nil else { return false }
-        return setTemporaryPageZoom(pageZoom.pageZoomDecreased)
+        return rememberingSiteZoom(setTemporaryPageZoom(pageZoom.pageZoomDecreased))
     }
 
     @discardableResult
     func resetZoom() -> Bool {
         guard developerViewport == nil else { return false }
         hasTemporaryPageZoomOverride = false
-        return setPageZoom(defaultPageZoom)
+        return rememberingSiteZoom(setPageZoom(defaultPageZoom))
+    }
+
+    /// Gives the document the page just committed at `url` its site's zoom on
+    /// this device, or the default for a site that keeps none.
+    func applySiteZoom(for url: URL?) {
+        guard developerViewport == nil, let host = url?.host() else { return }
+        let siteZoom = try? downloadCenter.core.query(SiteZoomFor(host: host)).zoom
+        if let siteZoom {
+            _ = setPageZoom(BrowserDefaultPageZoomStore.normalized(CGFloat(siteZoom)))
+            hasTemporaryPageZoomOverride = !pageZoom.matchesPageZoom(defaultPageZoom)
+        } else if hasTemporaryPageZoomOverride {
+            hasTemporaryPageZoomOverride = false
+            _ = setPageZoom(defaultPageZoom)
+        }
+    }
+
+    /// Remembers the zoom the person just chose for the page's site, or
+    /// forgets it once it matches the default again, and answers `changed`.
+    /// A private page remembers nothing.
+    private func rememberingSiteZoom(_ changed: Bool) -> Bool {
+        guard changed, !isPrivateBrowsing, let host = (pageEngine.currentURL ?? live.documentURL)?.host() else {
+            return changed
+        }
+        let zoom: Double? = hasTemporaryPageZoomOverride ? Double(pageZoom) : nil
+        _ = try? downloadCenter.core.send(RememberSiteZoom(host: host, zoom: zoom))
+        return changed
     }
 
     /// Updates this page's global baseline without discarding a temporary zoom

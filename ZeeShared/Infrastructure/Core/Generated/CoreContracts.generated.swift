@@ -5408,6 +5408,15 @@ struct RememberQuickWindowSpace: Intent, LinkIntent, Equatable, Sendable {
     let spaceID: UUID
 }
 
+struct RememberSiteZoom: Intent, Equatable, Sendable {
+    static let minimumZoom: Double = 0.25
+    static let maximumZoom: Double = 5
+    static let maximumHostLength: Int = 253
+
+    let host: String?
+    let zoom: Double?
+}
+
 struct RememberWindowsForLaunch: Intent, WindowIntent, Equatable, Sendable {
     let windowIDs: [UUID]
 }
@@ -6527,6 +6536,16 @@ struct SitePermissionsChanged: CoreChange, Equatable, Sendable {
     let spaceID: UUID
     let records: [SitePermissionRecordState]
     let touched: [SitePermissionScope]
+}
+
+struct SiteZoom: Equatable, Sendable {
+    let zoom: Double?
+}
+
+struct SiteZoomFor: Query, Equatable, Sendable {
+    typealias Answer = SiteZoom
+
+    let host: String?
 }
 
 struct SpaceAlreadyExists: Equatable, Sendable {

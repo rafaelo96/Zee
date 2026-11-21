@@ -171,6 +171,7 @@ internal sealed class SqliteConnection : IDisposable {
         Execute("CREATE TABLE IF NOT EXISTS device_custom_filters (id INTEGER PRIMARY KEY CHECK (id = 0), text TEXT NOT NULL)");
         Execute("CREATE TABLE IF NOT EXISTS device_content_blocking (id INTEGER PRIMARY KEY CHECK (id = 0), level TEXT NOT NULL)");
         Execute("CREATE TABLE IF NOT EXISTS device_import_invitation (source TEXT PRIMARY KEY)");
+        Execute("CREATE TABLE IF NOT EXISTS device_site_zoom (host TEXT PRIMARY KEY, zoom REAL NOT NULL, position INTEGER NOT NULL)");
     }
 
     /// Everything the device store holds. A row whose identities or names do
@@ -185,8 +186,20 @@ internal sealed class SqliteConnection : IDisposable {
         BlockingSites = ReadBlockingSites(),
         CustomFilterLists = ReadCustomFilterLists(),
         CustomFilters = ReadCustomFilters(),
-        SettledInvitations = ReadSettledInvitations()
+        SettledInvitations = ReadSettledInvitations(),
+        SiteZooms = ReadSiteZooms()
     };
+
+    /// The zoom each site keeps, the most recently chosen last. A row whose
+    /// zoom is no number is left out.
+    private List<(string Host, double Zoom)> ReadSiteZooms() {
+        var zooms = new List<(string Host, double Zoom)>();
+        Rows("SELECT host, zoom FROM device_site_zoom ORDER BY position", statement => {
+            double zoom = Sqlite.sqlite3_column_double(statement, 1);
+            if (double.IsFinite(zoom)) zooms.Add((Sqlite.ColumnText(statement, 0), zoom));
+        });
+        return zooms;
+    }
 
     /// The browsers whose import invitation the person settled. A source this
     /// build does not know is left out.
@@ -457,6 +470,7 @@ internal sealed class SqliteConnection : IDisposable {
         if (written is null || records.CustomFilters != written.CustomFilters) WriteCustomFilters(records.CustomFilters);
         if (written is null || !records.SettledInvitations.SetEquals(written.SettledInvitations))
             WriteSettledInvitations(records.SettledInvitations);
+        if (written is null || !records.SiteZooms.SequenceEqual(written.SiteZooms)) WriteSiteZooms(records.SiteZooms);
     }
 
     /// The search catalog as its one document, or no row before it was first restored.
@@ -672,6 +686,15 @@ internal sealed class SqliteConnection : IDisposable {
                 Checked(Sqlite.sqlite3_bind_int64(statement, 3, list.IsOn ? 1 : 0));
                 Checked(Sqlite.sqlite3_bind_int64(statement, 4, index));
             });
+    }
+
+    private void WriteSiteZooms(IReadOnlyList<(string Host, double Zoom)> zooms) {
+        Execute("DELETE FROM device_site_zoom");
+        InsertInOrder("INSERT INTO device_site_zoom(host, zoom, position) VALUES(?,?,?)", zooms, (statement, entry, index) => {
+            Bind(statement, 1, entry.Host);
+            Checked(Sqlite.sqlite3_bind_double(statement, 2, entry.Zoom));
+            Checked(Sqlite.sqlite3_bind_int64(statement, 3, index));
+        });
     }
 
     private void WriteSettledInvitations(IReadOnlySet<ImportSource> settled) {

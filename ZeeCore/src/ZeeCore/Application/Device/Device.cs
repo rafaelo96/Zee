@@ -118,6 +118,7 @@ internal sealed partial class Device {
         paletteMemories = records.PaletteMemories.ToImmutableDictionary();
         searchCatalog = records.SearchCatalog;
         settledInvitations.UnionWith(records.SettledInvitations);
+        siteZooms.AddRange(records.SiteZooms.TakeLast(MaximumSiteZooms));
         RestoreContentBlocking(records);
     }
 
@@ -351,7 +352,8 @@ internal sealed partial class Device {
         BlockingSites = [.. keptBlockingSites],
         CustomFilterLists = [.. customFilterLists],
         CustomFilters = customFilters,
-        SettledInvitations = new HashSet<ImportSource>(settledInvitations)
+        SettledInvitations = new HashSet<ImportSource>(settledInvitations),
+        SiteZooms = [.. siteZooms]
     };
 
     #endregion

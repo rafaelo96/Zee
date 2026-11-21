@@ -5689,6 +5689,10 @@
     "boosts": {
       "category": "new",
       "message": "Boosts restyle any site, as Arc's did: pick its colors, font and text size, hide elements you point at, or add your own CSS and JavaScript. A Boost applies to the site and its subdomains in its Space, or in every Space, on both engines, and syncs with your other devices."
+    },
+    "site-zoom": {
+      "category": "new",
+      "message": "Zee remembers the zoom you choose for each site: its pages open at that zoom in every Space, on Chromium and WebKit, until Actual Size returns it to your default. Private windows use it without remembering new ones."
     }
   }
 }

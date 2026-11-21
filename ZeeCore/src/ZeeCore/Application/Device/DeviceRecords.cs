@@ -62,6 +62,9 @@ internal sealed record DeviceRecords(IReadOnlyList<SavedWindow> Windows, IReadOn
     /// The person's own filters.
     public string CustomFilters { get; init; } = "";
 
+    /// The zoom each site keeps, the most recently chosen last.
+    public IReadOnlyList<(string Host, double Zoom)> SiteZooms { get; init; } = [];
+
     /// The browsers whose import invitation the person settled.
     public IReadOnlySet<ImportSource> SettledInvitations { get; init; } = new HashSet<ImportSource>();
 
@@ -97,7 +100,8 @@ internal sealed record DeviceRecords(IReadOnlyList<SavedWindow> Windows, IReadOn
         && FilterListChoices.All(entry => other.FilterListChoices.TryGetValue(entry.Key, out bool isOn) && isOn == entry.Value)
         && BlockingSites.SequenceEqual(other.BlockingSites)
         && CustomFilterLists.SequenceEqual(other.CustomFilterLists) && CustomFilters == other.CustomFilters
-        && SettledInvitations.SetEquals(other.SettledInvitations);
+        && SettledInvitations.SetEquals(other.SettledInvitations)
+        && SiteZooms.SequenceEqual(other.SiteZooms);
 
     public override int GetHashCode() => HashCode.Combine(Windows.Count, SitePermissions.Count, Adopted.Count);
 

@@ -31,6 +31,8 @@ Downloaded language packs are shared with other apps and remain on the device af
 
 Set a default zoom for pages in **Settings → Appearance**, from **50% to 300%**.
 
+Zee remembers the zoom you choose for each site on this device: every page of that site opens at it, in any Space, until **Actual Size** sets it back to your default. Private windows use a site's zoom but don't remember new ones.
+
 ## Video and audio
 
 Use the sidebar’s Now Playing controls for eligible active media. On Mac, supported videos can open in **Picture in Picture**. Turn on **Picture in Picture when switching tabs** in **Settings → General** to start it automatically. Availability depends on the website and its player.

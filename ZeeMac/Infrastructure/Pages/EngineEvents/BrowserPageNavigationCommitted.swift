@@ -20,6 +20,7 @@ struct BrowserPageNavigationCommitted: BrowserPageEngineEvent {
         page.linkHover?.didCommitNavigation()
         page.mediaSessionCoordinator?.didCommitNavigation()
         page.committedNavigationCount += 1
+        page.applySiteZoom(for: url)
         if !isLoading { page.completedNavigationCount += 1 }
         let authentication = page.httpAuthenticationSession
         Task { await authentication.authenticationSucceeded() }
