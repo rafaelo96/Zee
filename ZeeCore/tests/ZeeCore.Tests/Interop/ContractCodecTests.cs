@@ -3,12 +3,12 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
+using Xunit;
+
 using ZeeCore.Application;
 using ZeeCore.Contracts;
 using ZeeCore.Generator;
 using ZeeCore.Native;
-
-using Xunit;
 
 namespace ZeeCore.Tests;
 

@@ -1,10 +1,10 @@
 using System.Text;
 
+using Xunit;
+
 using ZeeCore.Application;
 using ZeeCore.Contracts;
 using ZeeCore.Domain;
-
-using Xunit;
 
 namespace ZeeCore.Tests;
 

@@ -1,8 +1,8 @@
+using Xunit;
+
 using ZeeCore.Application;
 using ZeeCore.Contracts;
 using ZeeCore.Native;
-
-using Xunit;
 
 namespace ZeeCore.Tests;
 

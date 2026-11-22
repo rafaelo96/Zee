@@ -5733,6 +5733,10 @@
     "zee-profile-adoption": {
       "category": "fixed",
       "message": "Engine profiles named with Zee's short prefix move into Zee's own folder again on first launch, instead of being left behind."
+    },
+    "zee-format-after-rename": {
+      "category": "internal",
+      "message": "Core tests and shared Swift files are ordered again the way the formatters expect after the rename to Zee, so the build checks pass."
     }
   }
 }

@@ -1,8 +1,8 @@
 using System.Text.Json.Nodes;
 
-using ZeeCore.Application;
-
 using Xunit;
+
+using ZeeCore.Application;
 
 using static ZeeCore.Application.ContentFilter;
 
