@@ -5741,6 +5741,10 @@
     "zee-site-on-github-pages": {
       "category": "improved",
       "message": "Zee's website and Help now live at rafaelo96.github.io/Zee, and every link that pointed to zee.dev opens them there."
+    },
+    "abi-seed-space-fields": {
+      "category": "internal",
+      "message": "The native ABI checks spell a Space with its Boosts and its own engine, so they open their test session again."
     }
   }
 }
