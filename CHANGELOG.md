@@ -684,12 +684,12 @@ Mac, iPhone, and iPad.
 
 Zee releases before 0.3.0 predate this changelog. Their development history remains available in Git.
 
-[Unreleased]: https://github.com/OWNER/Zee/compare/v0.8.1...HEAD
-[0.8.1]: https://github.com/OWNER/Zee/compare/v0.8.0...v0.8.1
-[0.8.0]: https://github.com/OWNER/Zee/compare/v0.7.2...v0.8.0
-[0.7.0]: https://github.com/OWNER/Zee/compare/v0.6.33...v0.7.0
-[0.6.33]: https://github.com/OWNER/Zee/compare/v0.6.8...v0.6.33
-[0.6.3]: https://github.com/OWNER/Zee/compare/v0.5.7...v0.6.3
-[0.5.7]: https://github.com/OWNER/Zee/releases/tag/v0.5.7
-[0.4.0]: https://github.com/OWNER/Zee/releases/tag/v0.4.0
-[0.3.0]: https://github.com/OWNER/Zee/releases/tag/v0.3.0
+[Unreleased]: https://github.com/rafaelo96/Zee/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/rafaelo96/Zee/compare/v0.8.0...v0.8.1
+[0.8.0]: https://github.com/rafaelo96/Zee/compare/v0.7.2...v0.8.0
+[0.7.0]: https://github.com/rafaelo96/Zee/compare/v0.6.33...v0.7.0
+[0.6.33]: https://github.com/rafaelo96/Zee/compare/v0.6.8...v0.6.33
+[0.6.3]: https://github.com/rafaelo96/Zee/compare/v0.5.7...v0.6.3
+[0.5.7]: https://github.com/rafaelo96/Zee/releases/tag/v0.5.7
+[0.4.0]: https://github.com/rafaelo96/Zee/releases/tag/v0.4.0
+[0.3.0]: https://github.com/rafaelo96/Zee/releases/tag/v0.3.0

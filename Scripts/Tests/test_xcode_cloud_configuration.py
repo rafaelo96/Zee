@@ -66,7 +66,7 @@ class XcodeCloudConfigurationTests(unittest.TestCase):
                 "#!/bin/sh\n"
                 "case \"$*\" in\n"
                 "    *' remote get-url origin')\n"
-                "        printf '%s\\n' 'http://github.com/OWNER/Zee.git'\n"
+                "        printf '%s\\n' 'http://github.com/rafaelo96/Zee.git'\n"
                 "        ;;\n"
                 "    *)\n"
                 f"        exec {shlex.quote(real_git)} \"$@\"\n"

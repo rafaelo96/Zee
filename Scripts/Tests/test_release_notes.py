@@ -71,7 +71,7 @@ class ReleaseNotesTests(unittest.TestCase):
             "--repository-root",
             str(repository),
             "--repository",
-            "OWNER/Zee",
+            "rafaelo96/Zee",
             "--channel",
             channel,
             "--current-ref",
@@ -114,7 +114,7 @@ class ReleaseNotesTests(unittest.TestCase):
                         else f"prerelease%3Atrue+%22{channel.title()}+builds%22"
                     )
                     self.assertIn(
-                        f"[Browse {channel.title()} releases](https://github.com/OWNER/Zee/releases?q={query})",
+                        f"[Browse {channel.title()} releases](https://github.com/rafaelo96/Zee/releases?q={query})",
                         result.stdout,
                     )
 

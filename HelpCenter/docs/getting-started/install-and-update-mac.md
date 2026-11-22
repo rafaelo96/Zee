@@ -11,7 +11,7 @@ Zee for Mac requires Apple silicon and macOS 26.1 or later. It is distributed di
 
 ## Install the latest Mac release
 
-1. Open the [latest stable Zee release](https://github.com/OWNER/Zee/releases/latest).
+1. Open the [latest stable Zee release](https://github.com/rafaelo96/Zee/releases/latest).
 2. Download its `Installer-….dmg` file.
 3. Open the disk image, then drag Zee into **Applications**.
 4. Eject the disk image and open Zee from Applications.

@@ -234,7 +234,7 @@ def main():
                                help="Compare the rebuilt libraries with the lock instead of rewriting it")
     commands.add_parser("notices", help=f"Rewrite {NOTICES} from the crates Cargo.lock resolves")
     published_command = commands.add_parser("published", help="Say whether the locked archive is released")
-    published_command.add_argument("--repository", default=os.environ.get("GITHUB_REPOSITORY", "OWNER/Zee"))
+    published_command.add_argument("--repository", default=os.environ.get("GITHUB_REPOSITORY", "rafaelo96/Zee"))
     published_command.add_argument("--require", action="store_true", help="Fail when it is not")
     args = parser.parse_args()
 

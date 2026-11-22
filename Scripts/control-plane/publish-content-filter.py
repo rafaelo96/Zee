@@ -26,7 +26,7 @@ def run(*command, **kwargs):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archive", type=Path, help="The built archive (default: the crate's target/artifact)")
-    parser.add_argument("--repository", default="OWNER/Zee")
+    parser.add_argument("--repository", default="rafaelo96/Zee")
     parser.add_argument("--dry-run", action="store_true", help="Verify without uploading")
     args = parser.parse_args()
 

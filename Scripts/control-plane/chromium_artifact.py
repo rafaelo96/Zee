@@ -31,7 +31,7 @@ def published_release(repository, key):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--repository", default=os.environ.get("GITHUB_REPOSITORY", "OWNER/Zee"))
+    parser.add_argument("--repository", default=os.environ.get("GITHUB_REPOSITORY", "rafaelo96/Zee"))
     parser.add_argument("--require", action="store_true")
     args = parser.parse_args()
     key = chromium_engine.engine_key(Path(__file__).resolve().parents[2])

@@ -6,11 +6,11 @@ descriptions.
 
 ## Published releases
 
-- [Zee 0.9.1](https://github.com/OWNER/Zee/releases/tag/v0.9.1) — [release scope and completed work](https://github.com/OWNER/Zee/milestone/5?closed=1).
-- [Zee 0.8.50](https://github.com/OWNER/Zee/releases/tag/v0.8.50) — [release scope and completed work](https://github.com/OWNER/Zee/milestone/4?closed=1).
-- [Zee 0.7.2](https://github.com/OWNER/Zee/releases/tag/v0.7.2) — [release scope and completed work](https://github.com/OWNER/Zee/milestone/3?closed=1).
-- [Zee 0.6.3](https://github.com/OWNER/Zee/releases/tag/v0.6.3) — [release scope and completed work](https://github.com/OWNER/Zee/milestone/2?closed=1).
-- [Zee 0.5.7](https://github.com/OWNER/Zee/releases/tag/v0.5.7) — [release scope and completed work](https://github.com/OWNER/Zee/milestone/1?closed=1).
+- [Zee 0.9.1](https://github.com/rafaelo96/Zee/releases/tag/v0.9.1) — [release scope and completed work](https://github.com/rafaelo96/Zee/milestone/5?closed=1).
+- [Zee 0.8.50](https://github.com/rafaelo96/Zee/releases/tag/v0.8.50) — [release scope and completed work](https://github.com/rafaelo96/Zee/milestone/4?closed=1).
+- [Zee 0.7.2](https://github.com/rafaelo96/Zee/releases/tag/v0.7.2) — [release scope and completed work](https://github.com/rafaelo96/Zee/milestone/3?closed=1).
+- [Zee 0.6.3](https://github.com/rafaelo96/Zee/releases/tag/v0.6.3) — [release scope and completed work](https://github.com/rafaelo96/Zee/milestone/2?closed=1).
+- [Zee 0.5.7](https://github.com/rafaelo96/Zee/releases/tag/v0.5.7) — [release scope and completed work](https://github.com/rafaelo96/Zee/milestone/1?closed=1).
 
 <!-- zee-roadmap-sync:start -->
 ## Active releases
@@ -18,39 +18,39 @@ descriptions.
 Release milestones are shown from earliest to latest. The project board holds
 the live status for each issue.
 
-### [0.10](https://github.com/OWNER/Zee/milestone/6)
+### [0.10](https://github.com/rafaelo96/Zee/milestone/6)
 
 #### Planned and in progress
 
-- [ ] [Reveal the collapsed iPad sidebar on pointer hover](https://github.com/OWNER/Zee/issues/176)
-- [ ] [feature: Add Edit Pinned URL menu option and dialogue](https://github.com/OWNER/Zee/issues/218)
-- [ ] [bug: white flash between loading screen in dark mode](https://github.com/OWNER/Zee/issues/246)
-- [ ] [feature: Double-click a tab to rename](https://github.com/OWNER/Zee/issues/264)
-- [ ] [Keep find in page in step with what you type](https://github.com/OWNER/Zee/issues/278)
-- [ ] [Pointer reappears during playback and the sidebar opens on its own](https://github.com/OWNER/Zee/issues/304)
-- [ ] [Sidebar toggle and download animation don't follow a right-side sidebar or right-to-left layout](https://github.com/OWNER/Zee/issues/329)
-- [ ] [feature: Reorder Spaces in the drawer and rearrange the extension bar below the address bar](https://github.com/OWNER/Zee/issues/339)
-- [ ] [feature: Per-site developer mode toggle in the URL bar menu, persistent per origin](https://github.com/OWNER/Zee/issues/351)
-- [ ] [feature: Show extension actions next to the address field in Developer Mode](https://github.com/OWNER/Zee/issues/352)
-- [ ] [Hold-space cursor control doesn't work in the iPhone address bar](https://github.com/OWNER/Zee/issues/370)
-- [ ] [feature: Show a peek indicator on the originating tab when a Peek is open](https://github.com/OWNER/Zee/issues/389)
-- [ ] [feature: Let agents run several page steps in one call](https://github.com/OWNER/Zee/issues/403)
-- [ ] [feature: Connect an agent from Settings without a terminal](https://github.com/OWNER/Zee/issues/404)
-- [ ] [bug: Command palette treats custom URL schemes as web search queries instead of opening them](https://github.com/OWNER/Zee/issues/408)
-- [ ] [Tab switches Spaces instead of moving between form fields on iPad](https://github.com/OWNER/Zee/issues/425)
-- [ ] [bug: Preserve sidebar state and page state when moving a tab to another window/display](https://github.com/OWNER/Zee/issues/477)
-- [ ] [feature: Support multiple Private Browsing windows](https://github.com/OWNER/Zee/issues/481)
-- [ ] [feature: Share one extension install across chosen Spaces](https://github.com/OWNER/Zee/issues/527)
-- [ ] [Keep a Quick Window from another app clear of a new tab's keyboard on iPhone](https://github.com/OWNER/Zee/issues/563)
-- [ ] [Say so when a link from another app needs a locked Space](https://github.com/OWNER/Zee/issues/564)
+- [ ] [Reveal the collapsed iPad sidebar on pointer hover](https://github.com/rafaelo96/Zee/issues/176)
+- [ ] [feature: Add Edit Pinned URL menu option and dialogue](https://github.com/rafaelo96/Zee/issues/218)
+- [ ] [bug: white flash between loading screen in dark mode](https://github.com/rafaelo96/Zee/issues/246)
+- [ ] [feature: Double-click a tab to rename](https://github.com/rafaelo96/Zee/issues/264)
+- [ ] [Keep find in page in step with what you type](https://github.com/rafaelo96/Zee/issues/278)
+- [ ] [Pointer reappears during playback and the sidebar opens on its own](https://github.com/rafaelo96/Zee/issues/304)
+- [ ] [Sidebar toggle and download animation don't follow a right-side sidebar or right-to-left layout](https://github.com/rafaelo96/Zee/issues/329)
+- [ ] [feature: Reorder Spaces in the drawer and rearrange the extension bar below the address bar](https://github.com/rafaelo96/Zee/issues/339)
+- [ ] [feature: Per-site developer mode toggle in the URL bar menu, persistent per origin](https://github.com/rafaelo96/Zee/issues/351)
+- [ ] [feature: Show extension actions next to the address field in Developer Mode](https://github.com/rafaelo96/Zee/issues/352)
+- [ ] [Hold-space cursor control doesn't work in the iPhone address bar](https://github.com/rafaelo96/Zee/issues/370)
+- [ ] [feature: Show a peek indicator on the originating tab when a Peek is open](https://github.com/rafaelo96/Zee/issues/389)
+- [ ] [feature: Let agents run several page steps in one call](https://github.com/rafaelo96/Zee/issues/403)
+- [ ] [feature: Connect an agent from Settings without a terminal](https://github.com/rafaelo96/Zee/issues/404)
+- [ ] [bug: Command palette treats custom URL schemes as web search queries instead of opening them](https://github.com/rafaelo96/Zee/issues/408)
+- [ ] [Tab switches Spaces instead of moving between form fields on iPad](https://github.com/rafaelo96/Zee/issues/425)
+- [ ] [bug: Preserve sidebar state and page state when moving a tab to another window/display](https://github.com/rafaelo96/Zee/issues/477)
+- [ ] [feature: Support multiple Private Browsing windows](https://github.com/rafaelo96/Zee/issues/481)
+- [ ] [feature: Share one extension install across chosen Spaces](https://github.com/rafaelo96/Zee/issues/527)
+- [ ] [Keep a Quick Window from another app clear of a new tab's keyboard on iPhone](https://github.com/rafaelo96/Zee/issues/563)
+- [ ] [Say so when a link from another app needs a locked Space](https://github.com/rafaelo96/Zee/issues/564)
 
 #### Completed
 
-- [x] [feature: have a top url bar when in fullscreen mode](https://github.com/OWNER/Zee/issues/249)
-- [x] [Preview tabs and folders from the sidebar on hover and hold](https://github.com/OWNER/Zee/issues/294)
-- [x] [Return to the previous app when a Quick Window from another app closes](https://github.com/OWNER/Zee/issues/428)
-- [x] [bug: can't continue onboarding when importing from Arc](https://github.com/OWNER/Zee/issues/535)
-- [x] [Choose a Heraldic, Modern or Simple style for customizing Zee, and show Spaces as dots](https://github.com/OWNER/Zee/issues/1102)
+- [x] [feature: have a top url bar when in fullscreen mode](https://github.com/rafaelo96/Zee/issues/249)
+- [x] [Preview tabs and folders from the sidebar on hover and hold](https://github.com/rafaelo96/Zee/issues/294)
+- [x] [Return to the previous app when a Quick Window from another app closes](https://github.com/rafaelo96/Zee/issues/428)
+- [x] [bug: can't continue onboarding when importing from Arc](https://github.com/rafaelo96/Zee/issues/535)
+- [x] [Choose a Heraldic, Modern or Simple style for customizing Zee, and show Spaces as dots](https://github.com/rafaelo96/Zee/issues/1102)
 
 <!-- zee-roadmap-sync:end -->
 
@@ -107,6 +107,6 @@ Repeat these checks for each release candidate.
 
 ## Active platform work
 
-- [Image-conversion compatibility](https://github.com/OWNER/Zee/issues/163) is delivered. Slack Huddles remain deferred and are not claimed fixed or validated.
+- [Image-conversion compatibility](https://github.com/rafaelo96/Zee/issues/163) is delivered. Slack Huddles remain deferred and are not claimed fixed or validated.
 
 - Extension work is active in the Chromium Mac product. Preserve per-Space isolation, keep extensions out of private windows, and report what Zee's host does not support instead of presenting partially initialized extension UI as working.

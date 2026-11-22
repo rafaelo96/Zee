@@ -5721,6 +5721,10 @@
     "zee-links-and-engine-rename": {
       "category": "internal",
       "message": "Point Zee's links at zee.dev and Zee's own repository, remove the inherited App Store, Homebrew, TestFlight, Reddit, Discord and sponsorship links, and finish renaming the Chromium engine's code to Zee so it builds."
+    },
+    "zee-repository": {
+      "category": "internal",
+      "message": "Publish Zee in its own public repository, rafaelo96/Zee, and point every link, download and update feed at it."
     }
   }
 }

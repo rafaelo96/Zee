@@ -4,8 +4,8 @@
   <p><strong>An open source browser for Mac, iPhone, and iPad.</strong></p>
   <p>Built with SwiftUI, running Chromium and WebKit on Mac, with separate Spaces for different parts of your life.</p>
   <p>
-    <a href="https://github.com/OWNER/Zee/actions/workflows/ci.yml"><img alt="Build Zee" src="https://github.com/OWNER/Zee/actions/workflows/ci.yml/badge.svg"></a>
-    <a href="https://github.com/OWNER/Zee/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/OWNER/Zee?display_name=tag&sort=semver&filter=v*"></a>
+    <a href="https://github.com/rafaelo96/Zee/actions/workflows/ci.yml"><img alt="Build Zee" src="https://github.com/rafaelo96/Zee/actions/workflows/ci.yml/badge.svg"></a>
+    <a href="https://github.com/rafaelo96/Zee/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/rafaelo96/Zee?display_name=tag&sort=semver&filter=v*"></a>
     <a href="LICENSE"><img alt="MPL-2.0 license" src="https://img.shields.io/badge/license-MPL--2.0-315f93"></a>
   </p>
   <p>
@@ -13,7 +13,7 @@
     ·
     <a href="https://zee.dev/guides/">Read the guides</a>
     ·
-    <a href="https://github.com/OWNER/Zee/releases/latest">Download for Mac</a>
+    <a href="https://github.com/rafaelo96/Zee/releases/latest">Download for Mac</a>
     ·
     <a href="Documentation/ROADMAP.md">Roadmap</a>
     ·
@@ -21,9 +21,9 @@
   </p>
 </div>
 
-Browse Mac releases by channel: [Stable](https://github.com/OWNER/Zee/releases?q=prerelease%3Afalse),
-[Nightly](https://github.com/OWNER/Zee/releases?q=prerelease%3Atrue+%22Nightly+builds%22), or
-[Development](https://github.com/OWNER/Zee/releases?q=prerelease%3Atrue+%22Development+builds%22).
+Browse Mac releases by channel: [Stable](https://github.com/rafaelo96/Zee/releases?q=prerelease%3Afalse),
+[Nightly](https://github.com/rafaelo96/Zee/releases?q=prerelease%3Atrue+%22Nightly+builds%22), or
+[Development](https://github.com/rafaelo96/Zee/releases?q=prerelease%3Atrue+%22Development+builds%22).
 
 <p align="center">
   <a href="Website/assets/zee-work-mac.png"><img src="Website/assets/zee-work-mac.png" width="100%" alt="Zee on Mac with Lion Work first, Winter Personal second, and Audience research open beside the Launch Atlas folder"></a>
@@ -107,7 +107,7 @@ The same Spaces, shaped for each screen. iPad keeps the sidebar beside your page
 
 | Platform | Install |
 | --- | --- |
-| Mac · Apple silicon · macOS 26.1+ | [Signed, notarized download](https://github.com/OWNER/Zee/releases/latest) with built-in Sparkle updates. |
+| Mac · Apple silicon · macOS 26.1+ | [Signed, notarized download](https://github.com/rafaelo96/Zee/releases/latest) with built-in Sparkle updates. |
 | iPhone · iOS 26.1+ and iPad · iPadOS 26.1+ | Build from source; Zee is not on the App Store yet. |
 
 ## Built as an Apple-platform app
@@ -135,7 +135,7 @@ Requirements:
 - .NET SDK pinned by `ZeeCore/global.json`, installable with `Scripts/control-plane/install-dotnet.sh`
 
 ```bash
-git clone https://github.com/OWNER/Zee.git
+git clone https://github.com/rafaelo96/Zee.git
 cd Zee
 Scripts/bootstrap.sh
 open Zee.xcodeproj
@@ -189,10 +189,10 @@ Zee is under active development. The current implementation includes the core br
 
 ## Community and support
 
-Use [GitHub Issues](https://github.com/OWNER/Zee/issues/new/choose) for
+Use [GitHub Issues](https://github.com/rafaelo96/Zee/issues/new/choose) for
 questions, feedback, ideas, compatibility reports, reproducible bugs and
 concrete tracked outcomes. Security concerns belong in a
-[private vulnerability report](https://github.com/OWNER/Zee/security/advisories/new),
+[private vulnerability report](https://github.com/rafaelo96/Zee/security/advisories/new),
 never a public post. [SUPPORT.md](SUPPORT.md) explains each route in detail.
 
 ## AI usage
@@ -244,8 +244,8 @@ of each platform.
 
 ## Contributors
 
-<a href="https://github.com/OWNER/Zee/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=OWNER/Zee" alt="People who have contributed to Zee">
+<a href="https://github.com/rafaelo96/Zee/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=rafaelo96/Zee" alt="People who have contributed to Zee">
 </a>
 
 ## License and brand
@@ -267,10 +267,10 @@ in [TRADEMARKS.md](TRADEMARKS.md). Third-party notices are collected in
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=OWNER%2Fzee&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=rafaelo96%2Fzee&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=OWNER/zee&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=OWNER/zee&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=OWNER/zee&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=rafaelo96/zee&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=rafaelo96/zee&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=rafaelo96/zee&type=date&legend=top-left" />
  </picture>
 </a>

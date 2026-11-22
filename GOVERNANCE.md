@@ -18,7 +18,7 @@ Zee name and visual identity remain governed by [TRADEMARKS.md](TRADEMARKS.md).
 
 - User problems, alternatives, early feedback and reproducible work are
   discussed and tracked in
-  [GitHub Issues](https://github.com/OWNER/Zee/issues).
+  [GitHub Issues](https://github.com/rafaelo96/Zee/issues).
 - Planned release outcomes are summarized in the roadmap and milestones. Only the maintainer adds items to them; an issue or pull request
   is not a commitment.
 - Anyone can have one pull request open at a time, and vetted contributors

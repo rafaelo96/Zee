@@ -24,7 +24,7 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Render Zee's public roadmap from roadmap-labelled GitHub issues."
     )
-    parser.add_argument("--repository", default="OWNER/Zee")
+    parser.add_argument("--repository", default="rafaelo96/Zee")
     parser.add_argument("--input", type=Path, help="Read a saved JSON snapshot instead of GitHub.")
     parser.add_argument("--roadmap", type=Path, default=DEFAULT_ROADMAP)
     mode = parser.add_mutually_exclusive_group()

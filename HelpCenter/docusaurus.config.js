@@ -7,7 +7,7 @@ const config = {
   favicon: 'img/zee-logo.svg',
   url: 'https://zee.dev',
   baseUrl: '/guides/',
-  organizationName: 'OWNER',
+  organizationName: 'rafaelo96',
   projectName: 'Zee-Website',
   trailingSlash: true,
   onBrokenLinks: 'throw',
@@ -66,7 +66,7 @@ const config = {
         {type: 'docSidebar', sidebarId: 'helpSidebar', position: 'left', label: 'Articles'},
         {to: '/keyboard-shortcuts/', label: 'Shortcuts', position: 'left'},
         {to: '/extension-api-compatibility/', label: 'Compatibility', position: 'left'},
-        {href: 'https://github.com/OWNER/Zee/releases/latest', label: 'Download for Mac', position: 'right'},
+        {href: 'https://github.com/rafaelo96/Zee/releases/latest', label: 'Download for Mac', position: 'right'},
         {href: 'https://zee.dev/support/', label: 'Support', position: 'right'},
         {href: 'https://zee.dev/', label: 'Product site', position: 'right'},
       ],
@@ -84,7 +84,7 @@ const config = {
           title: 'Zee',
           items: [
             {label: 'Product site', href: 'https://zee.dev/'},
-            {label: 'Download for Mac', href: 'https://github.com/OWNER/Zee/releases/latest'},
+            {label: 'Download for Mac', href: 'https://github.com/rafaelo96/Zee/releases/latest'},
           ],
         },
         {
@@ -100,7 +100,7 @@ const config = {
         {
           title: 'Community',
           items: [
-            {label: 'GitHub Issues', href: 'https://github.com/OWNER/Zee/issues/new/choose'},
+            {label: 'GitHub Issues', href: 'https://github.com/rafaelo96/Zee/issues/new/choose'},
             {label: 'Privacy', href: 'https://zee.dev/privacy/'},
           ],
         },
