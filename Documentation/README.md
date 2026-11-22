@@ -1,6 +1,6 @@
 # Zee documentation
 
-The product site and [Zee Help](https://zee.dev/guides/) explain how
+The product site and [Zee Help](https://rafaelo96.github.io/Zee/guides/) explain how
 to use the browser. This directory describes the source, product behavior, and
 build and release requirements for contributors.
 

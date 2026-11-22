@@ -5737,6 +5737,10 @@
     "zee-format-after-rename": {
       "category": "internal",
       "message": "Core tests and shared Swift files are ordered again the way the formatters expect after the rename to Zee, so the build checks pass."
+    },
+    "zee-site-on-github-pages": {
+      "category": "improved",
+      "message": "Zee's website and Help now live at rafaelo96.github.io/Zee, and every link that pointed to zee.dev opens them there."
     }
   }
 }

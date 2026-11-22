@@ -9,9 +9,9 @@
     <a href="LICENSE"><img alt="MPL-2.0 license" src="https://img.shields.io/badge/license-MPL--2.0-315f93"></a>
   </p>
   <p>
-    <a href="https://zee.dev/"><strong>Visit the product site</strong></a>
+    <a href="https://rafaelo96.github.io/Zee/"><strong>Visit the product site</strong></a>
     ·
-    <a href="https://zee.dev/guides/">Read the guides</a>
+    <a href="https://rafaelo96.github.io/Zee/guides/">Read the guides</a>
     ·
     <a href="https://github.com/rafaelo96/Zee/releases/latest">Download for Mac</a>
     ·
@@ -35,7 +35,7 @@ Most browsers put every login, tab, and distraction into one long-lived containe
 
 Switching Spaces changes more than the color of the window. It changes the browsing context.
 
-When several Spaces should share one set of sign-ins, make them **Sub-Spaces**: each keeps its own tabs and look while the group shares cookies, history, passwords, and extensions. [Read the Sub-Spaces guide.](https://zee.dev/guides/sub-spaces/)
+When several Spaces should share one set of sign-ins, make them **Sub-Spaces**: each keeps its own tabs and look while the group shares cookies, history, passwords, and extensions. [Read the Sub-Spaces guide.](https://rafaelo96.github.io/Zee/guides/sub-spaces/)
 
 ## Two engines on Mac
 
@@ -49,7 +49,7 @@ page that asks for Widevine or PlayReady video, itself or from a frame of its
 own site, switches to WebKit automatically, respecting any unsaved-changes
 prompt before moving it. Choose the default engine and
 per-website rules in **Settings → Engines**. iPhone and iPad use WebKit. The
-[engine guide](https://zee.dev/guides/engines/) lists what each engine
+[engine guide](https://rafaelo96.github.io/Zee/guides/engines/) lists what each engine
 supports.
 
 ## Badge Studio and Appearance
@@ -81,7 +81,7 @@ supports.
 | --- | --- |
 | On-device translation | On iPhone, iPad, and WebKit pages, detect a page’s language, translate it, or show the original. On Chromium pages, translate selected text. Optional automatic translation uses downloaded languages. Apple may ask to download additional languages. |
 | Reader and page tools | Read supported articles with fewer distractions on WebKit pages, find text, adjust zoom, share links, copy Markdown links, print, and export PDF or web archives where supported. |
-| Extensions on Mac | Install Chrome Web Store extensions in each Space. They run on Chromium pages, with popups and tab-specific side panels. [Compatibility varies.](https://zee.dev/guides/extension-compatibility/) |
+| Extensions on Mac | Install Chrome Web Store extensions in each Space. They run on Chromium pages, with popups and tab-specific side panels. [Compatibility varies.](https://rafaelo96.github.io/Zee/guides/extension-compatibility/) |
 | Developer tools on Mac | Preview phone, desktop, and custom viewport sizes; capture pages; open Chromium DevTools or Web Inspector for the page's engine. The toolbar appears on localhost, or on any site with **Shift-Command-I**. |
 | Media | Control eligible active media from the sidebar. On Mac, keep supported videos visible with Picture in Picture, including optional automatic PiP. |
 | Downloads and uploads | Follow download progress and revisit files in Downloads. Pause and resume Chromium transfers when the server supports recovery. On iPhone and iPad, upload through Photos, camera, or Files. |
@@ -94,7 +94,7 @@ Site permissions and content blocking are controlled per Space. Built-in ad and 
 
 Optional **iCloud sync** carries durable Spaces, tabs, folders, Split View groups, appearance, history, and Archive between devices. Password values stay out of CloudKit; eligible passwords can use iCloud Keychain separately. Start a browser import on Mac, review each destination Space, or export a portable Zee archive.
 
-Read the [privacy policy](https://zee.dev/privacy/), [Space isolation guide](https://zee.dev/guides/spaces-and-isolation/), and [sync guide](https://zee.dev/guides/sync-across-devices/) for the boundaries and controls.
+Read the [privacy policy](https://rafaelo96.github.io/Zee/privacy/), [Space isolation guide](https://rafaelo96.github.io/Zee/guides/spaces-and-isolation/), and [sync guide](https://rafaelo96.github.io/Zee/guides/sync-across-devices/) for the boundaries and controls.
 
 ## Get Zee
 
@@ -156,7 +156,7 @@ When updating from a WebKit-only release, your Spaces, tabs, history, and Zee
 Passwords carry over. Chromium has separate website storage, so sites may ask
 you to sign in again. You can keep WebKit as your default. Reinstall older
 WebKit extensions from the Chrome Web Store in each Space. The
-[upgrade guide](https://zee.dev/guides/engines/#after-updating-from-a-webkit-only-zee)
+[upgrade guide](https://rafaelo96.github.io/Zee/guides/engines/#after-updating-from-a-webkit-only-zee)
 explains these changes and the engine feature limits.
 
 macOS releases are distributed directly through GitHub Releases as signed,
