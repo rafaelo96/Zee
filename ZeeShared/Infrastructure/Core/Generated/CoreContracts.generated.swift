@@ -6639,7 +6639,7 @@ struct SpaceBranding: Equatable, Sendable {
         iconStyle: SpaceIconStyle.simpleSymbol,
         symbolColor: nil,
         badge: SpaceBadge(
-            backplate: BadgeBackplate.shield,
+            backplate: BadgeBackplate.circle,
             fieldDivision: BadgeFieldDivision.plain,
             ordinary: BadgeOrdinary.none,
             trim: BadgeTrim.none,
@@ -22292,6 +22292,7 @@ struct SpaceAccent: Hashable, Sendable {
     var house: SpaceBranding { facts.house }
     var swatch: BrandColor { facts.swatch }
     var zeeColors: [BrandColor] { facts.zeeColors }
+    var zeeLook: SpaceBranding { facts.zeeLook }
     private let facts: Facts
 
     private init(
@@ -22301,7 +22302,8 @@ struct SpaceAccent: Hashable, Sendable {
         legacyColors: [BrandColor],
         house: SpaceBranding,
         swatch: BrandColor,
-        zeeColors: [BrandColor]
+        zeeColors: [BrandColor],
+        zeeLook: SpaceBranding
     ) {
         self.tag = tag
         facts = Facts(
@@ -22310,7 +22312,8 @@ struct SpaceAccent: Hashable, Sendable {
             legacyColors: legacyColors,
             house: house,
             swatch: swatch,
-            zeeColors: zeeColors
+            zeeColors: zeeColors,
+            zeeLook: zeeLook
         )
     }
 
@@ -22389,7 +22392,59 @@ struct SpaceAccent: Hashable, Sendable {
         zeeColors: [
             BrandColor(red: 0.09, green: 0.537, blue: 0.867, alpha: 1),
             BrandColor(red: 0.169, green: 0.706, blue: 0.941, alpha: 1)
-        ]
+        ],
+        zeeLook: SpaceBranding(
+            colors: ColorPalette(
+                colors: [
+                    BrandColor(red: 0.09, green: 0.537, blue: 0.867, alpha: 1),
+                    BrandColor(red: 0.169, green: 0.706, blue: 0.941, alpha: 1)
+                ]
+            ),
+            bannerPattern: SpaceBannerPattern.diagonal,
+            bannerStrength: 1,
+            readabilityFade: 0.25,
+            keepsControlsReadable: true,
+            themeMode: SpaceThemeMode.gradient,
+            gradientAngle: 90,
+            textureStrength: 0,
+            iconStyle: SpaceIconStyle.simpleSymbol,
+            symbolColor: nil,
+            badge: SpaceBadge(
+                backplate: BadgeBackplate.circle,
+                fieldDivision: BadgeFieldDivision.plain,
+                ordinary: BadgeOrdinary.none,
+                trim: BadgeTrim.none,
+                symbol: BadgeSymbol.mountain,
+                chargeLayout: BadgeChargeLayout.single,
+                backplateColorIndex: 1,
+                secondaryFieldColorIndex: 1,
+                ordinaryColorIndex: 2,
+                trimColorIndex: 1,
+                symbolColorIndex: 2,
+                startingPresetID: nil,
+                edgeColorIndex: 1,
+                palette: nil,
+                charge: nil,
+                plateScale: 1,
+                edgeWidth: 0,
+                divisionCount: 4,
+                finish: BadgeFinish.flat,
+                ordinaryWidth: 1,
+                trimWeight: 1,
+                trimDetail: 12,
+                chargeScale: 1,
+                chargeOffset: 0,
+                chargeWeight: BadgeChargeWeight.bold,
+                sheenAngle: 45,
+                sealTeeth: 12,
+                showsOutline: false,
+                depth: BadgeDepth.none
+            ),
+            renderingVersion: 2,
+            folderColorIntensity: 0,
+            textColorMode: SpaceTextColorMode.automatic,
+            hasCustomAppearance: nil
+        )
     )
     static let orange = SpaceAccent(
         tag: 1,
@@ -22466,7 +22521,59 @@ struct SpaceAccent: Hashable, Sendable {
         zeeColors: [
             BrandColor(red: 1, green: 0.541, blue: 0.122, alpha: 1),
             BrandColor(red: 1, green: 0.749, blue: 0.122, alpha: 1)
-        ]
+        ],
+        zeeLook: SpaceBranding(
+            colors: ColorPalette(
+                colors: [
+                    BrandColor(red: 1, green: 0.541, blue: 0.122, alpha: 1),
+                    BrandColor(red: 1, green: 0.749, blue: 0.122, alpha: 1)
+                ]
+            ),
+            bannerPattern: SpaceBannerPattern.diagonal,
+            bannerStrength: 1,
+            readabilityFade: 0.25,
+            keepsControlsReadable: true,
+            themeMode: SpaceThemeMode.gradient,
+            gradientAngle: 90,
+            textureStrength: 0,
+            iconStyle: SpaceIconStyle.simpleSymbol,
+            symbolColor: nil,
+            badge: SpaceBadge(
+                backplate: BadgeBackplate.circle,
+                fieldDivision: BadgeFieldDivision.plain,
+                ordinary: BadgeOrdinary.none,
+                trim: BadgeTrim.none,
+                symbol: BadgeSymbol.mountain,
+                chargeLayout: BadgeChargeLayout.single,
+                backplateColorIndex: 1,
+                secondaryFieldColorIndex: 1,
+                ordinaryColorIndex: 2,
+                trimColorIndex: 1,
+                symbolColorIndex: 2,
+                startingPresetID: nil,
+                edgeColorIndex: 1,
+                palette: nil,
+                charge: nil,
+                plateScale: 1,
+                edgeWidth: 0,
+                divisionCount: 4,
+                finish: BadgeFinish.flat,
+                ordinaryWidth: 1,
+                trimWeight: 1,
+                trimDetail: 12,
+                chargeScale: 1,
+                chargeOffset: 0,
+                chargeWeight: BadgeChargeWeight.bold,
+                sheenAngle: 45,
+                sealTeeth: 12,
+                showsOutline: false,
+                depth: BadgeDepth.none
+            ),
+            renderingVersion: 2,
+            folderColorIntensity: 0,
+            textColorMode: SpaceTextColorMode.automatic,
+            hasCustomAppearance: nil
+        )
     )
     static let teal = SpaceAccent(
         tag: 2,
@@ -22543,7 +22650,59 @@ struct SpaceAccent: Hashable, Sendable {
         zeeColors: [
             BrandColor(red: 0.247, green: 0.816, blue: 0.961, alpha: 1),
             BrandColor(red: 0.09, green: 0.537, blue: 0.867, alpha: 1)
-        ]
+        ],
+        zeeLook: SpaceBranding(
+            colors: ColorPalette(
+                colors: [
+                    BrandColor(red: 0.247, green: 0.816, blue: 0.961, alpha: 1),
+                    BrandColor(red: 0.09, green: 0.537, blue: 0.867, alpha: 1)
+                ]
+            ),
+            bannerPattern: SpaceBannerPattern.diagonal,
+            bannerStrength: 1,
+            readabilityFade: 0.25,
+            keepsControlsReadable: true,
+            themeMode: SpaceThemeMode.gradient,
+            gradientAngle: 90,
+            textureStrength: 0,
+            iconStyle: SpaceIconStyle.simpleSymbol,
+            symbolColor: nil,
+            badge: SpaceBadge(
+                backplate: BadgeBackplate.circle,
+                fieldDivision: BadgeFieldDivision.plain,
+                ordinary: BadgeOrdinary.none,
+                trim: BadgeTrim.none,
+                symbol: BadgeSymbol.mountain,
+                chargeLayout: BadgeChargeLayout.single,
+                backplateColorIndex: 1,
+                secondaryFieldColorIndex: 1,
+                ordinaryColorIndex: 2,
+                trimColorIndex: 1,
+                symbolColorIndex: 2,
+                startingPresetID: nil,
+                edgeColorIndex: 1,
+                palette: nil,
+                charge: nil,
+                plateScale: 1,
+                edgeWidth: 0,
+                divisionCount: 4,
+                finish: BadgeFinish.flat,
+                ordinaryWidth: 1,
+                trimWeight: 1,
+                trimDetail: 12,
+                chargeScale: 1,
+                chargeOffset: 0,
+                chargeWeight: BadgeChargeWeight.bold,
+                sheenAngle: 45,
+                sealTeeth: 12,
+                showsOutline: false,
+                depth: BadgeDepth.none
+            ),
+            renderingVersion: 2,
+            folderColorIntensity: 0,
+            textColorMode: SpaceTextColorMode.automatic,
+            hasCustomAppearance: nil
+        )
     )
     static let rose = SpaceAccent(
         tag: 3,
@@ -22620,7 +22779,59 @@ struct SpaceAccent: Hashable, Sendable {
         zeeColors: [
             BrandColor(red: 0.976, green: 0, blue: 0.176, alpha: 1),
             BrandColor(red: 1, green: 0.353, blue: 0.282, alpha: 1)
-        ]
+        ],
+        zeeLook: SpaceBranding(
+            colors: ColorPalette(
+                colors: [
+                    BrandColor(red: 0.976, green: 0, blue: 0.176, alpha: 1),
+                    BrandColor(red: 1, green: 0.353, blue: 0.282, alpha: 1)
+                ]
+            ),
+            bannerPattern: SpaceBannerPattern.diagonal,
+            bannerStrength: 1,
+            readabilityFade: 0.25,
+            keepsControlsReadable: true,
+            themeMode: SpaceThemeMode.gradient,
+            gradientAngle: 90,
+            textureStrength: 0,
+            iconStyle: SpaceIconStyle.simpleSymbol,
+            symbolColor: nil,
+            badge: SpaceBadge(
+                backplate: BadgeBackplate.circle,
+                fieldDivision: BadgeFieldDivision.plain,
+                ordinary: BadgeOrdinary.none,
+                trim: BadgeTrim.none,
+                symbol: BadgeSymbol.mountain,
+                chargeLayout: BadgeChargeLayout.single,
+                backplateColorIndex: 1,
+                secondaryFieldColorIndex: 1,
+                ordinaryColorIndex: 2,
+                trimColorIndex: 1,
+                symbolColorIndex: 2,
+                startingPresetID: nil,
+                edgeColorIndex: 1,
+                palette: nil,
+                charge: nil,
+                plateScale: 1,
+                edgeWidth: 0,
+                divisionCount: 4,
+                finish: BadgeFinish.flat,
+                ordinaryWidth: 1,
+                trimWeight: 1,
+                trimDetail: 12,
+                chargeScale: 1,
+                chargeOffset: 0,
+                chargeWeight: BadgeChargeWeight.bold,
+                sheenAngle: 45,
+                sealTeeth: 12,
+                showsOutline: false,
+                depth: BadgeDepth.none
+            ),
+            renderingVersion: 2,
+            folderColorIntensity: 0,
+            textColorMode: SpaceTextColorMode.automatic,
+            hasCustomAppearance: nil
+        )
     )
 
     static let all: [SpaceAccent] = [indigo, orange, teal, rose]
@@ -22644,6 +22855,7 @@ struct SpaceAccent: Hashable, Sendable {
         let house: SpaceBranding
         let swatch: BrandColor
         let zeeColors: [BrandColor]
+        let zeeLook: SpaceBranding
 
         init(
             name: String,
@@ -22651,7 +22863,8 @@ struct SpaceAccent: Hashable, Sendable {
             legacyColors: [BrandColor],
             house: SpaceBranding,
             swatch: BrandColor,
-            zeeColors: [BrandColor]
+            zeeColors: [BrandColor],
+            zeeLook: SpaceBranding
         ) {
             self.name = name
             self.tint = tint
@@ -22659,6 +22872,7 @@ struct SpaceAccent: Hashable, Sendable {
             self.house = house
             self.swatch = swatch
             self.zeeColors = zeeColors
+            self.zeeLook = zeeLook
         }
     }
 }
@@ -23535,7 +23749,7 @@ struct SpaceScheme: Hashable, Sendable {
             iconStyle: SpaceIconStyle.simpleSymbol,
             symbolColor: BrandColor(red: 0.588, green: 0.588, blue: 0.588, alpha: 1),
             badge: SpaceBadge(
-                backplate: BadgeBackplate.shield,
+                backplate: BadgeBackplate.circle,
                 fieldDivision: BadgeFieldDivision.plain,
                 ordinary: BadgeOrdinary.none,
                 trim: BadgeTrim.none,

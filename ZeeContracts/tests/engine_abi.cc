@@ -18,7 +18,7 @@
 
 namespace {
 
-namespace engine = badge::engine;
+namespace engine = zee::engine;
 
 // A binding under test: what attach handed it and the commands it ran.
 struct Binding {

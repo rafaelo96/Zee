@@ -1,8 +1,9 @@
 namespace ZeeCore.Contracts;
 
 /// The accent a Space shows in places too small for its branding: the system
-/// color it tints small marks with, the house look a new Space of the accent
-/// wears, and the look a Space stored before branding existed wears.
+/// color it tints small marks with, Zee's look a new Space of the accent
+/// wears, the house look the badge style starts from, and the look a Space
+/// stored before branding existed wears.
 ///
 /// The stored session and synced Space records spell an accent as its `Name`,
 /// so a name never changes. An accent travels as its index in `All`, so `All`
@@ -29,6 +30,9 @@ public sealed class SpaceAccent {
 
     public static IReadOnlyList<SpaceAccent> All { get; } = [Indigo, Orange, Teal, Rose];
 
+    /// The angle Zee's look runs its gradient at: straight down the sidebar.
+    private const double ZeeGradientAngle = 90;
+
     #endregion
 
     #region Variables
@@ -42,7 +46,7 @@ public sealed class SpaceAccent {
     /// background, primary and secondary color.
     public IReadOnlyList<BrandColor> LegacyColors { get; }
 
-    /// The house look a new Space of this accent wears: a deep field, a related
+    /// The house look the badge style gives a Space of this accent: a deep field, a related
     /// tincture a step above it and one luminous charge, with the zee
     /// composed for it. A Space keeps its copy when this changes.
     public SpaceBranding House { get; }
@@ -54,6 +58,11 @@ public sealed class SpaceAccent {
     /// The two colors of Zee's own palette a new simple or modern Space of
     /// this accent wears, the first leading.
     public IReadOnlyList<BrandColor> ZeeColors { get; }
+
+    /// Zee's own look for a new Space of this accent: a gradient of its two
+    /// Zee colors down the sidebar, a plain icon, and a round mountain badge
+    /// for when the person shows a badge instead.
+    public SpaceBranding ZeeLook { get; }
 
     #endregion
 
@@ -67,6 +76,8 @@ public sealed class SpaceAccent {
         House = house;
         Swatch = swatch.Color;
         ZeeColors = [.. zee.Select(tincture => tincture.Color)];
+        ZeeLook = SpaceBranding.Painted(ZeeColors, SpaceBannerPattern.Diagonal, strength: 1, SpaceBranding.LegacyReadabilityFade,
+            SpaceThemeMode.Gradient, ZeeGradientAngle, textureStrength: 0);
     }
 
     #endregion

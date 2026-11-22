@@ -15,7 +15,7 @@ final class BrowserSitePermissionCenterTests: XCTestCase {
     /// choice kept for it, and so must the platform's own comparisons, or
     /// revocation, the popup notice and prompt deduplication would each miss it.
     func testAWebKitFrameOriginMatchesTheChoiceKeptForItsPagesURL() async throws {
-        let url = try XCTUnwrap(URL(string: "https://Camera.Crest.test/room"))
+        let url = try XCTUnwrap(URL(string: "https://Camera.Zee.test/room"))
         let pageOrigin = try XCTUnwrap(SiteOrigin(url: url))
         let webKitOrigin = try await securityOrigin(ofPageAt: url)
         XCTAssertEqual(webKitOrigin.port, 0)

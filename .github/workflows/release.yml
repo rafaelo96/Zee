@@ -647,7 +647,7 @@ jobs:
             local -a appcast_arguments=(
               --ed-key-file -
               --download-url-prefix "https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/"
-              --link "https://crestbrowser.com/"
+              --link "https://zee.dev/"
               --versions "$RELEASE_BUILD_NUMBER"
               --maximum-versions "$maximum_versions"
               --embed-release-notes

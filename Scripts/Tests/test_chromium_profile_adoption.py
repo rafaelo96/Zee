@@ -18,7 +18,7 @@ class ProfileAdoptionTests(unittest.TestCase):
 #include "ZeeEngines/Chromium/Overlay/chrome/app/zee_user_data_dir.h"
 int main(int argc, char** argv) {
   if (argc != 2) return 64;
-  std::cout << badge::AdoptProductUserDataDirectory(argv[1]);
+  std::cout << zee::AdoptProductUserDataDirectory(argv[1]);
 }
 ''')
         cls.executable = Path(cls.build.name) / "adopt"

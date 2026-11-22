@@ -21,7 +21,7 @@
 #include "url/gurl.h"
 #include "url/origin.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

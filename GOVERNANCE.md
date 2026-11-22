@@ -1,12 +1,11 @@
 # Governance
 
-Zee is an open source project maintained by Paul Davis. This document explains
+Zee is an open source project maintained by the Zee maintainers. This document explains
 who makes decisions now and how the maintainer group can grow.
 
 ## Maintainer
 
-[Paul Davis](https://github.com/pauljoda) is the current lead maintainer and
-release owner. The maintainer is responsible for product direction, review and
+The project owner is the current lead maintainer and release owner. The maintainer is responsible for product direction, review and
 merge decisions, security coordination, Apple-platform signing, and official
 Zee releases.
 
@@ -17,12 +16,10 @@ Zee name and visual identity remain governed by [TRADEMARKS.md](TRADEMARKS.md).
 
 ## How decisions are made
 
-- User problems, alternatives, and early feedback are discussed publicly in
-  [r/CrestBrowser](https://www.reddit.com/r/CrestBrowser).
-- Reproducible work is tracked in
-  [GitHub Issues](https://github.com/pauljoda/Crest/issues).
-- Planned release outcomes are summarized in the public GitHub Project and
-  milestones. Only the maintainer adds items to them; an issue or pull request
+- User problems, alternatives, early feedback and reproducible work are
+  discussed and tracked in
+  [GitHub Issues](https://github.com/OWNER/Zee/issues).
+- Planned release outcomes are summarized in the roadmap and milestones. Only the maintainer adds items to them; an issue or pull request
   is not a commitment.
 - Anyone can have one pull request open at a time, and vetted contributors
   can have more. The maintainer reviews every pull request before it merges.

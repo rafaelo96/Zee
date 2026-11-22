@@ -22,7 +22,7 @@
 #include "third_party/skia/include/core/SkBitmap.h"
 #include "url/gurl.h"
 
-namespace badge {
+namespace zee {
 
 class EngineBinding;
 class PageAgent;

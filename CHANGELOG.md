@@ -1,15 +1,15 @@
 # Changelog
 
-All notable changes to Crest are documented in this file.
+All notable changes to Zee are documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/2.0.0/),
-and Crest uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and Zee uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ## [0.10.8] - 2026-11-16
 
-Crest 0.10 is about customization. Three styles set how much Crest shows,
+Zee 0.10 is about customization. Three styles set how much Zee shows,
 the address bar can sit above the page on Mac, the sidebar gains spacing, tab
 size, hover previews and groups, and a Material color setting keeps glass
 surfaces and text readable over any Space.
@@ -48,29 +48,29 @@ surfaces and text readable over any Space.
 - On Mac, closing a Peek shrinks it back into the link it grew out of.
 - On Mac, Open Link in New Tab leads a link's right-click menu.
 - Quick Windows open over the app you're using and pop in where they stay.
-- Pages load and run faster with ad blocking on, and an open Peek no longer keeps Crest busy.
+- Pages load and run faster with ad blocking on, and an open Peek no longer keeps Zee busy.
 
 ### Fixed
 
-- Importing from Arc or another browser on Mac no longer quits Crest when Spaces share an Arc profile or some of the data is damaged. A failed import shows an error with Back and Skip, a denied Keychain still brings that browser's Spaces and tabs, and tab names you gave in Arc come along.
-- Crest no longer crashes while it checks which languages it can translate a page into, and on Mac no longer quits when the disk is almost full and a site saves data.
+- Importing from Arc or another browser on Mac no longer quits Zee when Spaces share an Arc profile or some of the data is damaged. A failed import shows an error with Back and Skip, a denied Keychain still brings that browser's Spaces and tabs, and tab names you gave in Arc come along.
+- Zee no longer crashes while it checks which languages it can translate a page into, and on Mac no longer quits when the disk is almost full and a site saves data.
 - On Mac, extensions that open their own popup, such as a locked password manager, show it instead of doing nothing.
-- On Mac, a link from another app that opens Crest shows in front, Crest's windows reopen in the order you left them, a Peek from a web app that updates its own address loads, and Crest's Handoff icon opens the page.
+- On Mac, a link from another app that opens Zee shows in front, Zee's windows reopen in the order you left them, a Peek from a web app that updates its own address loads, and Zee's Handoff icon opens the page.
 - A folder's icon and title line up with the tabs beside them.
 - Opening or closing a folder that holds the tab you're on no longer makes that tab jump, a folder inside a closed folder opens when you click it, and a tab filed into a folder stays with your open tabs if another device deletes the folder at the same time.
 - On Mac, Command-W closes every tab selected in the sidebar again and Command-D duplicates them.
 - A click anywhere in the address field opens it, in the sidebar on Mac and in Quick Windows.
 - In Split View, clicking or pointing at the floating sidebar or a Peek no longer moves focus to the pane underneath.
 - A saved or pinned tab that returns to its saved address shows that page's name and icon right away.
-- The Private Browsing Space no longer offers a lock, which on iPhone could lock it with no way back in until Crest quit.
+- The Private Browsing Space no longer offers a lock, which on iPhone could lock it with no way back in until Zee quit.
 - With Reduce Motion on, switching Spaces shows the new Space's backdrop.
-- Going back in a tab Crest reopened after a relaunch shows the earlier page again on sites such as Reddit.
+- Going back in a tab Zee reopened after a relaunch shows the earlier page again on sites such as Reddit.
 - On Mac, right-clicking text selected in a password field no longer offers to search for it, and dragging across the developer toolbar's address field selects text.
-- Crest's updater includes two security fixes for how updates are installed.
+- Zee's updater includes two security fixes for how updates are installed.
 
 ### Security
 
-- Chromium is updated to 157.0.8103.80, with 83 upstream security fixes, five of them critical. Pages in WebKit, and Crest on iPhone and iPad, don't use Chromium.
+- Chromium is updated to 157.0.8103.80, with 83 upstream security fixes, five of them critical. Pages in WebKit, and Zee on iPhone and iPad, don't use Chromium.
 
 ### Upgrading
 
@@ -78,20 +78,20 @@ surfaces and text readable over any Space.
 
 ## [0.9.1] - 2026-11-10
 
-Crest 0.9.1 updates Chromium to fix a security flaw that is being exploited in
+Zee 0.9.1 updates Chromium to fix a security flaw that is being exploited in
 the wild. Mac users should update as soon as it arrives.
 
 ### Security
 
-- Chromium 157.0.8103.51 fixes CVE-2026-125350, which Google reports is being exploited in the wild, along with eight other security flaws. Pages in WebKit, and Crest on iPhone and iPad, don't use Chromium, so this flaw doesn't affect them.
+- Chromium 157.0.8103.51 fixes CVE-2026-125350, which Google reports is being exploited in the wild, along with eight other security flaws. Pages in WebKit, and Zee on iPhone and iPad, don't use Chromium, so this flaw doesn't affect them.
 
 ## [0.9.0] - 2026-11-10
 
-Crest 0.9 brings Sub-Spaces, which let several Spaces share one set of
+Zee 0.9 brings Sub-Spaces, which let several Spaces share one set of
 sign-ins while each keeps its own tabs and look, and built-in ad blocking on
 Mac, iPhone and iPad. Its Chromium engine is now built from Chromium itself,
-updated to 157, with Crest's own privacy changes. Quick Windows, Peek and the
-command palette do more, and Crest can follow the system's light or dark
+updated to 157, with Zee's own privacy changes. Quick Windows, Peek and the
+command palette do more, and Zee can follow the system's light or dark
 appearance.
 
 ### Added
@@ -105,22 +105,22 @@ appearance.
 - Choose Off, Balanced or Strict in Settings › Ad Blocking, where Strict also hides cookie notices and other annoyances. Turn single lists on or off, update them at once, subscribe to more lists, and write your own filters.
 - Hide anything the lists miss with Block Element, and turn blocking off for a site from the page's actions.
 - Clear one site's cookies or cache from Site Controls, and see and remove the sites that keep data in each Space's Privacy settings, with history, cookies and cached files cleared by time range.
-- Keep Crest light or dark, or let it follow macOS. Spaces can dim their colors in dark, start from a plain Neutral look, and let their text color follow the system.
+- Keep Zee light or dark, or let it follow macOS. Spaces can dim their colors in dark, start from a plain Neutral look, and let their text color follow the system.
 - Hold Control-Tab on Mac to see previews of your five most recent tabs and switch to one.
 - Use Back and Forward, Site Controls, the Space's pinned extensions and the command palette in Quick Windows on Mac, switch a Quick Window to another Space from its address bar, and open a Quick Window from any app with its shortcut.
 - Open links in Peek with Shift-click, and choose a smaller Peek on Mac.
 - Capture part of a page as an image with Capture Page, Command-Shift-2.
 - Move the tab you're on into Saved Tabs or back with Save or Unsave Current Tab.
-- Press a shortcut again when a website keeps it, or choose for each shortcut whether Crest or the website comes first.
+- Press a shortcut again when a website keeps it, or choose for each shortcut whether Zee or the website comes first.
 - Drag finished downloads out to Finder or another app, and see a notice as each download finishes on Mac.
 - Show a Copy URL button in the address field, fit more Space icons in the sidebar, and let pins stretch to fill a row.
 - Keep the sidebar's hover edge working while a video plays full screen.
-- See where a coding agent works on a page and what each agent did, stop every agent at once, and have Crest ask before an agent opens a window.
+- See where a coding agent works on a page and what each agent did, stop every agent at once, and have Zee ask before an agent opens a window.
 - On iPhone, open the command palette from the address bar. On iPhone and iPad, add a site to your Home Screen, open a new tab from the floating button at the bottom of the sidebar, and hold a link to open it in Peek.
 
 ### Changed
 
-- Chromium is updated to 157.0.8103.39 and built from Chromium itself with Crest's privacy changes, instead of ungoogled-chromium. It sends Google none of your browsing, form or account data, and contacts Google only to keep certificate checks, download file type rules and your extensions up to date.
+- Chromium is updated to 157.0.8103.39 and built from Chromium itself with Zee's privacy changes, instead of ungoogled-chromium. It sends Google none of your browsing, form or account data, and contacts Google only to keep certificate checks, download file type rules and your extensions up to date.
 - Protected video plays in WebKit with FairPlay. A Chromium page that asks for protected video switches to WebKit, and Netflix, Disney+, Max and Prime Video open there unless you choose an engine for them.
 - Chromium allows third-party cookies as Chrome does, except in private windows, so embedded sign-ins and payments work.
 - Calls in Chromium use UDP again, so they connect faster and sound better, while sites still can't see your local network addresses.
@@ -128,21 +128,21 @@ appearance.
 - Pages show their loading progress in the address field.
 - Mac windows resize much smaller, so two fit side by side on a laptop screen.
 - Peek uses more of the page and dims the page behind it, and Quick Windows remember their size and cascade.
-- Errors, warnings and confirmations use Crest's own red, amber and green, and more results show as notices at the top of the window.
+- Errors, warnings and confirmations use Zee's own red, amber and green, and more results show as notices at the top of the window.
 - Every menu item shows its icon.
-- Crest stays more responsive with many Spaces and extensions.
+- Zee stays more responsive with many Spaces and extensions.
 
 ### Fixed
 
-- Scrolling the sidebar or laying out open folders no longer makes Crest stop responding, and an iCloud sync that arrives during a save no longer freezes it.
-- Crest on Mac no longer quits when you go back to a restored tab whose page never finished opening, when an extension opens its popup by itself, or when you close a full-screen Chromium tab.
-- Keyboard shortcuts follow layouts that change keys while Command is held, so Command-X cuts instead of quitting Crest.
-- If Crest quits unexpectedly while reopening your pages, the next launch asks whether to reopen them.
-- Discord and other Chromium sites stay signed in after Crest restarts, updates or unloads their tab.
+- Scrolling the sidebar or laying out open folders no longer makes Zee stop responding, and an iCloud sync that arrives during a save no longer freezes it.
+- Zee on Mac no longer quits when you go back to a restored tab whose page never finished opening, when an extension opens its popup by itself, or when you close a full-screen Chromium tab.
+- Keyboard shortcuts follow layouts that change keys while Command is held, so Command-X cuts instead of quitting Zee.
+- If Zee quits unexpectedly while reopening your pages, the next launch asks whether to reopen them.
+- Discord and other Chromium sites stay signed in after Zee restarts, updates or unloads their tab.
 - Windows a site writes itself, such as speaker notes or a Slack huddle, show their content.
 - Passkeys in Chromium offer your phone or a security key when this Mac has none, and sites such as Duo offer Touch ID.
 - Extensions act on the page you're using in a Quick Window, Peek or split, their sign-in tabs show their page, and their popups stay open for Touch ID.
-- Passwords for IPv6 and unusually written IP addresses load and fill, and saved passwords survive Crest quitting partway through an import or a delete.
+- Passwords for IPv6 and unusually written IP addresses load and fill, and saved passwords survive Zee quitting partway through an import or a delete.
 - Quick Windows ask for site permissions instead of silently refusing them, and links from other apps open their Quick Window over the window you're in.
 - Turning off a Space's lock sticks, and lock changes reach your other devices.
 - Refusals such as a full split no longer show as sync failures.
@@ -151,25 +151,25 @@ appearance.
 
 ### Upgrading
 
-- Devices that run an earlier Crest keep syncing. They show each Sub-Space as a Space on its own, signed out, until they update, and the first group you make reminds you to update your other devices.
+- Devices that run an earlier Zee keep syncing. They show each Sub-Space as a Space on its own, signed out, until they update, and the first group you make reminds you to update your other devices.
 - Ad blocking starts at Balanced. If you had turned content blocking off in every Space, it starts at Off.
 - Mac still requires Apple silicon and macOS 26.1 or later. iPhone and iPad require iOS or iPadOS 26.1 or later.
 
 ## [0.8.50] - 2026-10-22
 
-Crest 0.8.50 brings Chromium 155 with its latest security fixes and stops
+Zee 0.8.50 brings Chromium 155 with its latest security fixes and stops
 trusting the compromised eMudhra certificate authorities. It also rebuilds
 setup on the Mac, translates whole pages in Chromium, and fixes several
-crashes and problems quitting. On iPhone and iPad, Crest appears in the share
+crashes and problems quitting. On iPhone and iPad, Zee appears in the share
 sheet and an edge swipe goes back or forward. iPhone also gains swipes between
 tabs on the address bar and support for iPhone Duo.
 
 ### Added
 
-- Set up Crest on the Mac in a rebuilt, full-screen setup that asks whether your Spaces wear Crest’s heraldic banners and crests or a modern gradient and icon, and carries that look through importing and making your Spaces yours.
+- Set up Zee on the Mac in a rebuilt, full-screen setup that asks whether your Spaces wear Zee’s heraldic banners and crests or a modern gradient and icon, and carries that look through importing and making your Spaces yours.
 - Translate whole pages on device in Chromium too, with the same translation toolbar, automatic translation and Show Original as WebKit pages.
-- Use Crest on iPhone Duo: the controls move to the side bar, pages use the outer display’s full width, and folded like a book, the sidebar and page, or a Split View’s two pages, each take one side of the fold.
-- Open links in Crest from the share sheet on iPhone and iPad, including the first link in shared text.
+- Use Zee on iPhone Duo: the controls move to the side bar, pages use the outer display’s full width, and folded like a book, the sidebar and page, or a Split View’s two pages, each take one side of the fold.
+- Open links in Zee from the share sheet on iPhone and iPad, including the first link in shared text.
 - Swipe left or right on the iPhone address bar to move through your Space’s tabs in sidebar order, with the page sliding along under your finger.
 - Swipe in from a page’s left edge to go back and from its right edge to go forward on iPhone and iPad.
 
@@ -178,21 +178,21 @@ tabs on the address bar and support for iPhone Duo.
 - Chromium is updated to 155.0.8059.84.
 - Resizing the window, a split or the sidebar is smoother, and so is showing and hiding the sidebar with several Spaces open.
 - The History, Archive and Downloads shortcuts open and close their list, even with the sidebar hidden, and Command-F searches the list that is open.
-- Back and Forward keep working after a page moves to the other engine, and tabs keep that history after Crest relaunches or when duplicated.
+- Back and Forward keep working after a page moves to the other engine, and tabs keep that history after Zee relaunches or when duplicated.
 - Next Space and Previous Space slide around from the last Space to the first and back.
 - Typing a local address such as 192.168.0.1 or printer.local opens it over http, as other browsers do.
 - A link route set to “Is Exactly” with just a site’s name, such as docs.google.com, matches that site’s home page.
 - Pins fill each row to the number chosen in Settings, as far as the sidebar width allows.
-- With tinted or clear app icons, Crest’s icon sits on the same background as other apps.
+- With tinted or clear app icons, Zee’s icon sits on the same background as other apps.
 - On iPhone, tapping the address bar selects the whole address.
 - On iPad and iPhone Duo, the sidebar starts narrower and its tabs scroll on into the bottom corner of the screen.
-- A new iPhone or iPad that syncs with iCloud uses the default search your other devices use, and turning Crest Passwords on or off for a Space reaches your other devices.
+- A new iPhone or iPad that syncs with iCloud uses the default search your other devices use, and turning Zee Passwords on or off for a Space reaches your other devices.
 
 ### Fixed
 
-- Crest no longer quits when you submit a form with a payment card or address in Chromium, open an http:// address that can’t be reached, or choose Download Languages in Page Translation settings.
-- Restart and Update installs the update right away, and Quit in the Dock works again, even after another app has used AppleScript with Crest.
-- Crest quits instead of waiting indefinitely when a Space couldn’t be fully deleted, and finishes deleting it the next time it opens.
+- Zee no longer quits when you submit a form with a payment card or address in Chromium, open an http:// address that can’t be reached, or choose Download Languages in Page Translation settings.
+- Restart and Update installs the update right away, and Quit in the Dock works again, even after another app has used AppleScript with Zee.
+- Zee quits instead of waiting indefinitely when a Space couldn’t be fully deleted, and finishes deleting it the next time it opens.
 - On macOS 26, switches, pickers and other controls in Settings take every click.
 - Page commands, Translate, Reader, content blocking, the Web Inspector and moving a page to the other engine work in a Quick Window.
 - Closing find in page or a Peek gives the keyboard back to the page, so the arrow keys and Space scroll right away.
@@ -203,7 +203,7 @@ tabs on the address bar and support for iPhone Duo.
 - Control-A and Control-E move to the start and end of the line in the address bar.
 - Pages in more languages, such as Swedish, translate, and a page Apple Translation can’t translate says so.
 - Right-clicking an extension in Site Controls shows its menu without closing Site Controls.
-- Link route address fields take clicks and typing, and Crest Studio no longer covers the Settings sidebar in a narrow window.
+- Link route address fields take clicks and typing, and Zee Studio no longer covers the Settings sidebar in a narrow window.
 - A tab whose page couldn’t be opened shows the site it tried to open.
 - While setup reads a browser you chose to import, it says so and offers Cancel.
 - On iPhone and iPad, full-screen video shows instead of a black screen, Quick Windows stay on screen, and no empty band is left for a keyboard that isn’t showing.
@@ -227,20 +227,20 @@ tabs on the address bar and support for iPhone Duo.
 
 ## [0.8.0] - 2026-10-12
 
-Crest 0.8 brings coding agents to Crest on Mac, a rebuilt command palette
+Zee 0.8 brings coding agents to Zee on Mac, a rebuilt command palette
 and Settings, many more browsers to import from, and a quicker, more
 consistent sidebar.
 
 ### Added
 
-- Let coding agents such as Claude Code and Codex use Crest as their browser on Mac, in the Spaces you choose, from Settings › Agents. Crest asks before each new agent connects, and every tab an agent uses shows its badge.
+- Let coding agents such as Claude Code and Codex use Zee as their browser on Mac, in the Spaces you choose, from Settings › Agents. Zee asks before each new agent connects, and every tab an agent uses shows its badge.
 - Search with a rebuilt command palette that ranks the pages and tabs you use most, completes sites you visit, lists recent tabs before you type, and searches a site or asks an assistant directly with Tab.
 - Set one default search for every Space and one for private windows in the new Search section of Settings, and turn search engines, AI assistants and websites on or off.
 - Import from Brave, Microsoft Edge, Vivaldi, Opera, Dia, Comet, Aside, ego lite, Chromium, and Chrome Beta, Dev, and Canary, and bring the Chrome Web Store extensions each profile used.
 - See extension tab groups, such as the tabs Claude works in, as folders in the Space’s open tabs on Mac.
 - Share a single Chromium tab with its sound when sharing your screen.
 - See which tabs are playing sound, mute them from their icon, and see which tabs are sharing.
-- Design a Space’s crest in Crest Studio, with previews on the Space’s own background and a color for each part.
+- Design a Space’s crest in Zee Studio, with previews on the Space’s own background and a color for each part.
 - Choose how much the sidebar’s layers show the background through, from Ultra Thin to Ultra Thick, in Look and Feel settings.
 - Choose how wide the window edge is that reveals a hidden sidebar.
 - Start on a new tab in your default Space on iPhone and iPad.
@@ -254,20 +254,20 @@ consistent sidebar.
 - Imports keep split views and tab groups, bring every Zen and Firefox profile with open tabs, and keep as much as fits instead of stopping.
 - Setup reads another browser’s data only when you choose to import from it.
 - Page corners on Mac follow the window’s rounded corners.
-- Sync settings say Up to date only when every change has reached iCloud, and iCloud sync catches up each time Crest opens.
+- Sync settings say Up to date only when every change has reached iCloud, and iCloud sync catches up each time Zee opens.
 - Chromium tabs keep their back and forward history across relaunches and updates.
 - Chromium is updated to 154.0.8037.97.
 
 ### Fixed
 
-- Crest no longer quits when you press a site’s Login button, allow the camera or microphone, or switch Spaces on macOS 26.
+- Zee no longer quits when you press a site’s Login button, allow the camera or microphone, or switch Spaces on macOS 26.
 - iPhone and iPad open again instead of closing at launch.
 - Large Chrome Web Store extensions such as Keeper install, and an extension installed right after launch no longer waits up to three minutes.
-- Extensions that sign in at startup, such as Claude, stay signed in after Crest restarts.
+- Extensions that sign in at startup, such as Claude, stay signed in after Zee restarts.
 - iCloud sync no longer stops on other devices after a tab moves to another Space.
 - Restarting to install an update no longer gets stuck.
 - Site Controls opens in full screen, and full-screen windows no longer show a dark band or flicker along the top.
-- The back and forward history menus open at once instead of freezing Crest.
+- The back and forward history menus open at once instead of freezing Zee.
 - Site icons are sharp on Retina displays.
 - While a Peek is open, page commands act on the Peek, and Close Tab closes it.
 - Command-G and Command-Shift-G move between find-in-page matches.
@@ -281,7 +281,7 @@ consistent sidebar.
 
 ## [0.7.0] - 2026-10-02
 
-Crest 0.7 brings Chromium and WebKit together in one Mac app, with Chromium as
+Zee 0.7 brings Chromium and WebKit together in one Mac app, with Chromium as
 the default and a shared browser core across Mac, iPhone, and iPad.
 
 ### Added
@@ -289,7 +289,7 @@ the default and a shared browser core across Mac, iPhone, and iPad.
 - Run Chrome Web Store extensions in each Mac Space, including popups, side panels, shortcuts, and supported native companion apps.
 - Choose Chromium or WebKit for new pages, one page, or a website. Use WebKit for Reader, whole-page translation, built-in blocking, and supported FairPlay video.
 - Pause and resume Chromium downloads, including interrupted transfers when the server supports recovery.
-- Receive local service-worker and extension notifications while Crest runs, with Space access and notification permissions respected.
+- Receive local service-worker and extension notifications while Zee runs, with Space access and notification permissions respected.
 
 ### Changed
 
@@ -307,13 +307,13 @@ the default and a shared browser core across Mac, iPhone, and iPad.
 ### Upgrading
 
 - Mac requires Apple silicon and macOS 26.1 or later. iPhone and iPad continue to use WebKit on iOS and iPadOS 26.1 or later.
-- Spaces, tabs, history, and Crest Passwords carry over from the previous stable release. Chromium and WebKit keep separate website data, so switching engines can require signing in again.
+- Spaces, tabs, history, and Zee Passwords carry over from the previous stable release. Chromium and WebKit keep separate website data, so switching engines can require signing in again.
 - Reinstall older WebKit extensions from the Chrome Web Store in the Spaces where you want them.
 - See the [engine guide](HelpCenter/docs/browsing/engines.md) for feature differences, screen-sharing limits, and notification support.
 
 ## [0.6.33] - 2026-09-18
 
-Crest 0.6.33 is a stability release with stronger permission boundaries, more
+Zee 0.6.33 is a stability release with stronger permission boundaries, more
 reliable extension and window behavior, and smoother browsing with large
 sessions.
 
@@ -360,19 +360,19 @@ sessions.
 - Select webpage text and use controls near the top edge without moving the window.
 - Save the displayed PDF directly from the built-in preview.
 - Quick Windows follow your browser border size while keeping balanced spacing around their controls.
-- Image-converter extensions can save JPEGs repeatedly and keep their image menus after restarting Crest.
+- Image-converter extensions can save JPEGs repeatedly and keep their image menus after restarting Zee.
 - Return from Picture in Picture to the tab and browser window that started playback.
 - Prevent password manager popups and login-field suggestions from repeatedly reloading webpages.
 - Settings remain fully visible while switching between Spaces.
 
 ## [0.6.3] - 2026-09-14
 
-Crest 0.6 brings more ways to organize, personalize, and work across pages on
+Zee 0.6 brings more ways to organize, personalize, and work across pages on
 Mac, iPhone, and iPad.
 
 ### Added
 
-- Create Space banners in Crest Studio with templates, heraldic artwork, shapes, patterns, independent colors, emoji, monograms, and searchable symbols.
+- Create Space banners in Zee Studio with templates, heraldic artwork, shapes, patterns, independent colors, emoji, monograms, and searchable symbols.
 - Customize sidebar placement, borderless windows, tab shape and scale, pin layout, address-field colors, app icon palettes, and page zoom from 25% to 500% in Look and Feel, with live previews and individual resets.
 - Translate webpages on device with language detection and optional automatic translation. Supported languages may require a download.
 - Open multiple Mac windows with shared Spaces and tabs while keeping your place in each window. Open disposable blank windows with the Space's cookies and extensions, or tear off a tab where you want its window to appear.
@@ -386,7 +386,7 @@ Mac, iPhone, and iPad.
 - Drag individual tabs out of a Split View, or move the whole group from its header. Return pinned and saved tabs to their home URL with a double-click or an optional reset when closing.
 - Open Settings in the browsing canvas on wider layouts and in a dismissible sheet on compact layouts. Keep Settings and Getting Started where you left them when switching tabs or Spaces.
 - Choose folder icons from the full searchable SF Symbols catalog or use emoji. Customize folder colors and tab counts, with semibold tinted titles that adjust for stronger contrast. Reorder Spaces directly in Settings.
-- Preview link destinations on hover, complete addresses from the current Space, and copy a tab's link from its menu. Search selected text in a new Crest tab.
+- Preview link destinations on hover, complete addresses from the current Space, and copy a tab's link from its menu. Search selected text in a new Zee tab.
 - Use native link and image menus and choose Photos, camera, or Files for webpage uploads on iPhone and iPad. Clear current tabs with a dedicated control while retaining pinned and saved tabs.
 - Open Getting Started in the first Space after setup, and rerun onboarding from Advanced settings.
 - Open a blank Mac window with Command-Option-N and a Quick Window with Command-Option-Shift-N.
@@ -394,7 +394,7 @@ Mac, iPhone, and iPad.
 ### Fixed
 
 - Keep a collapsed Mac sidebar collapsed when opening the address editor with Command-L.
-- Use the system dark background for Crest's app icon and every color palette.
+- Use the system dark background for Zee's app icon and every color palette.
 - Keep wide folder symbols fully visible in Icon only mode.
 - Keep pinned-tab outline colors consistent when pages unload. Prefer favicon colors when site themes are neutral, preserve black and white logos, and fade smoothly between color changes.
 - Recover missing iCloud changes with a confirmed Pull from iCloud action. Preserve Space customization during overlapping sync, and keep blank, built-in, and extension pages from blocking web-tab synchronization.
@@ -410,33 +410,33 @@ Mac, iPhone, and iPad.
 
 ### Added
 
-- Added a public Crest 0.5 project and milestone, clear Reddit/GitHub/security support routes, maintainer governance, a documentation index, and Ko-fi and GitHub Sponsors links.
+- Added a public Zee 0.5 project and milestone, clear Reddit/GitHub/security support routes, maintainer governance, a documentation index, and Ko-fi and GitHub Sponsors links.
 - Added simple monthly sponsor levels with optional public recognition and clear boundaries around access, endorsement, and roadmap influence.
 
 ### Fixed
 
 - Made setup request Safari access before reading protected data, stopped empty Arc records from tripping the Space limit, and kept browser import to only the Spaces explicitly reviewed, finishing setup without an extra blank Space or manual-customization detour.
 - Made a site's allowed location request resume immediately with a real Core Location result, and surfaced the macOS system-privacy block with a direct Settings recovery path instead of failing invisibly or asking again after refresh.
-- Delivered allowed website notifications through macOS Notification Center, while keeping Crest's per-site decision boundary and surfacing the system notification setting when macOS blocks delivery.
+- Delivered allowed website notifications through macOS Notification Center, while keeping Zee's per-site decision boundary and surfacing the system notification setting when macOS blocks delivery.
 
 ## [0.4.0] - 2026-08-18
 
 ### Changed
 
-- Added an explicit `CrestMobile Production` Xcode scheme that runs a Release build against production CloudKit, while keeping the ordinary mobile scheme on Debug and development CloudKit.
-- Advanced Crest's development builds to the 0.4.0 release line.
+- Added an explicit `ZeeMobile Production` Xcode scheme that runs a Release build against production CloudKit, while keeping the ordinary mobile scheme on Debug and development CloudKit.
+- Advanced Zee's development builds to the 0.4.0 release line.
 - Enabled automatic update checks, downloads, and installation by default for direct macOS builds while keeping both controls available in Settings.
 
 ### Fixed
 
-- Replaced extension-specific WebKit package patches with a capability-selected compatibility runtime shared by Manifest V2 and V3 backgrounds, declared content scripts, and extension-owned pages. It preserves native WebKit APIs, supplies bounded missing surfaces from a temporary runtime copy, uses each package's declared manifest and resource paths, and no longer blames Developer ID signing for ordinary runtime failures. Newly verified archives remain untouched, while a temporary-load migration removes a legacy Crest-generated worker prelude from packages saved by earlier builds without rewriting the stored package.
+- Replaced extension-specific WebKit package patches with a capability-selected compatibility runtime shared by Manifest V2 and V3 backgrounds, declared content scripts, and extension-owned pages. It preserves native WebKit APIs, supplies bounded missing surfaces from a temporary runtime copy, uses each package's declared manifest and resource paths, and no longer blames Developer ID signing for ordinary runtime failures. Newly verified archives remain untouched, while a temporary-load migration removes a legacy Zee-generated worker prelude from packages saved by earlier builds without rewriting the stored package.
 - Made an installed Development or Nightly artifact select its own update channel on first launch instead of inheriting a saved channel from a differently packaged build, while preserving later explicit channel choices.
 - Told extensions about a Peek's page and about each card a selection presents before those pages start loading, so an extension's content scripts can reach its background on the first try. WebKit answers a content script only for a web view it can map onto an announced tab, so a Peek — whose page the session never carried as a tab at all — left extensions like Dark Reader holding the partial styling they applied while asking, until the page was reloaded. Promoting such a Peek into a tab or a split card carried the half-styled document with it.
 - Named public nightly tags, release titles, and assets with their UTC date and source commit instead of an opaque workflow run number, while retaining the monotonic build number only for Sparkle's internal update ordering.
 - Kept the release tag as a directory in generated Sparkle download URLs and made publication reject an appcast that does not point to its exact GitHub Release asset.
 - Authenticated the release workflow's isolated update-feed repository so a notarized GitHub Release can create and advance the Sparkle appcast branch.
 - Removed absolute build-machine paths from the published Help Center assets and made every Help Center build sanitize its generated configuration before publication.
-- Restored extension popups that open against a background WebKit has already put to sleep. A nonpersistent background is evicted seconds into a session — Dark Reader's was started at launch and stopped 5.6 seconds later — and Crest was relying on WebKit to bring it back when the popup asked it something. It does not: the popup's opening message was answered with nothing at all, and an extension that reads that answer without guarding it never recovers. Dark Reader destructures the reply, so the exception it threw left the promise its popup awaits unsettled and the popup on "Loading, please wait" for the rest of the session, with the pages its content scripts had begun styling left half-dressed behind it. Crest now loads an extension's background content before the popup document does, and unloads the document WebKit preloads the moment the popover is asked for, so the popup that opens is one whose opening handshake can be answered. A background that genuinely fails to load never reports back at all, so the popup is presented anyway after a short deadline rather than leaving a broken extension's button inert.
+- Restored extension popups that open against a background WebKit has already put to sleep. A nonpersistent background is evicted seconds into a session — Dark Reader's was started at launch and stopped 5.6 seconds later — and Zee was relying on WebKit to bring it back when the popup asked it something. It does not: the popup's opening message was answered with nothing at all, and an extension that reads that answer without guarding it never recovers. Dark Reader destructures the reply, so the exception it threw left the promise its popup awaits unsettled and the popup on "Loading, please wait" for the rest of the session, with the pages its content scripts had begun styling left half-dressed behind it. Zee now loads an extension's background content before the popup document does, and unloads the document WebKit preloads the moment the popover is asked for, so the popup that opens is one whose opening handshake can be answered. A background that genuinely fails to load never reports back at all, so the popup is presented anyway after a short deadline rather than leaving a broken extension's button inert.
 - Made a Split View divider follow the pointer instead of fighting it. A divider is drawn at the boundary its own drag moves, and the drag was measured against that moving handle rather than against the row it sits in, so every frame reported the pointer's travel minus the handle's: the boundary tracked at half speed, and a hand holding still was amplified into a standing oscillation that shook the pages either side. The drag is now measured in the columns row, which does not move while fractions change, and applies without an implicit animation, so a divider tracks the pointer exactly and stops when the pointer stops. The material veil that was covering the pages mid-drag is gone with it: cards render live through a resize.
 - Restored drop feedback for saved tabs in every shape a sidebar can take. A folder holding every saved tab measures exactly what the saved list around it measures, and overlapping runs were ranked by area alone — so the list could end up owning the rows nested inside it, and the drag went dark: nothing stepped aside, no insertion line appeared, and releasing quietly unfiled the tab instead of putting it where it was pointed. Nesting now outranks area, so a folder's rows always answer for the pointer over them. A run with no rows of its own draws its own insertion line as well, since the line is normally drawn by the row beside the gap and an empty run has none — an unfiled saved list under a folder that holds everything, a pinned grid nobody has filled, a current list just cleared. The unfiled saved run also keeps a small band below the folders, so it stays somewhere a tab can be dropped outside them.
 - Restored the live drop feedback a sidebar section shows when a tab is dragged into it from elsewhere. A row that changes section — dragged out of the current list into the saved one, or into a folder — keeps its identity but is a different view on either side of the move, and the one it left runs its `onDisappear` after the new one has already measured itself. That late removal wiped the measurement the arrival had just made, leaving the row with no geometry at all: the section it landed in no longer opened a gap for later drops, no insertion line anchored on it, and drops aimed straight past it — landing in the right list, but not where they were pointed. Row measurements now name the view that made them, the way section and split-card measurements already do, so only the view genuinely leaving can clear one.
@@ -450,10 +450,10 @@ Mac, iPhone, and iPad.
 - Aligned Quick Window traffic lights with its inline toolbar using the same unified native titlebar metrics as the main browser window.
 - Opened a mobile Peek or Quick Window promotion directly into its newly selected tab instead of leaving the compact browser in the tab viewer.
 - Restored predictable tab-close navigation with a per-Space activation history, returning to the most recently visible surviving tab and showing the unloaded state when no prior tab remains.
-- Restored scripted in-page handoffs to external apps behind Crest's exact origin, scheme, and Space-scoped consent prompt instead of silently blocking meeting and sign-in links.
+- Restored scripted in-page handoffs to external apps behind Zee's exact origin, scheme, and Space-scoped consent prompt instead of silently blocking meeting and sign-in links.
 - Rasterized SVG site icons into durable favicon image data, preferred scalable web-manifest branding, carried the page's browser identity into protected icon requests, and prioritized browser icons over legacy touch artwork so modern site icons render correctly in tabs and restored sessions.
 - Bound macOS extension flyouts to their invoking controls and unloaded a dismissed extension popup through WebKit’s own close-popup lifecycle so reopening it reaches a live background instead of a stale loader.
-- Removed Crest’s Dark Reader package rewrite so the signed Chrome Web Store package installs, loads, and restores unmodified on current WebKit.
+- Removed Zee’s Dark Reader package rewrite so the signed Chrome Web Store package installs, loads, and restores unmodified on current WebKit.
 - Corrected Peek’s keep shortcuts and auxiliary mouse routing so Return stays in Peek, explicit keep actions still promote, page history wins under web content, and Space navigation remains the fallback.
 - Aligned Quick Window and Peek around the originating web-content region's shared 80% geometry, clipped fullscreen chrome materials to the active window bounds, and removed the native toolbar reservation while fullscreen.
 - Repaired ten stale optional regional ad-filter sources and kept successfully updated lists active when another enabled source fails.
@@ -466,7 +466,7 @@ Mac, iPhone, and iPad.
 - Added a signed Development update channel that publishes the latest public `main` commit through a rolling GitHub prerelease and a dedicated Sparkle appcast.
 - Added a SwiftUI-native Sparkle 2 update experience for direct macOS releases, with stable and nightly channels backed by signed GitHub Release appcasts.
 - Added GitHub workflows that validate the source, sign and notarize arm64 Mac disk images, publish checksums and provenance, deploy the product site, and advance the update feed only after immutable release assets exist.
-- Opened the project under the Mozilla Public License 2.0 with explicit third-party notices, contributor and security guidance, and a separate trademark policy that reserves Crest branding for official distributions.
+- Opened the project under the Mozilla Public License 2.0 with explicit third-party notices, contributor and security guidance, and a separate trademark policy that reserves Zee branding for official distributions.
 - Added **Split View**: two to four tabs from a Space held together as side-by-side cards in the main view. Each card is a full content surface with the window's own rounding, the resize handles live in the gaps between cards rather than on their edges, and a group's column widths are remembered per window and per device. The whole split reads as one stacked row in the sidebar — the split glyph, the member count, and its members gathered below them — and clicking a member opens the group with that member focused. On macOS a member is simply the Space's ordinary tab row nested inside the group's container: the same height, favicon, hover, close or unload control, rename, and selection accent every other tab has, with **Remove from Split** added to its menu. Only the group carries the lift, so members never tear out of a run mid-drag: dragging any of them reorders the whole split as one block. The address field, back and forward, Find, zoom, share, and every keyboard shortcut speak for the focused card, which wears a Space-accent focus ring whenever more than one card shows. Clicking a card focuses it; the opt-in **Focus Follows Mouse in Split View** setting extends that to the pointer, and never moves focus while the address bar is being edited. Scrolling and trackpad back/forward always act on the card under the pointer, focused or not. Groups travel with their tabs through iCloud, so a split made on the Mac opens on iPhone and iPad. Make one by dragging a tab onto the page, from a tab or split context menu, from the **Tabs** menu, from the command palette, or by right-clicking a link.
 - Added a resize pointer to Split View dividers. Hovering one shows the column-resize pointer on macOS and the pointer highlight on iPad, so the boundary reads as draggable before it is grabbed, and a capsule marks the divider that a drag has hold of.
 - Added **Open Link in Split View** to the macOS web-content menu. Right-clicking a link opens it as a new card beside the page it came from, focused, the same way a dropped tab joins a split. The item appears only where it can act: over an actual `http`/`https` link, on a card whose group still has room under the four-member cap, and never on a pinned tab or a Start Page. The link comes from the page's own `contextmenu` event rather than a second hit test, and is retired with the menu that used it, so a right-click on plain text can never inherit the last link.
@@ -478,18 +478,18 @@ Mac, iPhone, and iPad.
 - Added full-color search-provider logos to command-palette search actions and every Space search-engine menu on macOS and mobile.
 - Added an Arc-style hover Clear action for archiving every current tab without touching pinned or saved tabs, transient page-zoom percentage feedback on macOS and mobile, and a session-only Proceed Anyway path scoped to the exact Space profile, host, port, and leaf certificate.
 - Added a secondary-click menu to pinned extension buttons and site-popover extension actions, carrying the extension's own WebExtension menu items and commands alongside Extension Settings, pinning, and Manage Extensions.
-- Added the WebExtension tab capabilities Crest can answer honestly: tab size, reader-mode availability, state, and toggling wired to Crest's reader mode, webpage locale detection, and visible-tab snapshot capture.
+- Added the WebExtension tab capabilities Zee can answer honestly: tab size, reader-mode availability, state, and toggling wired to Zee's reader mode, webpage locale detection, and visible-tab snapshot capture.
 - Added real window geometry for `browser.windows`, reporting the frame, screen frame, and derived state of the window presenting a Space.
 - Added Web Inspector access to extension background content and popups, listed under each extension's display name.
-- Added automatic updates for Chrome Web Store extensions, with a global on/off switch, a daily, weekly, or every-two-weeks cadence, a **Check for Updates Now** action, and a last-checked status row in Extensions settings. Crest asks the store which version it publishes, compares it against the installed version numerically, and only then downloads a replacement through the existing signed-CRX3 verification, publisher pin, and rollback path. Only installations recorded as Chrome Web Store sourced and currently switched on are updated; unpacked and app-hosted extensions are left alone, and pinning, permission decisions, keyboard shortcuts, and the original install date survive a replacement.
-- Added Firefox extension installation from addons.mozilla.org, with an in-page **Add to Crest** button, a native review sheet, and per-Space installation. Crest resolves the add-on through Mozilla's public API and refuses any package that does not reproduce the exact SHA-256 digest, byte count, gecko identity, and Mozilla signing artifacts that listing published.
-- Added the app-side services behind Crest's WebExtension emulation layer as independently testable ports: notifications, per-Space history and top sites, web authentication, and address-bar keyword suggestions, each with an adapter, an in-memory double, and no dependency on WebKit or the extension subsystem.
+- Added automatic updates for Chrome Web Store extensions, with a global on/off switch, a daily, weekly, or every-two-weeks cadence, a **Check for Updates Now** action, and a last-checked status row in Extensions settings. Zee asks the store which version it publishes, compares it against the installed version numerically, and only then downloads a replacement through the existing signed-CRX3 verification, publisher pin, and rollback path. Only installations recorded as Chrome Web Store sourced and currently switched on are updated; unpacked and app-hosted extensions are left alone, and pinning, permission decisions, keyboard shortcuts, and the original install date survive a replacement.
+- Added Firefox extension installation from addons.mozilla.org, with an in-page **Add to Zee** button, a native review sheet, and per-Space installation. Zee resolves the add-on through Mozilla's public API and refuses any package that does not reproduce the exact SHA-256 digest, byte count, gecko identity, and Mozilla signing artifacts that listing published.
+- Added the app-side services behind Zee's WebExtension emulation layer as independently testable ports: notifications, per-Space history and top sites, web authentication, and address-bar keyword suggestions, each with an adapter, an in-memory double, and no dependency on WebKit or the extension subsystem.
 - Added emulated notification delivery with a forgery-resistant per-extension identity scheme, per-extension grouping and button categories, host-truth enumeration, and interaction streams that reach only the extension that posted the notification.
 - Added per-Space history search, visit lookup, targeted URL and date-range deletion, and frecency-ranked top sites, all bound to an exact Space and browsing-profile assignment, plus history change events derived from Observation so ordinary browsing raises them without polling.
 - Added targeted history removal to the session and store (`removeHistory`, `deleteHistory`) with narrowed per-Space save scopes and explicit-delete tombstones, replacing whole-Space clearing as the only option.
 - Added a web authentication service that refuses redirect shapes the system session cannot intercept instead of hanging on them, and re-checks the returned redirect against the prefix the caller asked for.
 - Added an address-bar keyword seam: a keyword registry, an async suggestion provider port, command-palette routing and rendering for keyword mode, acceptance dispatch carrying the open disposition, and context-menu removal for provider-deletable rows.
-- Documented the emulation services, the fields Crest's history cannot supply, and the associated-domain constraint that blocks `chromiumapp.org` redirects, in `Documentation/ExtensionEmulationServices.md`.
+- Documented the emulation services, the fields Zee's history cannot supply, and the associated-domain constraint that blocks `chromiumapp.org` redirects, in `Documentation/ExtensionEmulationServices.md`.
 - Established one strict semantic-version source and automated drift checks for every app target and build configuration.
 - Added a readable release history and focused commit contract for the 0.3.0 architecture cleanup.
 - Added changed-file Swift formatting, architecture and Xcode 27 compatibility guards, plus a repeatable evidence-only dead-code audit.
@@ -501,12 +501,12 @@ Mac, iPhone, and iPad.
 
 - Focused hosted automation on publishable-source compliance, clean macOS and iOS compilation from the authoritative `project.yml`, Help Center generation, and signed release packaging; the broader test suites and generated-project byte comparison remain local gates while the public workflow settles, and dependency updates arrive as grouped monthly maintenance instead of a stream of individual pull requests.
 - Made GitHub Releases the only macOS distribution path while retaining TestFlight and the App Store for iPhone and iPad.
-- Reduced built-in content blocking to Crest's bundled local tracking-prevention rules. Downloadable AdGuard-compatible lists and their conversion pipeline were removed; broader blocking remains available through user-installed extensions.
+- Reduced built-in content blocking to Zee's bundled local tracking-prevention rules. Downloadable AdGuard-compatible lists and their conversion pipeline were removed; broader blocking remains available through user-installed extensions.
 - Kept tabs loaded after they are first opened so switching tabs does not reload them, while continuing to load only the selected tab at launch and releasing the oldest eligible background pages under memory pressure. Active tabs, playing media, camera or microphone use, and tabs marked **Keep Loaded** remain resident; mobile uses a more conservative release budget.
 - Updated the public site and help center with Firefox Add-ons installation, everyday-use, updating, compatibility, and troubleshooting guidance alongside Chrome Web Store support.
-- Clarified the public homepage’s Space customization copy around Crest’s Apple-device availability.
+- Clarified the public homepage’s Space customization copy around Zee’s Apple-device availability.
 - Made command-palette editing a native single scrolling line and placed the search action—with its search icon—first for non-URL queries.
-- Refined the public homepage to describe Crest without first-person creator copy and gave the iPhone platform capture enough room to read at desktop and mobile widths.
+- Refined the public homepage to describe Zee without first-person creator copy and gave the iPhone platform capture enough room to read at desktop and mobile widths.
 - Eliminated the final vertical-structure debt by promoting independently owned nested models, colocating deterministic previews with meaningful visible components, and keeping persisted AppStorage screens as explicit effect boundaries.
 - Split aggregate Commands, extension import, WebKit page, credential, popup, sync, archive, favicon, and website-data adapters into matching owners while preserving their existing platform and Space/profile boundaries.
 - Kept scope-dependent private implementation helpers and closure aliases nested, while moving public feature support into shallow standard ownership and correcting extension filenames to match their owners and conformances.
@@ -538,7 +538,7 @@ Mac, iPhone, and iPad.
 - Separated external-link routing policy, observable preferences, and UserDefaults serialization into Domain, Application, and Infrastructure owners without changing saved settings.
 - Moved SwiftUI color-scheme mapping into the design system so Space foreground contrast remains a framework-neutral Domain policy.
 - Reorganized portable tab migration into feature-local browser adapters, models, sanitization policy, and orchestration without changing imported data.
-- Reorganized Crest archives, bookmark adapters, history normalization, file documents, and SQLite import under the Data Portability feature without changing serialized formats or imported Space isolation.
+- Reorganized Zee archives, bookmark adapters, history normalization, file documents, and SQLite import under the Data Portability feature without changing serialized formats or imported Space isolation.
 - Decomposed Data Portability into previewable export, import, progress, document, workflow, adapter, codec, and file-service owners while preserving archive formats, exact existing Space/profile identities, fresh imported identities, and protected-Space export checks.
 - Moved import-review destinations, Space customization, selection state, and merge planning into focused Data Portability models without changing review behavior.
 - Moved default-browser and passkey workflow controllers into Application and their framework adapters into shared or platform Infrastructure, leaving Domain framework-neutral.
@@ -555,7 +555,7 @@ Mac, iPhone, and iPad.
 - Split site-permission values, observable decisions, persistence, and WebKit conversion into Domain, Application, and Infrastructure owners without changing Codable records, default storage, or Space isolation.
 - Moved onboarding discovery, import queueing, review, commit, retry, cancellation, summaries, and failures into a typed observable workflow while keeping presentation state in the view.
 - Decomposed the macOS onboarding window into previewable Welcome, Import, Space-review, manual-setup, and completion component families while preserving its typed workflow and SpaceID-bound presentation state.
-- Decomposed onboarding source, Crest-result, sidebar, and Space-customization import previews into deterministic vertical components while preserving source and destination Space/profile identity.
+- Decomposed onboarding source, Zee-result, sidebar, and Space-customization import previews into deterministic vertical components while preserving source and destination Space/profile identity.
 - Split the macOS onboarding tutorial into previewable copy, artwork, tabs, sync, and presentation-model owners without changing its steps, actions, or localized guidance.
 - Split shared onboarding palette, typography, panel, and button-style owners into matching Components, Models, and Support files without changing their visual roles.
 - Decomposed manual Space setup into previewable content, editor, picker, placement, and sidebar component families with focused model and support owners while preserving exact SpaceID and browsing-profile identity.
@@ -641,39 +641,39 @@ Mac, iPhone, and iPad.
 
 - Stopped the extension popup readiness check from passing before the popup document parsed, since a popup that has not rendered yet has no startup loader to inspect.
 - Reported tab loading and reader-mode transitions through `tabs.onUpdated`, which previously never fired for either, and replaced a hand-written WebKit constant with the SDK's own.
-- Routed `runtime.openOptionsPage()` through Crest's Space-aware handling instead of WebKit's fallback, focusing an already-open options page rather than opening a duplicate.
+- Routed `runtime.openOptionsPage()` through Zee's Space-aware handling instead of WebKit's fallback, focusing an already-open options page rather than opening a duplicate.
 - Granted `activeTab` when an extension's keyboard command fires, matching Chrome and Safari; only the extension whose shortcut matches receives it.
 - Required the `tabs` permission before revealing the title of a tab that has no URL.
 - Reported stored website-access patterns that WebKit's parser rejects as a needs-attention error instead of silently revoking that access.
 - Gave an unpacked extension a stable identity derived from its manifest key or source path, so re-importing the same folder keeps its pin, permissions, command shortcuts, and stored data instead of creating a second installation.
 - Enforced each Space's "save passwords" setting on iPhone and iPad, which previously changed nothing: form detection, autofill and save prompts, and HTTP-authentication saving now all stop when the setting is off, including for a Space turned off mid-session.
 - Stopped a pop-up window's password forms from being read against, and saved under, the page that opened it on both platforms.
-- Fixed critical memory pressure being handled as an ordinary warning, which kept Crest from releasing the transient surfaces a warning deliberately preserves.
-- Closed a policy gap that let a page re-request the exact local file Crest had loaded for it, and stopped a `target="_blank"` link on an extension page from replacing that page instead of opening a tab.
-- Let iPhone and iPad suspend background tabs the way macOS does, and stopped Crest from immediately reloading a background tab whose web process the system had just reclaimed.
-- Stopped Crest from crashing on the second message a native companion sends, which every real password-manager companion sends.
+- Fixed critical memory pressure being handled as an ordinary warning, which kept Zee from releasing the transient surfaces a warning deliberately preserves.
+- Closed a policy gap that let a page re-request the exact local file Zee had loaded for it, and stopped a `target="_blank"` link on an extension page from replacing that page instead of opening a tab.
+- Let iPhone and iPad suspend background tabs the way macOS does, and stopped Zee from immediately reloading a background tab whose web process the system had just reclaimed.
+- Stopped Zee from crashing on the second message a native companion sends, which every real password-manager companion sends.
 - Kept a native companion's messages in order when its output arrives in several pieces.
 - Kept the interface responsive while sending a large message to a native companion that has stopped reading it.
 - Stopped a native companion that never answers from holding a process and its pipes for the rest of the session, and reported the timeout to the extension instead.
-- Stopped a native companion that quits while Crest is still sending from taking Crest down with it.
+- Stopped a native companion that quits while Zee is still sending from taking Zee down with it.
 - Stopped a first iCloud sync from deleting another device's tabs, folders, and history everywhere when their Space record arrived in a later batch than the records it owns.
 - Kept saved tabs and nested folders when the folder above them arrives in a later iCloud batch, and stopped deleting a folder on one device from breaking the next sync on another. Both used to fail the whole download, which lost every record that travelled with it.
 - Kept the readable records in a fetched iCloud batch when one record cannot be read, instead of abandoning the whole batch after its change token had already advanced.
-- Let a record written by a newer version of Crest be skipped with an update signal rather than stopping iCloud Sync on older devices.
+- Let a record written by a newer version of Zee be skipped with an update signal rather than stopping iCloud Sync on older devices.
 - Stopped "Replace iCloud with This Device" from erasing cloud content in categories this device is not syncing.
 - Kept a pending "is this the same iCloud account?" decision when iCloud Sync is switched off and back on.
 - Prevented iCloud Sync from continuing in the background when it is switched off while a launch is still in progress.
 - Stopped iCloud Sync from reporting "Up to date" after a failure while applying downloaded records.
-- Left Crest's iCloud data removed when somebody deletes it from iCloud, instead of immediately uploading it all again.
+- Left Zee's iCloud data removed when somebody deletes it from iCloud, instead of immediately uploading it all again.
 - Made iCloud Sync recover on its own after an iCloud sign-in, sign-out, account switch, or a launch that could not reach iCloud.
-- Stopped a stored session that cannot be read from being replaced by a new-installation session and erased. Crest now tells "nothing saved yet" apart from "saved but unreadable": the original bytes are set aside before anything can write over them, and for the rest of that launch nothing removes a Space's history or sweeps its icons.
+- Stopped a stored session that cannot be read from being replaced by a new-installation session and erased. Zee now tells "nothing saved yet" apart from "saved but unreadable": the original bytes are set aside before anything can write over them, and for the rest of that launch nothing removes a Space's history or sweeps its icons.
 - Let a session written by a newer or older build keep loading when it names a Space tint, tab placement, tab icon mode, or Space access policy this build has never heard of, instead of failing the whole session and looking like a new installation. A stored access restriction that cannot be read now keeps the Space guarded rather than opening it.
-- Made an import that lands real Spaces or tabs finish setting Crest up, so imported Spaces sync to iCloud instead of being held back and left replaceable by cloud content.
+- Made an import that lands real Spaces or tabs finish setting Zee up, so imported Spaces sync to iCloud instead of being held back and left replaceable by cloud content.
 - Stopped a reviewed import from committing a blank Space name or symbol; both now fall back exactly as they do in manual setup, including for a newly created Space.
 - Restored constant-cost favicon identity so showing a tab list no longer hashes and compares every visible icon's image data on each screen update, while keeping two different icons from ever being mistaken for each other.
 - Capped the stored per-window restoration records, so repeatedly force-quitting on iPhone or iPad no longer leaves a permanent record behind for every window that never came back.
 - Hosted Dark Reader’s signed MV3 background bundle in WebKit’s document environment so its popup leaves the startup loader promptly while preserving each Space’s existing extension identity, storage, and enabled state.
-- Prevented XCTest app hosts from constructing Crest's installed browser UI, keeping window preferences and feature-level `@AppStorage` outside the user's profile during unit tests.
+- Prevented XCTest app hosts from constructing Zee's installed browser UI, keeping window preferences and feature-level `@AppStorage` outside the user's profile during unit tests.
 - Allowed isolated WebExtension contexts to access only their own nonpersistent data so content scripts and native companion ports keep working without creating persistent extension records.
 - Composed launch-isolated system-credential boundaries for onboarding and mobile launches, preventing Safe Storage and System Passwords write-through without changing ordinary installed sessions.
 - Kept XCTest, fixture, forced onboarding, setup, and credential-test launches on in-memory session, sync, onboarding, shortcut, link, and filter-list owners with nonpersistent WebKit stores, preventing sample Spaces from entering the installed profile.
@@ -682,14 +682,14 @@ Mac, iPhone, and iPad.
 - Replaced the Chrome Web Store verifier's forced invariant operations with explicit header rejection and named invariant checks without changing CRX3 identity or signature validation.
 - Aligned repository structure checks with the current Application and Infrastructure owners and kept release-soak reporting compatible with Xcode's Python 3.9 runtime.
 
-Crest releases before 0.3.0 predate this changelog. Their development history remains available in Git.
+Zee releases before 0.3.0 predate this changelog. Their development history remains available in Git.
 
-[Unreleased]: https://github.com/pauljoda/Crest/compare/v0.8.1...HEAD
-[0.8.1]: https://github.com/pauljoda/Crest/compare/v0.8.0...v0.8.1
-[0.8.0]: https://github.com/pauljoda/Crest/compare/v0.7.2...v0.8.0
-[0.7.0]: https://github.com/pauljoda/Crest/compare/v0.6.33...v0.7.0
-[0.6.33]: https://github.com/pauljoda/Crest/compare/v0.6.8...v0.6.33
-[0.6.3]: https://github.com/pauljoda/Crest/compare/v0.5.7...v0.6.3
-[0.5.7]: https://github.com/pauljoda/Crest/releases/tag/v0.5.7
-[0.4.0]: https://github.com/pauljoda/Crest/releases/tag/v0.4.0
-[0.3.0]: https://github.com/pauljoda/Crest/releases/tag/v0.3.0
+[Unreleased]: https://github.com/OWNER/Zee/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/OWNER/Zee/compare/v0.8.0...v0.8.1
+[0.8.0]: https://github.com/OWNER/Zee/compare/v0.7.2...v0.8.0
+[0.7.0]: https://github.com/OWNER/Zee/compare/v0.6.33...v0.7.0
+[0.6.33]: https://github.com/OWNER/Zee/compare/v0.6.8...v0.6.33
+[0.6.3]: https://github.com/OWNER/Zee/compare/v0.5.7...v0.6.3
+[0.5.7]: https://github.com/OWNER/Zee/releases/tag/v0.5.7
+[0.4.0]: https://github.com/OWNER/Zee/releases/tag/v0.4.0
+[0.3.0]: https://github.com/OWNER/Zee/releases/tag/v0.3.0

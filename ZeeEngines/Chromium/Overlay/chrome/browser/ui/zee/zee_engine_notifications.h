@@ -20,7 +20,7 @@ namespace message_center {
 class Notification;
 }
 
-namespace badge {
+namespace zee {
 
 // The notifications documents in the binding's pages post, which Zee shows
 // as its own. Chromium's macOS bridge posts through NSUserNotificationCenter,

@@ -26,12 +26,12 @@ public sealed partial record SpaceBranding {
         Neutral with { Badge = Neutral.Badge with { Symbol = LegacyFigure(symbol) } };
 
     /// A look painted with another browser's `colors`, keeping controls
-    /// readable unless `readabilityFade` says otherwise, with a plain mountain
-    /// badge unless `figure` names another. An imported look keeps controls
+    /// readable unless `readabilityFade` says otherwise, with a plain round
+    /// mountain badge unless `figure` names another. An imported look keeps controls
     /// readable with `LegacyReadabilityFade` unless it names its own.
     internal static SpaceBranding Painted(IReadOnlyList<BrandColor> colors, SpaceBannerPattern pattern, double strength,
         double readabilityFade, SpaceThemeMode theme, double gradientAngle, double textureStrength, BadgeSymbol? figure = null) {
-        var badge = SpaceBadge.PlainField(BadgeBackplate.Shield, figure ?? BadgeSymbol.Mountain, BadgeTrim.None, ImportedLayers,
+        var badge = SpaceBadge.PlainField(BadgeBackplate.Circle, figure ?? BadgeSymbol.Mountain, BadgeTrim.None, ImportedLayers,
             trimWeight: 1, chargeScale: 1);
         return new(new(colors), pattern, strength, readabilityFade, readabilityFade > 0, theme, gradientAngle, textureStrength,
             SpaceIconStyle.SimpleSymbol, SymbolColor: null, badge, BaselineRenderingVersion, FolderColorIntensity: 0,

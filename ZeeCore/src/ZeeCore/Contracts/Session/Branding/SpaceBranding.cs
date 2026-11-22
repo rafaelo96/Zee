@@ -34,11 +34,11 @@ public sealed partial record SpaceBranding(
 
     /// <summary>The quiet look a Space from another browser wears when that browser
     /// gave it no colors: a gray solid banner that keeps controls readable, with a
-    /// plain mountain badge.</summary>
+    /// plain round mountain badge.</summary>
     public static SpaceBranding Neutral { get; } = new(new([new(0.24, 0.25, 0.27)]), SpaceBannerPattern.Solid, BannerStrength: 1,
         ReadabilityFade: 0.34, KeepsControlsReadable: true, SpaceThemeMode.Banner, GradientAngle: 0, TextureStrength: 0,
         SpaceIconStyle.SimpleSymbol, SymbolColor: null,
-        SpaceBadge.PlainField(BadgeBackplate.Shield, BadgeSymbol.Mountain, BadgeTrim.None, layers: [1, 1, 2, 1, 2, 1], trimWeight: 1,
+        SpaceBadge.PlainField(BadgeBackplate.Circle, BadgeSymbol.Mountain, BadgeTrim.None, layers: [1, 1, 2, 1, 2, 1], trimWeight: 1,
             chargeScale: 1),
         BaselineRenderingVersion, FolderColorIntensity: 0, SpaceTextColorMode.Automatic, HasCustomAppearance: null);
 
@@ -55,11 +55,11 @@ public sealed partial record SpaceBranding(
 
     /// <summary>The look a Space stored before branding existed wears: its accent's
     /// legacy colors in a diagonal banner at full strength that keeps controls readable,
-    /// with a plain shield badge whose figure its SF Symbol suggests.</summary>
+    /// with a plain round badge whose figure its SF Symbol suggests.</summary>
     public static SpaceBranding Legacy(SpaceAccent accent, string symbol) {
         ArgumentNullException.ThrowIfNull(accent);
         ArgumentNullException.ThrowIfNull(symbol);
-        var badge = SpaceBadge.PlainField(BadgeBackplate.Shield, LegacyFigure(symbol), BadgeTrim.None, layers: [1, 1, 2, 1, 2, 1],
+        var badge = SpaceBadge.PlainField(BadgeBackplate.Circle, LegacyFigure(symbol), BadgeTrim.None, layers: [1, 1, 2, 1, 2, 1],
             trimWeight: 1, chargeScale: 1);
         return new(new(accent.LegacyColors), SpaceBannerPattern.Diagonal, BannerStrength: 1, LegacyReadabilityFade,
             KeepsControlsReadable: true, SpaceThemeMode.Banner, GradientAngle: 0, TextureStrength: 0, SpaceIconStyle.SimpleSymbol,

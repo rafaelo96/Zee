@@ -39,7 +39,7 @@
 #include "ui/gfx/image/image_skia_rep.h"
 #include "url/gurl.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

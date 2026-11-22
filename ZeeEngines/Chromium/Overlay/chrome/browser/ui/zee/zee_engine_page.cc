@@ -67,7 +67,7 @@
 #include "ui/gfx/skia_util.h"
 #include "url/gurl.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

@@ -5713,6 +5713,14 @@
     "open-browser-data-format": {
       "category": "internal",
       "message": "Document the browser data export format, the MPL terms Zee keeps as a fork of Crest, and the After Arc roadmap; add sync convergence stress tests."
+    },
+    "zee-space-look": {
+      "category": "improved",
+      "message": "New Spaces wear Zee's own look, a gradient of Zee's colors with a plain icon, instead of heraldic arms; imported and older Spaces draw a round badge instead of a shield, and private Spaces wear Zee's midnight blue."
+    },
+    "zee-links-and-engine-rename": {
+      "category": "internal",
+      "message": "Point Zee's links at zee.dev and Zee's own repository, remove the inherited App Store, Homebrew, TestFlight, Reddit, Discord and sponsorship links, and finish renaming the Chromium engine's code to Zee so it builds."
     }
   }
 }

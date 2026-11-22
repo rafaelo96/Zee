@@ -30,7 +30,7 @@ def main():
     parser.add_argument("--source", required=True, type=Path, help="The pinned external Chromium checkout")
     parser.add_argument("--output", default="out/ZeeBaseline", help="Build directory inside the checkout")
     parser.add_argument("--ninja", required=True, type=Path)
-    parser.add_argument("--repository", default="pauljoda/Crest")
+    parser.add_argument("--repository", default="OWNER/Zee")
     parser.add_argument("--dry-run", action="store_true", help="Verify and package without uploading")
     args = parser.parse_args()
 

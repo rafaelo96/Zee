@@ -16,7 +16,7 @@ extension BrowserStore {
         let spaceID = UUID()
         try family.commit(
             CreateSpace(workspaceID: family.workspaceID, windowID: windowID, spaceID: spaceID), from: self)
-        // The core dresses a new Space in a template's heraldic look.
+        // The core dresses a new Space in its accent's Zee look.
         if let space = availableSpaces.first(where: { $0.id == spaceID }) {
             restyle(space, from: .heraldic, to: appearance.customizationStyle, appearance: appearance)
         }

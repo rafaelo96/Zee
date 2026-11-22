@@ -4,7 +4,7 @@
 #include "chrome/browser/extensions/extension_install_prompt.h"
 #include "chrome/browser/extensions/extension_install_prompt_show_params.h"
 
-namespace badge {
+namespace zee {
 void ShowExtensionPrompt(
     std::unique_ptr<ExtensionInstallPromptShowParams> params,
     ExtensionInstallPrompt::DoneCallback callback,

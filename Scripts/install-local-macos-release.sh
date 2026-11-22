@@ -9,11 +9,11 @@ set -euo pipefail
 
 repository_root="${0:A:h:h}"
 application_path="/Applications/Zee.app"
-repository="pauljoda/Crest"
+repository="OWNER/Zee"
 team_id="3U2R97HLXF"
 signing_identity="Developer ID Application"
 provisioning_profile="Zee Developer ID"
-development_appcast_url="https://raw.githubusercontent.com/pauljoda/Crest/updates/appcast-development.xml"
+development_appcast_url="https://raw.githubusercontent.com/OWNER/Zee/updates/appcast-development.xml"
 derived_data_path="${ZEE_LOCAL_RELEASE_DERIVED_DATA:-$HOME/Library/Developer/Xcode/DerivedData/Zee-LocalRelease}"
 engine_cache_root="${ZEE_ENGINE_CACHE:-$HOME/Library/Caches/Zee-local-release}"
 lsregister="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister"

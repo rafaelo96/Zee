@@ -31,6 +31,9 @@
     "Folder actions" : {
 
     },
+    "GitHub Issues are public. Leave out private details." : {
+
+    },
     "Group actions" : {
 
     },
@@ -71,6 +74,9 @@
 
     },
     "Ungroup" : {
+
+    },
+    "version build updates changelog what's new feedback GitHub issues roadmap support community" : {
 
     },
     "·" : {
@@ -4959,7 +4965,7 @@
         }
       }
     },
-    "crestbrowser.com" : {
+    "zee.dev" : {
 
     },
     "Crimson" : {
@@ -10964,7 +10970,7 @@
       }
     },
     "Reddit is public. Leave out private details." : {
-
+      "extractionState" : "stale"
     },
     "Redo" : {
 
@@ -12642,7 +12648,7 @@
       }
     },
     "Share Feedback on r/CrestBrowser" : {
-
+      "extractionState" : "stale"
     },
     "Share Page" : {
       "localizations" : {
@@ -15829,7 +15835,7 @@
 
     },
     "version build updates changelog what's new feedback Reddit GitHub issues roadmap support community" : {
-
+      "extractionState" : "stale"
     },
     "Version, updates, and support" : {
 

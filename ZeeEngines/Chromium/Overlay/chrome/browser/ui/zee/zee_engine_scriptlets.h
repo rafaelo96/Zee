@@ -7,7 +7,7 @@ namespace content {
 class NavigationHandle;
 }  // namespace content
 
-namespace badge {
+namespace zee {
 
 // Gives the document a Zee page's main frame is about to commit the content
 // filter's scriptlets for its site, `source`, to run in the page's own world

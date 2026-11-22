@@ -64,7 +64,7 @@ bool HandleZeeShortcut(const input::NativeWebKeyboardEvent& event) {
   if (!ns_event || ns_event.type != NSEventTypeKeyDown) {
     return false;
   }
-  return [badge::MacUI() handleShortcutEvent:ns_event] == YES;
+  return [zee::MacUI() handleShortcutEvent:ns_event] == YES;
 }
 
 NSString* OriginDisclosureLabel(const url::Origin& origin) {
@@ -226,7 +226,7 @@ class ZeeAutofillBubbleHandler final : public autofill::AutofillBubbleHandler {
   }
  private:
   static void Unavailable(ZeeUnavailableFeature feature) {
-    [badge::MacUI() showUnavailableFeature:feature];
+    [zee::MacUI() showUnavailableFeature:feature];
   }
 };
 
@@ -237,7 +237,7 @@ ZeeBrowserWindow::ZeeBrowserWindow(Browser* browser)
       modal_dialog_host_(browser),
       exclusive_access_context_(browser),
       location_bar_(browser) {
-  badge::OnBrowserWindowCreated(browser);
+  zee::OnBrowserWindowCreated(browser);
 }
 
 // --- ZeeFindBar --------------------------------------------------------------
@@ -319,7 +319,7 @@ void ZeeLocationBar::UpdateFocusBehavior(bool toolbar_visible) {}
 void ZeeLocationBar::UpdateContentSettingsIcons() {
   // Chromium reports a page's site state here — a blocked pop-up among it.
   // Zee draws that state in its own Site Controls.
-  badge::UpdateSiteIndicators(browser_->tab_strip_model()->GetActiveWebContents());
+  zee::UpdateSiteIndicators(browser_->tab_strip_model()->GetActiveWebContents());
 }
 
 void ZeeLocationBar::SaveStateToContents(content::WebContents* contents) {}
@@ -439,7 +439,7 @@ ZeeExclusiveAccessContext::ZeeExclusiveAccessContext(Browser* browser)
                                               object:nil
                                                queue:nil
                                           usingBlock:^(NSNotification* notification) {
-                                            if (notification.object == badge::WindowForBrowser(browser_)) {
+                                            if (notification.object == zee::WindowForBrowser(browser_)) {
                                               WindowFullscreenChanged(entered);
                                             }
                                           }]];
@@ -461,7 +461,7 @@ Profile* ZeeExclusiveAccessContext::GetProfile() {
 }
 
 bool ZeeExclusiveAccessContext::IsFullscreen() const {
-  NSWindow* window = badge::WindowForBrowser(browser_);
+  NSWindow* window = zee::WindowForBrowser(browser_);
   return window && (window.styleMask & NSWindowStyleMaskFullScreen);
 }
 
@@ -474,9 +474,9 @@ void ZeeExclusiveAccessContext::EnterFullscreen(
   content::WebContents* contents = GetWebContentsForExclusiveAccess();
   if (contents && !exclusive_access_bubble::IsExclusiveAccessModeBrowserFullscreen(bubble_type)) {
     content_fullscreen_ = contents->GetWeakPtr();
-    badge::ReportContentFullscreen(contents, true);
+    zee::ReportContentFullscreen(contents, true);
   }
-  NSWindow* window = badge::WindowForBrowser(browser_);
+  NSWindow* window = zee::WindowForBrowser(browser_);
   if (window && !(window.styleMask & NSWindowStyleMaskFullScreen)) {
     // The disclosure shows once the window is fullscreen, where it belongs.
     [window toggleFullScreen:nil];
@@ -488,7 +488,7 @@ void ZeeExclusiveAccessContext::EnterFullscreen(
 void ZeeExclusiveAccessContext::ExitFullscreen() {
   EndContentFullscreen();
   HideFullscreenDisclosure(ExclusiveAccessBubbleHideReason::kInterrupted);
-  NSWindow* window = badge::WindowForBrowser(browser_);
+  NSWindow* window = zee::WindowForBrowser(browser_);
   if (window && (window.styleMask & NSWindowStyleMaskFullScreen)) {
     [window toggleFullScreen:nil];
   }
@@ -517,7 +517,7 @@ void ZeeExclusiveAccessContext::UpdateUIForTabFullscreen() {
       ExclusiveAccessManager::From(browser_)->fullscreen_controller();
   if (contents && controller->exclusive_access_tab() == contents) {
     content_fullscreen_ = contents->GetWeakPtr();
-    badge::ReportContentFullscreen(contents, true);
+    zee::ReportContentFullscreen(contents, true);
     return;
   }
   if (content_fullscreen_) {
@@ -530,7 +530,7 @@ void ZeeExclusiveAccessContext::EndContentFullscreen() {
   content::WebContents* contents = content_fullscreen_.get();
   content_fullscreen_.reset();
   if (contents) {
-    badge::ReportContentFullscreen(contents, false);
+    zee::ReportContentFullscreen(contents, false);
   }
 }
 
@@ -584,7 +584,7 @@ bool ZeeExclusiveAccessContext::CanUserExitFullscreen() const {
 void ZeeExclusiveAccessContext::ShowFullscreenDisclosure(
     const url::Origin& origin,
     ExclusiveAccessBubbleHideCallback first_hide_callback) {
-  NSWindow* parent = badge::WindowForBrowser(browser_);
+  NSWindow* parent = zee::WindowForBrowser(browser_);
   if (!parent) {
     if (first_hide_callback) {
       std::move(first_hide_callback)
@@ -685,7 +685,7 @@ void ZeeExclusiveAccessContext::HideFullscreenDisclosure(
 }
 
 ZeeBrowserWindow::~ZeeBrowserWindow() {
-  badge::OnBrowserWindowDestroyed(browser_);
+  zee::OnBrowserWindowDestroyed(browser_);
 }
 
 // --- ZeeModalDialogHost ----------------------------------------------------
@@ -697,17 +697,17 @@ ZeeModalDialogHost::~ZeeModalDialogHost() {
 }
 
 gfx::NativeView ZeeModalDialogHost::GetHostView() const {
-  return gfx::NativeView(badge::WindowForBrowser(browser_).contentView);
+  return gfx::NativeView(zee::WindowForBrowser(browser_).contentView);
 }
 
 gfx::Point ZeeModalDialogHost::GetDialogPosition(const gfx::Size& size) {
-  NSView* content = badge::WindowForBrowser(browser_).contentView;
+  NSView* content = zee::WindowForBrowser(browser_).contentView;
   const int width = content ? NSWidth(content.bounds) : 1280;
   return gfx::Point(std::max(0, (width - size.width()) / 2), 64);
 }
 
 gfx::Size ZeeModalDialogHost::GetMaximumDialogSize() {
-  NSView* content = badge::WindowForBrowser(browser_).contentView;
+  NSView* content = zee::WindowForBrowser(browser_).contentView;
   if (!content) {
     return gfx::Size(1200, 760);
   }
@@ -725,40 +725,40 @@ void ZeeModalDialogHost::RemoveObserver(
 }
 
 bool ZeeBrowserWindow::IsMaximized() const {
-  return badge::WindowForBrowser(browser_).isZoomed;
+  return zee::WindowForBrowser(browser_).isZoomed;
 }
 
 bool ZeeBrowserWindow::IsMinimized() const {
-  return badge::WindowForBrowser(browser_).isMiniaturized;
+  return zee::WindowForBrowser(browser_).isMiniaturized;
 }
 
 bool ZeeBrowserWindow::IsFullscreen() const {
-  return (badge::WindowForBrowser(browser_).styleMask & NSWindowStyleMaskFullScreen) != 0;
+  return (zee::WindowForBrowser(browser_).styleMask & NSWindowStyleMaskFullScreen) != 0;
 }
 
 // An extension's popup that shows as a tab leaves the person's window alone.
 void ZeeBrowserWindow::Hide() {
-  if (badge::OwnsWindow(browser_)) [badge::WindowForBrowser(browser_) orderOut:nil];
+  if (zee::OwnsWindow(browser_)) [zee::WindowForBrowser(browser_) orderOut:nil];
 }
 
 void ZeeBrowserWindow::ShowInactive() {
-  badge::OnEngineWindowShown(browser_, false);
-  [badge::WindowForBrowser(browser_) orderFront:nil];
+  zee::OnEngineWindowShown(browser_, false);
+  [zee::WindowForBrowser(browser_) orderFront:nil];
 }
 
 void ZeeBrowserWindow::Deactivate() {}
 
 void ZeeBrowserWindow::Maximize() {
-  if (badge::OwnsWindow(browser_) && !IsMaximized()) [badge::WindowForBrowser(browser_) zoom:nil];
+  if (zee::OwnsWindow(browser_) && !IsMaximized()) [zee::WindowForBrowser(browser_) zoom:nil];
 }
 
 void ZeeBrowserWindow::Minimize() {
-  if (badge::OwnsWindow(browser_)) [badge::WindowForBrowser(browser_) miniaturize:nil];
+  if (zee::OwnsWindow(browser_)) [zee::WindowForBrowser(browser_) miniaturize:nil];
 }
 
 void ZeeBrowserWindow::Restore() {
-  if (!badge::OwnsWindow(browser_)) return;
-  NSWindow* window = badge::WindowForBrowser(browser_);
+  if (!zee::OwnsWindow(browser_)) return;
+  NSWindow* window = zee::WindowForBrowser(browser_);
   if (window.isMiniaturized) [window deminiaturize:nil];
   if (window.isZoomed) [window zoom:nil];
 }
@@ -772,11 +772,11 @@ ui::ZOrderLevel ZeeBrowserWindow::GetZOrderLevel() const {
 void ZeeBrowserWindow::SetZOrderLevel(ui::ZOrderLevel order) {}
 
 bool ZeeBrowserWindow::IsOnCurrentWorkspace() const {
-  return badge::WindowForBrowser(browser_).isOnActiveSpace;
+  return zee::WindowForBrowser(browser_).isOnActiveSpace;
 }
 
 bool ZeeBrowserWindow::IsVisibleOnScreen() const {
-  return (badge::WindowForBrowser(browser_).occlusionState & NSWindowOcclusionStateVisible) != 0;
+  return (zee::WindowForBrowser(browser_).occlusionState & NSWindowOcclusionStateVisible) != 0;
 }
 
 void ZeeBrowserWindow::SetTopControlsShownRatio(content::WebContents* web_contents, float ratio) {}
@@ -846,7 +846,7 @@ PinnedToolbarActions* ZeeBrowserWindow::GetPinnedToolbarActions() {
 }
 
 void ZeeBrowserWindow::SetFocusToLocationBar(bool is_user_initiated) {
-  [badge::MacUI() focusLocation];
+  [zee::MacUI() focusLocation];
 }
 
 void ZeeBrowserWindow::UpdateReloadStopState(bool is_loading, bool force) {}
@@ -928,12 +928,12 @@ void ZeeBrowserWindow::ShowIntentPickerBubble( std::vector<apps::IntentPickerApp
 
 // Zee keeps a page by pinning its tab, so bookmarking is that.
 void ZeeBrowserWindow::ShowBookmarkBubble(const GURL& url, bool already_bookmarked) {
-  [badge::MacUI() bookmarkActivePage];
+  [zee::MacUI() bookmarkActivePage];
 }
 
 ShowTranslateBubbleResult ZeeBrowserWindow::ShowTranslateBubble( content::WebContents* contents, translate::TranslateStep step, const std::string& source_language, const std::string& target_language, translate::TranslateErrors error_type, bool is_user_gesture) {
   if (contents) {
-    [badge::MacUI() translatePage];
+    [zee::MacUI() translatePage];
   }
   return {};
 }
@@ -961,7 +961,7 @@ void ZeeBrowserWindow::ShowAppMenu() {
   if (!appMenu) {
     return;
   }
-  NSWindow* window = badge::WindowForBrowser(browser_);
+  NSWindow* window = zee::WindowForBrowser(browser_);
   NSPoint point = window ? NSMakePoint(NSMidX(window.frame), NSMaxY(window.frame) - 40)
                          : NSMakePoint(24, 24);
   [appMenu popUpMenuPositioningItem:nil atLocation:point inView:nil];
@@ -986,7 +986,7 @@ bool ZeeBrowserWindow::HandleKeyboardEvent( const input::NativeWebKeyboardEvent&
   NSEvent* native_event = event.os_event.Get();
   if (event.GetType() != input::NativeWebKeyboardEvent::Type::kRawKeyDown ||
       !native_event || native_event.type != NSEventTypeKeyDown ||
-      !badge::WindowForBrowser(browser_).isKeyWindow) return false;
+      !zee::WindowForBrowser(browser_).isKeyWindow) return false;
   return [NSApp.mainMenu performKeyEquivalent:native_event];
 }
 
@@ -1006,7 +1006,7 @@ ZeeBrowserWindow::GetWebContentsModalDialogHostFor(
 }
 
 void ZeeBrowserWindow::ShowAvatarBubbleFromAvatarButton(bool is_source_accelerator) {
-  [badge::MacUI() showUnavailableFeature:ZeeUnavailableFeatureProfiles];
+  [zee::MacUI() showUnavailableFeature:ZeeUnavailableFeatureProfiles];
 }
 
 void ZeeBrowserWindow::ShowHatsDialog( const std::string& site_id, const std::optional<std::string>& hats_histogram_name, const std::optional<uint64_t> hats_survey_ukm_id, base::OnceClosure success_callback, base::OnceClosure failure_callback, const SurveyBitsData& product_specific_bits_data, const SurveyStringData& product_specific_string_data) {}
@@ -1028,26 +1028,26 @@ void ZeeBrowserWindow::ShowEmojiPanel() {
 }
 
 std::unique_ptr<content::EyeDropper> ZeeBrowserWindow::OpenEyeDropper( content::RenderFrameHost* frame, content::EyeDropperListener* listener) {
-  [badge::MacUI() showUnavailableFeature:ZeeUnavailableFeatureEyeDropper];
+  [zee::MacUI() showUnavailableFeature:ZeeUnavailableFeatureEyeDropper];
   return {};
 }
 
 void ZeeBrowserWindow::ShowCaretBrowsingDialog() {
-  [badge::MacUI() showUnavailableFeature:ZeeUnavailableFeatureCaretBrowsing];
+  [zee::MacUI() showUnavailableFeature:ZeeUnavailableFeatureCaretBrowsing];
 }
 
 void ZeeBrowserWindow::CreateTabSearchBubble() {
-  [badge::MacUI() showTabSearch];
+  [zee::MacUI() showTabSearch];
 }
 
 void ZeeBrowserWindow::CloseTabSearchBubble() {}
 
 void ZeeBrowserWindow::ShowIncognitoClearBrowsingDataDialog() {
-  [badge::MacUI() showUnavailableFeature:ZeeUnavailableFeaturePrivateBrowsing];
+  [zee::MacUI() showUnavailableFeature:ZeeUnavailableFeaturePrivateBrowsing];
 }
 
 void ZeeBrowserWindow::ShowIncognitoHistoryDisclaimerDialog() {
-  [badge::MacUI() showUnavailableFeature:ZeeUnavailableFeaturePrivateBrowsing];
+  [zee::MacUI() showUnavailableFeature:ZeeUnavailableFeaturePrivateBrowsing];
 }
 
 bool ZeeBrowserWindow::IsUnframedModeEnabled() const {
@@ -1055,7 +1055,7 @@ bool ZeeBrowserWindow::IsUnframedModeEnabled() const {
 }
 
 bool ZeeBrowserWindow::GetCanResize() {
-  return (badge::WindowForBrowser(browser_).styleMask & NSWindowStyleMaskResizable) != 0;
+  return (zee::WindowForBrowser(browser_).styleMask & NSWindowStyleMaskResizable) != 0;
 }
 
 ui::mojom::WindowShowState ZeeBrowserWindow::GetWindowShowState() const {
@@ -1066,7 +1066,7 @@ ui::mojom::WindowShowState ZeeBrowserWindow::GetWindowShowState() const {
 }
 
 void ZeeBrowserWindow::ShowChromeLabs() {
-  [badge::MacUI() showUnavailableFeature:ZeeUnavailableFeatureChromeLabs];
+  [zee::MacUI() showUnavailableFeature:ZeeUnavailableFeatureChromeLabs];
 }
 
 BrowserView* ZeeBrowserWindow::AsBrowserView() {
@@ -1080,8 +1080,8 @@ void ZeeBrowserWindow::DeleteBrowserWindow() {
 // --- Real implementations against the assigned native Zee window -------------------
 
 void ZeeBrowserWindow::Show() {
-  badge::EnsureZeeUIStarted(browser_);
-  badge::OnEngineWindowShown(browser_, true);
+  zee::EnsureZeeUIStarted(browser_);
+  zee::OnEngineWindowShown(browser_, true);
 }
 
 void ZeeBrowserWindow::Close() {
@@ -1095,25 +1095,25 @@ void ZeeBrowserWindow::Close() {
 }
 
 bool ZeeBrowserWindow::IsActive() const {
-  return badge::WindowForBrowser(browser_).isKeyWindow;
+  return zee::WindowForBrowser(browser_).isKeyWindow;
 }
 
 void ZeeBrowserWindow::Activate() {
   // Chromium brings a page forward by making it the Browser's active tab and
   // then asking for its window, as a Picture in Picture window's return
   // control does. Zee shows that page's own window, Space and tab instead.
-  if (badge::ReturnFromPictureInPicture(browser_->tab_strip_model()->GetActiveWebContents())) {
+  if (zee::ReturnFromPictureInPicture(browser_->tab_strip_model()->GetActiveWebContents())) {
     return;
   }
-  [badge::WindowForBrowser(browser_) makeKeyAndOrderFront:nil];
+  [zee::WindowForBrowser(browser_) makeKeyAndOrderFront:nil];
 }
 
 gfx::NativeWindow ZeeBrowserWindow::GetNativeWindow() const {
-  return gfx::NativeWindow(badge::WindowForBrowser(browser_));
+  return gfx::NativeWindow(zee::WindowForBrowser(browser_));
 }
 
 gfx::Rect ZeeBrowserWindow::GetBounds() const {
-  NSWindow* window = badge::WindowForBrowser(browser_);
+  NSWindow* window = zee::WindowForBrowser(browser_);
   if (!window) {
     return gfx::Rect(0, 0, 1280, 820);
   }
@@ -1121,24 +1121,24 @@ gfx::Rect ZeeBrowserWindow::GetBounds() const {
 }
 
 gfx::Rect ZeeBrowserWindow::GetRestoredBounds() const {
-  NSWindow* window = badge::WindowForBrowser(browser_);
+  NSWindow* window = zee::WindowForBrowser(browser_);
   if (!window) return GetBounds();
-  return gfx::ScreenRectFromNSRect([badge::MacUI() restoredFrameForWindow:window]);
+  return gfx::ScreenRectFromNSRect([zee::MacUI() restoredFrameForWindow:window]);
 }
 
 ui::mojom::WindowShowState ZeeBrowserWindow::GetRestoredState() const {
-  NSWindow* window = badge::WindowForBrowser(browser_);
-  const bool zoomed = IsFullscreen() ? [badge::MacUI() wasWindowZoomedBeforeFullScreen:window] : IsMaximized();
+  NSWindow* window = zee::WindowForBrowser(browser_);
+  const bool zoomed = IsFullscreen() ? [zee::MacUI() wasWindowZoomedBeforeFullScreen:window] : IsMaximized();
   return zoomed ? ui::mojom::WindowShowState::kMaximized : ui::mojom::WindowShowState::kNormal;
 }
 
 bool ZeeBrowserWindow::IsVisible() const {
-  return badge::WindowForBrowser(browser_).isVisible;
+  return zee::WindowForBrowser(browser_).isVisible;
 }
 
 void ZeeBrowserWindow::SetBounds(const gfx::Rect& bounds) {
-  NSWindow* window = badge::WindowForBrowser(browser_);
-  if (!window || IsFullscreen() || !badge::OwnsWindow(browser_)) return;
+  NSWindow* window = zee::WindowForBrowser(browser_);
+  if (!window || IsFullscreen() || !zee::OwnsWindow(browser_)) return;
   // Chromium and extensions use the primary display's top-left origin, even
   // for windows on other displays. Use the inverse of GetBounds's conversion.
   [window setFrame:gfx::ScreenRectToNSRect(bounds) display:YES];
@@ -1146,6 +1146,6 @@ void ZeeBrowserWindow::SetBounds(const gfx::Rect& bounds) {
 
 bool ZeeLocationBar::IsMouseHovered() const { return false; }
 bool ZeeLocationBar::IsFocusWithin() const {
-  NSResponder* responder = badge::WindowForBrowser(browser_).firstResponder;
+  NSResponder* responder = zee::WindowForBrowser(browser_).firstResponder;
   return [responder isKindOfClass:NSTextView.class] && ((NSTextView*)responder).isFieldEditor;
 }

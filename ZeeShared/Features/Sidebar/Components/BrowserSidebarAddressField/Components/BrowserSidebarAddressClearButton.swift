@@ -29,7 +29,7 @@ struct BrowserSidebarAddressClearButton: View {
 
 #if DEBUG
     #Preview("Clear address") {
-        @Previewable @State var text = "crestbrowser.com"
+        @Previewable @State var text = "zee.dev"
         HStack {
             TextField("Address", text: $text)
             BrowserSidebarAddressClearButton(text: $text)

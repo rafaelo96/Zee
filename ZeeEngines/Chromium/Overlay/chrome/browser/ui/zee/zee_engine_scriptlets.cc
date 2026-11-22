@@ -11,7 +11,7 @@
 #include "mojo/public/cpp/bindings/associated_remote.h"
 #include "third_party/blink/public/common/associated_interfaces/associated_interface_provider.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

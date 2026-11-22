@@ -21,7 +21,7 @@ namespace content {
 class BrowserContext;
 }
 
-namespace badge {
+namespace zee {
 
 // The engine profiles Zee browses in: each Space's own regular profile,
 // named `Zee-<Space profile>` in the engine's user data directory, and each

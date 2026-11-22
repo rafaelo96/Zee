@@ -332,7 +332,7 @@ class ExtensionPopup final : public extensions::ExtensionView,
     if (!opened_over_) return true;
     content::WebContents* page = opened_over_->get();
     if (!page) return false;
-    Browser* browser = badge::EngineBinding::Get().Browsers().Holding(page);
+    Browser* browser = zee::EngineBinding::Get().Browsers().Holding(page);
     NSView* view = page->GetNativeView().GetNativeNSView();
     return browser && browser->tab_strip_model()->GetActiveWebContents() == page && parent.isKeyWindow &&
            view.window == parent && !view.hiddenOrHasHiddenAncestor;
@@ -528,9 +528,9 @@ class NativePermissionPrompt final : public permissions::PermissionPrompt {
       if (!weak || !weak->delegate_) return;
       weak->responded_ = true;
       auto current_delegate = weak->delegate_;
-      if (response == NSAlertFirstButtonReturn) badge::AnswerPermissionRequests(*current_delegate, true, true);
-      else if (response == NSAlertSecondButtonReturn) badge::AnswerPermissionRequests(*current_delegate, false, true);
-      else badge::AnswerPermissionRequests(*current_delegate, false, false);
+      if (response == NSAlertFirstButtonReturn) zee::AnswerPermissionRequests(*current_delegate, true, true);
+      else if (response == NSAlertSecondButtonReturn) zee::AnswerPermissionRequests(*current_delegate, false, true);
+      else zee::AnswerPermissionRequests(*current_delegate, false, false);
     }];
   }
   ~NativePermissionPrompt() override {
@@ -661,7 +661,7 @@ struct PageViews final : content::WebContentsObserver {
 
 // The WebContents of the page the platform names `pageID`, or null.
 content::WebContents* PageContents(NSUUID* pageID) {
-  badge::EnginePage* page = badge::EngineBinding::Get().Find(KeyFor(pageID));
+  zee::EnginePage* page = zee::EngineBinding::Get().Find(KeyFor(pageID));
   return page ? page->web_contents() : nullptr;
 }
 
@@ -694,18 +694,18 @@ ExtensionPopup* PopupShownIn(NSWindow* window) {
 // What only AppKit does for the portable binding: the Zee windows its
 // Browsers show in, and the views beside each page. The binding keeps the
 // Browsers themselves.
-class MacShell final : public badge::EngineBinding::Shell {
+class MacShell final : public zee::EngineBinding::Shell {
  public:
-  std::optional<badge::EngineBinding::WindowPlacement> ReserveWindow(const std::string& profile,
+  std::optional<zee::EngineBinding::WindowPlacement> ReserveWindow(const std::string& profile,
                                                                       bool own_window) override {
     NSUUID* identifier = UUIDFor(profile);
     id<ZeeEngineWindowPlacement> placement =
         identifier ? [UI() reserveEngineWindowForProfile:identifier ownWindow:own_window ? YES : NO] : nil;
     if (!placement) return std::nullopt;
-    return badge::EngineBinding::WindowPlacement{.window = KeyFor(placement.window), .space = KeyFor(placement.space)};
+    return zee::EngineBinding::WindowPlacement{.window = KeyFor(placement.window), .space = KeyFor(placement.space)};
   }
 
-  void PresentWindow(const badge::EngineBinding::WindowPlacement& placement, bool focused) override {
+  void PresentWindow(const zee::EngineBinding::WindowPlacement& placement, bool focused) override {
     NSUUID* window = UUIDFor(placement.window);
     NSUUID* space = UUIDFor(placement.space);
     if (window && space) [UI() presentEngineWindow:window space:space focused:focused ? YES : NO];
@@ -747,7 +747,7 @@ class MacShell final : public badge::EngineBinding::Shell {
       if (PageViews* views = FindViews(page)) views->devtools.reset();
       return;
     }
-    badge::EnginePage* engine_page = badge::EngineBinding::Get().Find(page);
+    zee::EnginePage* engine_page = zee::EngineBinding::Get().Find(page);
     content::WebContents* contents = engine_page ? engine_page->web_contents() : nullptr;
     if (!contents) return;
     PageViews& views = ViewsFor(page, contents);
@@ -807,15 +807,15 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
 - (BOOL)runExtension:(NSString*)extensionID page:(NSUUID*)pageID
          anchorView:(NSView*)anchorView anchorRect:(NSRect)anchorRect {
   CHECK(NSThread.isMainThread);
-  auto& binding = badge::EngineBinding::Get();
+  auto& binding = zee::EngineBinding::Get();
   const std::string key = KeyFor(pageID);
-  badge::EnginePage* page = binding.Find(key);
+  zee::EnginePage* page = binding.Find(key);
   content::WebContents* contents = page ? page->web_contents() : nullptr;
   Browser* browser = binding.Browsers().Holding(contents);
-  if (!browser || !anchorView.window || anchorView.window != badge::WindowForBrowser(browser)) return NO;
+  if (!browser || !anchorView.window || anchorView.window != zee::WindowForBrowser(browser)) return NO;
   Profile* profile = browser->GetProfile();
   const auto id = base::SysNSStringToUTF8(extensionID);
-  const auto* extension = badge::EngineExtensions::Usable(profile, id);
+  const auto* extension = zee::EngineExtensions::Usable(profile, id);
   if (!extension) return NO;
   // Declined rather than navigated: an extension whose files are gone would
   // otherwise show Chromium's own ERR_FILE_NOT_FOUND page inside Zee's
@@ -831,7 +831,7 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
   if (result == extensions::ExtensionAction::ShowAction::kToggleSidePanel) {
     // The action opens a panel instead of a popup. The card belongs to the
     // platform, so the click toggles the one this page is already showing.
-    binding.RequestSidePanel(key, id, badge::engine::SidePanelRequest::kToggle);
+    binding.RequestSidePanel(key, id, zee::engine::SidePanelRequest::kToggle);
     return YES;
   }
   if (result != extensions::ExtensionAction::ShowAction::kShowPopup) return NO;
@@ -852,19 +852,19 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
   // than through the WebContents-scoped action runner.
   if (!anchorView.window) return NO;
   const auto profile_id = KeyFor(profileID);
-  Profile* profile = badge::EngineBinding::Get().Profiles().Find(profile_id);
+  Profile* profile = zee::EngineBinding::Get().Profiles().Find(profile_id);
   if (!profile) return NO;
   Profile* owner = profile->GetOriginalProfile();
-  const auto* extension = badge::EngineExtensions::Usable(profile, base::SysNSStringToUTF8(extensionID));
+  const auto* extension = zee::EngineExtensions::Usable(profile, base::SysNSStringToUTF8(extensionID));
   if (!extension) return NO;
   auto* action = extensions::ExtensionActionManager::Get(owner)->GetExtensionAction(*extension);
-  if (!action || !badge::EngineBinding::Get().Extensions().For(profile, profile_id).IsAvailable(*extension, action))
+  if (!action || !zee::EngineBinding::Get().Extensions().For(profile, profile_id).IsAvailable(*extension, action))
     return NO;
   if (action->action_type() == extensions::ActionInfo::Type::kPage) return NO;
   const GURL popup_url = action->GetPopupUrl(extensions::ExtensionAction::kDefaultTabId);
   if (!popup_url.is_valid()) return NO;
-  Browser* browser = badge::EngineBinding::Get().Browsers().ForWindow(profile_id, KeyFor(windowID));
-  if (!browser || anchorView.window != badge::WindowForBrowser(browser)) return NO;
+  Browser* browser = zee::EngineBinding::Get().Browsers().ForWindow(profile_id, KeyFor(windowID));
+  if (!browser || anchorView.window != zee::WindowForBrowser(browser)) return NO;
   auto popup = extensions::ExtensionViewHostFactory::CreatePopupHost(*extension, popup_url, browser);
   if (!popup) return NO;
   State().space_extension_popup = std::make_unique<ExtensionPopup>(std::move(popup), anchorView, anchorRect);
@@ -883,8 +883,8 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
   CHECK(NSThread.isMainThread);
   const std::string key = KeyFor(pageID);
   content::WebContents* contents = PageContents(pageID);
-  Browser* browser = badge::EngineBinding::Get().Browsers().Holding(contents);
-  const auto* extension = browser ? badge::EngineExtensions::SidePanelExtension(
+  Browser* browser = zee::EngineBinding::Get().Browsers().Holding(contents);
+  const auto* extension = browser ? zee::EngineExtensions::SidePanelExtension(
       contents, base::SysNSStringToUTF8(extensionID)) : nullptr;
   if (!extension) return nil;
   auto* service = extensions::SidePanelService::Get(browser->GetProfile());
@@ -911,7 +911,7 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
 - (id<ZeeExtensionShortcut>)dispatchExtensionShortcut:(NSEvent*)event page:(NSUUID*)pageID {
   CHECK(NSThread.isMainThread);
   content::WebContents* contents = PageContents(pageID);
-  Browser* browser = badge::EngineBinding::Get().Browsers().Holding(contents);
+  Browser* browser = zee::EngineBinding::Get().Browsers().Holding(contents);
   if (!browser || State().disposing) return nil;
   const ui::Accelerator accelerator = ShortcutAccelerator(event);
   if (accelerator.key_code() == ui::VKEY_UNKNOWN) return nil;
@@ -919,7 +919,7 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
   auto* commands = extensions::CommandService::Get(profile);
   if (!commands) return nil;
   for (const auto& extension : extensions::ExtensionRegistry::Get(profile)->enabled_extensions()) {
-    if (!badge::EngineExtensions::RunsIn(profile, *extension)) continue;
+    if (!zee::EngineExtensions::RunsIn(profile, *extension)) continue;
     const auto& id = extension->id();
     // `_execute_action` is the action itself, so the core runs it through the
     // same path as a click on the extension's own button.
@@ -939,7 +939,7 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
       if (command.accelerator() != accelerator) continue;
       // The extension may find its page as the active tab rather than read
       // the one the command names, as a click on its button finds it.
-      badge::EngineBinding::Get().Browsers().Activate(contents);
+      zee::EngineBinding::Get().Browsers().Activate(contents);
       DeliverExtensionCommand(profile, *extension, name, contents);
       return [[ZeeExtensionShortcutResult alloc] init];
     }
@@ -954,7 +954,7 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
 - (void)disposePages:(NSArray<NSUUID*>*)pageIDs windows:(NSArray<NSUUID*>*)windowIDs
     releaseProfiles:(NSArray<NSUUID*>*)profileIDs {
   CHECK(NSThread.isMainThread);
-  auto& binding = badge::EngineBinding::Get();
+  auto& binding = zee::EngineBinding::Get();
   // A Space-scoped popup is anchored in one of the windows or profiles being
   // released, and nothing else would close it.
   if (windowIDs.count || profileIDs.count) State().space_extension_popup.reset();
@@ -976,7 +976,7 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
   state.views.clear();
   // The core has stopped accepting work: the binding lets every page go,
   // closes its Browsers and releases the profiles.
-  badge::EngineBinding::Get().Dispose();
+  zee::EngineBinding::Get().Dispose();
 }
 - (void)cancelAuthenticationSessionForWindow:(NSUUID*)windowID {
   CHECK(NSThread.isMainThread);
@@ -992,7 +992,7 @@ using ZeeChromiumUIStart = void (*)(id<ZeeMacShell> shell, const zee_engine_bind
 }
 @end
 
-namespace badge {
+namespace zee {
 void SnapPictureInPictureWindow(views::Widget* widget) {
   if (!IsEnabled() || !widget) return;
   NSWindow* window = widget->GetNativeWindow().GetNativeNSWindow();
@@ -1040,7 +1040,7 @@ class AuthenticationSessionThrottle final : public content::NavigationThrottle {
     if (state.authentication_sessions.empty() || state.disposing || !navigation->IsInPrimaryMainFrame())
       return PROCEED;
     // Only a page of the Quick Window running the sign-in completes it.
-    auto& binding = badge::EngineBinding::Get();
+    auto& binding = zee::EngineBinding::Get();
     content::WebContents* contents = navigation->GetWebContents();
     if (!binding.PageFor(contents)) return PROCEED;
     const std::string window = binding.Browsers().WindowOf(binding.Browsers().Holding(contents));
@@ -1058,7 +1058,7 @@ class AuthenticationSessionThrottle final : public content::NavigationThrottle {
 
 void AddNavigationThrottle(content::NavigationThrottleRegistry& registry) {
   if (!IsEnabled()) return;
-  registry.AddThrottle(badge::EngineBinding::LinkThrottle(registry));
+  registry.AddThrottle(zee::EngineBinding::LinkThrottle(registry));
   registry.AddThrottle(std::make_unique<AuthenticationSessionThrottle>(registry));
 }
 
@@ -1075,7 +1075,7 @@ bool BeginLinkDrag(content::WebContents* contents, const content::DropData& data
   auto* focused_frame = contents->GetFocusedFrame();
   if (!focused_frame || !focused_frame->GetView() ||
       !focused_frame->GetView()->GetSelectedText().empty()) return false;
-  badge::EnginePage* page = badge::EngineBinding::Get().PageFor(contents);
+  zee::EnginePage* page = zee::EngineBinding::Get().PageFor(contents);
   NSURL* url = net::NSURLWithGURL(data.url_infos[0].url);
   if (!page || !url) return false;
   return [UI() beginLinkDrag:url title:base::SysUTF16ToNSString(data.url_infos[0].title)
@@ -1086,7 +1086,7 @@ bool BeginLinkDrag(content::WebContents* contents, const content::DropData& data
 void AppendLinkMenuItem(NSMenu* menu, content::WebContents* contents, const GURL& url,
                         const std::u16string& selection) {
   if (!IsEnabled() || State().disposing) return;
-  badge::EnginePage* page = badge::EngineBinding::Get().PageFor(contents);
+  zee::EnginePage* page = zee::EngineBinding::Get().PageFor(contents);
   if (!page) return;
   NSURL* link = url.SchemeIsHTTPOrHTTPS() ? net::NSURLWithGURL(url) : nil;
   NSString* const selected = base::SysUTF16ToNSString(
@@ -1113,8 +1113,8 @@ bool OpenExtensionActionPopup(BrowserWindowInterface& browser_window, const exte
   // Browser is the only desktop BrowserWindowInterface.
   Browser* browser = static_cast<Browser*>(&browser_window);
   content::WebContents* contents = browser->tab_strip_model()->GetActiveWebContents();
-  auto& binding = badge::EngineBinding::Get();
-  badge::EnginePage* page = contents ? binding.PageFor(contents) : nullptr;
+  auto& binding = zee::EngineBinding::Get();
+  zee::EnginePage* page = contents ? binding.PageFor(contents) : nullptr;
   if (!page || browser->IsDeleteScheduled() || binding.Browsers().Holding(contents) != browser) return false;
   const std::string window_id = binding.Browsers().WindowOf(browser);
   NSWindow* window = window_id.empty() ? nil : [UI() windowWithID:UUIDFor(window_id)];
@@ -1139,7 +1139,7 @@ bool OpenExtensionActionPopup(BrowserWindowInterface& browser_window, const exte
 
 // A page the core asked whether it may close answers the core.
 bool CompletePageClosePreparation(content::WebContents* contents, bool proceed) {
-  return badge::AnswerBeforeUnload(contents, proceed);
+  return zee::AnswerBeforeUnload(contents, proceed);
 }
 void ShowExtensionPrompt(
     std::unique_ptr<ExtensionInstallPromptShowParams> params,
@@ -1163,7 +1163,7 @@ void ShowExtensionPrompt(
   // Zee window, such as a package dropped on the extension manager, has no
   // review in Zee to answer it, and Zee's review is the only consent an
   // install in its windows gets, so it is declined.
-  if (window.identifier && badge::ParseGuid(base::SysNSStringToUTF8(window.identifier)) &&
+  if (window.identifier && zee::ParseGuid(base::SysNSStringToUTF8(window.identifier)) &&
       pending->prompt->type() == extensions::InstallPromptData::INSTALL_PROMPT) {
     pending->prompt->OnDialogCanceled();
     std::move(pending->callback).Run(Payload(Result::USER_CANCELED));
@@ -1213,7 +1213,7 @@ std::unique_ptr<permissions::PermissionPrompt> CreatePermissionPrompt(
   if (State().answering_permission == delegate) return nullptr;
   // A request Zee's permission record covers is asked through the page, so
   // the decision is recorded per Space and listed in Privacy.
-  if (auto prompt = badge::EngineBinding::Get().PermissionPrompt(contents, delegate)) return prompt;
+  if (auto prompt = zee::EngineBinding::Get().PermissionPrompt(contents, delegate)) return prompt;
   BrowserWindowInterface* browser = GlobalBrowserCollection::GetInstance()->FindBrowserWithTab(contents);
   NSWindow* window = browser ? WindowForBrowser(static_cast<Browser*>(browser)) : nil;
   if (!window || window.attachedSheet) return nullptr;
@@ -1278,11 +1278,11 @@ void EnsureZeeUIStarted(Browser* browser) {
   CHECK(start);
   State().started = true;
   static base::NoDestructor<MacShell> shell;
-  auto& binding = badge::EngineBinding::Get();
+  auto& binding = zee::EngineBinding::Get();
   binding.SetShell(shell.get());
   const zee_engine_binding_t table = binding.Table();
   const zee_engine_pages_t pages = binding.Pages();
-  const auto& fingerprint = badge::EngineBinding::Fingerprint();
+  const auto& fingerprint = zee::EngineBinding::Fingerprint();
   start([[ZeeChromiumMacShell alloc] init], &table, fingerprint.data(), fingerprint.size(), &pages);
   // A window that comes into use brings the page in use there with it: a page
   // shown while its window was in the background did not come into use then.
@@ -1290,7 +1290,7 @@ void EnsureZeeUIStarted(Browser* browser) {
       queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification* notification) {
     if (State().disposing || State().quitting) return;
     NSWindow* window = notification.object;
-    badge::EngineBinding::Get().Browsers().WindowInUse([window](content::WebContents* contents) {
+    zee::EngineBinding::Get().Browsers().WindowInUse([window](content::WebContents* contents) {
       return contents->GetTopLevelNativeWindow().GetNativeNSWindow() == window;
     });
   }];
@@ -1307,11 +1307,11 @@ id<ZeeMacUI> MacUI() {
 // Browsers.
 bool CanCreateEngineBrowser(Profile* profile) {
   if (!IsEnabled() || !State().started || State().disposing || State().quitting) return true;
-  return badge::EngineBinding::Get().Browsers().MayCreate(profile);
+  return zee::EngineBinding::Get().Browsers().MayCreate(profile);
 }
 NSWindow* WindowForBrowser(Browser* browser) {
   if (!State().started) return nil;
-  const auto& browsers = badge::EngineBinding::Get().Browsers();
+  const auto& browsers = zee::EngineBinding::Get().Browsers();
   // A reserved engine window has an identifier before it has a window: a
   // renderer popup never opens the one reserved for it, because its tab is
   // adopted into the opener's window. Those Browsers keep the same fallback

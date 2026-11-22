@@ -43,7 +43,7 @@
 #include "url/origin.h"
 #include "url/scheme_host_port.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

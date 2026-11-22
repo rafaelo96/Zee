@@ -1,4 +1,4 @@
-Crest's content filter (CrestCore/native/ContentFilter) is built from Brave's adblock engine and the Rust crates below, each under the license that follows its name.
+Zee's content filter (ZeeCore/native/ContentFilter) is built from Brave's adblock engine and the Rust crates below, each under the license that follows its name.
 
 Applies to adblock 0.13.5 (MPL-2.0):
 

@@ -1,7 +1,7 @@
 #ifndef CHROME_BROWSER_UI_ZEE_ZEE_PERMISSION_PROMPT_H_
 #define CHROME_BROWSER_UI_ZEE_ZEE_PERMISSION_PROMPT_H_
 #include "components/permissions/permission_prompt.h"
-namespace badge {
+namespace zee {
 std::unique_ptr<permissions::PermissionPrompt> CreatePermissionPrompt(
     content::WebContents* contents, permissions::PermissionPrompt::Delegate* delegate);
 

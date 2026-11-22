@@ -23,7 +23,7 @@
 #include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/size.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

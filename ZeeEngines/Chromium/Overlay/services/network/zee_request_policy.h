@@ -7,7 +7,7 @@ namespace net {
 class URLRequest;
 }
 
-namespace network::badge {
+namespace network::zee {
 
 // Whether Zee keeps `request`, about to load `url`, from reaching Google.
 //

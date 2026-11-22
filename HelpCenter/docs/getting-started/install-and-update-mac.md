@@ -7,18 +7,14 @@ keywords: [download, install, update, macOS, GitHub Releases, Sparkle]
 
 # Install and update Zee for Mac
 
-Zee for Mac requires Apple silicon and macOS 26.1 or later. It is distributed directly as a signed and notarized app with Chromium and WebKit; see [Chromium and WebKit on Mac](../browsing/engines.md). Zee for iPhone and iPad is on the App Store and continues to use WebKit.
+Zee for Mac requires Apple silicon and macOS 26.1 or later. It is distributed directly as a signed and notarized app with Chromium and WebKit; see [Chromium and WebKit on Mac](../browsing/engines.md). Zee for iPhone and iPad uses WebKit.
 
 ## Install the latest Mac release
 
-1. Open the [latest stable Zee release](https://github.com/pauljoda/Crest/releases/latest).
+1. Open the [latest stable Zee release](https://github.com/OWNER/Zee/releases/latest).
 2. Download its `Installer-….dmg` file.
 3. Open the disk image, then drag Zee into **Applications**.
 4. Eject the disk image and open Zee from Applications.
-
-Alternatively, Zee can be installed via Homebrew:
-1. Open Terminal.
-2. Run `brew install --cask crest-browser`
 
 Keeping Zee in Applications gives macOS and the updater one stable installed location. If Gatekeeper reports that the app cannot be verified, do not bypass the warning; download the current release again from the official Releases page.
 
@@ -46,4 +42,4 @@ Zee checks pages for unsaved work before an update restart. Choose **Stay on Pag
 
 ## iPhone and iPad
 
-Install Zee for iPhone and iPad from the [App Store](https://apps.apple.com/us/app/crest-browser/id6797335023), or join the beta through [TestFlight](https://testflight.apple.com/join/vV1CM49Q). If iCloud sync is enabled, the same durable Space structure can follow you between Mac, iPad, and iPhone.
+Zee for iPhone and iPad is not on the App Store yet; build it from source. If iCloud sync is enabled, the same durable Space structure can follow you between Mac, iPad, and iPhone.

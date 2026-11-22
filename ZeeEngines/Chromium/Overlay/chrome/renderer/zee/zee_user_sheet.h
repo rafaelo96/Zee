@@ -8,7 +8,7 @@
 #include "content/public/renderer/render_frame_observer.h"
 #include "v8/include/v8-forward.h"
 
-namespace badge {
+namespace zee {
 
 // Gives Zee's content bridge, in its own world in each of a frame's
 // documents, `__zeeUserSheet.insert(css)`, which adds `css` to the document

@@ -6,7 +6,7 @@ namespace ZeeCore.Domain;
 /// accent and look, what it searches and keeps, whether it offers to save
 /// passwords, and the tabs it starts with. Every new Space has a profile of
 /// its own and opens freely. An ordinary Space takes the next accent in turn
-/// and wears that accent's house look; a private one wears the private look
+/// and wears that accent's Zee look; a private one wears the private look
 /// and never offers to save or sync passwords. Both start with one Start Page
 /// tab. The Getting Started practice starts from its own Space, holding the
 /// practice tabs, and a first launch from the Personal Space.
@@ -17,8 +17,8 @@ public sealed class SpaceTemplate {
     private static readonly DataRetentionPreferences KeepsEverything = new(DataRetention.Forever, DataRetention.Forever,
         DataRetention.Forever);
 
-    /// The one purple a private Space wears, with a plain key for its symbol.
-    private static readonly SpaceBranding PrivateLook = new(new([new(0.58, 0.30, 0.76)]), SpaceBannerPattern.Solid,
+    /// The midnight blue a private Space wears, with a plain key for its symbol.
+    private static readonly SpaceBranding PrivateLook = new(new([Tincture.ZeeMidnight.Color]), SpaceBannerPattern.Solid,
         BannerStrength: 1, ReadabilityFade: 1, KeepsControlsReadable: true, SpaceThemeMode.Banner, GradientAngle: 0,
         TextureStrength: 0, SpaceIconStyle.SimpleSymbol, SymbolColor: null,
         SpaceBadge.PlainField(BadgeBackplate.None, BadgeSymbol.Key, BadgeTrim.None, layers: [0, 0, 0, 0, 0, 0], trimWeight: 1,
@@ -41,7 +41,7 @@ public sealed class SpaceTemplate {
 
     public static readonly SpaceTemplate Ordinary = new(isPrivate: false, name: number => $"Space {number}",
         symbol: "square.grid.2x2.fill", accent: number => SpaceAccent.All[(number - 1) % SpaceAccent.All.Count],
-        look: accent => accent.House, browsing: OrdinaryBrowsing, credentials: SavesPasswords, tabs: StartPage);
+        look: accent => accent.ZeeLook, browsing: OrdinaryBrowsing, credentials: SavesPasswords, tabs: StartPage);
 
     public static readonly SpaceTemplate Private = new(isPrivate: true, name: number => number == 1 ? "Private" : $"Private {number}",
         symbol: "eyeglasses", accent: _ => SpaceAccent.Indigo, look: _ => PrivateLook,
@@ -57,7 +57,7 @@ public sealed class SpaceTemplate {
     /// practice tab in its order. It never offers to save passwords, and no
     /// new Space comes from it.
     public static readonly SpaceTemplate Practice = new(isPrivate: false, name: _ => "Practice", symbol: "leaf.fill",
-        accent: _ => SpaceAccent.Indigo, look: accent => accent.House, browsing: OrdinaryBrowsing, credentials: NoPasswords,
+        accent: _ => SpaceAccent.Indigo, look: accent => accent.ZeeLook, browsing: OrdinaryBrowsing, credentials: NoPasswords,
         tabs: (tabIds, now) => [.. PracticeTab.All.Select(tab => tab.Opened(tabIds(), now))]);
 
     /// The one Space a first launch starts with when nothing is carried to it:

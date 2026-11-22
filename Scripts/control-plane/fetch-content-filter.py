@@ -128,7 +128,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runtime", required=True, choices=[*content_filter.TARGETS, "host"])
     parser.add_argument("--cache", type=Path, default=content_filter.REPOSITORY / "ZeeCore/artifacts/content-filter")
-    parser.add_argument("--repository", default=os.environ.get("ZEE_CONTENT_FILTER_REPOSITORY", "pauljoda/Crest"))
+    parser.add_argument("--repository", default=os.environ.get("ZEE_CONTENT_FILTER_REPOSITORY", "OWNER/Zee"))
     args = parser.parse_args()
 
     from_source = os.environ.get("ZEE_CONTENT_FILTER_FROM_SOURCE") == "1"

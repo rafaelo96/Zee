@@ -5,9 +5,9 @@ const config = {
   title: 'Zee Help',
   tagline: 'Help articles for Zee.',
   favicon: 'img/zee-logo.svg',
-  url: 'https://crestbrowser.com',
+  url: 'https://zee.dev',
   baseUrl: '/guides/',
-  organizationName: 'pauljoda',
+  organizationName: 'OWNER',
   projectName: 'Zee-Website',
   trailingSlash: true,
   onBrokenLinks: 'throw',
@@ -44,7 +44,7 @@ const config = {
     ],
   ],
   themeConfig: {
-    image: 'https://crestbrowser.com/assets/og-card-brand.jpg',
+    image: 'https://zee.dev/assets/og-card-brand.jpg',
     metadata: [
       {
         name: 'description',
@@ -66,9 +66,9 @@ const config = {
         {type: 'docSidebar', sidebarId: 'helpSidebar', position: 'left', label: 'Articles'},
         {to: '/keyboard-shortcuts/', label: 'Shortcuts', position: 'left'},
         {to: '/extension-api-compatibility/', label: 'Compatibility', position: 'left'},
-        {href: 'https://github.com/pauljoda/Crest/releases/latest', label: 'Download for Mac', position: 'right'},
-        {href: 'https://crestbrowser.com/support/', label: 'Support', position: 'right'},
-        {href: 'https://crestbrowser.com/', label: 'Product site', position: 'right'},
+        {href: 'https://github.com/OWNER/Zee/releases/latest', label: 'Download for Mac', position: 'right'},
+        {href: 'https://zee.dev/support/', label: 'Support', position: 'right'},
+        {href: 'https://zee.dev/', label: 'Product site', position: 'right'},
       ],
     },
     docs: {
@@ -83,9 +83,8 @@ const config = {
         {
           title: 'Zee',
           items: [
-            {label: 'Product site', href: 'https://crestbrowser.com/'},
-            {label: 'Download for Mac', href: 'https://github.com/pauljoda/Crest/releases/latest'},
-            {label: 'iPhone & iPad TestFlight', href: 'https://testflight.apple.com/join/vV1CM49Q'},
+            {label: 'Product site', href: 'https://zee.dev/'},
+            {label: 'Download for Mac', href: 'https://github.com/OWNER/Zee/releases/latest'},
           ],
         },
         {
@@ -95,21 +94,18 @@ const config = {
             {label: 'Keyboard shortcuts', to: '/keyboard-shortcuts/'},
             {label: 'Split View', to: '/split-view/'},
             {label: 'Extension compatibility', to: '/extension-api-compatibility/'},
-            {label: 'Support', href: 'https://crestbrowser.com/support/'},
+            {label: 'Support', href: 'https://zee.dev/support/'},
           ],
         },
         {
           title: 'Community',
           items: [
-            {label: 'GitHub Issues', href: 'https://github.com/pauljoda/Crest/issues/new/choose'},
-            {label: 'r/CrestBrowser', href: 'https://www.reddit.com/r/CrestBrowser'},
-            {label: 'Discord', href: 'https://discord.gg/gjrM5qMB6x'},
-            {label: 'Support open source software', href: 'https://ko-fi.com/pauljoda/tiers'},
-            {label: 'Privacy', href: 'https://crestbrowser.com/privacy/'},
+            {label: 'GitHub Issues', href: 'https://github.com/OWNER/Zee/issues/new/choose'},
+            {label: 'Privacy', href: 'https://zee.dev/privacy/'},
           ],
         },
       ],
-      copyright: `Zee is not affiliated with Arc. © ${new Date().getFullYear()} Paul Davis.`,
+      copyright: `Zee is not affiliated with Arc. © ${new Date().getFullYear()} Zee contributors.`,
     },
     prism: {
       theme: prismThemes.github,

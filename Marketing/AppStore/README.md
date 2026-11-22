@@ -10,7 +10,7 @@ Copy the version-specific fields into the iOS version in App Store Connect. The 
 
 ## Screenshot guidance
 
-Keep raw captures, artwork generation tools, and exported images outside the repository. Use real app screens from the showcase session (`ZEE_SHOWCASE_SESSION=1`): Work with Lion and Personal with Winter. Where the address shows, load the hosted demo pages at `crestbrowser.com/demos/source/` and `/demos/trail/` instead of the showcase's `data:` pages.
+Keep raw captures, artwork generation tools, and exported images outside the repository. Use real app screens from the showcase session (`ZEE_SHOWCASE_SESSION=1`): Work with Lion and Personal with Winter. Where the address shows, load the hosted demo pages at `zee.dev/demos/source/` and `/demos/trail/` instead of the showcase's `data:` pages.
 
 The iPhone order is Spaces, Badge Studio, the tab archive, Appearance, and Private Browsing. The iPad order is Spaces, Split View as columns beside each other, Badge Studio, Appearance, and Private Browsing.
 

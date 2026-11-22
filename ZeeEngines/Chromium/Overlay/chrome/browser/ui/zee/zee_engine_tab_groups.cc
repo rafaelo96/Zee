@@ -20,7 +20,7 @@
 #include "content/public/browser/web_contents.h"
 #include "ui/gfx/range/range.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

@@ -19,7 +19,7 @@ namespace network {
 class URLLoaderFactoryBuilder;
 }
 
-namespace badge {
+namespace zee {
 
 // Whether a page blocks ads and trackers in the document it shows. The core
 // decides once per navigation, on the UI thread; the request filter reads it

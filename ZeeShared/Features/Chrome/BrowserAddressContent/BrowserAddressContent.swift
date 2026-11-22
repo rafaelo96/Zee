@@ -294,7 +294,7 @@ struct BrowserAddressContent: View {
 
 #if DEBUG
     #Preview("Editable address") {
-        @Previewable @State var text = "crestbrowser.com"
+        @Previewable @State var text = "zee.dev"
         @Previewable @State var editing = false
         BrowserAddressContent(text: $text, isEditing: $editing, submit: { editing = false })
             .padding().frame(width: 320)

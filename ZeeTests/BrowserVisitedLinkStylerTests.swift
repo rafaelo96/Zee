@@ -14,7 +14,7 @@ final class BrowserVisitedLinkStylerTests: XCTestCase {
                   a:link { color: rgb(12, 34, 56); }
                   a:visited { color: rgb(184, 140, 255); }
                 </style>
-                <a id="result" href="https://example.com/visited?utm_source=crest">
+                <a id="result" href="https://example.com/visited?utm_source=zee">
                   Visited result
                 </a>
                 """,
@@ -22,7 +22,7 @@ final class BrowserVisitedLinkStylerTests: XCTestCase {
         )
         let originalStyle = try await styleAttribute(of: "#result", in: webView)
         let visitedURL = try XCTUnwrap(
-            URL(string: "https://example.com/visited?utm_source=crest")
+            URL(string: "https://example.com/visited?utm_source=zee")
         )
 
         await BrowserVisitedLinkStyler.apply(

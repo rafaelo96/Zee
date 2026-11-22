@@ -27,7 +27,7 @@
 #include "content/public/browser/web_contents.h"
 #include "ui/base/page_transition_types.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

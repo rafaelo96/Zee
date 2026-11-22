@@ -12,7 +12,7 @@
 #include "services/network/url_loader.h"
 #include "url/gurl.h"
 
-namespace network::badge {
+namespace network::zee {
 
 namespace {
 

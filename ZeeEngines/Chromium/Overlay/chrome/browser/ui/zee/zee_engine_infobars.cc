@@ -8,7 +8,7 @@
 #include "components/infobars/core/confirm_infobar_delegate.h"
 #include "components/infobars/core/infobar.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

@@ -4,26 +4,26 @@
   <p><strong>An open source browser for Mac, iPhone, and iPad.</strong></p>
   <p>Built with SwiftUI, running Chromium and WebKit on Mac, with separate Spaces for different parts of your life.</p>
   <p>
-    <a href="https://github.com/pauljoda/Crest/actions/workflows/ci.yml"><img alt="Build Zee" src="https://github.com/pauljoda/Crest/actions/workflows/ci.yml/badge.svg"></a>
-    <a href="https://github.com/pauljoda/Crest/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/pauljoda/Crest?display_name=tag&sort=semver&filter=v*"></a>
+    <a href="https://github.com/OWNER/Zee/actions/workflows/ci.yml"><img alt="Build Zee" src="https://github.com/OWNER/Zee/actions/workflows/ci.yml/badge.svg"></a>
+    <a href="https://github.com/OWNER/Zee/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/OWNER/Zee?display_name=tag&sort=semver&filter=v*"></a>
     <a href="LICENSE"><img alt="MPL-2.0 license" src="https://img.shields.io/badge/license-MPL--2.0-315f93"></a>
   </p>
   <p>
-    <a href="https://crestbrowser.com/"><strong>Visit the product site</strong></a>
+    <a href="https://zee.dev/"><strong>Visit the product site</strong></a>
     ·
-    <a href="https://crestbrowser.com/guides/">Read the guides</a>
+    <a href="https://zee.dev/guides/">Read the guides</a>
     ·
-    <a href="https://github.com/pauljoda/Crest/releases/latest">Download for Mac</a>
+    <a href="https://github.com/OWNER/Zee/releases/latest">Download for Mac</a>
     ·
-    <a href="https://github.com/users/pauljoda/projects/3">Roadmap</a>
+    <a href="Documentation/ROADMAP.md">Roadmap</a>
     ·
-    <a href="https://www.reddit.com/r/CrestBrowser">Community</a>
+    <a href="SUPPORT.md">Support</a>
   </p>
 </div>
 
-Browse Mac releases by channel: [Stable](https://github.com/pauljoda/Crest/releases?q=prerelease%3Afalse),
-[Nightly](https://github.com/pauljoda/Crest/releases?q=prerelease%3Atrue+%22Nightly+builds%22), or
-[Development](https://github.com/pauljoda/Crest/releases?q=prerelease%3Atrue+%22Development+builds%22).
+Browse Mac releases by channel: [Stable](https://github.com/OWNER/Zee/releases?q=prerelease%3Afalse),
+[Nightly](https://github.com/OWNER/Zee/releases?q=prerelease%3Atrue+%22Nightly+builds%22), or
+[Development](https://github.com/OWNER/Zee/releases?q=prerelease%3Atrue+%22Development+builds%22).
 
 <p align="center">
   <a href="Website/assets/zee-work-mac.png"><img src="Website/assets/zee-work-mac.png" width="100%" alt="Zee on Mac with Lion Work first, Winter Personal second, and Audience research open beside the Launch Atlas folder"></a>
@@ -35,7 +35,7 @@ Most browsers put every login, tab, and distraction into one long-lived containe
 
 Switching Spaces changes more than the color of the window. It changes the browsing context.
 
-When several Spaces should share one set of sign-ins, make them **Sub-Spaces**: each keeps its own tabs and look while the group shares cookies, history, passwords, and extensions. [Read the Sub-Spaces guide.](https://crestbrowser.com/guides/sub-spaces/)
+When several Spaces should share one set of sign-ins, make them **Sub-Spaces**: each keeps its own tabs and look while the group shares cookies, history, passwords, and extensions. [Read the Sub-Spaces guide.](https://zee.dev/guides/sub-spaces/)
 
 ## Two engines on Mac
 
@@ -49,7 +49,7 @@ page that asks for Widevine or PlayReady video, itself or from a frame of its
 own site, switches to WebKit automatically, respecting any unsaved-changes
 prompt before moving it. Choose the default engine and
 per-website rules in **Settings → Engines**. iPhone and iPad use WebKit. The
-[engine guide](https://crestbrowser.com/guides/engines/) lists what each engine
+[engine guide](https://zee.dev/guides/engines/) lists what each engine
 supports.
 
 ## Badge Studio and Appearance
@@ -81,7 +81,7 @@ supports.
 | --- | --- |
 | On-device translation | On iPhone, iPad, and WebKit pages, detect a page’s language, translate it, or show the original. On Chromium pages, translate selected text. Optional automatic translation uses downloaded languages. Apple may ask to download additional languages. |
 | Reader and page tools | Read supported articles with fewer distractions on WebKit pages, find text, adjust zoom, share links, copy Markdown links, print, and export PDF or web archives where supported. |
-| Extensions on Mac | Install Chrome Web Store extensions in each Space. They run on Chromium pages, with popups and tab-specific side panels. [Compatibility varies.](https://crestbrowser.com/guides/extension-compatibility/) |
+| Extensions on Mac | Install Chrome Web Store extensions in each Space. They run on Chromium pages, with popups and tab-specific side panels. [Compatibility varies.](https://zee.dev/guides/extension-compatibility/) |
 | Developer tools on Mac | Preview phone, desktop, and custom viewport sizes; capture pages; open Chromium DevTools or Web Inspector for the page's engine. The toolbar appears on localhost, or on any site with **Shift-Command-I**. |
 | Media | Control eligible active media from the sidebar. On Mac, keep supported videos visible with Picture in Picture, including optional automatic PiP. |
 | Downloads and uploads | Follow download progress and revisit files in Downloads. Pause and resume Chromium transfers when the server supports recovery. On iPhone and iPad, upload through Photos, camera, or Files. |
@@ -94,7 +94,7 @@ Site permissions and content blocking are controlled per Space. Built-in ad and 
 
 Optional **iCloud sync** carries durable Spaces, tabs, folders, Split View groups, appearance, history, and Archive between devices. Password values stay out of CloudKit; eligible passwords can use iCloud Keychain separately. Start a browser import on Mac, review each destination Space, or export a portable Zee archive.
 
-Read the [privacy policy](https://crestbrowser.com/privacy/), [Space isolation guide](https://crestbrowser.com/guides/spaces-and-isolation/), and [sync guide](https://crestbrowser.com/guides/sync-across-devices/) for the boundaries and controls.
+Read the [privacy policy](https://zee.dev/privacy/), [Space isolation guide](https://zee.dev/guides/spaces-and-isolation/), and [sync guide](https://zee.dev/guides/sync-across-devices/) for the boundaries and controls.
 
 ## Get Zee
 
@@ -107,10 +107,8 @@ The same Spaces, shaped for each screen. iPad keeps the sidebar beside your page
 
 | Platform | Install |
 | --- | --- |
-| Mac · Apple silicon · macOS 26.1+ | [Signed, notarized download](https://github.com/pauljoda/Crest/releases/latest) with built-in Sparkle updates.<br><br>Or install via Homebrew:<br>`brew install --cask crest-browser` |
-| iPhone · iOS 26.1+ | [App Store](https://apps.apple.com/us/app/crest-browser/id6797335023) |
-| iPad · iPadOS 26.1+ | [App Store](https://apps.apple.com/us/app/crest-browser/id6797335023) |
-| iPhone & iPad beta | [TestFlight](https://testflight.apple.com/join/vV1CM49Q) |
+| Mac · Apple silicon · macOS 26.1+ | [Signed, notarized download](https://github.com/OWNER/Zee/releases/latest) with built-in Sparkle updates. |
+| iPhone · iOS 26.1+ and iPad · iPadOS 26.1+ | Build from source; Zee is not on the App Store yet. |
 
 ## Built as an Apple-platform app
 
@@ -137,7 +135,7 @@ Requirements:
 - .NET SDK pinned by `ZeeCore/global.json`, installable with `Scripts/control-plane/install-dotnet.sh`
 
 ```bash
-git clone https://github.com/pauljoda/Crest.git
+git clone https://github.com/OWNER/Zee.git
 cd Zee
 Scripts/bootstrap.sh
 open Zee.xcodeproj
@@ -158,7 +156,7 @@ When updating from a WebKit-only release, your Spaces, tabs, history, and Zee
 Passwords carry over. Chromium has separate website storage, so sites may ask
 you to sign in again. You can keep WebKit as your default. Reinstall older
 WebKit extensions from the Chrome Web Store in each Space. The
-[upgrade guide](https://crestbrowser.com/guides/engines/#after-updating-from-a-webkit-only-crest)
+[upgrade guide](https://zee.dev/guides/engines/#after-updating-from-a-webkit-only-zee)
 explains these changes and the engine feature limits.
 
 macOS releases are distributed directly through GitHub Releases as signed,
@@ -187,39 +185,15 @@ Run the relevant behavioral tests and repository checks. Review visual, layout, 
 
 ## Project status
 
-Zee is under active development. The current implementation includes the core browsing, Space isolation, native platform chrome, credentials, data portability, synchronization foundations, Quick Window, Peek, and privacy features described above. The [Zee Roadmap project](https://github.com/users/pauljoda/projects/3) is the public release view; approval-gated and physical-device work remains documented in the [roadmap](Documentation/ROADMAP.md).
+Zee is under active development. The current implementation includes the core browsing, Space isolation, native platform chrome, credentials, data portability, synchronization foundations, Quick Window, Peek, and privacy features described above. The [roadmap](Documentation/ROADMAP.md) is the public release view, including approval-gated and physical-device work.
 
 ## Community and support
 
-Use [r/CrestBrowser](https://www.reddit.com/r/CrestBrowser) for questions,
-feedback, ideas, and website or extension compatibility discussion. Use
-[GitHub Issues](https://github.com/pauljoda/Crest/issues/new/choose) for
-reproducible bugs and concrete tracked outcomes. Security concerns belong in a
-[private vulnerability report](https://github.com/pauljoda/Crest/security/advisories/new),
+Use [GitHub Issues](https://github.com/OWNER/Zee/issues/new/choose) for
+questions, feedback, ideas, compatibility reports, reproducible bugs and
+concrete tracked outcomes. Security concerns belong in a
+[private vulnerability report](https://github.com/OWNER/Zee/security/advisories/new),
 never a public post. [SUPPORT.md](SUPPORT.md) explains each route in detail.
-
-Zee is one of several open source projects built by Paul Davis. You can
-support the work through [Ko-fi](https://ko-fi.com/pauljoda/tiers),
-[Patreon](https://www.patreon.com/CrestBrowser) or
-[GitHub Sponsors](https://github.com/sponsors/pauljoda). Sponsorship does not
-buy roadmap priority or private access.
-
-## Sponsors
-
-Monthly support helps pay for hosting, signing, testing, and development across
-Paul's open source projects. Sponsors can be recognized in the public
-[sponsor roll](SPONSORS.md) at one of three levels:
-
-- **Sponsor — $25/month:** top placement with an optional approved link.
-- **Sustainer — $10/month:** higher placement with an optional approved link.
-- **Supporter — $3/month:** name in the public roll.
-
-Every level can also have a sponsor flair on
-[r/CrestBrowser](https://www.reddit.com/r/CrestBrowser). Recognition is
-optional. A listing is a thank-you, not an endorsement or a way to buy roadmap
-priority, private support, or project ownership. See the membership tiers on
-[Ko-fi](https://ko-fi.com/pauljoda/tiers) or
-[Patreon](https://www.patreon.com/CrestBrowser) to become a monthly sponsor.
 
 ## AI usage
 
@@ -256,8 +230,8 @@ there are some areas that desperately need help.
 
 Anyone can have one pull request open at a time. To open more, become a
 vetted contributor: read
-[Who can contribute code](CONTRIBUTING.md#who-can-contribute-code) and message
-me on [Discord](https://discord.gg/gjrM5qMB6x). Please follow the guidelines and make sure your
+[Who can contribute code](CONTRIBUTING.md#who-can-contribute-code) and open an
+issue to introduce yourself. Please follow the guidelines and make sure your
 work is well done and aligns with the product. If you have a more drastic
 change, you can always fork it to try it out, then share it to see whether it
 would be a good fit to merge in.
@@ -270,8 +244,8 @@ of each platform.
 
 ## Contributors
 
-<a href="https://github.com/pauljoda/Crest/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=pauljoda/Crest" alt="People who have contributed to Zee">
+<a href="https://github.com/OWNER/Zee/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=OWNER/Zee" alt="People who have contributed to Zee">
 </a>
 
 ## License and brand
@@ -293,10 +267,10 @@ in [TRADEMARKS.md](TRADEMARKS.md). Third-party notices are collected in
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=pauljoda%2Fcrest&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=OWNER%2Fzee&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=pauljoda/crest&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=pauljoda/crest&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=pauljoda/crest&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=OWNER/zee&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=OWNER/zee&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=OWNER/zee&type=date&legend=top-left" />
  </picture>
 </a>

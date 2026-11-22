@@ -33,7 +33,7 @@ class WebContents;
 struct OpenURLParams;
 }
 
-namespace badge {
+namespace zee {
 
 class EngineBrowsers;
 class EngineDownloads;

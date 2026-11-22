@@ -38,7 +38,7 @@
 #include "third_party/skia/include/core/SkBitmap.h"
 #include "ui/gfx/codec/png_codec.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

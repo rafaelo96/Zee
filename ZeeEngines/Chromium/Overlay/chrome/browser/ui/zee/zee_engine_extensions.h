@@ -31,7 +31,7 @@ class Extension;
 class ExtensionAction;
 }  // namespace extensions
 
-namespace badge {
+namespace zee {
 
 // One profile's extensions as Zee shows them: the best icon each has, whether
 // its files still exist, and when anything the toolbar shows changes.

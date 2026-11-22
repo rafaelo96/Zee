@@ -65,10 +65,10 @@ repository_path="${CI_PRIMARY_REPOSITORY_PATH:-}"
 
 repository_url="$(git -C "$repository_path" remote get-url origin 2>/dev/null || true)"
 case "$repository_url" in
-    http://github.com/pauljoda/Crest.git|https://github.com/pauljoda/Crest.git|git@github.com:pauljoda/Crest.git|http://*@github.com/pauljoda/Crest.git|https://*@github.com/pauljoda/Crest.git)
+    http://github.com/OWNER/Zee.git|https://github.com/OWNER/Zee.git|git@github.com:OWNER/Zee.git|http://*@github.com/OWNER/Zee.git|https://*@github.com/OWNER/Zee.git)
         ;;
     *)
-        fail "The Zee workflow must use https://github.com/pauljoda/Crest.git as its primary repository; received '${repository_url:-unset}'."
+        fail "The Zee workflow must use https://github.com/OWNER/Zee.git as its primary repository; received '${repository_url:-unset}'."
         ;;
 esac
 

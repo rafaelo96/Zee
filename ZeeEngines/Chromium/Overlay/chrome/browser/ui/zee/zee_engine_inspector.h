@@ -13,7 +13,7 @@ namespace content {
 class WebContents;
 }
 
-namespace badge {
+namespace zee {
 
 // The engine's inspector on a page. Zee is a single-window browser, so a
 // docked inspector belongs inside the card of the page it inspects rather

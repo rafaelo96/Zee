@@ -22,7 +22,7 @@
      bool is_for_network_service) {
 +#if BUILDFLAG(IS_MAC)
 +  // A Zee page's requests pass its content filter first.
-+  badge::FilterRequests(frame, type, isolation_info, factory_builder);
++  zee::FilterRequests(frame, type, isolation_info, factory_builder);
 +#endif
  #if BUILDFLAG(ENABLE_EXTENSIONS_CORE)
    auto* web_request_api =
@@ -97,7 +97,7 @@
 +  // Zee's content filter gives a frame's documents scriptlets to run first,
 +  // and its content bridge a user style sheet the page can't read or override.
 +  new js_injection::JsCommunication(render_frame);
-+  new badge::UserSheet(render_frame);
++  new zee::UserSheet(render_frame);
 +#endif
  
    auto content_settings_delegate =

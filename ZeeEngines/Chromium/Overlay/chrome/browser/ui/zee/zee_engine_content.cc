@@ -13,7 +13,7 @@
 #include "mojo/public/cpp/bindings/callback_helpers.h"
 #include "url/origin.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

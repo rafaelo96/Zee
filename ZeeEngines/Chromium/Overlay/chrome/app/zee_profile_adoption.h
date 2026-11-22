@@ -42,7 +42,7 @@
 #include "base/values.h"
 #include "chrome/app/zee_user_data_dir.h"
 
-namespace badge {
+namespace zee {
 
 namespace internal {
 

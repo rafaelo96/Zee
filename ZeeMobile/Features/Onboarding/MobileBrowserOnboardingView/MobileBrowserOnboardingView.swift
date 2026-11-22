@@ -94,7 +94,7 @@ struct MobileBrowserOnboardingView: View {
             featureCloseAction: featureCloseAction,
             setup: setup,
             selectedSpaceID: $selectedSpaceID,
-            look: flow?.look ?? .heraldic,
+            look: flow?.look ?? .simple,
             errorMessage: errorMessage,
             opensGettingStarted: flow?.opensGuide == true,
             welcomePrimaryAction: handleWelcomeAction,

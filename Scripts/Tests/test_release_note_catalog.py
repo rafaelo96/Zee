@@ -30,7 +30,7 @@ class ReleaseNoteCatalogTests(unittest.TestCase):
             check=True,
         )
         subprocess.run(
-            ["git", "config", "user.email", "tests@crestbrowser.com"],
+            ["git", "config", "user.email", "tests@zee.dev"],
             cwd=self.repository,
             check=True,
         )

@@ -71,7 +71,7 @@ class ReleaseNotesTests(unittest.TestCase):
             "--repository-root",
             str(repository),
             "--repository",
-            "pauljoda/Crest",
+            "OWNER/Zee",
             "--channel",
             channel,
             "--current-ref",
@@ -114,7 +114,7 @@ class ReleaseNotesTests(unittest.TestCase):
                         else f"prerelease%3Atrue+%22{channel.title()}+builds%22"
                     )
                     self.assertIn(
-                        f"[Browse {channel.title()} releases](https://github.com/pauljoda/Crest/releases?q={query})",
+                        f"[Browse {channel.title()} releases](https://github.com/OWNER/Zee/releases?q={query})",
                         result.stdout,
                     )
 
@@ -123,7 +123,7 @@ class ReleaseNotesTests(unittest.TestCase):
             repository = pathlib.Path(temporary_directory)
             self.run_git(repository, "init", "--initial-branch=main")
             self.run_git(repository, "config", "user.name", "Zee Tests")
-            self.run_git(repository, "config", "user.email", "tests@crestbrowser.com")
+            self.run_git(repository, "config", "user.email", "tests@zee.dev")
 
             entries = {
                 "existing-change": {
@@ -173,7 +173,7 @@ class ReleaseNotesTests(unittest.TestCase):
             repository = pathlib.Path(temporary_directory)
             self.run_git(repository, "init", "--initial-branch=main")
             self.run_git(repository, "config", "user.name", "Zee Tests")
-            self.run_git(repository, "config", "user.email", "tests@crestbrowser.com")
+            self.run_git(repository, "config", "user.email", "tests@zee.dev")
 
             self.write_catalog(
                 repository,

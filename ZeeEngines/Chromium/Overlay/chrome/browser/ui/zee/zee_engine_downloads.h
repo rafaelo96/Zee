@@ -17,7 +17,7 @@ namespace download {
 class DownloadItem;
 }
 
-namespace badge {
+namespace zee {
 
 class EngineProfiles;
 

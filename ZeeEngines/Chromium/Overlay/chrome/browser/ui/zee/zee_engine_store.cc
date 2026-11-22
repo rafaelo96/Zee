@@ -53,7 +53,7 @@
 #include "url/gurl.h"
 #include "url/url_constants.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

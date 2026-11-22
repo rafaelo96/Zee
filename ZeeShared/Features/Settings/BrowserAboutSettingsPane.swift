@@ -54,12 +54,6 @@ struct BrowserAboutSettingsPane: View {
 
             Section {
                 BrowserAboutLink(
-                    title: "Share Feedback on r/CrestBrowser",
-                    imageName: "AboutReddit",
-                    destination: BrowserAboutLinks.feedback,
-                    identifier: "about-feedback-link"
-                )
-                BrowserAboutLink(
                     title: "Report an Issue",
                     imageName: "AboutGitHub",
                     destination: BrowserAboutLinks.issues,
@@ -74,7 +68,7 @@ struct BrowserAboutSettingsPane: View {
             } header: {
                 Text("Community and support")
             } footer: {
-                ZeeFormFootnote("Reddit is public. Leave out private details.")
+                ZeeFormFootnote("GitHub Issues are public. Leave out private details.")
             }
         }
     }

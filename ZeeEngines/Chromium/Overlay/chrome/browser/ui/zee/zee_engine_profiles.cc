@@ -36,7 +36,7 @@
 #include "url/origin.h"
 #include "url/url_constants.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

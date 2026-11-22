@@ -30,7 +30,7 @@
 +
 +  // Zee: the browser's own requests reach Google only for the services
 +  // Zee keeps. A redirect comes back through here for its new address.
-+  if (badge::BlocksRequest(*request, *effective_url)) {
++  if (zee::BlocksRequest(*request, *effective_url)) {
 +    return net::ERR_BLOCKED_BY_CLIENT;
    }
  

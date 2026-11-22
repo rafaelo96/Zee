@@ -1,11 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Zee community on Reddit
-    url: https://www.reddit.com/r/CrestBrowser
-    about: Ask questions, share feedback, discuss ideas, and report website or extension compatibility experiences.
   - name: Security vulnerability
-    url: https://github.com/pauljoda/Crest/security/advisories/new
+    url: https://github.com/OWNER/Zee/security/advisories/new
     about: Report security issues privately instead of opening a public issue.
   - name: Zee Help
-    url: https://crestbrowser.com/guides/
+    url: https://zee.dev/guides/
     about: Read setup, extension, privacy, and troubleshooting guides.

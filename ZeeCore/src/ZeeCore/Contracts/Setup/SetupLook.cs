@@ -23,14 +23,13 @@ public sealed class SetupLook {
     /// plain icon.
     public static readonly SetupLook Modern = new(Kinds.Modern, name: "modern", title: "Modern", SpaceThemeMode.Gradient,
         SpaceIconStyle.SimpleSymbol, ModernGradientAngle, tint: null,
-        newSpaceLook: accent => SpaceBranding.Painted(accent.ZeeColors, SpaceBannerPattern.Diagonal, strength: 1,
-            SpaceBranding.LegacyReadabilityFade, SpaceThemeMode.Gradient, ModernGradientAngle, textureStrength: 0));
+        newSpaceLook: accent => accent.ZeeLook with { GradientAngle = ModernGradientAngle });
 
     /// A Space wears a plain sidebar in its accent color, and a plain icon in
     /// a shade of it that stands out from the sidebar.
     public static readonly SetupLook Simple = new(Kinds.Simple, name: "simple", title: "Simple", SpaceThemeMode.Gradient,
         SpaceIconStyle.SimpleSymbol, gradientAngle: 0, SimpleTint, newSpaceLook: accent => Simple!.Applying(
-            accent.House with { Colors = new([accent.ZeeColors[0]]) }));
+            accent.ZeeLook with { Colors = new([accent.ZeeColors[0]]) }));
 
     public static IReadOnlyList<SetupLook> All { get; } = [Heraldic, Modern, Simple];
 

@@ -24,7 +24,7 @@
 #include "ui/message_center/public/cpp/notification.h"
 #include "url/origin.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

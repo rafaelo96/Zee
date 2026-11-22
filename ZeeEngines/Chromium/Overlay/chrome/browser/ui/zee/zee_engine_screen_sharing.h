@@ -29,7 +29,7 @@ namespace infobars {
 class InfoBar;
 }
 
-namespace badge {
+namespace zee {
 
 // A page's getDisplayMedia() in Zee. The core decides first whether the
 // page's site may ask, from its Space's choices. The platform then offers the

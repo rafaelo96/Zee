@@ -20,7 +20,7 @@ namespace content {
 class DevToolsAgentHost;
 }
 
-namespace badge {
+namespace zee {
 
 // What an agent the person allowed does in one page. Scripts run in an
 // isolated world of the agent's own, apart from Zee's content bridges and

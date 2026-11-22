@@ -20,7 +20,7 @@
 #include "net/base/mime_util.h"
 #include "ui/shell_dialogs/selected_file_info.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

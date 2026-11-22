@@ -14,7 +14,7 @@ enum BrowserCommandPalettePreviewFixture {
             TabState.Seed(
                 id: selectedTabID,
                 title: "Zee",
-                url: url("https://crestbrowser.com"),
+                url: url("https://zee.dev"),
                 placement: .current,
                 lastActivatedAt: date(offset: 400)
             ),

@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-namespace badge {
+namespace zee {
 
 inline bool IsDirectory(const std::string& path) {
   struct stat info;

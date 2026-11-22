@@ -48,7 +48,7 @@
 #include "ui/base/page_transition_types.h"
 #include "url/gurl.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 
@@ -1371,7 +1371,7 @@ void EngineBinding::Erase(const engine::EraseSiteData& erasing) {
                          std::move(done).Run(!kept);
                          return;
                        }
-                       badge::SiteData::Clear(profile, hosts, categories, std::move(done));
+                       zee::SiteData::Clear(profile, hosts, categories, std::move(done));
                      },
                      erasing.hosts, erasing.categories, ErasureAnswer(erasing.erasure_id)));
 }
@@ -1390,7 +1390,7 @@ void EngineBinding::Erase(const engine::EraseBrowsingData& erasing) {
                          std::move(done).Run(!kept);
                          return;
                        }
-                       badge::SiteData::Clear(profile, since, categories, std::move(done));
+                       zee::SiteData::Clear(profile, since, categories, std::move(done));
                      },
                      since, erasing.categories, ErasureAnswer(erasing.erasure_id)));
 }
@@ -1413,7 +1413,7 @@ void EngineBinding::Read(const engine::ReadSiteData& reading) {
                          std::move(answer).Run(!kept, {});
                          return;
                        }
-                       badge::SiteData::Read(profile, base::BindOnce(std::move(answer), true));
+                       zee::SiteData::Read(profile, base::BindOnce(std::move(answer), true));
                      },
                      std::move(answer)));
 }

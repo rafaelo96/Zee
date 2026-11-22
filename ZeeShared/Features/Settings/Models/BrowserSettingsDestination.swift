@@ -114,7 +114,7 @@ struct BrowserSettingsDestination: Hashable, Identifiable, Sendable {
     static let about = BrowserSettingsDestination(
         kind: .about, name: "about", title: "About", subtitle: "Version, updates, and support",
         searchTerms:
-            "version build updates changelog what's new feedback Reddit GitHub issues roadmap support community",
+            "version build updates changelog what's new feedback GitHub issues roadmap support community",
         symbol: "info.circle", tincture: .sunDune)
 
     /// Every destination, in catalog order.

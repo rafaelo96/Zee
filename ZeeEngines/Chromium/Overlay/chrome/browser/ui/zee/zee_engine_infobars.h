@@ -12,7 +12,7 @@ namespace content {
 class WebContents;
 }
 
-namespace badge {
+namespace zee {
 
 // The engine's bars over a page — tab sharing, `chrome.debugger`, extension
 // notices — which have no Views container in this build. A bar that asks the

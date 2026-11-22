@@ -37,7 +37,7 @@
 #include "ui/base/l10n/l10n_util.h"
 #include "url/origin.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

@@ -23,7 +23,7 @@ namespace content {
 class DevToolsAgentHost;
 }
 
-namespace badge {
+namespace zee {
 
 // Exports one page's document through a fixed set of in-process DevTools
 // commands for exactly that page: a PDF as it prints, a full-page PNG, or an

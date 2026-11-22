@@ -19,7 +19,7 @@ namespace content {
 class WebContents;
 }
 
-namespace badge {
+namespace zee {
 
 class EngineBinding;
 

@@ -17,7 +17,7 @@ class RenderFrameHost;
 class WebContents;
 }
 
-namespace badge {
+namespace zee {
 
 // Zee's content bridges in a page. They run in one isolated world of their
 // own, as they do in WebKit's named content worlds: the page cannot see or

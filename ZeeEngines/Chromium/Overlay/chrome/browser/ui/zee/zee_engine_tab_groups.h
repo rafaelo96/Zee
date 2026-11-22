@@ -17,7 +17,7 @@ namespace tabs {
 class TabInterface;
 }
 
-namespace badge {
+namespace zee {
 
 class EngineBinding;
 

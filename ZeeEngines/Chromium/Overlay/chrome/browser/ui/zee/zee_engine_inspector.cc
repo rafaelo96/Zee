@@ -10,7 +10,7 @@
 #include "content/public/browser/web_contents.h"
 #include "ui/gfx/geometry/rect.h"
 
-namespace badge {
+namespace zee {
 
 namespace {
 

@@ -35,7 +35,7 @@ class URLResponseHead;
 }
 }  // namespace network
 
-namespace badge {
+namespace zee {
 
 class EngineBinding;
 

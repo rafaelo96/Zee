@@ -7,8 +7,8 @@ covered by [`TRADEMARKS.md`](TRADEMARKS.md).
 ## Who can contribute code
 
 Anyone can have one pull request open at a time. Vetted contributors can have
-more open at once. To become one, message Paul on
-[Discord](https://discord.gg/gjrM5qMB6x) so you can talk it through first.
+more open at once. To become one, open an issue describing what you'd like
+to work on so you can talk it through first.
 The basic requirements:
 
 - You are a developer with some background building software.
@@ -21,8 +21,7 @@ The maintainer reviews every pull request, including one from a vetted
 contributor, before it merges. Pull requests from contributors who aren't
 vetted are reviewed as time allows.
 
-Everyone is welcome to report bugs in GitHub Issues and to discuss ideas on
-r/CrestBrowser and Discord.
+Everyone is welcome to report bugs and discuss ideas in GitHub Issues.
 
 ## Local setup
 
@@ -73,12 +72,10 @@ The project supports Apple silicon only. Keep new targets, destinations, and scr
 
 ## Community and planning
 
-Use [r/CrestBrowser](https://www.reddit.com/r/CrestBrowser) to discuss early
-ideas, user questions, and compatibility experiences before they become
-actionable engineering work. Use GitHub Issues for reproducible bugs and
-concrete outcomes. The public
-[Zee Roadmap project](https://github.com/users/pauljoda/projects/3) and
-release milestones summarize planned work. Only the maintainer adds items to
+Use GitHub Issues to discuss early ideas, user questions and compatibility
+experiences, and for reproducible bugs and concrete outcomes. The
+[roadmap](Documentation/ROADMAP.md) and release milestones summarize planned
+work. Only the maintainer adds items to
 them: opening an issue or a pull request doesn't put it on the roadmap or
 commit to building it. [The roadmap](Documentation/ROADMAP.md)
 is generated from public GitHub issues with `Scripts/render-roadmap.py --write`.

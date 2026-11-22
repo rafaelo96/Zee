@@ -25,7 +25,7 @@ namespace content { class WebContents; class NavigationThrottleRegistry; class J
 namespace net { class AuthChallengeInfo; }
 namespace views { class Widget; }
 
-namespace badge {
+namespace zee {
 // The isolated world Zee's content bridges run in. It sits at the top of
 // the embedder range, far from the worlds extensions allocate upward, and the
 // patched evaluator awaits promises in this world only.

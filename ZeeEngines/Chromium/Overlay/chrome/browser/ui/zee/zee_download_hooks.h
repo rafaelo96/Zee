@@ -5,7 +5,7 @@
 #include "chrome/browser/download/download_target_determiner_delegate.h"
 
 namespace download { class DownloadItem; }
-namespace badge {
+namespace zee {
 bool OwnsDownload(download::DownloadItem* item);
 void PublishDownload(download::DownloadItem* item);
 void ChooseDownloadDestination(download::DownloadItem* item,

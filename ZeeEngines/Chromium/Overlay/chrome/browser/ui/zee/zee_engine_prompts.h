@@ -23,7 +23,7 @@ namespace net {
 class AuthChallengeInfo;
 }
 
-namespace badge {
+namespace zee {
 
 // What an engine page, or the engine itself, asks the person. Each question is
 // reported to the core, which answers a site's permission request from its
