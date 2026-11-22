@@ -204,7 +204,7 @@ class UpdatePlanTests(unittest.TestCase):
             (source / "third_party/tool/linux").write_text("mac toolchain\n")
             (source / "out/ZeeBaseline").mkdir(parents=True)
             (source / "out/ZeeBaseline/obj.o").write_text("object\n")
-            host = "--- a/patched.cc\n+++ b/patched.cc\n@@ -1,2 +1,2 @@\n context\n-old\n+badge\n"
+            host = "--- a/patched.cc\n+++ b/patched.cc\n@@ -1,2 +1,2 @@\n context\n-old\n+zee\n"
             (source / "patched.cc").write_text("context\nzee\n")
             (pinned.directory / "host.json").write_text(json.dumps({"patch": host, "inputs": {"patched.cc": {
                 "before": sha256(root / "staging-157.0.8103.51/chromium-157.0.8103.51/patched.cc"),

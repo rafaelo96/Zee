@@ -62,7 +62,7 @@ inline bool MakeDirectoryTree(const std::string& path) {
 
 // A record never admits paths, only immediate profile directory names.
 inline bool IsZeeProfileName(const std::string& name) {
-  return name.starts_with("Zee-") && name.size() > 6 &&
+  return name.starts_with("Zee-") && name.size() > 4 &&
          name.find_first_of("/\r\n") == std::string::npos;
 }
 
