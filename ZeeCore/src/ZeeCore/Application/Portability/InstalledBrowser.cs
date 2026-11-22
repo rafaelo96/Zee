@@ -40,8 +40,12 @@ internal sealed partial class InstalledBrowser {
         (contents, importedAt) => ChromiumSession.Read(contents, importedAt), ChromeBookmarks.Read, extensions: true,
         sessionFiles: ChromiumSessionFiles, bookmarkFiles: ChromiumBookmarkFiles);
 
+    /// The browser Zee forked from, whose Spaces come over whole.
+    public static readonly InstalledBrowser Crest = new(ImportSource.Crest, CrestProfiles, _ => [],
+        (_, _) => throw new Rejected(new SessionUnrecognized()), bookmarks: null, spaceFiles: CrestSession.Spaces);
+
     public static IReadOnlyList<InstalledBrowser> All { get; } = [Arc, Zen, Chrome, Safari, Firefox, ChromeBeta, ChromeDev, ChromeCanary,
-        Chromium, Brave, Edge, Vivaldi, Opera, Dia, Comet, Aside, EgoLite, OtherChromium];
+        Chromium, Brave, Edge, Vivaldi, Opera, Dia, Comet, Aside, EgoLite, OtherChromium, Crest];
 
     /// The largest session file an import reads.
     public const long MaximumSessionBytes = 512L * 1024 * 1024;
@@ -85,6 +89,10 @@ internal sealed partial class InstalledBrowser {
     private delegate IReadOnlyList<SessionDraft> ArchiveReader(string sessionPath, IReadOnlyList<SessionDraft> drafts,
         DateTimeOffset importedAt);
 
+    /// The Spaces a session file at a path holds whole, each with new
+    /// identities, for a browser that keeps Zee's own layout.
+    private delegate IReadOnlyList<SpaceState> SpaceFileReader(string sessionPath, IIdSource ids, DateTimeOffset importedAt);
+
     #endregion
 
     #region Variables
@@ -101,6 +109,7 @@ internal sealed partial class InstalledBrowser {
     private readonly Func<string, IReadOnlyList<string>> bookmarkFiles;
     private readonly bool offersExtensions;
     private readonly ArchiveReader? archives;
+    private readonly SpaceFileReader? spaceFiles;
 
     #endregion
 
@@ -109,8 +118,10 @@ internal sealed partial class InstalledBrowser {
     private InstalledBrowser(ImportSource source, Func<ImportFolder, IReadOnlyList<ImportProfile>> profiles,
         Func<ImportFolder, IReadOnlyList<ImportPasswordStore>> passwordStores, SessionReader sessions, BookmarkReader? bookmarks,
         bool extensions = false, Func<string, IReadOnlyList<string>>? sessionFiles = null,
-        Func<string, IReadOnlyList<string>>? bookmarkFiles = null, ArchiveReader? archives = null) {
+        Func<string, IReadOnlyList<string>>? bookmarkFiles = null, ArchiveReader? archives = null,
+        SpaceFileReader? spaceFiles = null) {
         Source = source;
+        this.spaceFiles = spaceFiles;
         this.archives = archives;
         offersExtensions = extensions;
         this.profiles = profiles;
@@ -146,6 +157,10 @@ internal sealed partial class InstalledBrowser {
     private static IReadOnlyList<ImportProfile> ArcProfiles(ImportFolder folder) =>
         folder.File(ImportSource.Arc.OutlivingFile!) is { } sidebar
             ? [new ImportProfile("arc", ImportSource.Arc.Title, null, sidebar, folder.Child("User Data").Child(ChromiumDefaultProfile).Path)] : [];
+
+    /// Crest's one session, which holds all its Spaces.
+    private static IReadOnlyList<ImportProfile> CrestProfiles(ImportFolder folder) =>
+        folder.File(CrestSession.FileName) is { } session ? [new ImportProfile("crest", ImportSource.Crest.Title, null, session)] : [];
 
     /// Zen's profiles that keep a session, each named as the person named it,
     /// the one used last first. A folder holding a session itself is the one
@@ -309,7 +324,16 @@ internal sealed partial class InstalledBrowser {
         List<ImportLeftOut> leftOut = [];
         foreach (var profile in profiles) {
             int room = BrowserDataFile.MaximumSpaces - spaces.Count;
-            if (Source.NamesItsSpaces) {
+            if (spaceFiles is not null) {
+                if (profile.SessionPath is not { } file) continue;
+                try {
+                    var whole = spaceFiles(file, ids, now);
+                    spaces.AddRange(whole.Take(room));
+                    leftOut.AddRange(whole.Skip(room).Select(space => new ImportLeftOut(space.Settings.Name, new SessionOverLimits())));
+                } catch (Rejected rejected) {
+                    leftOut.Add(new(profile.Name, rejected.Rejection));
+                }
+            } else if (Source.NamesItsSpaces) {
                 if (profile.SessionPath is not { } path) continue;
                 IReadOnlyList<SessionDraft> drafts;
                 try {

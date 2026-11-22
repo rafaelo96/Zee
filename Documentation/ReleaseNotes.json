@@ -5725,6 +5725,10 @@
     "zee-repository": {
       "category": "internal",
       "message": "Publish Zee in its own public repository, rafaelo96/Zee, and point every link, download and update feed at it."
+    },
+    "crest-import": {
+      "category": "new",
+      "message": "Bring your Spaces over from Crest: setup lists Crest by name and brings each Space whole, with its pinned and saved tabs, folders, splits, archive, history and Boosts, instead of finding no tabs in it."
     }
   }
 }

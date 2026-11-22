@@ -20,6 +20,7 @@ internal sealed partial class InstalledBrowser {
 
     /// The apps among `apps` that keep Chromium's data below `home`'s
     /// Application Support outside the folders of the browsers setup lists,
+    /// leaving out the browsers setup lists themselves,
     /// each paired with the folder whose name names it best: one spelled as
     /// its bundle identifier, then one named as the app is, then one whose
     /// name starts as the app's does. Each folder goes to one app, the one it
@@ -34,7 +35,10 @@ internal sealed partial class InstalledBrowser {
             .Where(folder => FullPath(folder.Path) is { } path && !listed.Any(other => IsWithin(path, other) || IsWithin(other, path)))
             .Select(folder => (Folder: folder, Profiles: ChromiumProfiles(folder)))
             .Where(found => found.Profiles.Count > 0).ToArray();
-        var pairs = apps.SelectMany(app => folders.Select(found => (App: app, found.Folder, found.Profiles,
+        // A listed browser is offered by name, wherever else it keeps data
+        // Chromium wrote, as Crest keeps its engine's beside its own session.
+        var unlisted = apps.Where(app => !ImportSource.All.Any(source => source.IsListed && source.BundleIdentifier == app.BundleIdentifier));
+        var pairs = unlisted.SelectMany(app => folders.Select(found => (App: app, found.Folder, found.Profiles,
                 Score: Resemblance(app, Path.GetRelativePath(support.Path, found.Folder.Path)))))
             .Where(pair => pair.Score > 0)
             .OrderByDescending(pair => pair.Score).ThenByDescending(pair => ImportFolder.Changed(Path.Combine(pair.Folder.Path, ChromiumLocalState)));

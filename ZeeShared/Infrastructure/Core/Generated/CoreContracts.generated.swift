@@ -14831,6 +14831,28 @@ struct ImportSource: Hashable, Sendable {
         outlivingFile: nil,
         isChosenFirst: false
     )
+    static let crest = ImportSource(
+        tag: 18,
+        name: "crest",
+        title: "Crest",
+        bundleIdentifier: "com.pauldavis.crest",
+        dataFolder: "Library/Application Support/Crest/ControlPlane",
+        description: LocalizedStringResource("Spaces, pinned and saved tabs, folders, splits, archive, history, and Boosts", comment: "What importing from another browser brings. Keep product names as they are."),
+        symbol: "square.stack.fill",
+        accent: SpaceAccent.indigo,
+        safeStorageService: nil,
+        suppliesPasswords: false,
+        spaceHeaderStyle: .identity,
+        pinnedSectionTitle: LocalizedStringResource("PINNED", comment: "A section heading in a browser import review. Keep it uppercase."),
+        savedSectionTitle: LocalizedStringResource("SAVED", comment: "A section heading in a browser import review. Keep it uppercase."),
+        listsNewTab: false,
+        spaceName: LocalizedStringResource("Imported Crest Tabs"),
+        numberedSpaceName: LocalizedStringResource("Imported Crest Space %lld"),
+        namesItsSpaces: true,
+        isListed: true,
+        outlivingFile: "session.sqlite",
+        isChosenFirst: false
+    )
 
     static let all: [ImportSource] = [
         arc,
@@ -14850,7 +14872,8 @@ struct ImportSource: Hashable, Sendable {
         comet,
         aside,
         egoLite,
-        otherChromium
+        otherChromium,
+        crest
     ]
 
     static func named(_ name: String?) -> ImportSource? {

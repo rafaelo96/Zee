@@ -1,81 +1,30 @@
 {
-  "fill" : {
-    "linear-gradient" : [
-      "srgb:0.07451,0.40000,0.72157,1.00000",
-      "srgb:0.16863,0.70588,0.94118,1.00000"
-    ],
-    "orientation" : {
-      "start" : {
-        "x" : 0,
-        "y" : 0.6
-      },
-      "stop" : {
-        "x" : 1,
-        "y" : 0
-      }
-    }
+  "fill": {
+    "solid": "srgb:1.00000,1.00000,1.00000,1.00000"
   },
-  "groups" : [
+  "groups": [
     {
-      "name" : "Zee",
-      "layers" : [
+      "name": "Zee",
+      "layers": [
         {
-          "image-name" : "ZeeGlyph.svg",
-          "name" : "ZeeGlyph"
+          "image-name": "ZeeTemporaryGlyph.svg",
+          "name": "ZeeTemporaryGlyph"
         }
       ],
-      "shadow" : {
-        "kind" : "neutral",
-        "opacity" : 0.45
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.2
       },
-      "translucency" : {
-        "enabled" : false,
-        "value" : 0.4
-      }
-    },
-    {
-      "name" : "Landscape",
-      "layers" : [
-        {
-          "image-name" : "ZeeWaveOcean.svg",
-          "name" : "ZeeWaveOcean",
-          "fill" : "none"
-        },
-        {
-          "image-name" : "ZeeWaveCyan.svg",
-          "name" : "ZeeWaveCyan",
-          "fill" : "none"
-        },
-        {
-          "image-name" : "ZeeWaveSun.svg",
-          "name" : "ZeeWaveSun",
-          "fill" : "none"
-        },
-        {
-          "image-name" : "ZeeWaveRed.svg",
-          "name" : "ZeeWaveRed",
-          "fill" : "none"
-        },
-        {
-          "image-name" : "ZeeWaveCoral.svg",
-          "name" : "ZeeWaveCoral",
-          "fill" : "none"
-        }
-      ],
-      "shadow" : {
-        "kind" : "neutral",
-        "opacity" : 0.2
-      },
-      "translucency" : {
-        "enabled" : false,
-        "value" : 0.4
+      "translucency": {
+        "enabled": false,
+        "value": 0.4
       }
     }
   ],
-  "supported-platforms" : {
-    "circles" : [
+  "supported-platforms": {
+    "circles": [
       "watchOS"
     ],
-    "squares" : "shared"
+    "squares": "shared"
   }
 }
