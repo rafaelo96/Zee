@@ -1831,6 +1831,9 @@
     "Add Extension" : {
 
     },
+    "Add Image" : {
+
+    },
     "Add Image…" : {
 
     },
@@ -1850,6 +1853,9 @@
 
     },
     "Add Provider…" : {
+
+    },
+    "Add Shape" : {
 
     },
     "Add Space" : {
@@ -3192,6 +3198,9 @@
 
     },
     "Certificate Not Trusted" : {
+
+    },
+    "Change Color" : {
 
     },
     "Change Color…" : {
@@ -8006,6 +8015,9 @@
           }
         }
       }
+    },
+    "Move" : {
+
     },
     "Move Back" : {
 

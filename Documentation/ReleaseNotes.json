@@ -5793,6 +5793,10 @@
     "easel-undo": {
       "category": "improved",
       "message": "Easels undo and redo: Command-Z and Shift-Command-Z, or Edit › Undo and Redo, step back through drawing, moving, resizing, typing, deleting, recoloring and added images."
+    },
+    "easel-undo-strings": {
+      "category": "internal",
+      "message": "The string catalog lists the names of the easel's undoable changes, so they can be translated."
     }
   }
 }
