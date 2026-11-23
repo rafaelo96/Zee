@@ -5753,6 +5753,10 @@
     "sidebar-downloads-and-toggle": {
       "category": "improved",
       "message": "The sidebar has a Downloads button at its foot, and the button that hides the sidebar now sits at its top beside the window's buttons, as in Arc and Dia."
+    },
+    "sidebar-space-name-row": {
+      "category": "new",
+      "message": "The sidebar shows the Space's name above its tabs: click it to switch Spaces, double-click it to rename the Space, or use its menu to rename or edit it."
     }
   }
 }

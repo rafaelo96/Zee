@@ -23,6 +23,7 @@ struct SpaceSidebarBrowsingContent: View {
     let tabPromotionNamespace: Namespace.ID
     let editSpace: () -> Void
     let createSpace: (() -> Void)?
+    let selectSpace: (UUID) -> Void
 
     /// The clear-current-tabs control appears while a pointer rests anywhere
     /// over the list, so the state belongs to the whole scrolling region rather
@@ -57,6 +58,15 @@ struct SpaceSidebarBrowsingContent: View {
             }
             .onDisappear { sidebarBands?.forget(space.id) }
 
+        SpaceSidebarNameRow(
+            space: space,
+            browser: browser,
+            isLocked: spaceAccess.isLocked(space),
+            selectSpace: selectSpace,
+            editSpace: editSpace
+        )
+        .padding(.top, hasPinnedTabs ? 0 : BrowserSidebarMetrics.topSectionGap)
+
         SpaceSidebarTabListScroll(browser: browser) {
             BrowserSidebarBackgroundInteractionView(
                 editSpace: editSpace,
@@ -80,7 +90,7 @@ struct SpaceSidebarBrowsingContent: View {
             )
         } content: {
             // No Space header to fold the saved tabs away under: they always
-            // show, and the Space's name lives in the switcher below.
+            // show, under the Space's name row above.
             BrowserSidebarTabList(
                 context: listContext,
                 alwaysShowsSavedTabs: true,
