@@ -5,9 +5,12 @@ namespace ZeeCore.Contracts;
 
 /// Writes a new, empty note, `NoteId`, in `SpaceId` and opens it in a tab,
 /// `TabId`, among the Space's open tabs where a new tab goes, which the window
-/// that asked shows. Refused with `NotesFull` past the most a Space holds, and
-/// with `TabLimitReached` when the Space holds no more tabs.
-public sealed record CreateNote(Guid WorkspaceId, Guid WindowId, Guid SpaceId, Guid NoteId, Guid TabId) : SessionIntent(WorkspaceId) {
+/// that asked shows when `Shows`; a note made from a page, to keep what the
+/// person clipped, leaves the window on the page. Refused with `NotesFull`
+/// past the most a Space holds, and with `TabLimitReached` when the Space
+/// holds no more tabs.
+public sealed record CreateNote(Guid WorkspaceId, Guid WindowId, Guid SpaceId, Guid NoteId, Guid TabId, bool Shows = true)
+    : SessionIntent(WorkspaceId) {
     #region Actions - Session
 
     internal override SessionEdit? Edit(NativeSessionAuthority workspace, SessionTurn turn) {
@@ -22,7 +25,8 @@ public sealed record CreateNote(Guid WorkspaceId, Guid WindowId, Guid SpaceId, G
         var opened = workspace.NewTab(TabId, new TabContent(null, NativeView.Note, null), TabPlacement.Current, turn.Now);
         var tab = BrowserTab.Restore(opened with { NativeContent = new NativeTabContent(NativeView.Note.Name, NoteId) });
         edited.InsertTab(tab, workspace.PositionForNewTabs(turn.Basis).InsertionIndex);
-        var followUp = new WindowFollowUp(workspace.IssuingWindow(WindowId)).ShowTab(space.Id, tab.Id).ShowSpace(space.Id);
+        var followUp = new WindowFollowUp(workspace.IssuingWindow(WindowId));
+        if (Shows) followUp.ShowTab(space.Id, tab.Id).ShowSpace(space.Id);
         return new(turn.Basis.Replacing(edited.Capture(noted)), SyncStaging.Creation, followUp);
     }
 

@@ -103,6 +103,9 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
     var isContentBlockingActive: Bool { engineAdapter.isContentBlockingActive }
     var developerPanel: BrowserDeveloperPanel?
     private(set) var isRegionCapturePresented = false
+    /// Where the region the person draws goes: the clipboard, or a note of
+    /// the page's Space.
+    @ObservationIgnored private var regionCaptureDestination = BrowserRegionCaptureDestination.clipboard
     /// The page's alert, confirm, prompt or leave-page question waiting on an
     /// answer while it shows.
     var scriptDialog: ScriptDialogAsked?
@@ -637,12 +640,18 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
     }
 
     func beginRegionCapture() {
+        beginRegionCapture(into: .clipboard)
+    }
+
+    func beginRegionCapture(into destination: BrowserRegionCaptureDestination) {
         guard live.url != nil else { return }
+        regionCaptureDestination = destination
         isRegionCapturePresented = true
     }
 
     func cancelRegionCapture() {
         isRegionCapturePresented = false
+        regionCaptureDestination = .clipboard
     }
 
     func toggleRegionCapture() {
@@ -661,6 +670,11 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
                 guard let image = png.flatMap(NSImage.init(data:)) else {
                     throw BrowserDeveloperCaptureError.pageUnavailable
                 }
+                if regionCaptureDestination == .note {
+                    regionCaptureDestination = .clipboard
+                    guard let png, addCaptureToNote(png) else { throw BrowserDeveloperCaptureError.encodingFailed }
+                    return
+                }
                 guard Self.copyImageToPasteboard(image) else {
                     throw BrowserDeveloperCaptureError.encodingFailed
                 }
@@ -669,6 +683,20 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
                 presentDeveloperCaptureFeedback("Couldn’t Capture Page")
             }
         }
+    }
+
+    /// Keeps `png` on this device and adds it to a note of the page's Space,
+    /// with the page it came from under it. The note's notice says where.
+    private func addCaptureToNote(_ png: Data) -> Bool {
+        guard let context = navigationContext, let store = linkDestinationHost.noteImages,
+            let id = store.save(png: png)
+        else { return false }
+        let source = BrowserTabRuntimeAssignment(
+            tabID: context.tabID, spaceID: context.spaceID, profileID: context.assignment.profileID)
+        let markdown =
+            BrowserNoteImageStore.markdown(for: id, description: context.title) + "\n\n"
+            + BrowserNoteClip.source(of: self, title: context.title)
+        return linkDestinationHost.addToNote(markdown, from: source, newTitle: context.title)
     }
 
     func copyFullPageCapture() {

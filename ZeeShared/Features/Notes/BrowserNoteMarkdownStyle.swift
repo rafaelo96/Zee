@@ -97,6 +97,18 @@ enum BrowserNoteMarkdown {
         }
     }
 
+    // MARK: - Actions - Images
+
+    /// The image a line shows when it holds nothing but a reference to an
+    /// image the note keeps on its device.
+    static func image(in line: String) -> UUID? {
+        let text = line.trimmingCharacters(in: .whitespaces)
+        guard let match = imagePattern.firstMatch(in: text, range: NSRange(location: 0, length: (text as NSString).length)),
+            match.range.length == (text as NSString).length
+        else { return nil }
+        return UUID(uuidString: (text as NSString).substring(with: match.range(at: 2)))
+    }
+
     // MARK: - Actions - Inline
 
     /// The emphasis, code and links `line` holds, links first so emphasis in
@@ -131,6 +143,7 @@ enum BrowserNoteMarkdown {
 
     // MARK: - Patterns
 
+    private static let imagePattern = regex(#"!\[([^\]\n]*)\]\(zee-note-image:([0-9A-Fa-f-]{36})\)"#)
     private static let headingPattern = regex(#"^(#{1,3}) +"#)
     private static let checklistPattern = regex(#"^(\s*[-*] )(\[[ xX]\]) "#)
     private static let bulletPattern = regex(#"^\s*[-*•] "#)

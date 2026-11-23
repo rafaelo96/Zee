@@ -1889,6 +1889,7 @@ struct CreateNote: Intent, SessionIntent, Equatable, Sendable {
     let spaceID: UUID
     let noteID: UUID
     let tabID: UUID
+    let shows: Bool
 }
 
 struct CreatePage: Equatable, Sendable {

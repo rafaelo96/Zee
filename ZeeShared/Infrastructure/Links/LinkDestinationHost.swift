@@ -50,6 +50,17 @@ struct BrowserLinkDestinationHost {
         return BrowserSelectionSearchDestination(url: url, engineTitle: search.engineTitle, source: source)
     }
 
+    /// Adds `markdown` to a note of the Space of `source`, a new one titled
+    /// `newTitle` when it holds none, and answers whether it did.
+    @discardableResult
+    func addToNote(_ markdown: String, from source: BrowserTabRuntimeAssignment, newTitle: String) -> Bool {
+        guard canOpenLink(from: source), let browser else { return false }
+        return browser.addToNote(markdown, in: source.spaceID, newTitle: newTitle)
+    }
+
+    /// Where this device keeps the images notes show.
+    var noteImages: BrowserNoteImageStore? { browser?.noteImages }
+
     @discardableResult
     func openLink(
         _ url: URL,

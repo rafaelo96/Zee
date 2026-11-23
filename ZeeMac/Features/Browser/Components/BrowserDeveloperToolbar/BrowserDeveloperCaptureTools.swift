@@ -21,7 +21,7 @@ struct BrowserDeveloperCaptureControls: View {
                 label: "Capture",
                 systemImage: "camera",
                 isActive: page.isRegionCapturePresented,
-                action: page.beginRegionCapture
+                action: { page.beginRegionCapture() }
             )
             .disabled(!page.pageEngine.registration.supports(.viewportCapture))
         }

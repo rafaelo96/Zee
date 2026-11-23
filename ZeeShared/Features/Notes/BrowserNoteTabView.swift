@@ -10,23 +10,31 @@ struct BrowserNoteTabView: View {
     let save: (_ title: String, _ body: String) -> Void
     var openLink: (URL) -> Void = { _ in }
     var delete: (() -> Void)?
+    /// The file of an image the note shows, when this device keeps it.
+    var imageURL: @MainActor (UUID) -> URL? = { _ in nil }
 
     @State private var title: String
     @State private var text: String
+    /// The note as this view last saw it kept, which tells a change made
+    /// elsewhere, as a clip added from a page, from one typed here.
+    @State private var kept: Draft
     @State private var editor = BrowserNoteEditorController()
     @State private var isConfirmingDelete = false
     @FocusState private var isTitleFocused: Bool
 
     init(
         note: Note, save: @escaping (_ title: String, _ body: String) -> Void,
-        openLink: @escaping (URL) -> Void = { _ in }, delete: (() -> Void)? = nil
+        openLink: @escaping (URL) -> Void = { _ in }, delete: (() -> Void)? = nil,
+        imageURL: @escaping @MainActor (UUID) -> URL? = { _ in nil }
     ) {
         self.note = note
         self.save = save
         self.openLink = openLink
         self.delete = delete
+        self.imageURL = imageURL
         _title = State(initialValue: note.title)
         _text = State(initialValue: note.body)
+        _kept = State(initialValue: Draft(title: note.title, body: note.body))
     }
 
     var body: some View {
@@ -59,6 +67,15 @@ struct BrowserNoteTabView: View {
             saveIfChanged()
         }
         .onDisappear(perform: saveIfChanged)
+        // A change made elsewhere shows here while nothing typed here waits
+        // to be saved; typing wins otherwise, and saves over it.
+        .onChange(of: Draft(title: note.title, body: note.body)) { _, stored in
+            if title == kept.title, text == kept.body {
+                title = stored.title
+                text = stored.body
+            }
+            kept = stored
+        }
         .onAppear { if note.title.isEmpty && note.body.isEmpty { isTitleFocused = true } }
         .confirmationDialog(
             "Delete this note?", isPresented: $isConfirmingDelete, titleVisibility: .visible
@@ -72,7 +89,7 @@ struct BrowserNoteTabView: View {
     @ViewBuilder
     private var bodyEditor: some View {
         #if os(macOS)
-            BrowserNoteMarkdownEditor(text: $text, controller: editor, openLink: openLink)
+            BrowserNoteMarkdownEditor(text: $text, controller: editor, openLink: openLink, imageURL: imageURL)
                 .overlay(alignment: .topLeading) {
                     if text.isEmpty {
                         Text("Start writing…")
@@ -114,6 +131,7 @@ struct BrowserNoteTabView: View {
 
     private func saveIfChanged() {
         guard title != note.title || text != note.body else { return }
+        kept = Draft(title: title, body: text)
         save(title, text)
     }
 

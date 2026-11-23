@@ -7,7 +7,7 @@ import Foundation
 enum CoreCodec {
     /// SHA-256 of the canonical contract schema. The core refuses any other.
     static let fingerprint: [UInt8] = [
-        0xb3, 0x54, 0x2a, 0xbe, 0xe5, 0x82, 0x74, 0xa5, 0xe2, 0xfd, 0x2a, 0x36, 0x44, 0xcb, 0xd8, 0xb4, 0xba, 0xed, 0x8b, 0x11, 0x98, 0x09, 0xa7, 0x80, 0x12, 0xc8, 0x08, 0xeb, 0xe4, 0x2c, 0xcc, 0x25
+        0x5b, 0x89, 0x11, 0xde, 0xc6, 0x73, 0x7b, 0x37, 0xf8, 0x0c, 0xd9, 0x51, 0x03, 0x87, 0x72, 0x43, 0xbd, 0x9b, 0x45, 0x29, 0x0c, 0xc0, 0x24, 0xa8, 0x24, 0x2e, 0x58, 0xe4, 0xbc, 0xaa, 0x43, 0x4d
     ]
     /// SHA-256 of the engine contract alone, which an engine binding registers with.
     static let engineFingerprint: [UInt8] = [
@@ -5778,7 +5778,8 @@ extension CreateNote {
         let spaceID = try reader.readUUID()
         let noteID = try reader.readUUID()
         let tabID = try reader.readUUID()
-        self.init(workspaceID: workspaceID, windowID: windowID, spaceID: spaceID, noteID: noteID, tabID: tabID)
+        let shows = try reader.readBool()
+        self.init(workspaceID: workspaceID, windowID: windowID, spaceID: spaceID, noteID: noteID, tabID: tabID, shows: shows)
     }
 
     func encode(into writer: inout WireWriter) {
@@ -5787,6 +5788,7 @@ extension CreateNote {
         writer.writeUUID(spaceID)
         writer.writeUUID(noteID)
         writer.writeUUID(tabID)
+        writer.writeBool(shows)
     }
 
     func encodeIntent(into writer: inout WireWriter) {

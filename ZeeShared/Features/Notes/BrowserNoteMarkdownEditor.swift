@@ -48,9 +48,11 @@ final class BrowserNoteEditorController {
         @Binding var text: String
         let controller: BrowserNoteEditorController
         let openLink: (URL) -> Void
+        /// The file of an image the note shows, when this device keeps it.
+        var imageURL: @MainActor (UUID) -> URL? = { _ in nil }
 
         func makeCoordinator() -> Coordinator {
-            Coordinator(text: $text, openLink: openLink)
+            Coordinator(text: $text, openLink: openLink, imageURL: imageURL)
         }
 
         func makeNSView(context: Context) -> NSScrollView {
@@ -73,6 +75,7 @@ final class BrowserNoteEditorController {
             textView.typingAttributes = BrowserNoteEditorStyle.bodyAttributes
             textView.linkTextAttributes = [.foregroundColor: NSColor.controlAccentColor, .cursor: NSCursor.pointingHand]
             textView.setAccessibilityIdentifier("note-body-editor")
+            textView.images = context.coordinator.images
             textView.string = text
             context.coordinator.textView = textView
             context.coordinator.restyle()
@@ -103,12 +106,14 @@ final class BrowserNoteEditorController {
         final class Coordinator: NSObject, NSTextViewDelegate, NSTextStorageDelegate {
             var text: Binding<String>
             var openLink: (URL) -> Void
+            let images: BrowserNoteImageCache
             weak var textView: BrowserNoteTextView?
             private var isRestyling = false
 
-            init(text: Binding<String>, openLink: @escaping (URL) -> Void) {
+            init(text: Binding<String>, openLink: @escaping (URL) -> Void, imageURL: @escaping @MainActor (UUID) -> URL?) {
                 self.text = text
                 self.openLink = openLink
+                images = BrowserNoteImageCache(fileURL: imageURL)
             }
 
             func connect(_ controller: BrowserNoteEditorController) {
@@ -281,9 +286,12 @@ final class BrowserNoteEditorController {
                     in: NSRange(location: 0, length: string.length), options: [.byLines]
                 ) { line, range, _, _ in
                     guard let line else { return }
-                    BrowserNoteEditorStyle.style(line: line, at: range.location, in: storage)
+                    BrowserNoteEditorStyle.style(
+                        line: line, at: range.location, in: storage, images: self.images,
+                        width: textView.textContainer?.size.width ?? BrowserNoteTabMetrics.columnWidth)
                 }
                 storage.endEditing()
+                textView.needsDisplay = true
                 textView.typingAttributes = BrowserNoteEditorStyle.bodyAttributes
             }
         }
@@ -294,6 +302,45 @@ final class BrowserNoteEditorController {
     final class BrowserNoteTextView: NSTextView {
         var toggleChecklist: ((Int) -> Bool)?
         var shortcut: ((String) -> Bool)?
+        var images: BrowserNoteImageCache?
+
+        /// Draws each image a line names in the room the line keeps above it.
+        override func draw(_ dirtyRect: NSRect) {
+            super.draw(dirtyRect)
+            guard let storage = textStorage, let layoutManager, let images else { return }
+            storage.enumerateAttribute(
+                .zeeNoteImage, in: NSRange(location: 0, length: storage.length)
+            ) { value, range, _ in
+                guard let id = value as? UUID, range.length > 0 else { return }
+                let glyph = layoutManager.glyphIndexForCharacter(at: range.location)
+                let line = layoutManager.lineFragmentRect(forGlyphAt: glyph, effectiveRange: nil)
+                let used = layoutManager.lineFragmentUsedRect(forGlyphAt: glyph, effectiveRange: nil)
+                let origin = textContainerOrigin
+                let room = NSRect(
+                    x: origin.x + line.minX, y: origin.y + line.minY,
+                    width: line.width, height: max(0, used.minY - line.minY - BrowserNoteEditorStyle.imageGap))
+                guard room.height > 0, room.intersects(dirtyRect) else { return }
+                if let image = images.image(id) {
+                    let size = BrowserNoteEditorStyle.fitted(image.size, width: room.width)
+                    let rect = NSRect(x: room.minX, y: room.minY, width: size.width, height: size.height)
+                    NSGraphicsContext.saveGraphicsState()
+                    NSBezierPath(roundedRect: rect, xRadius: 8, yRadius: 8).addClip()
+                    image.draw(in: rect)
+                    NSGraphicsContext.restoreGraphicsState()
+                } else {
+                    let path = NSBezierPath(roundedRect: room, xRadius: 8, yRadius: 8)
+                    NSColor.quaternaryLabelColor.setFill()
+                    path.fill()
+                    let message = String(localized: "This image is on another device")
+                    let attributes: [NSAttributedString.Key: Any] = [
+                        .font: NSFont.systemFont(ofSize: 13), .foregroundColor: NSColor.secondaryLabelColor,
+                    ]
+                    let size = (message as NSString).size(withAttributes: attributes)
+                    (message as NSString).draw(
+                        at: NSPoint(x: room.midX - size.width / 2, y: room.midY - size.height / 2), withAttributes: attributes)
+                }
+            }
+        }
 
         override func mouseDown(with event: NSEvent) {
             let point = convert(event.locationInWindow, from: nil)
@@ -333,11 +380,40 @@ final class BrowserNoteEditorController {
 
         private static let markerColor = NSColor.tertiaryLabelColor
         private static let headingSizes: [CGFloat] = [26, 21, 18]
+        /// The room between an image and the reference under it.
+        static let imageGap: CGFloat = 4
+        /// The most height an image takes in a note.
+        static let maximumImageHeight: CGFloat = 420
+        /// The room a missing image keeps for its note.
+        static let missingImageHeight: CGFloat = 72
 
-        static func style(line: String, at offset: Int, in storage: NSTextStorage) {
+        /// `size` scaled to fit `width` and the most height an image takes.
+        static func fitted(_ size: NSSize, width: CGFloat) -> NSSize {
+            guard size.width > 0, size.height > 0 else { return NSSize(width: width, height: missingImageHeight) }
+            let scale = min(1, width / size.width, maximumImageHeight / size.height)
+            return NSSize(width: size.width * scale, height: size.height * scale)
+        }
+
+        static func style(
+            line: String, at offset: Int, in storage: NSTextStorage, images: BrowserNoteImageCache, width: CGFloat
+        ) {
             let length = (line as NSString).length
             let whole = NSRange(location: offset, length: length)
             func marker(_ count: Int) -> NSRange { NSRange(location: offset, length: min(count, length)) }
+
+            if let id = BrowserNoteMarkdown.image(in: line) {
+                // The reference stays in the text, small and faint, under the
+                // image the text view draws in the room kept above it.
+                let height = images.image(id).map { fitted($0.size, width: width).height } ?? missingImageHeight
+                let paragraph = bodyParagraph.mutableCopy() as! NSMutableParagraphStyle
+                paragraph.paragraphSpacingBefore = height + imageGap
+                storage.addAttributes(
+                    [
+                        .zeeNoteImage: id, .paragraphStyle: paragraph, .font: NSFont.systemFont(ofSize: 10),
+                        .foregroundColor: markerColor,
+                    ], range: whole)
+                return
+            }
 
             switch BrowserNoteMarkdown.classify(line) {
             case .heading(let level, let markerLength):
@@ -410,5 +486,33 @@ final class BrowserNoteEditorController {
             style.headIndent = width
             return style
         }
+    }
+
+    /// The images a note's editor shows, read from their files once.
+    @MainActor
+    final class BrowserNoteImageCache {
+        private let fileURL: @MainActor (UUID) -> URL?
+        private var loaded: [UUID: NSImage] = [:]
+        private var missing: Set<UUID> = []
+
+        init(fileURL: @escaping @MainActor (UUID) -> URL?) {
+            self.fileURL = fileURL
+        }
+
+        func image(_ id: UUID) -> NSImage? {
+            if let image = loaded[id] { return image }
+            guard !missing.contains(id) else { return nil }
+            guard let url = fileURL(id), let image = NSImage(contentsOf: url) else {
+                missing.insert(id)
+                return nil
+            }
+            loaded[id] = image
+            return image
+        }
+    }
+
+    extension NSAttributedString.Key {
+        /// The image a note's line shows, which its text view draws.
+        static let zeeNoteImage = NSAttributedString.Key("ZeeNoteImage")
     }
 #endif

@@ -27,7 +27,8 @@ struct BrowserNativeTabHost: View {
                             note: note,
                             save: { title, body in actions.saveNote(assignment, content, title, body) },
                             openLink: { url in actions.openURL(assignment, content, url) },
-                            delete: { actions.deleteNote(assignment, content) }
+                            delete: { actions.deleteNote(assignment, content) },
+                            imageURL: actions.noteImageURL
                         )
                         // A note another device replaced, or this one, starts the editor over.
                         .id(note.id)
@@ -67,6 +68,8 @@ struct BrowserNativeTabActions {
     var openURL: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, URL) -> Void = { _, _, _ in }
     /// Keeps a note's title and text, for the note the tab still shows.
     var saveNote: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, String, String) -> Void = { _, _, _, _ in }
+    /// The file of an image a note shows, when this device keeps it.
+    var noteImageURL: @MainActor (UUID) -> URL? = { _ in nil }
     /// Deletes the note the tab shows, and the tab with it.
     var deleteNote: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent) -> Void = { _, _ in }
 
@@ -93,6 +96,8 @@ struct BrowserNativeTabActions {
             else { return }
             browser.saveNote(noteID, in: space.id, title: title, body: body)
         }
+        let noteImages = browser.noteImages
+        noteImageURL = { id in noteImages.existingFileURL(for: id) }
         deleteNote = { source, content in
             guard let noteID = content.resourceID,
                 let space = browser.availableSpaces.first(where: {

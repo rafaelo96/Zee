@@ -14,8 +14,40 @@ extension BrowserStore {
         guard let space = shownSpace else { return nil }
         let tabID = UUID()
         let creating = CreateNote(
-            workspaceID: family.workspaceID, windowID: windowID, spaceID: space.id, noteID: UUID(), tabID: tabID)
+            workspaceID: family.workspaceID, windowID: windowID, spaceID: space.id, noteID: UUID(), tabID: tabID,
+            shows: true)
         return family.perform(creating, from: self) == nil ? nil : tabID
+    }
+
+    /// The images notes show, which stay on this device.
+    var noteImages: BrowserNoteImageStore {
+        BrowserNoteImageStore(storageDirectory: core.storageDirectory)
+    }
+
+    /// Adds `markdown` to the end of the note of `spaceID` someone changed
+    /// last, or to a new note, titled `newTitle`, when the Space holds none,
+    /// leaving the window where it is. Says where it went in the window's
+    /// notice, and answers whether it did.
+    @discardableResult
+    func addToNote(_ markdown: String, in spaceID: UUID, newTitle: String) -> Bool {
+        guard !isPrivateBrowsing, var space = spaceModel(spaceID) else { return false }
+        var target = space.settings.shownNotes.max { $0.modifiedAt < $1.modifiedAt }
+        if target == nil {
+            let creating = CreateNote(
+                workspaceID: family.workspaceID, windowID: windowID, spaceID: spaceID, noteID: UUID(), tabID: UUID(),
+                shows: false)
+            guard family.perform(creating, from: self) != nil, let created = spaceModel(spaceID) else { return false }
+            space = created
+            target = space.settings.shownNotes.max { $0.modifiedAt < $1.modifiedAt }
+        }
+        guard let note = target else { return false }
+        let title = note.title.isEmpty && note.body.isEmpty ? newTitle : note.title
+        let body = note.body.isEmpty ? markdown : note.body + "\n\n" + markdown
+        guard saveNote(note.id, in: spaceID, title: title, body: body) else { return false }
+        let shown = title.isEmpty ? String(localized: NativeView.note.title) : title
+        BrowserNoticeCenter.shared.post(
+            BrowserNotice(message: String(localized: "Added to “\(shown)”"), systemImage: "note.text"))
+        return true
     }
 
     /// Keeps `title` and `body` as the note `noteID` of `spaceID`.
