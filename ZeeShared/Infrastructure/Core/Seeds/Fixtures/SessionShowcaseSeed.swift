@@ -47,7 +47,8 @@ enum SessionShowcaseSeed {
                 reason: .autoCleanup, secondsAgo: 540),
         ]
         return SpaceState.Seed(
-            name: "Work", symbol: "hammer.fill", accent: .indigo, branding: SpaceAccent.indigo.zeeLook, folders: [folder],
+            name: "Work", symbol: "hammer.fill", accent: .indigo, branding: SpaceAccent.indigo.zeeLook,
+            folders: [folder],
             tabs: tabs, archivedTabs: archivedTabs)
     }
 

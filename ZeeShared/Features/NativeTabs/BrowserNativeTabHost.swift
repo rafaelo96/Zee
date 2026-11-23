@@ -67,7 +67,9 @@ struct BrowserNativeTabHost: View {
 struct BrowserNativeTabActions {
     var openURL: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, URL) -> Void = { _, _, _ in }
     /// Keeps a note's title and text, for the note the tab still shows.
-    var saveNote: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, String, String) -> Void = { _, _, _, _ in }
+    var saveNote: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, String, String) -> Void = {
+        _, _, _, _ in
+    }
     /// The file of an image a note shows, when this device keeps it.
     var noteImageURL: @MainActor (UUID) -> URL? = { _ in nil }
     /// Deletes the note the tab shows, and the tab with it.

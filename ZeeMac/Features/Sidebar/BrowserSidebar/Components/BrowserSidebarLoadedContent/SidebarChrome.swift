@@ -61,7 +61,8 @@ struct SidebarChrome: View {
             port: BrowserSidebarNavigationPort(
                 pages: pages, browser: context.browser, showHistory: context.chromeActions.presentHistory),
             capabilities: context.capabilities,
-            leadingAccessoryWidth: sidebarToggle == nil ? 0 : context.capabilities.navigationControlMetrics.controlSize.width
+            leadingAccessoryWidth: sidebarToggle == nil
+                ? 0 : context.capabilities.navigationControlMetrics.controlSize.width
         ) {
             if let sidebarToggle {
                 Button(

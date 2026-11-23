@@ -103,7 +103,8 @@ enum BrowserNoteMarkdown {
     /// image the note keeps on its device.
     static func image(in line: String) -> UUID? {
         let text = line.trimmingCharacters(in: .whitespaces)
-        guard let match = imagePattern.firstMatch(in: text, range: NSRange(location: 0, length: (text as NSString).length)),
+        let whole = NSRange(location: 0, length: (text as NSString).length)
+        guard let match = imagePattern.firstMatch(in: text, range: whole),
             match.range.length == (text as NSString).length
         else { return nil }
         return UUID(uuidString: (text as NSString).substring(with: match.range(at: 2)))
@@ -118,7 +119,9 @@ enum BrowserNoteMarkdown {
         var spans: [Inline] = []
         for match in linkPattern.matches(in: line, range: whole) {
             let address = (line as NSString).substring(with: match.range(at: 2))
-            guard let url = URL(string: address), ["http", "https"].contains(url.scheme?.lowercased() ?? "") else { continue }
+            guard let url = URL(string: address), ["http", "https"].contains(url.scheme?.lowercased() ?? "") else {
+                continue
+            }
             spans.append(Inline(kind: .link(url), range: match.range, content: match.range(at: 1)))
         }
         if let detector = linkDetector {

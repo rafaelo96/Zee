@@ -40,7 +40,8 @@ struct BrowserNoteImageStore: Sendable {
         let id = UUID()
         do {
             try FileManager.default.createDirectory(at: rootDirectory, withIntermediateDirectories: true)
-            try png.write(to: fileURL(for: id), options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
+            try png.write(
+                to: fileURL(for: id), options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
             return id
         } catch {
             return nil
