@@ -14,7 +14,7 @@ namespace ZeeCore.Native;
 public static class ContractCodec {
     /// <summary>SHA-256 of the canonical contract schema.</summary>
     public static ReadOnlySpan<byte> Fingerprint => [
-        0x5b, 0x89, 0x11, 0xde, 0xc6, 0x73, 0x7b, 0x37, 0xf8, 0x0c, 0xd9, 0x51, 0x03, 0x87, 0x72, 0x43, 0xbd, 0x9b, 0x45, 0x29, 0x0c, 0xc0, 0x24, 0xa8, 0x24, 0x2e, 0x58, 0xe4, 0xbc, 0xaa, 0x43, 0x4d
+        0xa5, 0x80, 0x58, 0xc3, 0x58, 0x52, 0x46, 0xc0, 0x14, 0x21, 0x00, 0x74, 0x4c, 0x5e, 0xc6, 0xe8, 0x18, 0xb6, 0x43, 0xf1, 0x94, 0x06, 0x8b, 0x1f, 0x43, 0x3c, 0x8a, 0x88, 0x05, 0xf8, 0xfc, 0x59
     ];
 
     /// <summary>SHA-256 of the engine contract alone, which an engine binding registers with.</summary>
@@ -6772,6 +6772,7 @@ public static class ContractCodec {
             reader.ReadGuid(),
             reader.ReadGuid(),
             reader.ReadGuid(),
+            reader.ReadBool(),
             reader.ReadBool());
     }
 
@@ -6784,6 +6785,7 @@ public static class ContractCodec {
         writer.WriteGuid(value.NoteId);
         writer.WriteGuid(value.TabId);
         writer.WriteBool(value.Shows);
+        writer.WriteBool(value.IsEasel);
     }
 
     public static CreatePage ReadCreatePage(WireReader reader) {
@@ -13096,7 +13098,8 @@ public static class ContractCodec {
             reader.ReadGuid(),
             reader.ReadString(),
             reader.ReadString(),
-            reader.ReadDate());
+            reader.ReadDate(),
+            reader.ReadBool());
     }
 
     public static void WriteNote(WireWriter writer, Note value) {
@@ -13106,6 +13109,7 @@ public static class ContractCodec {
         writer.WriteString(value.Title);
         writer.WriteString(value.Body);
         writer.WriteDate(value.ModifiedAt);
+        writer.WriteBool(value.IsEasel);
     }
 
     public static NoteTooLarge ReadNoteTooLarge(WireReader reader) {

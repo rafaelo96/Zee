@@ -1890,6 +1890,7 @@ struct CreateNote: Intent, SessionIntent, Equatable, Sendable {
     let noteID: UUID
     let tabID: UUID
     let shows: Bool
+    let isEasel: Bool
 }
 
 struct CreatePage: Equatable, Sendable {
@@ -4308,6 +4309,7 @@ struct Note: Equatable, Sendable, Identifiable {
     var title: String
     var body: String
     var modifiedAt: Date
+    var isEasel: Bool
 }
 
 struct NoteTooLarge: Equatable, Sendable {
@@ -15418,8 +15420,14 @@ struct NativeView: Hashable, Sendable {
         symbol: "book.closed.fill"
     )
     static let note = NativeView(tag: 2, name: "note", title: LocalizedStringResource("New Note"), symbol: "note.text")
+    static let easel = NativeView(
+        tag: 3,
+        name: "easel",
+        title: LocalizedStringResource("New Easel"),
+        symbol: "scribble.variable"
+    )
 
-    static let all: [NativeView] = [settings, gettingStarted, note]
+    static let all: [NativeView] = [settings, gettingStarted, note, easel]
 
     static func named(_ name: String?) -> NativeView? {
         all.first { $0.name == name }
@@ -18943,6 +18951,7 @@ struct ShortcutCommand: Hashable, Sendable {
         case openNextExtension
         case hideElementWithBoost
         case newNote
+        case newEasel
     }
 
     let tag: Int
@@ -21097,7 +21106,7 @@ struct ShortcutCommand: Hashable, Sendable {
         name: "newNote",
         section: ShortcutSection.everyday,
         title: LocalizedStringResource("New Note"),
-        searchTerms: LocalizedStringResource("note notes write easel notepad jot memo"),
+        searchTerms: LocalizedStringResource("note notes write notepad jot memo"),
         menuTitle: nil,
         symbol: "note.text.badge.plus",
         requiredCapability: nil,
@@ -21110,6 +21119,24 @@ struct ShortcutCommand: Hashable, Sendable {
                 yieldsToOverrides: true
             )
         ],
+        paletteRest: nil,
+        offersInPalette: true,
+        isReservedFromPages: false,
+        defaultPreference: ShortcutPreference.preferWebsite
+    )
+    static let newEasel = ShortcutCommand(
+        tag: 80,
+        kind: .newEasel,
+        name: "newEasel",
+        section: ShortcutSection.everyday,
+        title: LocalizedStringResource("New Easel"),
+        searchTerms: LocalizedStringResource("easel canvas whiteboard board draw sketch moodboard arc"),
+        menuTitle: nil,
+        symbol: "scribble.variable",
+        requiredCapability: nil,
+        selects: nil,
+        number: nil,
+        defaultShortcuts: [],
         paletteRest: nil,
         offersInPalette: true,
         isReservedFromPages: false,
@@ -21196,7 +21223,8 @@ struct ShortcutCommand: Hashable, Sendable {
         toggleSelectedTabSaved,
         openNextExtension,
         hideElementWithBoost,
-        newNote
+        newNote,
+        newEasel
     ]
 
     static func named(_ name: String?) -> ShortcutCommand? {
@@ -21289,7 +21317,7 @@ struct ShortcutMenu: Hashable, Sendable {
                 ShortcutCommand.newQuickWindow,
                 ShortcutCommand.newPrivateWindow
             ],
-            [ShortcutCommand.newNote],
+            [ShortcutCommand.newNote, ShortcutCommand.newEasel],
             [ShortcutCommand.openFile],
             [ShortcutCommand.closeTabOrWindow, ShortcutCommand.closeWindow],
             [ShortcutCommand.printPage]

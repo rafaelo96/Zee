@@ -188,7 +188,7 @@ enum BrowserNoteTabMetrics {
             note: Note(
                 id: UUID(), title: "Trip",
                 body: "# Packing\n- [x] Charger\n- [ ] Passport\n\nBook the **train** at [Renfe](https://renfe.com)",
-                modifiedAt: .now),
+                modifiedAt: .now, isEasel: false),
             save: { _, _ in }, delete: {}
         )
         .frame(width: 900, height: 600)

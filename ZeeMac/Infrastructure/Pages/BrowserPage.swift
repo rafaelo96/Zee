@@ -670,9 +670,16 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
                 guard let image = png.flatMap(NSImage.init(data:)) else {
                     throw BrowserDeveloperCaptureError.pageUnavailable
                 }
-                if regionCaptureDestination == .note {
+                if regionCaptureDestination != .clipboard {
+                    let destination = regionCaptureDestination
                     regionCaptureDestination = .clipboard
-                    guard let png, addCaptureToNote(png) else { throw BrowserDeveloperCaptureError.encodingFailed }
+                    let added: Bool
+                    if let png {
+                        added = destination == .note ? addCaptureToNote(png) : addCaptureToEasel(png, size: image.size)
+                    } else {
+                        added = false
+                    }
+                    guard added else { throw BrowserDeveloperCaptureError.encodingFailed }
                     return
                 }
                 guard Self.copyImageToPasteboard(image) else {
@@ -697,6 +704,17 @@ final class BrowserPage: NSObject, BrowserMediaSessionCommandEndpoint {
             BrowserNoteImageStore.markdown(for: id, description: context.title) + "\n\n"
             + BrowserNoteClip.source(of: self, title: context.title)
         return linkDestinationHost.addToNote(markdown, from: source, newTitle: context.title)
+    }
+
+    /// Keeps `png` on this device and places it on an easel of the page's
+    /// Space. The easel's notice says which.
+    private func addCaptureToEasel(_ png: Data, size: CGSize) -> Bool {
+        guard let context = navigationContext, let store = linkDestinationHost.noteImages,
+            let id = store.save(png: png)
+        else { return false }
+        let source = BrowserTabRuntimeAssignment(
+            tabID: context.tabID, spaceID: context.spaceID, profileID: context.assignment.profileID)
+        return linkDestinationHost.addImageToEasel(id, size: size, from: source, newTitle: context.title)
     }
 
     func copyFullPageCapture() {

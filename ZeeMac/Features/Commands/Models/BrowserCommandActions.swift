@@ -193,10 +193,11 @@ struct BrowserCommandActions: BrowserNumberedSelectionPerformer {
         chrome.openNewTab(isStartPageSelected: browser.shownTab?.surface == .startPage)
     }
 
-    /// Writes a new note in the Space the window shows, in a tab it shows.
-    func createNote() {
+    /// Writes a new note, or makes a new easel, in the Space the window
+    /// shows, in a tab it shows.
+    func createNote(isEasel: Bool = false) {
         guard !browser.isPrivateBrowsing, let space = browser.shownSpace, !spaceAccess.isLocked(space) else { return }
-        browser.createNote()
+        browser.createNote(isEasel: isEasel)
     }
 
     func openNewWindow() {

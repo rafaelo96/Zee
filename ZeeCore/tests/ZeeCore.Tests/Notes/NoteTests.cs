@@ -80,4 +80,27 @@ public sealed partial class BrowserContractsTests {
             ? (copy.Id, copy.Title, copy.Body) : default);
         Assert.Contains(imported.Tabs, tab => tab.NativeContent?.ResourceId == kept.Id);
     }
+
+    /// An easel is a note its tab shows as the easel view: its canvas never
+    /// names the tab, only its title does, and it stays an easel through the
+    /// Space's file.
+    [Fact]
+    public void AnEaselOpensAsTheEaselViewAndIsNamedByItsTitleAlone() {
+        using var device = new TestDevice(TwoSpaceSession(out var space, out _));
+        var window = device.Open(space);
+        var (easel, tab) = (Guid.NewGuid(), Guid.NewGuid());
+
+        device.Send(new CreateNote(device.Workspace, window, space, easel, tab, IsEasel: true));
+        device.Send(new SaveNote(device.Workspace, space, easel, "", "{\"v\":1,\"items\":[]}"));
+        var held = device.Authority.Current.Space(space)!;
+        Assert.True(held.Settings.ShownNotes.Single().IsEasel);
+        var opened = held.Tabs.Single(candidate => candidate.Id == tab);
+        Assert.Equal(new NativeTabContent(NativeView.Easel.Name, easel), opened.NativeContent);
+        Assert.Equal(NativeView.Easel.Title, opened.Title);
+
+        device.Send(new SaveNote(device.Workspace, space, easel, "Moodboard", "{\"v\":1,\"items\":[]}"));
+        held = device.Authority.Current.Space(space)!;
+        Assert.Equal("Moodboard", held.Tabs.Single(candidate => candidate.Id == tab).Title);
+        Assert.True(StoredSessionCodec.DecodeSpace(StoredSessionCodec.Encode(held)).Settings.ShownNotes.Single().IsEasel);
+    }
 }

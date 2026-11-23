@@ -7,7 +7,7 @@ import Foundation
 enum CoreCodec {
     /// SHA-256 of the canonical contract schema. The core refuses any other.
     static let fingerprint: [UInt8] = [
-        0x5b, 0x89, 0x11, 0xde, 0xc6, 0x73, 0x7b, 0x37, 0xf8, 0x0c, 0xd9, 0x51, 0x03, 0x87, 0x72, 0x43, 0xbd, 0x9b, 0x45, 0x29, 0x0c, 0xc0, 0x24, 0xa8, 0x24, 0x2e, 0x58, 0xe4, 0xbc, 0xaa, 0x43, 0x4d
+        0xa5, 0x80, 0x58, 0xc3, 0x58, 0x52, 0x46, 0xc0, 0x14, 0x21, 0x00, 0x74, 0x4c, 0x5e, 0xc6, 0xe8, 0x18, 0xb6, 0x43, 0xf1, 0x94, 0x06, 0x8b, 0x1f, 0x43, 0x3c, 0x8a, 0x88, 0x05, 0xf8, 0xfc, 0x59
     ]
     /// SHA-256 of the engine contract alone, which an engine binding registers with.
     static let engineFingerprint: [UInt8] = [
@@ -5779,7 +5779,8 @@ extension CreateNote {
         let noteID = try reader.readUUID()
         let tabID = try reader.readUUID()
         let shows = try reader.readBool()
-        self.init(workspaceID: workspaceID, windowID: windowID, spaceID: spaceID, noteID: noteID, tabID: tabID, shows: shows)
+        let isEasel = try reader.readBool()
+        self.init(workspaceID: workspaceID, windowID: windowID, spaceID: spaceID, noteID: noteID, tabID: tabID, shows: shows, isEasel: isEasel)
     }
 
     func encode(into writer: inout WireWriter) {
@@ -5789,6 +5790,7 @@ extension CreateNote {
         writer.writeUUID(noteID)
         writer.writeUUID(tabID)
         writer.writeBool(shows)
+        writer.writeBool(isEasel)
     }
 
     func encodeIntent(into writer: inout WireWriter) {
@@ -14788,7 +14790,8 @@ extension Note {
         let title = try reader.readString()
         let body = try reader.readString()
         let modifiedAt = try reader.readDate()
-        self.init(id: id, title: title, body: body, modifiedAt: modifiedAt)
+        let isEasel = try reader.readBool()
+        self.init(id: id, title: title, body: body, modifiedAt: modifiedAt, isEasel: isEasel)
     }
 
     func encode(into writer: inout WireWriter) {
@@ -14796,6 +14799,7 @@ extension Note {
         writer.writeString(title)
         writer.writeString(body)
         writer.writeDate(modifiedAt)
+        writer.writeBool(isEasel)
     }
 }
 

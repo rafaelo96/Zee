@@ -28,17 +28,22 @@ internal static partial class StoredSessionCodec {
     private static Note? DecodeNote(JsonObject value) {
         if (!Guid.TryParse(TolerantText(value[Key.Id]), out var id)) return null;
         return new Note(id, TolerantText(value[Key.Title]) ?? "", TolerantText(value[Key.Body]) ?? "",
-            OptionalDate(value[Key.ModifiedAt]) ?? ReferenceEpoch).Validated();
+            OptionalDate(value[Key.ModifiedAt]) ?? ReferenceEpoch, TolerantFlag(value[Key.Easel]) ?? false).Validated();
     }
 
     internal static JsonArray EncodeNotes(IReadOnlyList<Note> notes) => new([.. notes.Select(note => (JsonNode)Encode(note))]);
 
-    private static JsonObject Encode(Note note) => new() {
-        [Key.Id] = note.Id.ToString("D"),
-        [Key.Title] = note.Title,
-        [Key.Body] = note.Body,
-        [Key.ModifiedAt] = Seconds(note.ModifiedAt)
-    };
+    private static JsonObject Encode(Note note) {
+        var value = new JsonObject {
+            [Key.Id] = note.Id.ToString("D"),
+            [Key.Title] = note.Title,
+            [Key.Body] = note.Body,
+            [Key.ModifiedAt] = Seconds(note.ModifiedAt)
+        };
+        // Only an easel says so, so a note reads the same on a build before easels.
+        if (note.IsEasel) value[Key.Easel] = true;
+        return value;
+    }
 
     #endregion
 }

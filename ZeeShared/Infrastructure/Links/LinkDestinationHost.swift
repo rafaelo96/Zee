@@ -58,6 +58,16 @@ struct BrowserLinkDestinationHost {
         return browser.addToNote(markdown, in: source.spaceID, newTitle: newTitle)
     }
 
+    /// Places the image `imageID` of `size` on an easel of the Space of
+    /// `source`, a new one titled `newTitle` when it holds none.
+    @discardableResult
+    func addImageToEasel(
+        _ imageID: UUID, size: CGSize, from source: BrowserTabRuntimeAssignment, newTitle: String
+    ) -> Bool {
+        guard canOpenLink(from: source), let browser else { return false }
+        return browser.addImageToEasel(imageID, size: size, in: source.spaceID, newTitle: newTitle)
+    }
+
     /// Where this device keeps the images notes show.
     var noteImages: BrowserNoteImageStore? { browser?.noteImages }
 

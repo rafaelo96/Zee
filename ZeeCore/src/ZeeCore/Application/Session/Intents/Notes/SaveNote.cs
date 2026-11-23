@@ -20,7 +20,7 @@ public sealed record SaveNote(Guid WorkspaceId, Guid SpaceId, Guid NoteId, strin
         notes[index] = kept;
         if (notes.Sum(note => note.Bytes) > Note.MaximumSpaceBytes)
             throw new Rejected(new NoteTooLarge(Note.MaximumBodyBytes, Note.MaximumSpaceBytes));
-        var title = kept.TabTitle ?? NativeView.Note.Title;
+        var title = kept.TabTitle ?? (kept.IsEasel ? NativeView.Easel : NativeView.Note).Title;
         var tabs = space.Tabs.Select(tab => tab.NativeContent is { ResourceId: { } shown } && shown == NoteId && tab.Title != title
             ? tab with { Title = title } : tab).ToArray();
         var edited = space.Configured(space.Settings.Noting(notes, turn.Now)) with { Tabs = tabs };

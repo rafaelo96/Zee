@@ -22,4 +22,5 @@ enum BrowserNoteClip {
 enum BrowserRegionCaptureDestination: Equatable {
     case clipboard
     case note
+    case easel
 }

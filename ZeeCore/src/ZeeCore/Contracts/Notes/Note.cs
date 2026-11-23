@@ -20,7 +20,11 @@ public sealed record NotesFull(int Maximum) : Rejection;
 /// its text. A note travels with the Space's settings, as Boosts do, so it
 /// syncs, exports and goes with the Space. A tab shows it as the native view
 /// `NativeView.Note`, naming it by its identity as the view's resource.
-public sealed record Note(Guid Id, string Title, string Body, DateTimeOffset ModifiedAt) {
+///
+/// An easel, `IsEasel`, is a note whose text is the document of a free canvas
+/// the platform draws, which a tab shows as `NativeView.Easel`; the core keeps
+/// it, syncs it and holds it to a note's limits as it does any note's text.
+public sealed record Note(Guid Id, string Title, string Body, DateTimeOffset ModifiedAt, bool IsEasel = false) {
     #region Static Variables
 
     /// The longest title a note keeps.
@@ -44,8 +48,8 @@ public sealed record Note(Guid Id, string Title, string Body, DateTimeOffset Mod
 
     #region Initializers
 
-    /// An empty note, made now.
-    public static Note Empty(Guid id, DateTimeOffset now) => new(id, "", "", now);
+    /// An empty note, or an empty easel, made now.
+    public static Note Empty(Guid id, DateTimeOffset now, bool isEasel = false) => new(id, "", "", now, isEasel);
 
     #endregion
 
@@ -64,10 +68,13 @@ public sealed record Note(Guid Id, string Title, string Body, DateTimeOffset Mod
 
     /// The name a tab showing the note wears: its title, or its text's first
     /// line when it has none, or nothing for an empty note, which the tab
-    /// then names by the view's own title.
+    /// then names by the view's own title. An easel is named by its title
+    /// alone.
     internal string? TabTitle {
         get {
             if (!string.IsNullOrWhiteSpace(Title)) return Title;
+            // An easel's text is its canvas, which names nothing.
+            if (IsEasel) return null;
             var line = Body.Split('\n', StringSplitOptions.RemoveEmptyEntries).Select(text => text.Trim().TrimStart('#', '-', '*', ' '))
                 .FirstOrDefault(text => text.Length > 0);
             return line is null ? null : line.Length > MaximumTitleLength ? line[..MaximumTitleLength] : line;

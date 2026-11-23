@@ -20,6 +20,7 @@ struct BrowserPageContextMenuAction {
         case addToNote
         case addLinkToNote
         case captureToNote
+        case captureToEasel
     }
 
     /// Runs the row on the page, answering whether it did. A page without a
@@ -46,7 +47,7 @@ struct BrowserPageContextMenuAction {
 
     /// Whether the row acts on the page rather than on a link or selection,
     /// and so follows the engine's rows.
-    var isTrailing: Bool { kind == .blockElement || kind == .captureToNote }
+    var isTrailing: Bool { kind == .blockElement || kind == .captureToNote || kind == .captureToEasel }
 
     // MARK: - Initializers
 
@@ -164,6 +165,17 @@ struct BrowserPageContextMenuAction {
     ) { page, context, _ in
         guard context != nil else { return false }
         page.beginRegionCapture(into: .note)
+        return true
+    }
+
+    /// Starts the region capture, whose image goes on an easel of the page's
+    /// Space rather than to the clipboard.
+    static let captureToEasel = BrowserPageContextMenuAction(
+        kind: .captureToEasel, title: String(localized: "Capture to Easel"), symbolName: "scribble.variable",
+        linkURL: nil, selectionText: nil
+    ) { page, context, _ in
+        guard context != nil else { return false }
+        page.beginRegionCapture(into: .easel)
         return true
     }
 
@@ -335,7 +347,10 @@ extension BrowserPage: BrowserPageContextMenuHost {
             actions.append(.addToNote(selectionText))
         }
         if canPickElementToBlock { actions.append(.blockElement) }
-        if canAddToNote, pageEngine.registration.supports(.viewportCapture) { actions.append(.captureToNote) }
+        if canAddToNote, pageEngine.registration.supports(.viewportCapture) {
+            actions.append(.captureToNote)
+            actions.append(.captureToEasel)
+        }
         return actions
     }
 

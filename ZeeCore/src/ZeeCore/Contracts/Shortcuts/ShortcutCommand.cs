@@ -84,7 +84,8 @@ public sealed class ShortcutCommand {
         ShowBlockedElements,
         OpenNextExtension,
         HideElementWithBoost,
-        NewNote
+        NewNote,
+        NewEasel
     }
 
     #endregion
@@ -345,7 +346,12 @@ public sealed class ShortcutCommand {
     public static readonly ShortcutCommand NewNote = new(Kinds.NewNote, name: "newNote", ShortcutSection.Everyday,
         title: "New Note", symbol: "note.text.badge.plus",
         shortcuts: [new(DevicePlatform.Desktop, Character("n", Command | Control), YieldsToOverrides: true)],
-        searchTerms: "note notes write easel notepad jot memo", availableWhen: facts => facts.ShowsSpace && !facts.IsPrivate);
+        searchTerms: "note notes write notepad jot memo", availableWhen: facts => facts.ShowsSpace && !facts.IsPrivate);
+    /// Makes a new easel, a free canvas, in the Space the window shows. It has
+    /// no keys until someone chooses some.
+    public static readonly ShortcutCommand NewEasel = new(Kinds.NewEasel, name: "newEasel", ShortcutSection.Everyday,
+        title: "New Easel", symbol: "scribble.variable",
+        searchTerms: "easel canvas whiteboard board draw sketch moodboard arc", availableWhen: facts => facts.ShowsSpace && !facts.IsPrivate);
 
     public static IReadOnlyList<ShortcutCommand> All { get; } = [
         NewWindow, NewBlankWindow, NewTab, NewQuickWindow, NewPrivateWindow, CloseTabOrWindow, CloseWindow, OpenLocation, Back,
@@ -358,7 +364,7 @@ public sealed class ShortcutCommand {
         SplitWithNextTab, FocusNextSplitCard, FocusPreviousSplitCard, RemoveTabFromSplit, SeparateSplitTabs,
         MoveSplitCardLeft, MoveSplitCardRight, ToggleDeveloperToolbar, ToggleTranslationToolbar, OpenFile, FindNext,
         FindPrevious, CapturePage, MostRecentTabBackward, ClearSiteCookies, ClearSiteCache, ToggleSelectedTabSaved,
-        OpenNextExtension, HideElementWithBoost, NewNote
+        OpenNextExtension, HideElementWithBoost, NewNote, NewEasel
     ];
 
     public Kinds Kind { get; }
