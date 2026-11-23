@@ -1,8 +1,8 @@
 using System.Text.Json.Nodes;
 
-using ZeeCore.Contracts;
-
 using Xunit;
+
+using ZeeCore.Contracts;
 
 namespace ZeeCore.Tests;
 

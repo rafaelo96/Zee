@@ -27,6 +27,7 @@ class VersionContractTests(unittest.TestCase):
 
         for relative_path in (
             "Config/Version.xcconfig",
+            "Config/Zee.xcconfig",
             "ZeeMac/Configuration/Zee-Info.plist",
             "ZeeMobile/Configuration/ZeeMobile-Info.plist",
             "Documentation/ReleaseNotes.json",
@@ -143,7 +144,7 @@ class VersionContractTests(unittest.TestCase):
     def test_static_check_rejects_configuration_drift(self) -> None:
         project = self.fixture_root / "project.yml"
         contents = project.read_text().replace(
-            "  Release: Config/Version.xcconfig",
+            "  Release: Config/Zee.xcconfig",
             "  Release: Config/ReleaseVersion.xcconfig",
             1,
         )

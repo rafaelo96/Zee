@@ -5725,6 +5725,26 @@
     "zee-repository": {
       "category": "internal",
       "message": "Publish Zee in its own public repository, rafaelo96/Zee, and point every link, download and update feed at it."
+    },
+    "crest-import": {
+      "category": "new",
+      "message": "Bring your Spaces over from Crest: setup lists Crest by name and brings each Space whole, with its pinned and saved tabs, folders, splits, archive, history and Boosts, instead of finding no tabs in it."
+    },
+    "zee-profile-adoption": {
+      "category": "fixed",
+      "message": "Engine profiles named with Zee's short prefix move into Zee's own folder again on first launch, instead of being left behind."
+    },
+    "zee-format-after-rename": {
+      "category": "internal",
+      "message": "Core tests and shared Swift files are ordered again the way the formatters expect after the rename to Zee, so the build checks pass."
+    },
+    "zee-site-on-github-pages": {
+      "category": "improved",
+      "message": "Zee's website and Help now live at rafaelo96.github.io/Zee, and every link that pointed to zee.dev opens them there."
+    },
+    "abi-seed-space-fields": {
+      "category": "internal",
+      "message": "The native ABI checks spell a Space with its Boosts and its own engine, so they open their test session again."
     }
   }
 }

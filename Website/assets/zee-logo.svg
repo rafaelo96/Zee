@@ -1,30 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title description">
   <title id="title">Zee</title>
-  <desc id="description">A three-color banner beside a dark rail on a warm white field.</desc>
-  <defs>
-    <clipPath id="app-icon">
-      <rect x="40" y="40" width="944" height="944" rx="224"/>
-    </clipPath>
-    <clipPath id="zee-banner">
-      <path d="M337 190H687Q727 190 727 230V774Q727 794 711 805Q698 814 682 803L531 702Q512 689 493 702L342 803Q326 814 313 805Q297 794 297 774V230Q297 190 337 190Z"/>
-    </clipPath>
-    <linearGradient id="icon-field" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fffefa"/>
-      <stop offset="1" stop-color="#f0eee8"/>
-    </linearGradient>
-    <filter id="banner-shadow" x="-40%" y="-30%" width="180%" height="190%">
-      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#172238" flood-opacity=".16"/>
-    </filter>
-  </defs>
-  <g clip-path="url(#app-icon)">
-    <rect x="40" y="40" width="944" height="944" fill="url(#icon-field)"/>
-    <path d="M337 190H687Q727 190 727 230V774Q727 794 711 805Q698 814 682 803L531 702Q512 689 493 702L342 803Q326 814 313 805Q297 794 297 774V230Q297 190 337 190Z" fill="#172238" opacity=".13" filter="url(#banner-shadow)"/>
-    <g clip-path="url(#zee-banner)">
-      <path d="M400 503H780V900H400Z" fill="#ef705e"/>
-      <path d="M400 313H780V650L400 504Z" fill="#7fafce"/>
-      <path d="M400 120H780V460L400 314Z" fill="#f4d27b"/>
-      <rect width="440.333" height="1024" fill="#263a4d"/>
-    </g>
+  <desc id="description">A cyan open dial with an arrow leaving it, on a white field.</desc>
+  <rect x="40" y="40" width="944" height="944" rx="224" fill="#ffffff"/>
+  <g transform="translate(219.3 269.7) scale(3.195)">
+    <path d="M97.223 0.175 C147.718 3.278 186.137 46.728 183.034 97.223 C182.056 113.142 177.068 127.862 169.112 140.458 C168.333 141.693 167.524 142.907 166.688 144.1 C164.501 146.295 161.417 147.574 158.081 147.369 C151.917 146.991 147.227 141.687 147.606 135.523 C147.706 133.9 148.147 132.379 148.856 131.025 C149.297 130.386 149.727 129.739 150.147 129.085 C156.337 119.437 160.221 108.121 160.974 95.867 C163.323 57.558 134.175 24.594 95.867 22.236 L95.859 22.235 C57.551 19.886 24.59 49.034 22.236 87.342 C21.481 99.618 23.961 111.344 28.94 121.691 C29.728 123.327 30.577 124.928 31.487 126.492 L61.799 105.325 L56.044 97.37 C52.873 92.986 55.305 86.792 60.611 85.736 L114.36 75.042 C120.589 73.803 125.397 80.45 122.271 85.978 L95.296 133.682 C92.633 138.392 85.989 138.763 82.818 134.38 L74.756 123.235 L45.531 143.642 L43.042 145.38 L37.47 149.271 C34.866 150.966 31.714 151.87 28.374 151.665 C24.915 151.453 21.802 150.084 19.388 147.959 C18.556 146.894 17.747 145.809 16.962 144.707 C15.682 142.911 14.466 141.067 13.317 139.18 C3.92 123.748 -1.017 105.387 0.175 85.987 C3.278 35.492 46.728 -2.927 97.223 0.175 Z" fill="#00bcf3"/>
   </g>
   <rect x="40.5" y="40.5" width="943" height="943" rx="223.5" fill="none" stroke="#172238" stroke-opacity=".1"/>
 </svg>

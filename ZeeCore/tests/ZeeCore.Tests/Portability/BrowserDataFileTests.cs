@@ -1,10 +1,10 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
+using Xunit;
+
 using ZeeCore.Application;
 using ZeeCore.Contracts;
-
-using Xunit;
 
 namespace ZeeCore.Tests;
 

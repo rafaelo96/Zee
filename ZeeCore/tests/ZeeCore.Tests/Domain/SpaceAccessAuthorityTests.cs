@@ -1,6 +1,6 @@
-using ZeeCore.Domain;
-
 using Xunit;
+
+using ZeeCore.Domain;
 
 namespace ZeeCore.Tests;
 

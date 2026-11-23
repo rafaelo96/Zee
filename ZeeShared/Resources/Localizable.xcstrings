@@ -49,6 +49,12 @@
     "Groups" : {
 
     },
+    "Imported Crest Space %lld" : {
+
+    },
+    "Imported Crest Tabs" : {
+
+    },
     "Move to Group" : {
 
     },
@@ -68,6 +74,9 @@
 
     },
     "Show group tab counts" : {
+
+    },
+    "Spaces, pinned and saved tabs, folders, splits, archive, history, and Boosts" : {
 
     },
     "Tint Group Name" : {

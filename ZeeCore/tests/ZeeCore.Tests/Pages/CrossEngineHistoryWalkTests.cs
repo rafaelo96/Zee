@@ -1,11 +1,11 @@
 using System.Text;
 using System.Text.Json.Nodes;
 
-using ZeeCore.Application;
-using ZeeCore.Contracts;
-
 using Xunit;
 using Xunit.Abstractions;
+
+using ZeeCore.Application;
+using ZeeCore.Contracts;
 
 namespace ZeeCore.Tests;
 

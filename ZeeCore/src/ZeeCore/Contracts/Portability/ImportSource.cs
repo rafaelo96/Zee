@@ -79,8 +79,16 @@ public sealed class ImportSource {
         dataFolder: ApplicationSupport, description: "Profiles, bookmarks, and open tabs", symbol: "globe", accent: SpaceAccent.Teal,
         spaceHeaderStyle: ImportSpaceHeaderStyle.Identity, savedSectionTitle: "BOOKMARKS", isListed: false);
 
+    /// The browser Zee forked from, whose session is Zee's own layout: its
+    /// Spaces come over whole, as a browser-data file brings them.
+    public static readonly ImportSource Crest = new(name: "crest", title: "Crest", bundleIdentifier: "com.pauldavis.crest",
+        dataFolder: "Library/Application Support/Crest/ControlPlane",
+        description: "Spaces, pinned and saved tabs, folders, splits, archive, history, and Boosts", symbol: "square.stack.fill",
+        accent: SpaceAccent.Indigo, spaceHeaderStyle: ImportSpaceHeaderStyle.Identity, spaceName: "Imported Crest Tabs",
+        numberedSpaceName: "Imported Crest Space %lld", outlivingFile: CrestSession.FileName);
+
     public static IReadOnlyList<ImportSource> All { get; } = [Arc, Zen, Chrome, Safari, Firefox, ChromeBeta, ChromeDev, ChromeCanary,
-        Chromium, Brave, Edge, Vivaldi, Opera, Dia, Comet, Aside, EgoLite, OtherChromium];
+        Chromium, Brave, Edge, Vivaldi, Opera, Dia, Comet, Aside, EgoLite, OtherChromium, Crest];
 
     #endregion
 

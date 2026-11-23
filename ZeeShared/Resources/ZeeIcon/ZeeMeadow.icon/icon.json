@@ -1,320 +1,41 @@
 {
-  "fill-specializations" : [
+  "fill": {
+    "solid": "srgb:0.20392,0.34118,0.21961,1.00000"
+  },
+  "groups": [
     {
-      "value" : {
-        "automatic-gradient" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
-      }
-    },
-    {
-      "appearance" : "dark",
-      "value" : "system-dark"
-    }
-  ],
-  "groups" : [
-    {
-      "layers" : [
+      "name": "Zee",
+      "layers": [
         {
-          "fill-specializations" : [
+          "image-name": "ZeeTemporaryGlyph.svg",
+          "name": "ZeeTemporaryGlyph",
+          "fill-specializations": [
             {
-              "value" : "none"
+              "value": "automatic"
             },
             {
-              "appearance" : "dark",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeRail.svg",
-          "name" : "ZeeRail",
-          "opacity-specializations" : [
-            {
-              "value" : 1
-            },
-            {
-              "appearance" : "dark",
-              "value" : 0
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "value" : "none"
-            },
-            {
-              "appearance" : "dark",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeButter.svg",
-          "name" : "ZeeButter",
-          "opacity-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : 0
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "value" : "none"
-            },
-            {
-              "appearance" : "dark",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeSky.svg",
-          "name" : "ZeeSky",
-          "opacity-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : 0
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeDarkRail.svg",
-          "name" : "ZeeDarkRail",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
-            {
-              "appearance" : "dark",
-              "value" : 1
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeDarkButter.svg",
-          "name" : "ZeeDarkButter",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
-            {
-              "appearance" : "dark",
-              "value" : 1
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeDarkSky.svg",
-          "name" : "ZeeDarkSky",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
-            {
-              "appearance" : "dark",
-              "value" : 1
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "tinted",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeTintedRail.svg",
-          "name" : "ZeeTintedRail",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 1
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "tinted",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeTintedButter.svg",
-          "name" : "ZeeTintedButter",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 1
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "tinted",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeTintedSky.svg",
-          "name" : "ZeeTintedSky",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 1
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "tinted",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeTintedCoral.svg",
-          "name" : "ZeeTintedCoral",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 1
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeDarkCoral.svg",
-          "name" : "ZeeDarkCoral",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
-            {
-              "appearance" : "dark",
-              "value" : 1
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "value" : "none"
-            },
-            {
-              "appearance" : "dark",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeCoral.svg",
-          "name" : "ZeeCoral",
-          "opacity-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : 0
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
-            }
-          ]
-        },
-        {
-          "fill-specializations" : [
-            {
-              "value" : "none"
-            },
-            {
-              "appearance" : "dark",
-              "value" : "none"
-            }
-          ],
-          "image-name" : "ZeeBackground.svg",
-          "name" : "ZeeBackground",
-          "opacity-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : 0
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0
+              "appearance": "dark",
+              "value": {
+                "solid": "srgb:0.68235,0.73725,0.68627,1.00000"
+              }
             }
           ]
         }
       ],
-      "name" : "Zee Appearance Layers",
-      "shadow" : {
-        "kind" : "neutral",
-        "opacity" : 0.6
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.2
       },
-      "translucency" : {
-        "enabled" : true,
-        "value" : 0.2
+      "translucency": {
+        "enabled": false,
+        "value": 0.4
       }
     }
   ],
-  "supported-platforms" : {
-    "circles" : [
+  "supported-platforms": {
+    "circles": [
       "watchOS"
     ],
-    "squares" : "shared"
+    "squares": "shared"
   }
 }

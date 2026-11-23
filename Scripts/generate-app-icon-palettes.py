@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
-"""Generate bundled palette icons from Zee's existing Icon Composer artwork."""
-import colorsys
+"""Generate Zee's palette app icons, selector previews and Dock images from the Zee glyph.
+
+The default icon (`Zee.icon`) shows the glyph in Zee cyan on white. Each palette
+icon shows the same glyph in white on that palette's field color. The macOS
+renderer (`ictool`) exports the finished Dock images in light and dark.
+"""
 import json
 import re
 import subprocess
@@ -8,91 +12,79 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-COLOR_SOURCE = ROOT / "ZeeShared/Domain/BrowserSpace/Branding/BrowserSpaceBrandColor.swift"
-PALETTE_SOURCE = ROOT / "ZeeShared/Domain/BrowserSpace/Branding/BrowserSpaceHousePalette.swift"
 ICON_ROOT = ROOT / "ZeeShared/Resources/ZeeIcon"
 PREVIEWS = ROOT / "ZeeShared/Resources/AppIconPreviews.xcassets"
+GLYPH = ICON_ROOT / "Zee.icon/Assets/ZeeTemporaryGlyph.svg"
+GLYPH_NAME = GLYPH.name
+
+DEFAULT_FIELD = "#FFFFFF"
+# Each palette's field color, as its Space fields wear it.
+PALETTE_FIELDS = {
+    "Dragon": "#7A1E12",
+    "Iron": "#2C3A3C",
+    "Lion": "#722030",
+    "Meadow": "#345738",
+    "River": "#22486C",
+    "Storm": "#313848",
+    "Sun": "#8B3D1B",
+    "Vigil": "#272A2E",
+    "Winter": "#3E4E5E",
+}
+
 
 def write_json(path, value):
     path.write_text(json.dumps(value, indent=2) + "\n")
 
-def rgb(color):
-    return tuple(int(color[i:i + 2], 16) / 255 for i in (1, 3, 5))
 
-def hex_color(channels):
-    return "#" + "".join(f"{round(channel * 255):02X}" for channel in channels)
+def srgb(color):
+    channels = (int(color[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    return "srgb:" + ",".join(f"{channel:.5f}" for channel in channels) + ",1.00000"
 
-def dark_flag_color(color, minimum_lightness):
-    # Space fields are intentionally dark, but an app icon's small flag must
-    # remain legible against the system dark background. Keep the palette's hue/saturation.
-    hue, lightness, saturation = colorsys.rgb_to_hls(*rgb(color))
-    return hex_color(colorsys.hls_to_rgb(hue, max(lightness, minimum_lightness), saturation))
 
-def dark_rail_color(charge):
-    # A pale, palette-tinted binding defines the left silhouette like the
-    # original Zee icon, instead of merging into the tile background.
-    return hex_color(channel + (1 - channel) * 0.68 for channel in rgb(charge))
+def lightened(color, amount):
+    channels = (int(color[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    return "#" + "".join(f"{round((channel + (1 - channel) * amount) * 255):02X}" for channel in channels)
 
-def main():
-    colors = {}
-    for name, red, green, blue in re.findall(
-        r"static let (\w+) = BrowserSpaceBrandColor\(red: ([\d.]+), green: ([\d.]+), blue: ([\d.]+)\)",
-        COLOR_SOURCE.read_text(),
-    ):
-        colors[name] = "#" + "".join(f"{round(float(v) * 255):02X}" for v in (red, green, blue))
-    palettes = re.findall(r"case \.(\w+): \[\.(\w+), \.(\w+), \.(\w+)\]", PALETTE_SOURCE.read_text())
-    PREVIEWS.mkdir(exist_ok=True)
-    write_json(PREVIEWS / "Contents.json", {"info": {"author": "xcode", "version": 1}})
-    template = ICON_ROOT / "Zee.icon"
-    for name, field, primary, charge in palettes:
-        icon_name = "Zee" + name.title()
-        destination = ICON_ROOT / (icon_name + ".icon")
-        (destination / "Assets").mkdir(parents=True, exist_ok=True)
-        (destination / "icon.json").write_text((template / "icon.json").read_text())
-        for source in (template / "Assets").glob("*.svg"):
-            content = source.read_text()
-            if "Tinted" not in source.name and "Background" not in source.name:
-                role = field if "Rail" in source.name or "Coral" in source.name else charge if "Butter" in source.name else primary
-                color = colors[role]
-                if "Dark" in source.name:
-                    if "Rail" in source.name:
-                        color = dark_rail_color(colors[charge])
-                    else:
-                        minimum = 0.34 if "Coral" in source.name else 0.64 if "Butter" in source.name else 0.50
-                        color = dark_flag_color(color, minimum)
-                content = re.sub(r'fill="#[0-9A-Fa-f]{6}"', f'fill="{color}"', content)
-            (destination / "Assets" / source.name).write_text(content)
-        # Flatten the exact standard layers for the selector; the OS renders the
-        # selected .icon with its own light, dark, tinted, and clear treatment.
-        layers = []
-        for layer in ["Background", "Coral", "Sky", "Butter", "Rail"]:
-            content = (destination / "Assets" / f"Zee{layer}.svg").read_text()
-            inner = re.search(r"<svg[^>]*>(.*)</svg>", content, re.S).group(1)
-            layers.append(inner.replace("zee-banner", f"zee-banner-{layer}"))
-        preview = PREVIEWS / (icon_name + "Preview.imageset")
-        preview.mkdir(exist_ok=True)
-        (preview / "icon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">' + "".join(layers) + "</svg>\n")
-        write_json(preview / "Contents.json", {
-            "images": [{"filename": "icon.svg", "idiom": "universal"}],
-            "info": {"author": "xcode", "version": 1},
-            "properties": {"preserves-vector-representation": True},
-        })
-    layers = []
-    for layer in ["Background", "Coral", "Sky", "Butter", "Rail"]:
-        content = (template / "Assets" / f"Zee{layer}.svg").read_text()
-        inner = re.search(r"<svg[^>]*>(.*)</svg>", content, re.S).group(1)
-        layers.append(inner.replace("zee-banner", f"zee-banner-{layer}"))
-    preview = PREVIEWS / "ZeePreview.imageset"
-    preview.mkdir(exist_ok=True)
-    (preview / "icon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">' + "".join(layers) + "</svg>\n")
-    write_json(preview / "Contents.json", {
-        "images": [{"filename": "icon.svg", "idiom": "universal"}],
-        "info": {"author": "xcode", "version": 1},
-        "properties": {"preserves-vector-representation": True},
-    })
-    # Prepare complete Mac icons at 1x and 2x with Apple's renderer. Runtime callers
-    # load these directly, avoiding implicit rendition selection or drawing caches.
-    # Clear/Tinted still use the shared monochrome icon through Icon Services.
+
+def icon_document(field, dark_glyph=None):
+    layer = {"image-name": GLYPH_NAME, "name": GLYPH.stem}
+    if dark_glyph:
+        # Palette fields are dark, so the system's dark rendition would draw the
+        # glyph nearly black on black. Give it a light tint of the palette instead.
+        layer["fill-specializations"] = [
+            {"value": "automatic"},
+            {"appearance": "dark", "value": {"solid": srgb(dark_glyph)}},
+        ]
+    return {
+        "fill": {"solid": srgb(field)},
+        "groups": [{
+            "name": "Zee",
+            "layers": [layer],
+            "shadow": {"kind": "neutral", "opacity": 0.2},
+            "translucency": {"enabled": False, "value": 0.4},
+        }],
+        "supported-platforms": {"circles": ["watchOS"], "squares": "shared"},
+    }
+
+
+def glyph_svg(color):
+    return re.sub(r'fill="#[0-9A-Fa-f]{6}"', f'fill="{color}"', GLYPH.read_text())
+
+
+def write_palette_icon(name, field):
+    destination = ICON_ROOT / ("Zee" + name + ".icon")
+    assets = destination / "Assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    for stale in assets.glob("*.svg"):
+        stale.unlink()
+    (assets / GLYPH_NAME).write_text(glyph_svg("#FFFFFF"))
+    write_json(destination / "icon.json", icon_document(field, lightened(field, 0.6)))
+
+
+def export_images():
+    # Selector previews (60pt at 3x, light and dark) and complete Mac Dock icons
+    # at 1x and 2x, all from Apple's renderer. Runtime callers load these
+    # directly; Clear and Tinted go through Icon Services.
     developer = Path(subprocess.check_output(["xcode-select", "-p"], text=True).strip())
     exporter = developer.parent / "Applications/Icon Composer.app/Contents/Executables/ictool"
     with tempfile.TemporaryDirectory(prefix="zee-icon-export-") as temporary:
@@ -101,6 +93,23 @@ def main():
         subprocess.run(["xcrun", "swiftc", str(ROOT / "Scripts/pad-mac-app-icon.swift"),
                         "-o", str(padding_tool)], check=True)
         for source in ICON_ROOT.glob("Zee*.icon"):
+            preview = PREVIEWS / (source.stem + "Preview.imageset")
+            preview.mkdir(exist_ok=True)
+            for stale in preview.glob("*.svg"):
+                stale.unlink()
+            for filename, rendition in [("icon.png", "Default"), ("icon-dark.png", "Dark")]:
+                subprocess.run([str(exporter), str(source), "--export-image", "--output-file", str(preview / filename),
+                                "--platform", "iOS", "--rendition", rendition,
+                                "--width", "60", "--height", "60", "--scale", "3"],
+                               check=True, stdout=subprocess.DEVNULL)
+            write_json(preview / "Contents.json", {
+                "images": [
+                    {"filename": "icon.png", "idiom": "universal", "scale": "3x"},
+                    {"appearances": [{"appearance": "luminosity", "value": "dark"}],
+                     "filename": "icon-dark.png", "idiom": "universal", "scale": "3x"},
+                ],
+                "info": {"author": "xcode", "version": 1},
+            })
             for appearance, rendition in [("Light", "Default"), ("Dark", "Dark")]:
                 target = PREVIEWS / (source.stem + "Dock" + appearance + ".imageset")
                 target.mkdir(exist_ok=True)
@@ -112,10 +121,21 @@ def main():
                                     "--platform", "macOS", "--rendition", rendition,
                                     "--width", "412", "--height", "412", "--scale", str(scale)],
                                    check=True, stdout=subprocess.DEVNULL)
-                    subprocess.run([str(padding_tool), str(face), str(target / filename), str(512 * scale)], check=True)
+                    subprocess.run([str(padding_tool), str(face), str(target / filename), str(512 * scale)],
+                                   check=True)
                     images.append({"filename": filename, "idiom": "mac", "scale": f"{scale}x"})
                 write_json(target / "Contents.json", {"images": images, "info": {"author": "xcode", "version": 1}})
-    print(f"Generated {len(palettes)} palette icons and previews.")
+
+
+def main():
+    PREVIEWS.mkdir(exist_ok=True)
+    write_json(PREVIEWS / "Contents.json", {"info": {"author": "xcode", "version": 1}})
+    write_json(ICON_ROOT / "Zee.icon/icon.json", icon_document(DEFAULT_FIELD))
+    for name, field in PALETTE_FIELDS.items():
+        write_palette_icon(name, field)
+    export_images()
+    print(f"Generated {len(PALETTE_FIELDS)} palette icons and previews.")
+
 
 if __name__ == "__main__":
     main()

@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/rafaelo96/Zee/security/advisories/new
     about: Report security issues privately instead of opening a public issue.
   - name: Zee Help
-    url: https://zee.dev/guides/
+    url: https://rafaelo96.github.io/Zee/guides/
     about: Read setup, extension, privacy, and troubleshooting guides.

@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zee.dev/sitemap.xml
-Sitemap: https://zee.dev/guides/sitemap.xml
+Sitemap: https://rafaelo96.github.io/Zee/sitemap.xml
+Sitemap: https://rafaelo96.github.io/Zee/guides/sitemap.xml

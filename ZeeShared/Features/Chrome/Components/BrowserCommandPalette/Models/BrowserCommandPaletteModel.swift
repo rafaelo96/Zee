@@ -543,8 +543,7 @@ final class BrowserCommandPaletteModel {
     }
 
     /// The core's answer, ranked on a background thread.
-    private nonisolated static func answer(_ question: PaletteSuggestions, from core: ZeeCore) async -> PaletteAnswer?
-    {
+    private nonisolated static func answer(_ question: PaletteSuggestions, from core: ZeeCore) async -> PaletteAnswer? {
         await Task.detached(priority: .userInitiated) { try? core.query(question) }.value
     }
 }

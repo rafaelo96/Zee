@@ -5,8 +5,8 @@ const config = {
   title: 'Zee Help',
   tagline: 'Help articles for Zee.',
   favicon: 'img/zee-logo.svg',
-  url: 'https://zee.dev',
-  baseUrl: '/guides/',
+  url: 'https://rafaelo96.github.io',
+  baseUrl: '/Zee/guides/',
   organizationName: 'rafaelo96',
   projectName: 'Zee-Website',
   trailingSlash: true,
@@ -44,7 +44,7 @@ const config = {
     ],
   ],
   themeConfig: {
-    image: 'https://zee.dev/assets/og-card-brand.jpg',
+    image: 'https://rafaelo96.github.io/Zee/assets/og-card-brand.jpg',
     metadata: [
       {
         name: 'description',
@@ -67,8 +67,8 @@ const config = {
         {to: '/keyboard-shortcuts/', label: 'Shortcuts', position: 'left'},
         {to: '/extension-api-compatibility/', label: 'Compatibility', position: 'left'},
         {href: 'https://github.com/rafaelo96/Zee/releases/latest', label: 'Download for Mac', position: 'right'},
-        {href: 'https://zee.dev/support/', label: 'Support', position: 'right'},
-        {href: 'https://zee.dev/', label: 'Product site', position: 'right'},
+        {href: 'https://rafaelo96.github.io/Zee/support/', label: 'Support', position: 'right'},
+        {href: 'https://rafaelo96.github.io/Zee/', label: 'Product site', position: 'right'},
       ],
     },
     docs: {
@@ -83,7 +83,7 @@ const config = {
         {
           title: 'Zee',
           items: [
-            {label: 'Product site', href: 'https://zee.dev/'},
+            {label: 'Product site', href: 'https://rafaelo96.github.io/Zee/'},
             {label: 'Download for Mac', href: 'https://github.com/rafaelo96/Zee/releases/latest'},
           ],
         },
@@ -94,14 +94,14 @@ const config = {
             {label: 'Keyboard shortcuts', to: '/keyboard-shortcuts/'},
             {label: 'Split View', to: '/split-view/'},
             {label: 'Extension compatibility', to: '/extension-api-compatibility/'},
-            {label: 'Support', href: 'https://zee.dev/support/'},
+            {label: 'Support', href: 'https://rafaelo96.github.io/Zee/support/'},
           ],
         },
         {
           title: 'Community',
           items: [
             {label: 'GitHub Issues', href: 'https://github.com/rafaelo96/Zee/issues/new/choose'},
-            {label: 'Privacy', href: 'https://zee.dev/privacy/'},
+            {label: 'Privacy', href: 'https://rafaelo96.github.io/Zee/privacy/'},
           ],
         },
       ],
