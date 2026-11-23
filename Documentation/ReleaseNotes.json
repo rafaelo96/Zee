@@ -5773,6 +5773,10 @@
     "localizable-catalog-sync": {
       "category": "internal",
       "message": "The string catalog lists every string the Mac app shows again, including those of notes, clips, setup and the sidebar, so they can be translated."
+    },
+    "space-default-ocean": {
+      "category": "improved",
+      "message": "A Space with no colors of its own now wears Zee's ocean blue instead of violet."
     }
   }
 }
