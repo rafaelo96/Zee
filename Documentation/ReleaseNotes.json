@@ -5745,6 +5745,10 @@
     "abi-seed-space-fields": {
       "category": "internal",
       "message": "The native ABI checks spell a Space with its Boosts and its own engine, so they open their test session again."
+    },
+    "zee-brand-colors": {
+      "category": "improved",
+      "message": "Zee wears its own colors throughout: controls and highlights use Zee's ocean blue instead of the system accent, indigo and pink give way to Zee's blues and coral, and setup opens on Zee's light cloud-and-ocean look."
     }
   }
 }

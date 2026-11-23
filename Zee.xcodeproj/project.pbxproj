@@ -845,6 +845,7 @@
 		0FE9C364A40D8C573F7E1A3D /* BrowserSavedTabsDropSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CB2033F2C6E12060A92B21 /* BrowserSavedTabsDropSection.swift */; };
 		0FF13C27449FF9B9A9B732B1 /* ZeeSpaceChipSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FFB625FE53D33A4F247613 /* ZeeSpaceChipSurface.swift */; };
 		0FFBF13C7E93A6286D5B82E4 /* TabCopied+CoreState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E32498841D49FEA22F1A42 /* TabCopied+CoreState.swift */; };
+		0FFDE237B9DF53B6267839AF /* Brand.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72978E5C2D264E891F2537B3 /* Brand.xcassets */; };
 		100C648B039D226F0C55B325 /* BrowserCoreSessionAuthorityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C19F59ECE00BDECA0A1F46 /* BrowserCoreSessionAuthorityTests.swift */; };
 		100FEB086FA33E5F73D0ED25 /* BrowserMacQuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228DD9E17B4F582AF7DB6FA8 /* BrowserMacQuit.swift */; };
 		101410BFA346C6E7771E03C8 /* BrowserPinnedTabsDropSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74901053FA3AAB687A440CE7 /* BrowserPinnedTabsDropSection.swift */; };
@@ -2049,6 +2050,7 @@
 		26BACC6BDF0E7D5D2C15F554 /* BrowserSidebarTabRenameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3213D80C6A7E9324D2B688F6 /* BrowserSidebarTabRenameField.swift */; };
 		26C1C4C946C87E242A6D95B4 /* BrowserUtilityPresentationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C16A6F4FF686C03C00788B /* BrowserUtilityPresentationState.swift */; };
 		26D5A59CCEC1D9B920B517F8 /* BrowserEmptySelectionPaletteActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B4ADF8798E3DBAC40D5C18 /* BrowserEmptySelectionPaletteActions.swift */; };
+		26E3ABC24B885C7332208CDD /* Brand.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72978E5C2D264E891F2537B3 /* Brand.xcassets */; };
 		26E4DDBE4B7A6580B33E847A /* ReloadPage+WebKitEnginePages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11925AA8D9EB2CBE759F950F /* ReloadPage+WebKitEnginePages.swift */; };
 		26E515943A0888F91F466232 /* BrowserStore+TabLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB508B816F7A631C4C7575C /* BrowserStore+TabLifecycle.swift */; };
 		26EA565B44AB4894180874C0 /* SpaceScrollGestureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB42C7E29CEDA39A20D2973F /* SpaceScrollGestureTests.swift */; };
@@ -2224,6 +2226,7 @@
 		2AAA4D17B78E71CD888E4D90 /* BrowserStoreFirstObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6A1CF890DDDE40001C1609 /* BrowserStoreFirstObservable.swift */; };
 		2AAA61D5C1165C6E8BA67EBF /* BrowserCollapsedSidebarHoverTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7DD0CE9F0C418C1187FE3 /* BrowserCollapsedSidebarHoverTracker.swift */; };
 		2AC260FCE01A51177E13E575 /* TabSavedImageChanged+CoreState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE0AFC85E663406C4113ED1 /* TabSavedImageChanged+CoreState.swift */; };
+		2AC65E5B98241E92120358DC /* Brand.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72978E5C2D264E891F2537B3 /* Brand.xcassets */; };
 		2ACF2497750123BB95335B06 /* SystemDeviceAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CCDF4D7CB1C7F0D7BAB7F7 /* SystemDeviceAuthenticator.swift */; };
 		2AD40F62116411B0EC710534 /* BrowserGeolocationFallbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E769A79E3DDB92BBB2C47862 /* BrowserGeolocationFallbackTests.swift */; };
 		2AE0E1DA200CF27DA30CAE01 /* TabFaviconAssigned+CoreState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C10112A41D3186FE5C4FDE /* TabFaviconAssigned+CoreState.swift */; };
@@ -10857,6 +10860,7 @@
 		D0654348B0E00849FC81AE50 /* ArchiveChanged+CoreState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8230EC4E6E0AE5E3F236D5F /* ArchiveChanged+CoreState.swift */; };
 		D06A5C832340E8A94A7602C8 /* BrowserSidebarSplitGroupRowMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B23ED81278890CC5CC17E52 /* BrowserSidebarSplitGroupRowMetrics.swift */; };
 		D06ECE9CC85802370ED82A9D /* BrowserSidebarHoverTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB1BE83D03038196B6C995A /* BrowserSidebarHoverTrackingView.swift */; };
+		D070A7DB4F7A28DC6D237D32 /* Brand.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72978E5C2D264E891F2537B3 /* Brand.xcassets */; };
 		D077897C1735206C982F5871 /* BrowserPageMediaSessionChanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD1D8745CFEF3DEDB29577F /* BrowserPageMediaSessionChanged.swift */; };
 		D07E0AEF1D29E8C3F3FA05C5 /* BrowserCommandPaletteRowButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794F4CC65E13180DD18D6C71 /* BrowserCommandPaletteRowButtonStyle.swift */; };
 		D0826BB228325851B8D953C6 /* ZeeMeadow.icon in Resources */ = {isa = PBXBuildFile; fileRef = 045F056B5A9085F4CD5CBC9E /* ZeeMeadow.icon */; };
@@ -14575,6 +14579,7 @@
 		71FB4777AFE6CCABD91A0AE8 /* BrowserSplitCardLiftFloatingPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSplitCardLiftFloatingPreview.swift; sourceTree = "<group>"; };
 		7204EB03FBB66C9623B51FA1 /* BrowserBadgeStudioControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserBadgeStudioControls.swift; sourceTree = "<group>"; };
 		72818DCAF67025DD635980F4 /* LinkNavigationDecision+Peek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LinkNavigationDecision+Peek.swift"; sourceTree = "<group>"; };
+		72978E5C2D264E891F2537B3 /* Brand.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Brand.xcassets; sourceTree = "<group>"; };
 		72A5571C2D9C166AC22FB172 /* BrowserWindowTitleBarAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserWindowTitleBarAction.swift; sourceTree = "<group>"; };
 		72BE2D1D1AD92593173AD0C5 /* BrowserWindowAddressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserWindowAddressBar.swift; sourceTree = "<group>"; };
 		72C38F259FCA4C65902044CF /* BrowserTabPreviewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserTabPreviewState.swift; sourceTree = "<group>"; };
@@ -16631,6 +16636,7 @@
 		0E65FA13A657427835341E0C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				72978E5C2D264E891F2537B3 /* Brand.xcassets */,
 				8B89EA8145CF2E0C35EB8D2E /* EngineLogos.xcassets */,
 			);
 			path = Resources;
@@ -26333,6 +26339,7 @@
 			files = (
 				855AF9F964431B48510A2FE1 /* AboutBrandIcons.xcassets in Resources */,
 				B5ECC2CF7F68A4399BCFE944 /* AppIconPreviews.xcassets in Resources */,
+				D070A7DB4F7A28DC6D237D32 /* Brand.xcassets in Resources */,
 				392A8D1B80BD6102F21A390B /* EmojiCatalog.json in Resources */,
 				1C04565710FB8C3CF6468FDF /* EngineLogos.xcassets in Resources */,
 				983EFB80F09E7825626CD62C /* GettingStartedLogos.xcassets in Resources */,
@@ -26395,6 +26402,7 @@
 			files = (
 				1901E70E319CAD6E31FCCC97 /* AboutBrandIcons.xcassets in Resources */,
 				31D26D0569F7D1C571896B96 /* AppIconPreviews.xcassets in Resources */,
+				26E3ABC24B885C7332208CDD /* Brand.xcassets in Resources */,
 				9BBD672D352D8D18908497E8 /* EmojiCatalog.json in Resources */,
 				0B3C95FBEFA5EA6CB363B7CA /* EngineLogos.xcassets in Resources */,
 				BE0FC609D8AA825FAAF98B1E /* GettingStartedLogos.xcassets in Resources */,
@@ -26425,6 +26433,7 @@
 			files = (
 				11E858744D0AD3A1EBF53A8F /* AboutBrandIcons.xcassets in Resources */,
 				04A286E0ECF136D3DB9B19A3 /* AppIconPreviews.xcassets in Resources */,
+				2AC65E5B98241E92120358DC /* Brand.xcassets in Resources */,
 				E311AEB547FE89334BA0194F /* EmojiCatalog.json in Resources */,
 				23921D56675471CFE5F75E46 /* EngineLogos.xcassets in Resources */,
 				9F0B454621766896AEF42C35 /* GettingStartedLogos.xcassets in Resources */,
@@ -26456,6 +26465,7 @@
 			files = (
 				B013B5569632006143B0739A /* AboutBrandIcons.xcassets in Resources */,
 				525BB0FD266FC7D1AC172B05 /* AppIconPreviews.xcassets in Resources */,
+				0FFDE237B9DF53B6267839AF /* Brand.xcassets in Resources */,
 				4A8E4F47DE2CF508537AA400 /* EmojiCatalog.json in Resources */,
 				2C79998558A1FDF63D89902B /* EngineLogos.xcassets in Resources */,
 				B01E0E1589A8E6233283853E /* GettingStartedLogos.xcassets in Resources */,
@@ -40004,6 +40014,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "ZeeWinter ZeeLion ZeeStorm ZeeDragon ZeeMeadow ZeeIron ZeeRiver ZeeSun ZeeVigil";
 				ASSETCATALOG_COMPILER_APPICON_NAME = Zee;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "$(ZEE_NATIVE_CORE_ENTITLEMENTS)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -40274,6 +40285,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "ZeeWinter ZeeLion ZeeStorm ZeeDragon ZeeMeadow ZeeIron ZeeRiver ZeeSun ZeeVigil";
 				ASSETCATALOG_COMPILER_APPICON_NAME = Zee;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "$(ZEE_NATIVE_CORE_ENTITLEMENTS)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -40300,6 +40312,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "ZeeWinter ZeeLion ZeeStorm ZeeDragon ZeeMeadow ZeeIron ZeeRiver ZeeSun ZeeVigil";
 				ASSETCATALOG_COMPILER_APPICON_NAME = Zee;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "$(ZEE_MAC_ENTITLEMENTS)";
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -40412,6 +40425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "ZeeWinter ZeeLion ZeeStorm ZeeDragon ZeeMeadow ZeeIron ZeeRiver ZeeSun ZeeVigil";
 				ASSETCATALOG_COMPILER_APPICON_NAME = Zee;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "$(ZEE_MAC_ENTITLEMENTS)";
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;

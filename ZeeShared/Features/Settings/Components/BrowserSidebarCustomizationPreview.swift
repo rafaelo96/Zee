@@ -123,7 +123,7 @@ private final class BrowserAppearancePreviewState {
             title: String(localized: "Research"), url: URL(string: "https://preview.invalid/research"),
             symbol: "magnifyingglass", placement: .current, splitGroupID: split.id)
         let space = SpaceState.Seed(
-            name: "Preview", symbol: "paintpalette", accent: .indigo, branding: SpaceAccent.indigo.house,
+            name: "Preview", symbol: "paintpalette", accent: .indigo, branding: SpaceAccent.indigo.zeeLook,
             folders: [folder], tabs: pins + [reading, plans, recipes, notes, tickets, docs, research],
             splitGroups: [split])
         siteAccents = Dictionary(uniqueKeysWithValues: zip(pins.map(\.id), pinSources.map(\.2)))

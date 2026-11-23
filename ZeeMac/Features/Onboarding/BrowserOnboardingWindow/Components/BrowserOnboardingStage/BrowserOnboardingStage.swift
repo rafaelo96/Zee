@@ -1,9 +1,9 @@
 import SwiftUI
 
 /// The stage every step of setup plays on:
-/// a Big Sur landscape, under the Zee mark, the progress rail and the step's page.
-/// The stage is always dark, whatever the system appearance, so the page
-/// reads over any field.
+/// Zee's cloud-white field, under the Zee mark, the progress rail and the
+/// step's page. The stage is always light, whatever the system appearance,
+/// as the identity is: midnight ink on cloud and mist, with ocean blue.
 struct BrowserOnboardingStage<Content: View>: View {
     let step: SetupStep
     @ViewBuilder let content: Content
@@ -37,7 +37,7 @@ struct BrowserOnboardingStage<Content: View>: View {
                 }
             }
         }
-        .environment(\.colorScheme, .dark)
+        .environment(\.colorScheme, .light)
         .zeeFieldSurfaceRole(.brand)
     }
 }

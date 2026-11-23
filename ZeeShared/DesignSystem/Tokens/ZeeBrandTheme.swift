@@ -59,10 +59,10 @@ enum ZeeBrandTheme {
 
     /// Brand accent for interactive emphasis and tint.
     static let accent = dynamic(light: accentLightComponents, dark: accentDarkComponents)
-    /// What marks the chosen item on Zee's always-dark brand stage (the
-    /// setup flow): white, because the stage's own blues would hide a blue
-    /// ring on a blue swatch.
-    static let stageSelection = ZeeBrandPalette.cloud
+    /// What marks the chosen item on Zee's brand stage (the setup flow),
+    /// which is always light: midnight, because a blue ring would hide on a
+    /// blue swatch and white would hide on the cloud field.
+    static let stageSelection = ZeeBrandPalette.midnight
     /// Brand accent for text-weight controls. See `accentTextLightComponents`.
     static let accentText = dynamic(
         light: accentTextLightComponents,

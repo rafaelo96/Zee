@@ -62,7 +62,7 @@ struct BrowserImportSpaceCustomizationView: View {
             get: {
                 review.map(\.customization.branding)
                     ?? previewSpace.map(\.settings.look)
-                    ?? SpaceAccent.indigo.house
+                    ?? SpaceAccent.indigo.zeeLook
             },
             set: { branding in
                 guard let current = review?.customization else { return }
