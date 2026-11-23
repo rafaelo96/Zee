@@ -5769,6 +5769,10 @@
     "note-clips": {
       "category": "new",
       "message": "Send what you find to a note: right-click a page to add the selected text, a link or a captured region to your latest note in the Space, with the page it came from. Captured images stay on this Mac."
+    },
+    "localizable-catalog-sync": {
+      "category": "internal",
+      "message": "The string catalog lists every string the Mac app shows again, including those of notes, clips, setup and the sidebar, so they can be translated."
     }
   }
 }
