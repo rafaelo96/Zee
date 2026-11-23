@@ -1831,6 +1831,9 @@
     "Add Extension" : {
 
     },
+    "Add Image…" : {
+
+    },
     "Add Link to Note" : {
 
     },
@@ -2336,6 +2339,9 @@
           }
         }
       }
+    },
+    "Arrow" : {
+
     },
     "Artists" : {
 
@@ -3162,6 +3168,9 @@
     "Capture in Portrait Mode" : {
 
     },
+    "Capture to Easel" : {
+
+    },
     "Capture to Note" : {
 
     },
@@ -3816,6 +3825,9 @@
         }
       }
     },
+    "Close this tab, or make a new easel from the File menu." : {
+
+    },
     "Close this tab, or write a new note from the File menu." : {
 
     },
@@ -3948,6 +3960,9 @@
           }
         }
       }
+    },
+    "Color: %@" : {
+
     },
     "Colors" : {
 
@@ -4702,6 +4717,12 @@
     "Delete Boost" : {
 
     },
+    "Delete Easel" : {
+
+    },
+    "Delete Easel…" : {
+
+    },
     "Delete Folder" : {
       "localizations" : {
         "ar" : {
@@ -4754,6 +4775,9 @@
     "Delete Selected Passwords?" : {
 
     },
+    "Delete Selection" : {
+
+    },
     "Delete Space and Data" : {
       "localizations" : {
         "ar" : {
@@ -4779,6 +4803,9 @@
           }
         }
       }
+    },
+    "Delete this easel?" : {
+
     },
     "Delete this note?" : {
 
@@ -5243,6 +5270,9 @@
         }
       }
     },
+    "Draw" : {
+
+    },
     "Drop" : {
       "localizations" : {
         "ar" : {
@@ -5333,6 +5363,12 @@
           }
         }
       }
+    },
+    "Easel Actions" : {
+
+    },
+    "Easel actions" : {
+
     },
     "EasyList" : {
 
@@ -8173,6 +8209,9 @@
     "New Current Tabs Folder" : {
 
     },
+    "New Easel" : {
+
+    },
     "New Folder" : {
       "localizations" : {
         "ar" : {
@@ -10278,6 +10317,9 @@
         }
       }
     },
+    "Rectangle" : {
+
+    },
     "Red" : {
 
     },
@@ -10852,6 +10894,9 @@
 
     },
     "Reset to Default" : {
+
+    },
+    "Resize" : {
 
     },
     "Resize Extension Side Panel" : {
@@ -13458,6 +13503,9 @@
     "That extension is no longer installed." : {
 
     },
+    "That image couldn’t be added." : {
+
+    },
     "That tab isn’t one agents may use." : {
       "extractionState" : "stale"
     },
@@ -13552,6 +13600,9 @@
 
     },
     "The download was interrupted." : {
+
+    },
+    "The easel is deleted on every device that syncs this Space. This can’t be undone." : {
 
     },
     "The engine blocked this download because of its safety or organization policy verdict." : {
@@ -13821,6 +13872,12 @@
 
     },
     "This download was blocked by a safety or organization policy." : {
+
+    },
+    "This easel is full. Remove something to keep your latest change." : {
+
+    },
+    "This easel was deleted" : {
 
     },
     "This extension couldn’t be verified or installed." : {
@@ -16116,6 +16173,9 @@
     "download records" : {
 
     },
+    "easel canvas whiteboard board draw sketch moodboard arc" : {
+
+    },
     "end" : {
       "localizations" : {
         "ar" : {
@@ -16335,6 +16395,9 @@
 
     },
     "note notes write easel notepad jot memo" : {
+
+    },
+    "note notes write notepad jot memo" : {
 
     },
     "open local file document html pdf archive webarchive mhtml" : {

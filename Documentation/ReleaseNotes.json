@@ -5785,6 +5785,10 @@
     "space-easels": {
       "category": "new",
       "message": "Make easels: File › New Easel opens a free canvas in a tab of your Space for text, freehand drawing, rectangles, ovals, arrows and images you paste, drop or capture from a page. Easels sync with the Space; their images stay on this Mac."
+    },
+    "easel-strings-catalog": {
+      "category": "internal",
+      "message": "The string catalog lists the easel's strings, so they can be translated."
     }
   }
 }
