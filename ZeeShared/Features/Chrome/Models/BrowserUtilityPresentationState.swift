@@ -180,6 +180,16 @@ final class BrowserUtilityPresentationState {
         }
     }
 
+    /// Opens `surface`, or closes it when it is the list showing now. The
+    /// list the lists button opens stays as it was chosen.
+    func toggle(_ surface: BrowserUtilitySurface) {
+        if isSwitcherExpanded, self.surface == surface {
+            dismiss()
+        } else {
+            present(surface)
+        }
+    }
+
     func handleInteraction(_ interactionSurface: BrowserUtilityInteractionSurface) {
         guard interactionSurface.dismissesUtilities else { return }
         dismiss()

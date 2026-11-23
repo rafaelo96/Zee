@@ -5,15 +5,20 @@ import SwiftUI
 /// Everything the strip needs from the page layer arrives through
 /// `BrowserSidebarNavigationPort`, and everything about how it is drawn comes
 /// from `BrowserInteractionCapabilities` — so the two shells share this strip
-/// rather than a resemblance. What is left is one slot at the trailing end for
-/// a shell that keeps its page menu there.
-struct BrowserSidebarNavigationControls<TrailingAccessory: View>: View {
+/// rather than a resemblance. What is left is one slot at the leading end, just
+/// past the window's own buttons, for a shell that keeps its sidebar toggle
+/// there as Arc and Dia do, and one at the trailing end for a shell that keeps
+/// its page menu there.
+struct BrowserSidebarNavigationControls<LeadingAccessory: View, TrailingAccessory: View>: View {
     private let port: BrowserSidebarNavigationPort
     private let capabilities: BrowserInteractionCapabilities
     /// Whether the strip shares its width with the window's own buttons, or
     /// nil for the sidebar's rule: beside them unless the sidebar is on the
     /// right. Along the top of a page the strip stands clear of them.
     private let besideWindowControls: Bool?
+    /// The width the leading accessory claims, or 0 for none.
+    private let leadingAccessoryWidth: CGFloat
+    private let leadingAccessory: LeadingAccessory
     private let trailingAccessory: TrailingAccessory
 
     /// Back and forward both stay in the strip at every width, disabled
@@ -24,6 +29,10 @@ struct BrowserSidebarNavigationControls<TrailingAccessory: View>: View {
         port: BrowserSidebarNavigationPort,
         capabilities: BrowserInteractionCapabilities,
         besideWindowControls: Bool? = nil,
+        leadingAccessoryWidth: CGFloat = 0,
+        @ViewBuilder leadingAccessory: () -> LeadingAccessory = {
+            EmptyView()
+        },
         @ViewBuilder trailingAccessory: () -> TrailingAccessory = {
             EmptyView()
         }
@@ -31,6 +40,8 @@ struct BrowserSidebarNavigationControls<TrailingAccessory: View>: View {
         self.port = port
         self.capabilities = capabilities
         self.besideWindowControls = besideWindowControls
+        self.leadingAccessoryWidth = leadingAccessoryWidth
+        self.leadingAccessory = leadingAccessory()
         self.trailingAccessory = trailingAccessory()
     }
 
@@ -64,6 +75,14 @@ struct BrowserSidebarNavigationControls<TrailingAccessory: View>: View {
 
     private var strip: some View {
         HStack(spacing: metrics.controlSpacing) {
+            if leadingAccessoryWidth > 0 {
+                // Clear of the window's own buttons where they share the
+                // strip, else a small margin from the sidebar's edge.
+                Color.clear
+                    .frame(width: isBesideWindowControls ? metrics.windowControlsClearance ?? 0 : ZeeSpacing.small)
+                leadingAccessory
+            }
+
             Spacer(minLength: metrics.leadingSpacerMinimum)
 
             BrowserSidebarNavigationHistoryControl(
@@ -102,7 +121,11 @@ struct BrowserSidebarNavigationControls<TrailingAccessory: View>: View {
     private var fit: BrowserSidebarNavigationStripFit {
         capabilities.navigationControlMetrics.fitting(
             width: width, includesDeveloperMenu: isDeveloperMode,
-            besideWindowControls: besideWindowControls ?? !BrowserDeviceAppearanceStore.shared.sidebarOnRight)
+            besideWindowControls: isBesideWindowControls, leadingAccessoryWidth: leadingAccessoryWidth)
+    }
+
+    private var isBesideWindowControls: Bool {
+        besideWindowControls ?? !BrowserDeviceAppearanceStore.shared.sidebarOnRight
     }
 
     private var isDeveloperMode: Bool {

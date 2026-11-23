@@ -8,8 +8,9 @@ import SwiftUI
 /// the person's icon sizing picks for that viewport, so overflow scrolls and
 /// the active Space can always be revealed.
 ///
-/// The sidebar toggle keeps to the window's edge and the lists to the page
-/// side, where they fan out, whichever side the sidebar is docked on.
+/// The sidebar toggle and the downloads keep to the window's edge and the
+/// lists to the page side, where they fan out, whichever side the sidebar is
+/// docked on.
 struct BrowserSpaceSwitcherCompactStrip: View {
     // MARK: - Variables
 
@@ -108,24 +109,59 @@ struct BrowserSpaceSwitcherCompactStrip: View {
 
     // MARK: - Actions - Accessories
 
-    /// The sidebar toggle on the sidebar's own edge, the lists on the other.
+    /// The sidebar toggle and the downloads on the sidebar's own edge, the
+    /// toggle outermost; the lists on the other.
     @ViewBuilder
     private func accessory(at edge: HorizontalEdge) -> some View {
         if edge == sidebarEdge {
-            if let sidebarToggle = accessories.sidebarToggle {
-                toggleButton(sidebarToggle)
+            // The toggle stays against the window's edge on either side.
+            HStack(spacing: BrowserSpaceSwitcherLayout.compactStripSpacing) {
+                if edge == .leading { sidebarToggleAccessory }
+                if let downloads = accessories.downloads {
+                    downloadsButton(downloads)
+                }
+                if edge == .trailing { sidebarToggleAccessory }
             }
         } else if let commonLists = accessories.commonLists {
             commonListsButton(commonLists)
         }
     }
 
+    @ViewBuilder
+    private var sidebarToggleAccessory: some View {
+        if let sidebarToggle = accessories.sidebarToggle {
+            toggleButton(sidebarToggle)
+        }
+    }
+
     private func utilityWidth(at edge: HorizontalEdge) -> CGFloat {
-        let isOccupied =
+        let count =
             edge == sidebarEdge
-            ? accessories.sidebarToggle != nil
-            : accessories.commonLists != nil
-        return isOccupied ? BrowserSpaceSwitcherLayout.utilityButtonSize : 0
+            ? [accessories.sidebarToggle != nil, accessories.downloads != nil].filter { $0 }.count
+            : (accessories.commonLists != nil ? 1 : 0)
+        guard count > 0 else { return 0 }
+        return BrowserSpaceSwitcherLayout.utilityButtonSize * CGFloat(count)
+            + BrowserSpaceSwitcherLayout.compactStripSpacing * CGFloat(count - 1)
+    }
+
+    private func downloadsButton(
+        _ downloads: BrowserSpaceSwitcherDownloadsShortcut
+    ) -> some View {
+        Button(
+            BrowserUtilitySurface.downloads.title,
+            systemImage: BrowserUtilitySurface.downloads.systemImage,
+            action: downloads.toggle
+        )
+        .labelStyle(.iconOnly)
+        .buttonStyle(.borderless)
+        .symbolVariant(downloads.isShowing ? .fill : .none)
+        .frame(
+            width: BrowserSpaceSwitcherLayout.utilityButtonSize,
+            height: BrowserSpaceSwitcherLayout.utilityButtonSize
+        )
+        .accessibilityIdentifier("browser-sidebar-downloads")
+        .accessibilityValue(downloads.isShowing ? Text("Expanded") : Text("Collapsed"))
+        .help(Text(BrowserUtilitySurface.downloads.title))
     }
 
     private func toggleButton(

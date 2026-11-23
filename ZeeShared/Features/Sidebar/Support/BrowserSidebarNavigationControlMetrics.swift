@@ -157,8 +157,11 @@ struct BrowserSidebarNavigationControlMetrics: Equatable, Sendable {
     /// window's own controls sit elsewhere, as they do with the sidebar on
     /// the right.
     func fitting(
-        width: CGFloat, includesDeveloperMenu: Bool, besideWindowControls: Bool
+        width: CGFloat, includesDeveloperMenu: Bool, besideWindowControls: Bool, leadingAccessoryWidth: CGFloat = 0
     ) -> BrowserSidebarNavigationStripFit {
+        // A control at the strip's start, such as the sidebar toggle, takes
+        // its width from what the history controls have.
+        let width = width - leadingAccessoryWidth
         let clearance = besideWindowControls ? windowControlsClearance : nil
         if required(clearance, developerMenu: includesDeveloperMenu) <= width || narrowing == nil {
             return BrowserSidebarNavigationStripFit(

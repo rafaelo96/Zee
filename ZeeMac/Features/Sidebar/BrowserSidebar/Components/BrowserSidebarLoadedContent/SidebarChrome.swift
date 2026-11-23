@@ -20,6 +20,9 @@ struct SidebarChrome: View {
     /// Whether the sidebar is docked, where its strip lies under the window's
     /// buttons, rather than floating below the page cards' bars.
     var isDocked = true
+    /// The sidebar toggle the strip carries just past the window's buttons,
+    /// as Arc and Dia keep theirs, or nil where the strip carries none.
+    var sidebarToggle: BrowserSpaceSwitcherSidebarToggle?
 
     var body: some View {
         if let space = selectedSpace {
@@ -57,8 +60,19 @@ struct SidebarChrome: View {
         BrowserSidebarNavigationControls(
             port: BrowserSidebarNavigationPort(
                 pages: pages, browser: context.browser, showHistory: context.chromeActions.presentHistory),
-            capabilities: context.capabilities
-        )
+            capabilities: context.capabilities,
+            leadingAccessoryWidth: sidebarToggle == nil ? 0 : context.capabilities.navigationControlMetrics.controlSize.width
+        ) {
+            if let sidebarToggle {
+                Button(
+                    sidebarToggle.action.title,
+                    systemImage: BrowserDeviceAppearanceStore.shared.sidebarOnRight ? "sidebar.right" : "sidebar.left",
+                    action: sidebarToggle.toggle
+                )
+                .accessibilityIdentifier("browser-sidebar-toggle")
+                .help(sidebarToggle.action.title)
+            }
+        }
         .matchedGeometryEffect(id: BrowserWindowChromeMorph.navigation, in: commandSurfaceNamespace, properties: .frame)
         .background {
             // Only the empty navigation-strip background acts as the

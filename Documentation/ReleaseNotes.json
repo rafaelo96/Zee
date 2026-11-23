@@ -5749,6 +5749,10 @@
     "zee-brand-colors": {
       "category": "improved",
       "message": "Zee wears its own colors throughout: controls and highlights use Zee's ocean blue instead of the system accent, indigo and pink give way to Zee's blues and coral, and setup opens on Zee's light cloud-and-ocean look."
+    },
+    "sidebar-downloads-and-toggle": {
+      "category": "improved",
+      "message": "The sidebar has a Downloads button at its foot, and the button that hides the sidebar now sits at its top beside the window's buttons, as in Arc and Dia."
     }
   }
 }
