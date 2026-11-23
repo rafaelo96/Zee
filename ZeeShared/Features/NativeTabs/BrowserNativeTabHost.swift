@@ -23,9 +23,12 @@ struct BrowserNativeTabHost: View {
                     }
                 case .note?:
                     if let note = space.settings.shownNotes.first(where: { $0.id == content.resourceID }) {
-                        BrowserNoteTabView(note: note) { title, body in
-                            actions.saveNote(assignment, content, title, body)
-                        }
+                        BrowserNoteTabView(
+                            note: note,
+                            save: { title, body in actions.saveNote(assignment, content, title, body) },
+                            openLink: { url in actions.openURL(assignment, content, url) },
+                            delete: { actions.deleteNote(assignment, content) }
+                        )
                         // A note another device replaced, or this one, starts the editor over.
                         .id(note.id)
                     } else {
@@ -64,6 +67,8 @@ struct BrowserNativeTabActions {
     var openURL: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, URL) -> Void = { _, _, _ in }
     /// Keeps a note's title and text, for the note the tab still shows.
     var saveNote: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, String, String) -> Void = { _, _, _, _ in }
+    /// Deletes the note the tab shows, and the tab with it.
+    var deleteNote: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent) -> Void = { _, _ in }
 
     @MainActor
     init(browser: BrowserStore, spaceAccess: BrowserSpaceAccessController, didOpenURL: @escaping @MainActor () -> Void)
@@ -87,6 +92,15 @@ struct BrowserNativeTabActions {
                 !spaceAccess.isLocked(space)
             else { return }
             browser.saveNote(noteID, in: space.id, title: title, body: body)
+        }
+        deleteNote = { source, content in
+            guard let noteID = content.resourceID,
+                let space = browser.availableSpaces.first(where: {
+                    $0.id == source.spaceID && $0.profileID == source.profileID
+                }),
+                !spaceAccess.isLocked(space)
+            else { return }
+            browser.deleteNote(noteID, shownIn: source.tabID, in: space)
         }
     }
 

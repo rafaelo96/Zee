@@ -5761,6 +5761,10 @@
     "space-notes": {
       "category": "new",
       "message": "Write notes in Zee: File › New Note opens a note in a tab of the Space you're in, saves as you type, names the tab after it, and syncs it with the Space through iCloud."
+    },
+    "note-formatting": {
+      "category": "improved",
+      "message": "Notes format as you write: headings, bulleted and numbered lists, checklists you tick with a click, bold, italic, code and links, from a formatting bar or the keyboard. Control-Command-N writes a new note, and a note's menu deletes it."
     }
   }
 }

@@ -21102,7 +21102,13 @@ struct ShortcutCommand: Hashable, Sendable {
         requiredCapability: nil,
         selects: nil,
         number: nil,
-        defaultShortcuts: [],
+        defaultShortcuts: [
+            ShortcutDefault(
+                platform: DevicePlatform.desktop,
+                keys: KeyCombination(key: "n", isSpecialKey: false, modifiers: [.command, .control]),
+                yieldsToOverrides: true
+            )
+        ],
         paletteRest: nil,
         offersInPalette: true,
         isReservedFromPages: false,

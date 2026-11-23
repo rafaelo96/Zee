@@ -26,6 +26,13 @@ extension BrowserStore {
             from: self)
     }
 
+    /// Deletes the note `noteID` of `space` and the tab `tabID` that showed
+    /// it, so no tab is left showing a note that is gone.
+    func deleteNote(_ noteID: UUID, shownIn tabID: UUID, in space: SpaceModel) {
+        deleteTab(tabID, in: space.id)
+        _ = family.send(DeleteNote(workspaceID: family.workspaceID, spaceID: space.id, noteID: noteID), from: self)
+    }
+
     /// The note `noteID` of `space`, or nil when the Space no longer holds it.
     func note(_ noteID: UUID?, in space: SpaceModel) -> Note? {
         guard let noteID else { return nil }

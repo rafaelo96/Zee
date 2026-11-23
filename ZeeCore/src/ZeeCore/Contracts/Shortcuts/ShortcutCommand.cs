@@ -339,11 +339,13 @@ public sealed class ShortcutCommand {
     public static readonly ShortcutCommand HideElementWithBoost = new(Kinds.HideElementWithBoost, name: "hideElementWithBoost",
         ShortcutSection.Page, title: "Hide Element with Boost", symbol: "paintbrush.pointed",
         searchTerms: "boost restyle customize hide remove element picker site arc", availableWhen: ShowingWebPage);
-    /// Writes a new note in the Space the window shows. It came after people
-    /// could customize keys, so it has none until someone chooses one.
+    /// Writes a new note in the Space the window shows, on Arc's keys for it.
+    /// It came after people could customize keys, so it yields to keys
+    /// someone chose.
     public static readonly ShortcutCommand NewNote = new(Kinds.NewNote, name: "newNote", ShortcutSection.Everyday,
-        title: "New Note", symbol: "note.text.badge.plus", searchTerms: "note notes write easel notepad jot memo",
-        availableWhen: facts => facts.ShowsSpace && !facts.IsPrivate);
+        title: "New Note", symbol: "note.text.badge.plus",
+        shortcuts: [new(DevicePlatform.Desktop, Character("n", Command | Control), YieldsToOverrides: true)],
+        searchTerms: "note notes write easel notepad jot memo", availableWhen: facts => facts.ShowsSpace && !facts.IsPrivate);
 
     public static IReadOnlyList<ShortcutCommand> All { get; } = [
         NewWindow, NewBlankWindow, NewTab, NewQuickWindow, NewPrivateWindow, CloseTabOrWindow, CloseWindow, OpenLocation, Back,
