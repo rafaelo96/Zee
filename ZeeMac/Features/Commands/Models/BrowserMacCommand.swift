@@ -86,6 +86,7 @@ struct BrowserMacCommand {
                 && $0.browser.core.state.filterLists.level.blocksContent
         },
         run: { $0.blockElement() })
+    static let newNote = BrowserMacCommand(.newNote) { $0.createNote() }
     static let hideElementWithBoost = BrowserMacCommand(
         .hideElementWithBoost, actsOnPage: true, isAvailable: { $0.commandPageShowsSite },
         run: { $0.hideElementWithBoost() })
@@ -189,7 +190,7 @@ struct BrowserMacCommand {
         sharePage, exportPDF, saveWebArchive, printPage, capturePage, clearSiteCookies, clearSiteCache,
         toggleSidebar, showHistory, showArchive, showDownloads,
         showWebInspector,
-        toggleTranslationToolbar, toggleDeveloperToolbar, openNextExtension, selectNumbered,
+        toggleTranslationToolbar, toggleDeveloperToolbar, openNextExtension, selectNumbered, newNote,
     ]
 
     // MARK: - Variables

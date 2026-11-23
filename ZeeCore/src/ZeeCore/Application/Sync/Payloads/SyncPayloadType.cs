@@ -189,6 +189,7 @@ internal abstract class SyncPayloadType {
                 StoredSessionCodec.Key.SharedProfileId);
             LatestFields(result, first, second, StoredSessionCodec.Key.SeparatesPinnedTabsModifiedAt, StoredSessionCodec.Key.SeparatesPinnedTabs);
             LatestFields(result, first, second, StoredSessionCodec.Key.BoostsModifiedAt, StoredSessionCodec.Key.Boosts);
+            LatestFields(result, first, second, StoredSessionCodec.Key.NotesModifiedAt, StoredSessionCodec.Key.Notes);
             LatestFields(result, first, second, StoredSessionCodec.Key.PreferredEngineModifiedAt, StoredSessionCodec.Key.PreferredEngine);
             LatestNestedFields(result, first, second, StoredSessionCodec.Key.ProtectionModifiedAt, StoredSessionCodec.Key.BrowsingPreferences,
                 StoredSessionCodec.Key.ContentBlockingPolicy, StoredSessionCodec.Key.DataRetention);

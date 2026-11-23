@@ -21,6 +21,19 @@ struct BrowserNativeTabHost: View {
                     BrowserGettingStartedTabAdapter(runtime: runtime, bottomChromeHeight: bottomChromeHeight) { url in
                         actions.openURL(assignment, content, url)
                     }
+                case .note?:
+                    if let note = space.settings.shownNotes.first(where: { $0.id == content.resourceID }) {
+                        BrowserNoteTabView(note: note) { title, body in
+                            actions.saveNote(assignment, content, title, body)
+                        }
+                        // A note another device replaced, or this one, starts the editor over.
+                        .id(note.id)
+                    } else {
+                        ContentUnavailableView(
+                            "This note was deleted", systemImage: "note.text",
+                            description: Text("Close this tab, or write a new note from the File menu.")
+                        )
+                    }
                 case .settings?:
                     if let settingsContent {
                         settingsContent.makeView(runtime)
@@ -49,6 +62,8 @@ struct BrowserNativeTabHost: View {
 /// pool, switch profiles, or navigate whichever tab happens to be focused later.
 struct BrowserNativeTabActions {
     var openURL: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, URL) -> Void = { _, _, _ in }
+    /// Keeps a note's title and text, for the note the tab still shows.
+    var saveNote: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, String, String) -> Void = { _, _, _, _ in }
 
     @MainActor
     init(browser: BrowserStore, spaceAccess: BrowserSpaceAccessController, didOpenURL: @escaping @MainActor () -> Void)
@@ -63,6 +78,15 @@ struct BrowserNativeTabActions {
             else { return }
             browser.openNewTab(url: url, in: space.id)
             didOpenURL()
+        }
+        saveNote = { source, content, title, body in
+            guard let noteID = content.resourceID,
+                let space = browser.availableSpaces.first(where: {
+                    $0.id == source.spaceID && $0.profileID == source.profileID
+                }),
+                !spaceAccess.isLocked(space)
+            else { return }
+            browser.saveNote(noteID, in: space.id, title: title, body: body)
         }
     }
 

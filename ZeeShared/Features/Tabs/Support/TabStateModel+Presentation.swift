@@ -22,9 +22,14 @@ extension TabStateModel {
 
     /// The name the tab surfaces show, in the person's language: the
     /// person's rename, the title of the native view the tab shows, or its
-    /// page's title.
+    /// page's title. A note's tab is named by its note, which the core keeps
+    /// as the tab's title, until the note has a name of its own.
     var shownTitle: String {
         guard let nativeView, BrowserShownTitle.resolve(customTitle) == nil else { return displayTitle }
+        // The core names a new note's tab by the view's English title.
+        if nativeView == .note, !title.isEmpty, title != NativeView.note.title.key {
+            return displayTitle
+        }
         return String(localized: nativeView.title)
     }
 

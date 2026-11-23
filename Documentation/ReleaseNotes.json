@@ -5757,6 +5757,10 @@
     "sidebar-space-name-row": {
       "category": "new",
       "message": "The sidebar shows the Space's name above its tabs: click it to switch Spaces, double-click it to rename the Space, or use its menu to rename or edit it."
+    },
+    "space-notes": {
+      "category": "new",
+      "message": "Write notes in Zee: File › New Note opens a note in a tab of the Space you're in, saves as you type, names the tab after it, and syncs it with the Space through iCloud."
     }
   }
 }

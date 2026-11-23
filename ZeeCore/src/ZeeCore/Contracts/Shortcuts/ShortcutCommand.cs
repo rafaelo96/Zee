@@ -83,7 +83,8 @@ public sealed class ShortcutCommand {
         BlockElement,
         ShowBlockedElements,
         OpenNextExtension,
-        HideElementWithBoost
+        HideElementWithBoost,
+        NewNote
     }
 
     #endregion
@@ -338,6 +339,11 @@ public sealed class ShortcutCommand {
     public static readonly ShortcutCommand HideElementWithBoost = new(Kinds.HideElementWithBoost, name: "hideElementWithBoost",
         ShortcutSection.Page, title: "Hide Element with Boost", symbol: "paintbrush.pointed",
         searchTerms: "boost restyle customize hide remove element picker site arc", availableWhen: ShowingWebPage);
+    /// Writes a new note in the Space the window shows. It came after people
+    /// could customize keys, so it has none until someone chooses one.
+    public static readonly ShortcutCommand NewNote = new(Kinds.NewNote, name: "newNote", ShortcutSection.Everyday,
+        title: "New Note", symbol: "note.text.badge.plus", searchTerms: "note notes write easel notepad jot memo",
+        availableWhen: facts => facts.ShowsSpace && !facts.IsPrivate);
 
     public static IReadOnlyList<ShortcutCommand> All { get; } = [
         NewWindow, NewBlankWindow, NewTab, NewQuickWindow, NewPrivateWindow, CloseTabOrWindow, CloseWindow, OpenLocation, Back,
@@ -350,7 +356,7 @@ public sealed class ShortcutCommand {
         SplitWithNextTab, FocusNextSplitCard, FocusPreviousSplitCard, RemoveTabFromSplit, SeparateSplitTabs,
         MoveSplitCardLeft, MoveSplitCardRight, ToggleDeveloperToolbar, ToggleTranslationToolbar, OpenFile, FindNext,
         FindPrevious, CapturePage, MostRecentTabBackward, ClearSiteCookies, ClearSiteCache, ToggleSelectedTabSaved,
-        OpenNextExtension, HideElementWithBoost
+        OpenNextExtension, HideElementWithBoost, NewNote
     ];
 
     public Kinds Kind { get; }
