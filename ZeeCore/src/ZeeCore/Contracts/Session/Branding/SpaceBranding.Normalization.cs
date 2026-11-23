@@ -14,8 +14,8 @@ public sealed partial record SpaceBranding {
     internal const int MaximumColorCount = 3;
     internal const int MaximumBadgePaletteCount = 6;
 
-    /// The Space color used when a branding record has none.
-    internal static BrandColor DefaultColor { get; } = new(0.29, 0.25, 0.58);
+    /// The Space color used when a branding record has none: Zee's ocean blue.
+    internal static BrandColor DefaultColor => Tincture.ZeeOcean.Color;
 
     #endregion
 

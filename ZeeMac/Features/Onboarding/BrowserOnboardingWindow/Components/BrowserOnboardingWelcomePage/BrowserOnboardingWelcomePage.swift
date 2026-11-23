@@ -93,7 +93,7 @@ struct BrowserOnboardingWelcomePage: View {
         }
         .padding(BrowserOnboardingWelcomeMetrics.panePadding)
         .glassEffect(
-            .regular.tint(ZeeBrandPalette.midnight.opacity(BrowserOnboardingWelcomeMetrics.paneShade)),
+            .regular.tint(ZeeBrandPalette.cloud.opacity(BrowserOnboardingWelcomeMetrics.paneShade)),
             in: .rect(cornerRadius: BrowserOnboardingWelcomeMetrics.paneCornerRadius)
         )
         .padding(.leading, -BrowserOnboardingWelcomeMetrics.panePadding)
@@ -112,8 +112,8 @@ struct BrowserOnboardingWelcomePage: View {
 enum BrowserOnboardingWelcomeMetrics {
     static let panePadding: CGFloat = 40
     static let paneCornerRadius: CGFloat = 36
-    /// How much midnight tints the pane, so its words read over any wave.
-    static let paneShade = 0.45
+    /// How much cloud white tints the pane, so its words read over the glows.
+    static let paneShade = 0.6
     /// The pane arrives a beat after the waves begin to rise.
     static let arrival = Animation.smooth(duration: 1.1).delay(0.45)
     /// The Space the banner shows: the simple look in Zee's ocean blue.

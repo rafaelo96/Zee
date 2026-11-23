@@ -103,7 +103,7 @@ final class BrowserManualSetupModel {
         Binding(
             get: {
                 self.space(spaceID).map(\.customization.branding)
-                    ?? SpaceAccent.indigo.house
+                    ?? SpaceAccent.indigo.zeeLook
             },
             set: { branding in
                 self.customize(spaceID) {

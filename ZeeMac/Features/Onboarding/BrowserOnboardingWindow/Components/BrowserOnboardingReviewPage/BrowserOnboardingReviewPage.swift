@@ -201,7 +201,7 @@ private struct BrowserOnboardingReviewSpaceStepper: View {
                 .overlay {
                     if group.count > 1 {
                         Capsule(style: .continuous)
-                            .strokeBorder(ZeeBrandPalette.cloud.opacity(0.35), lineWidth: ZeeLayout.hairline)
+                            .strokeBorder(ZeeBrandTheme.line, lineWidth: ZeeLayout.hairline)
                     }
                 }
             }
@@ -228,7 +228,7 @@ private struct BrowserOnboardingReviewSpaceStepper: View {
     private func step(_ item: BrowserImportSpaceReview) -> some View {
         let isCurrent = item.id == selectedSpaceID
         return Capsule(style: .continuous)
-            .fill(isCurrent ? ZeeBrandPalette.cloud : ZeeBrandPalette.cloud.opacity(0.3))
+            .fill(isCurrent ? ZeeBrandPalette.ocean : ZeeBrandPalette.midnight.opacity(0.18))
             .frame(width: isCurrent ? 8 : 6, height: isCurrent ? 32 : 6)
             .animation(ZeeMotion.onboardingProgress.unlessReducingMotion(reduceMotion), value: selectedSpaceID)
             .accessibilityLabel(item.sourceSpace.settings.name)

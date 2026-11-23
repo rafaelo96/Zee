@@ -18,6 +18,8 @@ namespace ZeeCore.Contracts;
 /// <see cref="PreferredEngineModifiedAt"/> when someone chose.
 /// <see cref="Boosts"/> are the sites the person restyled in the Space, and
 /// <see cref="BoostsModifiedAt"/> when someone last changed one, on any device.
+/// <see cref="Notes"/> are the notes the person wrote in the Space, and
+/// <see cref="NotesModifiedAt"/> when someone last changed one, on any device.
 /// <see cref="Branding"/> is null for a Space stored before branding existed, which
 /// wears the look its accent and symbol give it; <see cref="Look"/> is what it wears.
 /// </summary>
@@ -40,7 +42,9 @@ public sealed record SpaceSettings(
     IReadOnlyList<Boost>? Boosts = null,
     DateTimeOffset? BoostsModifiedAt = null,
     EngineKind? PreferredEngine = null,
-    DateTimeOffset? PreferredEngineModifiedAt = null) {
+    DateTimeOffset? PreferredEngineModifiedAt = null,
+    IReadOnlyList<Note>? Notes = null,
+    DateTimeOffset? NotesModifiedAt = null) {
     #region Variables
 
     /// <summary>The branding the Space wears: its own, with a banner strength stored
@@ -66,6 +70,18 @@ public sealed record SpaceSettings(
     /// These settings with `boosts`, changed now.
     internal SpaceSettings Boosting(IReadOnlyList<Boost> boosts, DateTimeOffset now) =>
         this with { Boosts = boosts, BoostsModifiedAt = Chosen(BoostsModifiedAt, now) };
+
+    #endregion
+
+    #region Actions - Notes
+
+    /// The notes the Space holds, none for a Space stored before notes.
+    [Resolved]
+    public IReadOnlyList<Note> ShownNotes => Notes ?? [];
+
+    /// These settings with `notes`, changed now.
+    internal SpaceSettings Noting(IReadOnlyList<Note> notes, DateTimeOffset now) =>
+        this with { Notes = notes, NotesModifiedAt = Chosen(NotesModifiedAt, now) };
 
     #endregion
 

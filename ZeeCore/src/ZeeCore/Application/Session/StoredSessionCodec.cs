@@ -43,6 +43,10 @@ internal static partial class StoredSessionCodec {
         public const string BannerStrength = "bannerStrength";
         public const string Blue = "blue";
         public const string Boosts = "boosts";
+        public const string Notes = "notes";
+        public const string NotesModifiedAt = "notesModifiedAt";
+        public const string Body = "body";
+        public const string Easel = "easel";
         public const string BoostsModifiedAt = "boostsModifiedAt";
         public const string Branding = "branding";
         public const string BrowsingPreferences = "browsingPreferences";

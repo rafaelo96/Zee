@@ -130,7 +130,8 @@ static size_t session_seed(uint8_t* output, size_t capacity, uint8_t deleted) {
         0, 0,          /* its group shares pinned tabs, and nobody chose */
         0,             /* nobody changed how it blocks content or keeps what it browses */
         0, 0,          /* no Boosts, and nobody changed them */
-        0, 0           /* no engine of its own, and nobody chose one */
+        0, 0,          /* no engine of its own, and nobody chose one */
+        0, 0           /* no notes, and nobody changed them */
     };
     size_t at = 0;
     assert(capacity >= 1 + 37 + sizeof(settings) + 5 + 50);

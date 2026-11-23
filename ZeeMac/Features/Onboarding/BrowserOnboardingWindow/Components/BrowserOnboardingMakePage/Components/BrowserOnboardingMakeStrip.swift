@@ -109,7 +109,7 @@ struct BrowserOnboardingMakeSwatch: View {
                     .frame(
                         width: BrowserOnboardingMakeMetrics.swatchSize, height: BrowserOnboardingMakeMetrics.swatchSize
                     )
-                    .overlay { Circle().strokeBorder(ZeeBrandPalette.cloud.opacity(0.3), lineWidth: 1.5) }
+                    .overlay { Circle().strokeBorder(ZeeBrandTheme.line, lineWidth: 1.5) }
                     .opacity(isDrawn ? 1 : 0.3)
                 Text(title)
                     .font(ZeeTypography.sans(10, weight: .semibold))

@@ -47,7 +47,8 @@ struct BrowserSidebarLoadedContent: View {
                 submitAddress: submitAddress,
                 commandSurfaceNamespace: commandSurfaceNamespace,
                 commandPaletteHandoff: commandPaletteHandoff,
-                isDocked: isDocked
+                isDocked: isDocked,
+                sidebarToggle: stripCarriesSidebarToggle ? sidebarToggleAccessory : nil
             )
             .onGeometryChange(for: CGFloat.self) {
                 $0.size.height
@@ -175,12 +176,25 @@ struct BrowserSidebarLoadedContent: View {
         }
     }
 
+    /// Whether the navigation strip at the sidebar's top carries the sidebar
+    /// toggle, as Arc and Dia keep it. With the address bar in the page cards
+    /// that strip is empty, so the toggle stays at the switcher's edge.
+    private var stripCarriesSidebarToggle: Bool {
+        !BrowserDeviceAppearanceStore.shared.addressBarPlacement.showsBarInPageCards
+    }
+
+    private var sidebarToggleAccessory: BrowserSpaceSwitcherSidebarToggle {
+        BrowserSpaceSwitcherSidebarToggle(action: sidebarToggleAction, toggle: toggleSidebar)
+    }
+
     private var switcherAccessories: BrowserSpaceSwitcherAccessories {
         let spaceID = context.browser.shownSpace?.id
         return BrowserSpaceSwitcherAccessories(
-            sidebarToggle: BrowserSpaceSwitcherSidebarToggle(
-                action: sidebarToggleAction,
-                toggle: toggleSidebar
+            sidebarToggle: stripCarriesSidebarToggle ? nil : sidebarToggleAccessory,
+            downloads: BrowserSpaceSwitcherDownloadsShortcut(
+                isShowing: context.utilityPresentation.isSwitcherExpanded
+                    && context.utilityPresentation.surface == .downloads,
+                toggle: { context.utilityPresentation.toggle(.downloads) }
             ),
             commonLists: BrowserSpaceSwitcherCommonLists(
                 isExpanded: context.utilityPresentation.isSwitcherExpanded,

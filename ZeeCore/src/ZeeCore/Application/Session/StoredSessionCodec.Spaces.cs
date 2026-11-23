@@ -43,7 +43,9 @@ internal static partial class StoredSessionCodec {
                 DecodeBoosts(value[Key.Boosts]),
                 OptionalDate(value[Key.BoostsModifiedAt]),
                 EngineKind.Named(TolerantText(value[Key.PreferredEngine])),
-                OptionalDate(value[Key.PreferredEngineModifiedAt])),
+                OptionalDate(value[Key.PreferredEngineModifiedAt]),
+                DecodeNotes(value[Key.Notes]),
+                OptionalDate(value[Key.NotesModifiedAt])),
             [.. Items(value[Key.Folders]).Select(DecodeFolder)],
             [.. Items(value[Key.Tabs]).Select(DecodeTab)],
             [.. Items(value[Key.SplitGroups]).Select(DecodeSplitGroup)],
@@ -86,6 +88,8 @@ internal static partial class StoredSessionCodec {
         Put(value, Key.BoostsModifiedAt, settings.BoostsModifiedAt);
         Put(value, Key.PreferredEngine, settings.PreferredEngine?.Name);
         Put(value, Key.PreferredEngineModifiedAt, settings.PreferredEngineModifiedAt);
+        if (settings.Notes is { } notes) value[Key.Notes] = EncodeNotes(notes);
+        Put(value, Key.NotesModifiedAt, settings.NotesModifiedAt);
         if (space.Membership is { } membership) {
             if (membership.PrimaryId is { } primary) value[Key.PrimarySpaceId] = WrappedIdentity(primary);
             if (membership.SharedProfileId is { } profile) value[Key.SharedProfileId] = BareIdentity(profile);

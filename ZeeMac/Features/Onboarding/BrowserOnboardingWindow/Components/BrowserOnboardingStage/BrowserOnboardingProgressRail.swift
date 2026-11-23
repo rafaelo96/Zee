@@ -24,7 +24,7 @@ struct BrowserOnboardingProgressRail: View {
     }
 
     private func fill(_ item: Int) -> Color {
-        if item == position { return ZeeBrandPalette.cloud }
-        return item < position ? ZeeBrandPalette.cloud.opacity(0.6) : ZeeBrandPalette.cloud.opacity(0.25)
+        if item == position { return ZeeBrandPalette.ocean }
+        return item < position ? ZeeBrandPalette.ocean.opacity(0.45) : ZeeBrandPalette.midnight.opacity(0.15)
     }
 }

@@ -5745,6 +5745,58 @@
     "abi-seed-space-fields": {
       "category": "internal",
       "message": "The native ABI checks spell a Space with its Boosts and its own engine, so they open their test session again."
+    },
+    "zee-brand-colors": {
+      "category": "improved",
+      "message": "Zee wears its own colors throughout: controls and highlights use Zee's ocean blue instead of the system accent, indigo and pink give way to Zee's blues and coral, and setup opens on Zee's light cloud-and-ocean look."
+    },
+    "sidebar-downloads-and-toggle": {
+      "category": "improved",
+      "message": "The sidebar has a Downloads button at its foot, and the button that hides the sidebar now sits at its top beside the window's buttons, as in Arc and Dia."
+    },
+    "sidebar-space-name-row": {
+      "category": "new",
+      "message": "The sidebar shows the Space's name above its tabs: click it to switch Spaces, double-click it to rename the Space, or use its menu to rename or edit it."
+    },
+    "space-notes": {
+      "category": "new",
+      "message": "Write notes in Zee: File › New Note opens a note in a tab of the Space you're in, saves as you type, names the tab after it, and syncs it with the Space through iCloud."
+    },
+    "note-formatting": {
+      "category": "improved",
+      "message": "Notes format as you write: headings, bulleted and numbered lists, checklists you tick with a click, bold, italic, code and links, from a formatting bar or the keyboard. Control-Command-N writes a new note, and a note's menu deletes it."
+    },
+    "note-clips": {
+      "category": "new",
+      "message": "Send what you find to a note: right-click a page to add the selected text, a link or a captured region to your latest note in the Space, with the page it came from. Captured images stay on this Mac."
+    },
+    "localizable-catalog-sync": {
+      "category": "internal",
+      "message": "The string catalog lists every string the Mac app shows again, including those of notes, clips, setup and the sidebar, so they can be translated."
+    },
+    "space-default-ocean": {
+      "category": "improved",
+      "message": "A Space with no colors of its own now wears Zee's ocean blue instead of violet."
+    },
+    "note-editor-placement-and-format": {
+      "category": "internal",
+      "message": "The Mac's note editor lives with the rest of the Mac app, and the new Swift sources follow the repository's formatting rules."
+    },
+    "space-easels": {
+      "category": "new",
+      "message": "Make easels: File › New Easel opens a free canvas in a tab of your Space for text, freehand drawing, rectangles, ovals, arrows and images you paste, drop or capture from a page. Easels sync with the Space; their images stay on this Mac."
+    },
+    "easel-strings-catalog": {
+      "category": "internal",
+      "message": "The string catalog lists the easel's strings, so they can be translated."
+    },
+    "easel-undo": {
+      "category": "improved",
+      "message": "Easels undo and redo: Command-Z and Shift-Command-Z, or Edit › Undo and Redo, step back through drawing, moving, resizing, typing, deleting, recoloring and added images."
+    },
+    "easel-undo-strings": {
+      "category": "internal",
+      "message": "The string catalog lists the names of the easel's undoable changes, so they can be translated."
     }
   }
 }

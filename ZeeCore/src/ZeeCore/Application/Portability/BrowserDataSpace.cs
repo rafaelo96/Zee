@@ -6,14 +6,15 @@ using ZeeCore.Domain;
 namespace ZeeCore.Application;
 
 /// A Space as a Zee browser-data file keeps it: its name and look, folders,
-/// tabs, splits, archive, history, browsing preferences and Boosts, with the
-/// identities the file spells. The Space's identity, profile, credential
+/// tabs, splits, archive, history, browsing preferences, Boosts and notes,
+/// with the identities the file spells. The Space's identity, profile, credential
 /// preferences and lock never leave the device, and an import gives every
 /// record a new identity.
 internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent Accent, SpaceBranding? Branding,
     IReadOnlyList<BrowserDataFolder> Folders, IReadOnlyList<BrowserDataTab> Tabs, IReadOnlyList<BrowserDataSplit>? Splits,
     IReadOnlyList<BrowserDataArchivedTab> ArchivedTabs, IReadOnlyList<BrowserDataHistoryEntry> History,
-    BrowsingPreferences BrowsingPreferences, Guid? SelectedTabId, IReadOnlyList<Boost>? Boosts = null) {
+    BrowsingPreferences BrowsingPreferences, Guid? SelectedTabId, IReadOnlyList<Boost>? Boosts = null,
+    IReadOnlyList<Note>? Notes = null) {
     #region Static Variables
 
     /// The most open and archived tabs a Space in a file holds.
@@ -32,7 +33,7 @@ internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent 
             value.OptionalItems("splitGroups")?.Select(BrowserDataSplit.Read).ToArray(),
             [.. value.Items("archivedTabs").Select(BrowserDataArchivedTab.Read)],
             [.. value.Items("history").Select(BrowserDataHistoryEntry.Read)], browsing, value.OptionalIdentity("selectedTabID"),
-            StoredSessionCodec.DecodeBoosts(value.Object["boosts"]));
+            StoredSessionCodec.DecodeBoosts(value.Object["boosts"]), StoredSessionCodec.DecodeNotes(value.Object["notes"]));
     }
 
     /// The Space an import brings: every record with a new identity from
@@ -96,6 +97,9 @@ internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent 
             SavedTabsExpansionModifiedAt: null);
         if (Boosts is { Count: > 0 } boosts)
             settings = settings.Boosting([.. boosts.Take(Boost.MaximumPerSpace).Select(boost => boost with { Id = ids.Next() })], now);
+        // A note keeps its identity, which its tabs name, and belongs to this
+        // Space alone, so it meets no other note's.
+        if (Notes is { Count: > 0 } notes) settings = settings.Noting([.. notes.Take(Note.MaximumPerSpace)], now);
         return new(ids.Next(), ids.Next(), settings,
             [.. ordered.Select(folder => folder with {
                 OrderAnchorTabId = folder.OrderAnchorTabId is { } anchor && tabIds.TryGetValue(anchor, out var tab) ? tab : null
@@ -120,7 +124,7 @@ internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent 
             [.. space.Folders.Select(BrowserDataFolder.From)], [.. space.Tabs.Select(BrowserDataTab.From)],
             [.. space.SplitGroups.Select(BrowserDataSplit.From)], [.. space.ArchivedTabs.Select(BrowserDataArchivedTab.From)],
             [.. space.History.Select(BrowserDataHistoryEntry.From)], settings.BrowsingPreferences, SelectedTabId: null,
-            settings.Boosts);
+            settings.Boosts, settings.Notes);
     }
 
     public JsonObject Write() {
@@ -138,6 +142,7 @@ internal sealed record BrowserDataSpace(string Name, string Symbol, SpaceAccent 
         value["browsingPreferences"] = StoredSessionCodec.Encode(BrowsingPreferences);
         if (SelectedTabId is { } selected) value["selectedTabID"] = BrowserDataFile.Identity(selected);
         if (Boosts is { Count: > 0 } boosts) value["boosts"] = StoredSessionCodec.EncodeBoosts(boosts);
+        if (Notes is { Count: > 0 } notes) value["notes"] = StoredSessionCodec.EncodeNotes(notes);
         return value;
     }
 

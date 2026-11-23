@@ -27,7 +27,7 @@ enum BrowserSiteSettingsPreviewFixture {
             lastActivatedAt: fixedDate)
         let space = SpaceState.Seed(
             id: spaceID, profileID: profileID, name: "Preview", symbol: "globe", accent: .teal,
-            branding: SpaceAccent.teal.house, tabs: [tab])
+            branding: SpaceAccent.teal.zeeLook, tabs: [tab])
         let permissionCenter = BrowserSitePermissionCenter()
         let core = ZeeCore()
         core.engines.register(WebKitEngineBinding(keepsProfilesInMemory: true), isDefault: true)

@@ -18,8 +18,10 @@ extension BrandColor {
     static let sand = Tincture.sand.color
     static let folderDefault = BrandColor(red: 0.43, green: 0.48, blue: 0.54, alpha: 1)
 
+    /// Zee's palette has no violet or pink, so deep blue and coral stand
+    /// where the house indigo and rose would.
     static let presets: [BrandColor] = [
-        .ink, .indigo, .ocean, .sky, .teal, .sage, .gold, .ember, .rose, .sand,
+        .ink, Tincture.zeeDeep.color, .ocean, .sky, .teal, .sage, .gold, .ember, Tincture.zeeCoral.color, .sand,
     ]
 
     /// The color sets a modern Space offers, each a gradient from Zee's own

@@ -22,6 +22,7 @@ struct BrowserSidebarSpacePage: View {
     private let downloadCenter: BrowserDownloadCenter
     private let dismissUtilityOnBlankSpace: () -> Void
     private let confirmClearHistory: (SpaceModel) -> Void
+    private let selectSpace: (UUID) -> Void
 
     init(
         space: SpaceModel,
@@ -49,6 +50,7 @@ struct BrowserSidebarSpacePage: View {
         downloadCenter = context.pageAccess.downloadCenter
         dismissUtilityOnBlankSpace = context.dismissUtilityOnBlankSpace
         confirmClearHistory = context.confirmClearHistory
+        selectSpace = context.selectSpace
     }
 
     @ViewBuilder
@@ -87,6 +89,7 @@ struct BrowserSidebarSpacePage: View {
             tabPromotionNamespace: tabPromotionNamespace,
             editSpace: { actions.presentSpaceSettings(BrowserSpaceRuntimeAssignment(space: pageSpace)) },
             createSpace: actions.createSpace,
+            selectSpace: selectSpace,
             utilitySurface: utilityPresentation.surface,
             utilitySearchText: utilitySearchText,
             utilityFilter: utilityFilter,

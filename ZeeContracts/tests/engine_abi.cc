@@ -133,8 +133,9 @@ void Write(engine::WireWriter& writer, SessionSeed) {
   Write(writer, false);
   Write(writer, false);
   Write(writer, false);
-  // No Boosts and nobody changed them; no engine of its own and nobody chose.
-  for (int field = 0; field < 4; field++) Write(writer, false);
+  // No Boosts and nobody changed them; no engine of its own and nobody chose;
+  // no notes and nobody changed them.
+  for (int field = 0; field < 6; field++) Write(writer, false);
   // No folders, tabs, splits, archived tabs, history or group; no default
   // Space, seed marker, Space deletion or app preferences.
   for (int list = 0; list < 5; list++) writer.WriteVarint(0);

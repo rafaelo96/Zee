@@ -14,7 +14,15 @@ public sealed class NativeView {
     public static readonly NativeView GettingStarted = new(name: "getting-started", title: "Getting Started",
         symbol: "book.closed.fill");
 
-    public static IReadOnlyList<NativeView> All { get; } = [Settings, GettingStarted];
+    /// A note the person writes, which the tab's native content names as its
+    /// resource.
+    public static readonly NativeView Note = new(name: "note", title: "New Note", symbol: "note.text");
+
+    /// An easel, a free canvas of text, images, drawing and shapes, which the
+    /// tab's native content names as its resource.
+    public static readonly NativeView Easel = new(name: "easel", title: "New Easel", symbol: "scribble.variable");
+
+    public static IReadOnlyList<NativeView> All { get; } = [Settings, GettingStarted, Note, Easel];
 
     /// The kind a tab's native content keeps in the stored session and in
     /// sync, so a name never changes.

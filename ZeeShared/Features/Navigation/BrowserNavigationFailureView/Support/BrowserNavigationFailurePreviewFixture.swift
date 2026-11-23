@@ -3,7 +3,7 @@ import Foundation
 enum BrowserNavigationFailurePreviewFixture {
     /// The Indigo accent's legacy colors on a readable diagonal banner.
     static let branding: SpaceBranding = {
-        var look = SpaceAccent.indigo.house
+        var look = SpaceAccent.indigo.zeeLook
         look.colors = ColorPalette(colors: SpaceAccent.indigo.legacyColors)
         look.readabilityFade = SpaceBranding.legacyReadabilityFade
         look.iconStyle = .simpleSymbol

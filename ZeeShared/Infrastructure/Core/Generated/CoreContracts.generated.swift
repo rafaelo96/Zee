@@ -290,6 +290,8 @@ enum Rejection: Equatable, Error, Sendable {
     case noStoredSession(NoStoredSession)
     case notAnArchive(NotAnArchive)
     case notPrivateWorkspace(NotPrivateWorkspace)
+    case noteTooLarge(NoteTooLarge)
+    case notesFull(NotesFull)
     case pageNotLoadable(PageNotLoadable)
     case pageProfileMismatch(PageProfileMismatch)
     case persistentWorkspaceRequired(PersistentWorkspaceRequired)
@@ -348,6 +350,7 @@ enum Rejection: Equatable, Error, Sendable {
     case unknownExtension(UnknownExtension)
     case unknownFolder(UnknownFolder)
     case unknownLinkRoute(UnknownLinkRoute)
+    case unknownNote(UnknownNote)
     case unknownPage(UnknownPage)
     case unknownPrompt(UnknownPrompt)
     case unknownSearchEngine(UnknownSearchEngine)
@@ -1880,6 +1883,16 @@ struct CreateFolder: Intent, SessionIntent, Equatable, Sendable {
     let isGroup: Bool
 }
 
+struct CreateNote: Intent, SessionIntent, Equatable, Sendable {
+    let workspaceID: UUID
+    let windowID: UUID
+    let spaceID: UUID
+    let noteID: UUID
+    let tabID: UUID
+    let shows: Bool
+    let isEasel: Bool
+}
+
 struct CreatePage: Equatable, Sendable {
     let pageID: UUID
     let profileID: UUID
@@ -2187,6 +2200,12 @@ struct DeleteFolderAndContents: Intent, SessionIntent, Equatable, Sendable {
     let windowID: UUID
     let spaceID: UUID
     let folderID: UUID
+}
+
+struct DeleteNote: Intent, SessionIntent, Equatable, Sendable {
+    let workspaceID: UUID
+    let spaceID: UUID
+    let noteID: UUID
 }
 
 struct DeleteProfileData: Intent, DataDeletionIntent, Equatable, Sendable {
@@ -4280,6 +4299,28 @@ struct NotPrivateWorkspace: Equatable, Sendable {
     let workspaceID: UUID
 }
 
+struct Note: Equatable, Sendable, Identifiable {
+    static let maximumTitleLength: Int = 200
+    static let maximumBodyBytes: Int = 65536
+    static let maximumSpaceBytes: Int = 393216
+    static let maximumPerSpace: Int = 100
+
+    var id: UUID
+    var title: String
+    var body: String
+    var modifiedAt: Date
+    var isEasel: Bool
+}
+
+struct NoteTooLarge: Equatable, Sendable {
+    let maximumBytes: Int
+    let maximumSpaceBytes: Int
+}
+
+struct NotesFull: Equatable, Sendable {
+    let maximum: Int
+}
+
 struct NotificationDisplayCheck: Query, Equatable, Sendable {
     typealias Answer = NotificationDisplayVerdict
 
@@ -5691,6 +5732,14 @@ struct SaveInteractionState: PageRequest, Equatable, Sendable {
     let pageID: UUID
 }
 
+struct SaveNote: Intent, SessionIntent, Equatable, Sendable {
+    let workspaceID: UUID
+    let spaceID: UUID
+    let noteID: UUID
+    let title: String
+    let body: String
+}
+
 struct SaveSearchProvider: Intent, SearchCatalogIntent, Equatable, Sendable {
     let provider: CustomSearchProvider
 }
@@ -6819,9 +6868,12 @@ struct SpaceSettings: Equatable, Sendable {
     let boostsModifiedAt: Date?
     let preferredEngine: EngineKind?
     let preferredEngineModifiedAt: Date?
+    let notes: [Note]?
+    let notesModifiedAt: Date?
     let look: SpaceBranding
     let requiresAuthentication: Bool
     let shownBoosts: [Boost]
+    let shownNotes: [Note]
 
     /// The fields of a `SpaceSettings` alone, as a platform builds one to send. The
     /// core resolves the rest when it reads it.
@@ -6844,6 +6896,8 @@ struct SpaceSettings: Equatable, Sendable {
         var boostsModifiedAt: Date?
         var preferredEngine: EngineKind?
         var preferredEngineModifiedAt: Date?
+        var notes: [Note]?
+        var notesModifiedAt: Date?
     }
 
     /// The record's fields alone, as a platform sends it back.
@@ -6866,7 +6920,9 @@ struct SpaceSettings: Equatable, Sendable {
             boosts: boosts,
             boostsModifiedAt: boostsModifiedAt,
             preferredEngine: preferredEngine,
-            preferredEngineModifiedAt: preferredEngineModifiedAt
+            preferredEngineModifiedAt: preferredEngineModifiedAt,
+            notes: notes,
+            notesModifiedAt: notesModifiedAt
         )
     }
 }
@@ -7516,6 +7572,10 @@ struct UnknownFolder: Equatable, Sendable {
 
 struct UnknownLinkRoute: Equatable, Sendable {
     let routeID: UUID
+}
+
+struct UnknownNote: Equatable, Sendable {
+    let noteID: UUID
 }
 
 struct UnknownPage: Equatable, Sendable {
@@ -15359,8 +15419,15 @@ struct NativeView: Hashable, Sendable {
         title: LocalizedStringResource("Getting Started"),
         symbol: "book.closed.fill"
     )
+    static let note = NativeView(tag: 2, name: "note", title: LocalizedStringResource("New Note"), symbol: "note.text")
+    static let easel = NativeView(
+        tag: 3,
+        name: "easel",
+        title: LocalizedStringResource("New Easel"),
+        symbol: "scribble.variable"
+    )
 
-    static let all: [NativeView] = [settings, gettingStarted]
+    static let all: [NativeView] = [settings, gettingStarted, note, easel]
 
     static func named(_ name: String?) -> NativeView? {
         all.first { $0.name == name }
@@ -18883,6 +18950,8 @@ struct ShortcutCommand: Hashable, Sendable {
         case showBlockedElements
         case openNextExtension
         case hideElementWithBoost
+        case newNote
+        case newEasel
     }
 
     let tag: Int
@@ -21031,6 +21100,48 @@ struct ShortcutCommand: Hashable, Sendable {
         isReservedFromPages: false,
         defaultPreference: ShortcutPreference.preferWebsite
     )
+    static let newNote = ShortcutCommand(
+        tag: 79,
+        kind: .newNote,
+        name: "newNote",
+        section: ShortcutSection.everyday,
+        title: LocalizedStringResource("New Note"),
+        searchTerms: LocalizedStringResource("note notes write notepad jot memo"),
+        menuTitle: nil,
+        symbol: "note.text.badge.plus",
+        requiredCapability: nil,
+        selects: nil,
+        number: nil,
+        defaultShortcuts: [
+            ShortcutDefault(
+                platform: DevicePlatform.desktop,
+                keys: KeyCombination(key: "n", isSpecialKey: false, modifiers: [.command, .control]),
+                yieldsToOverrides: true
+            )
+        ],
+        paletteRest: nil,
+        offersInPalette: true,
+        isReservedFromPages: false,
+        defaultPreference: ShortcutPreference.preferWebsite
+    )
+    static let newEasel = ShortcutCommand(
+        tag: 80,
+        kind: .newEasel,
+        name: "newEasel",
+        section: ShortcutSection.everyday,
+        title: LocalizedStringResource("New Easel"),
+        searchTerms: LocalizedStringResource("easel canvas whiteboard board draw sketch moodboard arc"),
+        menuTitle: nil,
+        symbol: "scribble.variable",
+        requiredCapability: nil,
+        selects: nil,
+        number: nil,
+        defaultShortcuts: [],
+        paletteRest: nil,
+        offersInPalette: true,
+        isReservedFromPages: false,
+        defaultPreference: ShortcutPreference.preferWebsite
+    )
 
     static let all: [ShortcutCommand] = [
         newWindow,
@@ -21111,7 +21222,9 @@ struct ShortcutCommand: Hashable, Sendable {
         clearSiteCache,
         toggleSelectedTabSaved,
         openNextExtension,
-        hideElementWithBoost
+        hideElementWithBoost,
+        newNote,
+        newEasel
     ]
 
     static func named(_ name: String?) -> ShortcutCommand? {
@@ -21204,6 +21317,7 @@ struct ShortcutMenu: Hashable, Sendable {
                 ShortcutCommand.newQuickWindow,
                 ShortcutCommand.newPrivateWindow
             ],
+            [ShortcutCommand.newNote, ShortcutCommand.newEasel],
             [ShortcutCommand.openFile],
             [ShortcutCommand.closeTabOrWindow, ShortcutCommand.closeWindow],
             [ShortcutCommand.printPage]
@@ -25749,6 +25863,14 @@ final class SpaceSettingsModel: ObservedModel {
         access(keyPath: \.preferredEngineModifiedAt)
         return preferredEngineModifiedAtStorage
     }
+    var notes: [Note]? {
+        access(keyPath: \.notes)
+        return notesStorage
+    }
+    var notesModifiedAt: Date? {
+        access(keyPath: \.notesModifiedAt)
+        return notesModifiedAtStorage
+    }
     var look: SpaceBranding {
         access(keyPath: \.look)
         return lookStorage
@@ -25760,6 +25882,10 @@ final class SpaceSettingsModel: ObservedModel {
     var shownBoosts: [Boost] {
         access(keyPath: \.shownBoosts)
         return shownBoostsStorage
+    }
+    var shownNotes: [Note] {
+        access(keyPath: \.shownNotes)
+        return shownNotesStorage
     }
 
     @ObservationIgnored private var nameStorage: String
@@ -25780,9 +25906,12 @@ final class SpaceSettingsModel: ObservedModel {
     @ObservationIgnored private var boostsModifiedAtStorage: Date?
     @ObservationIgnored private var preferredEngineStorage: EngineKind?
     @ObservationIgnored private var preferredEngineModifiedAtStorage: Date?
+    @ObservationIgnored private var notesStorage: [Note]?
+    @ObservationIgnored private var notesModifiedAtStorage: Date?
     @ObservationIgnored private var lookStorage: SpaceBranding
     @ObservationIgnored private var requiresAuthenticationStorage: Bool
     @ObservationIgnored private var shownBoostsStorage: [Boost]
+    @ObservationIgnored private var shownNotesStorage: [Note]
 
     var value: SpaceSettings {
         SpaceSettings(
@@ -25804,9 +25933,12 @@ final class SpaceSettingsModel: ObservedModel {
             boostsModifiedAt: boostsModifiedAt,
             preferredEngine: preferredEngine,
             preferredEngineModifiedAt: preferredEngineModifiedAt,
+            notes: notes,
+            notesModifiedAt: notesModifiedAt,
             look: look,
             requiresAuthentication: requiresAuthentication,
-            shownBoosts: shownBoosts
+            shownBoosts: shownBoosts,
+            shownNotes: shownNotes
         )
     }
 
@@ -25829,9 +25961,12 @@ final class SpaceSettingsModel: ObservedModel {
         boostsModifiedAtStorage = value.boostsModifiedAt
         preferredEngineStorage = value.preferredEngine
         preferredEngineModifiedAtStorage = value.preferredEngineModifiedAt
+        notesStorage = value.notes
+        notesModifiedAtStorage = value.notesModifiedAt
         lookStorage = value.look
         requiresAuthenticationStorage = value.requiresAuthentication
         shownBoostsStorage = value.shownBoosts
+        shownNotesStorage = value.shownNotes
     }
 
     func update(_ value: SpaceSettings) {
@@ -25907,6 +26042,14 @@ final class SpaceSettingsModel: ObservedModel {
             preferredEngineModifiedAtStorage = value.preferredEngineModifiedAt
             withMutation(keyPath: \.preferredEngineModifiedAt) {}
         }
+        if notesStorage != value.notes {
+            notesStorage = value.notes
+            withMutation(keyPath: \.notes) {}
+        }
+        if notesModifiedAtStorage != value.notesModifiedAt {
+            notesModifiedAtStorage = value.notesModifiedAt
+            withMutation(keyPath: \.notesModifiedAt) {}
+        }
         if lookStorage != value.look {
             lookStorage = value.look
             withMutation(keyPath: \.look) {}
@@ -25918,6 +26061,10 @@ final class SpaceSettingsModel: ObservedModel {
         if shownBoostsStorage != value.shownBoosts {
             shownBoostsStorage = value.shownBoosts
             withMutation(keyPath: \.shownBoosts) {}
+        }
+        if shownNotesStorage != value.shownNotes {
+            shownNotesStorage = value.shownNotes
+            withMutation(keyPath: \.shownNotes) {}
         }
     }
 }

@@ -14,6 +14,8 @@ enum ZeeBrandPalette {
     static let oceanComponents = ZeeColorComponents(red: 23, green: 137, blue: 221)
     static let skyComponents = ZeeColorComponents(red: 43, green: 180, blue: 240)
     static let cyanComponents = ZeeColorComponents(red: 63, green: 208, blue: 245)
+    /// The cyan of the Zee mark itself, the open dial on the app icon.
+    static let dialComponents = ZeeColorComponents(red: 0, green: 188, blue: 243)
 
     // Warm
 
@@ -43,6 +45,7 @@ enum ZeeBrandPalette {
     static let ocean = oceanComponents.color
     static let sky = skyComponents.color
     static let cyan = cyanComponents.color
+    static let dial = dialComponents.color
     static let sun = sunComponents.color
     static let orange = orangeComponents.color
     static let coral = coralComponents.color

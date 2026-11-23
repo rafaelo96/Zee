@@ -10,7 +10,17 @@ import CoreGraphics
 /// switcher learning about docking.
 struct BrowserSpaceSwitcherAccessories {
     var sidebarToggle: BrowserSpaceSwitcherSidebarToggle?
+    var downloads: BrowserSpaceSwitcherDownloadsShortcut?
     var commonLists: BrowserSpaceSwitcherCommonLists?
+}
+
+/// The switcher's accessory beside the sidebar toggle: open or close the
+/// Space's downloads in one press, without changing the list the common
+/// lists button opens.
+struct BrowserSpaceSwitcherDownloadsShortcut {
+    /// Whether the downloads are the list showing now.
+    let isShowing: Bool
+    let toggle: () -> Void
 }
 
 /// The switcher's accessory at the window's edge: show or hide the sidebar

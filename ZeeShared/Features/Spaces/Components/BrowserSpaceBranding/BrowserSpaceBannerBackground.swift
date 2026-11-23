@@ -61,7 +61,7 @@ struct BrowserSpaceBannerBackground: View {
 
     private var resolvedColors: [Color] {
         let colors = branding.colors.map(\.color)
-        return colors.isEmpty ? [BrandColor.indigo.color] : colors
+        return colors.isEmpty ? [Tincture.zeeOcean.color.color] : colors
     }
 
     private var fieldOpacity: Double {

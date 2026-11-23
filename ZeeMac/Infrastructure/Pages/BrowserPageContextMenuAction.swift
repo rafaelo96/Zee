@@ -17,6 +17,10 @@ struct BrowserPageContextMenuAction {
         case space(UUID)
         case quickWindow
         case blockElement
+        case addToNote
+        case addLinkToNote
+        case captureToNote
+        case captureToEasel
     }
 
     /// Runs the row on the page, answering whether it did. A page without a
@@ -43,7 +47,7 @@ struct BrowserPageContextMenuAction {
 
     /// Whether the row acts on the page rather than on a link or selection,
     /// and so follows the engine's rows.
-    var isTrailing: Bool { kind == .blockElement }
+    var isTrailing: Bool { kind == .blockElement || kind == .captureToNote || kind == .captureToEasel }
 
     // MARK: - Initializers
 
@@ -122,6 +126,56 @@ struct BrowserPageContextMenuAction {
         selectionText: nil
     ) { page, _, _ in
         Task { await page.pickElementToBlock(fromContextMenu: true) }
+        return true
+    }
+
+    /// Adds `selectionText` to a note of the page's Space as a quote, under
+    /// which the page it came from is named and linked.
+    static func addToNote(_ selectionText: String) -> BrowserPageContextMenuAction {
+        BrowserPageContextMenuAction(
+            kind: .addToNote, title: String(localized: "Add to Note"), symbolName: "note.text.badge.plus",
+            linkURL: nil, selectionText: selectionText
+        ) { page, context, source in
+            guard let context, let source else { return false }
+            let quote = selectionText.trimmingCharacters(in: .whitespacesAndNewlines)
+                .components(separatedBy: .newlines).map { "> " + $0 }.joined(separator: "\n")
+            return page.linkDestinationHost.addToNote(
+                quote + "\n\n" + BrowserNoteClip.source(of: page, title: context.title), from: source,
+                newTitle: context.title)
+        }
+    }
+
+    /// Adds `linkURL` to a note of the page's Space as a list item.
+    static func addLinkToNote(_ linkURL: URL) -> BrowserPageContextMenuAction {
+        BrowserPageContextMenuAction(
+            kind: .addLinkToNote, title: String(localized: "Add Link to Note"), symbolName: "link.badge.plus",
+            linkURL: linkURL, selectionText: nil
+        ) { page, context, source in
+            guard let context, let source else { return false }
+            return page.linkDestinationHost.addToNote(
+                "- " + BrowserNoteClip.link(linkURL), from: source, newTitle: context.title)
+        }
+    }
+
+    /// Starts the region capture, whose image goes to a note of the page's
+    /// Space rather than to the clipboard.
+    static let captureToNote = BrowserPageContextMenuAction(
+        kind: .captureToNote, title: String(localized: "Capture to Note"), symbolName: "camera.viewfinder",
+        linkURL: nil, selectionText: nil
+    ) { page, context, _ in
+        guard context != nil else { return false }
+        page.beginRegionCapture(into: .note)
+        return true
+    }
+
+    /// Starts the region capture, whose image goes on an easel of the page's
+    /// Space rather than to the clipboard.
+    static let captureToEasel = BrowserPageContextMenuAction(
+        kind: .captureToEasel, title: String(localized: "Capture to Easel"), symbolName: "scribble.variable",
+        linkURL: nil, selectionText: nil
+    ) { page, context, _ in
+        guard context != nil else { return false }
+        page.beginRegionCapture(into: .easel)
         return true
     }
 
@@ -282,14 +336,33 @@ extension BrowserPage: BrowserPageContextMenuHost {
             if splitLinkHost.canOpenLink(context.tabID, context.assignment) {
                 actions.append(.split(linkURL))
             }
+            if canAddToNote { actions.append(.addLinkToNote(linkURL)) }
         }
         if let selectionText,
             let search = linkDestinationHost.selectionSearch(for: selectionText, from: source)
         {
             actions.append(.search(selectionText, with: search.engineTitle))
         }
+        if let selectionText, !selectionText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, canAddToNote {
+            actions.append(.addToNote(selectionText))
+        }
         if canPickElementToBlock { actions.append(.blockElement) }
+        if canAddToNote, pageEngine.registration.supports(.viewportCapture) {
+            actions.append(.captureToNote)
+            actions.append(.captureToEasel)
+        }
         return actions
+    }
+
+    /// Whether what the page shows can go to a note: it is a tab's page on
+    /// the web, outside private browsing, whose Space the window can reach.
+    private var canAddToNote: Bool {
+        guard let context = navigationContext, ["http", "https"].contains(live.displayURL?.scheme?.lowercased() ?? ""),
+            let browser = linkDestinationHost.browser, !browser.isPrivateBrowsing
+        else { return false }
+        return linkDestinationHost.canOpenLink(
+            from: BrowserTabRuntimeAssignment(
+                tabID: context.tabID, spaceID: context.spaceID, profileID: context.assignment.profileID))
     }
 
     /// Whether the page's bridge can start the element picker: Zee blocks,

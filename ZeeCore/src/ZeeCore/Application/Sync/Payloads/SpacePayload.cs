@@ -8,8 +8,8 @@ namespace ZeeCore.Application;
 /// browses, who may open it and when someone last chose, whether it uses
 /// Zee Passwords once someone chose, its saved tabs' disclosure, the session
 /// it browses with as a Sub-Space or a primary once someone chose, its splits'
-/// metadata, its position among the Spaces, and its Boosts once someone
-/// changed one, which older clients carry as they are. Where it keeps its passwords
+/// metadata, its position among the Spaces, and its Boosts and notes once
+/// someone changed one, which older clients carry as they are. Where it keeps its passwords
 /// stays with each device.
 internal sealed partial record SpacePayload(
     Guid Id,
@@ -36,7 +36,9 @@ internal sealed partial record SpacePayload(
     IReadOnlyList<Boost>? Boosts = null,
     SyncTime? BoostsModifiedAt = null,
     EngineKind? PreferredEngine = null,
-    SyncTime? PreferredEngineModifiedAt = null) : SyncPayload {
+    SyncTime? PreferredEngineModifiedAt = null,
+    IReadOnlyList<Note>? Notes = null,
+    SyncTime? NotesModifiedAt = null) : SyncPayload {
     #region Static Variables
 
     /// The members a Space's value carries; a record keeps what a newer build
@@ -50,7 +52,7 @@ internal sealed partial record SpacePayload(
         StoredSessionCodec.Key.SeparatesPinnedTabsModifiedAt, StoredSessionCodec.Key.ProtectionModifiedAt, StoredSessionCodec.Key.IsSavedTabsExpanded,
         StoredSessionCodec.Key.SavedTabsExpansionModifiedAt, StoredSessionCodec.Key.SplitGroups, SyncPayload.Key.OrderToken,
         StoredSessionCodec.Key.Boosts, StoredSessionCodec.Key.BoostsModifiedAt, StoredSessionCodec.Key.PreferredEngine,
-        StoredSessionCodec.Key.PreferredEngineModifiedAt
+        StoredSessionCodec.Key.PreferredEngineModifiedAt, StoredSessionCodec.Key.Notes, StoredSessionCodec.Key.NotesModifiedAt
     ];
 
     /// The most splits a Space's record names.
@@ -91,6 +93,9 @@ internal sealed partial record SpacePayload(
         var (boosts, boostsModifiedAt) = value.OptionalTime(StoredSessionCodec.Key.BoostsModifiedAt) is { } boostsChosenAt
             ? (StoredSessionCodec.DecodeBoosts(value.Value[StoredSessionCodec.Key.Boosts]) ?? [], boostsChosenAt)
             : ((IReadOnlyList<Boost>?)null, (SyncTime?)null);
+        var (notes, notesModifiedAt) = value.OptionalTime(StoredSessionCodec.Key.NotesModifiedAt) is { } notesChosenAt
+            ? (StoredSessionCodec.DecodeNotes(value.Value[StoredSessionCodec.Key.Notes]) ?? [], notesChosenAt)
+            : ((IReadOnlyList<Note>?)null, (SyncTime?)null);
         return new(value.WrappedIdentity(StoredSessionCodec.Key.Id), value.Identity(StoredSessionCodec.Key.ProfileId), name, symbol, accent,
             value.OptionalNested(StoredSessionCodec.Key.Branding) is { } branding ? ReadBranding(branding) : SpaceBranding.Legacy(accent, symbol),
             value.OptionalNested(StoredSessionCodec.Key.BrowsingPreferences) is { } browsing ? ReadBrowsingPreferences(browsing)
@@ -113,7 +118,9 @@ internal sealed partial record SpacePayload(
             boosts,
             boostsModifiedAt,
             engineChosenAt is null ? null : EngineKind.Named(value.OptionalText(StoredSessionCodec.Key.PreferredEngine)),
-            engineChosenAt);
+            engineChosenAt,
+            notes,
+            notesModifiedAt);
     }
 
     public override JsonObject EncodeValue(SyncPayloadForm form) {
@@ -154,6 +161,10 @@ internal sealed partial record SpacePayload(
         if (PreferredEngineModifiedAt is { } engineModifiedAt) {
             if (PreferredEngine is { } engine) value[StoredSessionCodec.Key.PreferredEngine] = engine.Name;
             Put(value, StoredSessionCodec.Key.PreferredEngineModifiedAt, engineModifiedAt, form);
+        }
+        if (NotesModifiedAt is { } notesModifiedAt) {
+            value[StoredSessionCodec.Key.Notes] = StoredSessionCodec.EncodeNotes(Notes ?? []);
+            Put(value, StoredSessionCodec.Key.NotesModifiedAt, notesModifiedAt, form);
         }
         return value;
     }

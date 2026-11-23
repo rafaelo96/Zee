@@ -21,6 +21,25 @@ struct BrowserNativeTabHost: View {
                     BrowserGettingStartedTabAdapter(runtime: runtime, bottomChromeHeight: bottomChromeHeight) { url in
                         actions.openURL(assignment, content, url)
                     }
+                case .note?:
+                    if let note = space.settings.shownNotes.first(where: { $0.id == content.resourceID }) {
+                        BrowserNoteTabView(
+                            note: note,
+                            save: { title, body in actions.saveNote(assignment, content, title, body) },
+                            openLink: { url in actions.openURL(assignment, content, url) },
+                            delete: { actions.deleteNote(assignment, content) },
+                            imageURL: actions.noteImageURL
+                        )
+                        // A note another device replaced, or this one, starts the editor over.
+                        .id(note.id)
+                    } else {
+                        ContentUnavailableView(
+                            "This note was deleted", systemImage: "note.text",
+                            description: Text("Close this tab, or write a new note from the File menu.")
+                        )
+                    }
+                case .easel?:
+                    easel(content)
                 case .settings?:
                     if let settingsContent {
                         settingsContent.makeView(runtime)
@@ -40,6 +59,32 @@ struct BrowserNativeTabHost: View {
         .safeAreaPadding(.bottom, bottomChromeHeight)
     }
 
+    @ViewBuilder
+    private func easel(_ content: BrowserNativeTabContent) -> some View {
+        if let easel = space.settings.shownNotes.first(where: { $0.id == content.resourceID && $0.isEasel }) {
+            #if os(macOS)
+                BrowserEaselView(
+                    note: easel,
+                    save: { title, body in actions.saveNote(assignment, content, title, body) },
+                    delete: { actions.deleteNote(assignment, content) },
+                    images: actions.noteImages
+                )
+                // An easel another device replaced starts the canvas over.
+                .id(easel.id)
+            #else
+                ContentUnavailableView(
+                    "Open this easel on a Mac", systemImage: "scribble.variable",
+                    description: Text("Easels are drawn on a Mac. Its canvas is still saved.")
+                )
+            #endif
+        } else {
+            ContentUnavailableView(
+                "This easel was deleted", systemImage: "scribble.variable",
+                description: Text("Close this tab, or make a new easel from the File menu.")
+            )
+        }
+    }
+
     private var assignment: BrowserTabRuntimeAssignment {
         BrowserTabRuntimeAssignment(tabID: tab.id, spaceID: space.id, profileID: space.profileID)
     }
@@ -49,6 +94,16 @@ struct BrowserNativeTabHost: View {
 /// pool, switch profiles, or navigate whichever tab happens to be focused later.
 struct BrowserNativeTabActions {
     var openURL: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, URL) -> Void = { _, _, _ in }
+    /// Keeps a note's title and text, for the note the tab still shows.
+    var saveNote: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent, String, String) -> Void = {
+        _, _, _, _ in
+    }
+    /// Where this device keeps the images notes and easels show.
+    var noteImages = BrowserNoteImageStore(storageDirectory: nil)
+    /// The file of an image a note shows, when this device keeps it.
+    var noteImageURL: @MainActor (UUID) -> URL? = { _ in nil }
+    /// Deletes the note the tab shows, and the tab with it.
+    var deleteNote: @MainActor (BrowserTabRuntimeAssignment, BrowserNativeTabContent) -> Void = { _, _ in }
 
     @MainActor
     init(browser: BrowserStore, spaceAccess: BrowserSpaceAccessController, didOpenURL: @escaping @MainActor () -> Void)
@@ -63,6 +118,27 @@ struct BrowserNativeTabActions {
             else { return }
             browser.openNewTab(url: url, in: space.id)
             didOpenURL()
+        }
+        saveNote = { source, content, title, body in
+            guard let noteID = content.resourceID,
+                let space = browser.availableSpaces.first(where: {
+                    $0.id == source.spaceID && $0.profileID == source.profileID
+                }),
+                !spaceAccess.isLocked(space)
+            else { return }
+            browser.saveNote(noteID, in: space.id, title: title, body: body)
+        }
+        let noteImages = browser.noteImages
+        self.noteImages = noteImages
+        noteImageURL = { id in noteImages.existingFileURL(for: id) }
+        deleteNote = { source, content in
+            guard let noteID = content.resourceID,
+                let space = browser.availableSpaces.first(where: {
+                    $0.id == source.spaceID && $0.profileID == source.profileID
+                }),
+                !spaceAccess.isLocked(space)
+            else { return }
+            browser.deleteNote(noteID, shownIn: source.tabID, in: space)
         }
     }
 
