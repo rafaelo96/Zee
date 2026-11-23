@@ -5789,6 +5789,10 @@
     "easel-strings-catalog": {
       "category": "internal",
       "message": "The string catalog lists the easel's strings, so they can be translated."
+    },
+    "easel-undo": {
+      "category": "improved",
+      "message": "Easels undo and redo: Command-Z and Shift-Command-Z, or Edit › Undo and Redo, step back through drawing, moving, resizing, typing, deleting, recoloring and added images."
     }
   }
 }

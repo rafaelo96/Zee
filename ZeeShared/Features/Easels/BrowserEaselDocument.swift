@@ -6,7 +6,7 @@ import SwiftUI
 /// arrows placed freely, front to back. The core keeps the document as the
 /// note's text, so it is compact JSON in whole points: an easel syncs and
 /// exports as its note does, within a note's limits.
-struct BrowserEaselDocument: Codable, Equatable {
+struct BrowserEaselDocument: Codable, Equatable, Sendable {
     // MARK: - Static Variables
 
     static let version = 1
@@ -43,10 +43,10 @@ struct BrowserEaselDocument: Codable, Equatable {
 /// fills its frame; a stroke's points sit within its frame, from its origin;
 /// an arrow runs from its origin to its origin offset by its size, which may
 /// be negative.
-struct BrowserEaselItem: Codable, Equatable, Identifiable {
+struct BrowserEaselItem: Codable, Equatable, Identifiable, Sendable {
     // MARK: - Types
 
-    enum Kind: String, Codable, CaseIterable {
+    enum Kind: String, Codable, CaseIterable, Sendable {
         case text
         case image
         case stroke
@@ -167,7 +167,7 @@ struct BrowserEaselItem: Codable, Equatable, Identifiable {
 
 /// The colors an easel draws with: Zee's ink and palette, by name, so a
 /// document reads the same in light and dark.
-enum BrowserEaselColor: String, Codable, CaseIterable, Identifiable {
+enum BrowserEaselColor: String, Codable, CaseIterable, Identifiable, Sendable {
     case ink
     case ocean
     case sky

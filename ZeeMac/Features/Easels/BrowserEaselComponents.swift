@@ -269,6 +269,8 @@ struct BrowserEaselArrowShape: Shape {
 struct BrowserEaselSelection: View {
     let frame: CGRect
     let resize: (CGRect) -> Void
+    /// Says the resize ended, so it undoes as one change.
+    let finish: () -> Void
 
     @State private var startFrame: CGRect?
 
@@ -297,7 +299,10 @@ struct BrowserEaselSelection: View {
                                     x: origin.minX, y: origin.minY, width: origin.width + value.translation.width,
                                     height: origin.height + value.translation.height))
                         }
-                        .onEnded { _ in startFrame = nil }
+                        .onEnded { _ in
+                            startFrame = nil
+                            finish()
+                        }
                 )
                 .onHover { inside in
                     if inside {

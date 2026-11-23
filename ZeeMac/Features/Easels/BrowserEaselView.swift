@@ -22,6 +22,11 @@ struct BrowserEaselView: View {
     /// The item as it stood when the pointer began moving it, which each step
     /// of the drag moves from.
     @State private var moving: BrowserEaselItem?
+    /// The canvas as it stood when a change that takes more than one step,
+    /// a move, a resize or typing, began, which one undo puts back.
+    @State private var changeStart: BrowserEaselDocument?
+    @State private var undoTarget = BrowserEaselUndoTarget()
+    @Environment(\.undoManager) private var undoManager
     @State private var isConfirmingDelete = false
     @State private var isImportingImage = false
     @State private var imageCache = BrowserEaselImageCache()
@@ -59,6 +64,8 @@ struct BrowserEaselView: View {
             saveIfChanged()
         }
         .onDisappear(perform: saveIfChanged)
+        .onAppear { undoTarget.attach($document, undoManager: undoManager) }
+        .onChange(of: undoManager) { _, manager in undoTarget.attach($document, undoManager: manager) }
         // Choosing a drawing tool ends what is being edited and clears the
         // selection; the select tool the canvas returns to after placing a
         // text leaves that text being edited.
@@ -104,7 +111,8 @@ struct BrowserEaselView: View {
             }
 
             if let id = selection, let item = document.items.first(where: { $0.id == id }), editingText == nil {
-                BrowserEaselSelection(frame: item.frame, resize: { resize(id, to: $0) })
+                BrowserEaselSelection(
+                    frame: item.frame, resize: { resize(id, to: $0) }, finish: { finishChange("Resize") })
             }
 
             if let draft {
@@ -152,8 +160,10 @@ struct BrowserEaselView: View {
                 guard let finished = draft else { return }
                 draft = nil
                 if let item = finished.item(color: color) {
+                    let before = document
                     document.items.append(item)
                     selection = nil
+                    record(before, finished.tool == .draw ? "Draw" : "Add Shape")
                 }
             }
     }
@@ -163,11 +173,17 @@ struct BrowserEaselView: View {
             .onChanged { value in
                 guard tool == .select, editingText != item.id else { return }
                 let start = moving?.id == item.id ? moving ?? item : item
-                if moving?.id != item.id { moving = item }
+                if moving?.id != item.id {
+                    moving = item
+                    changeStart = document
+                }
                 selection = item.id
                 update(item.id) { _ in start.moved(by: value.translation) }
             }
-            .onEnded { _ in moving = nil }
+            .onEnded { _ in
+                moving = nil
+                finishChange("Move")
+            }
     }
 
     // MARK: - Actions - Items
@@ -181,6 +197,7 @@ struct BrowserEaselView: View {
         }
         let frame = CGRect(origin: location, size: BrowserEaselMetrics.newTextSize)
         let item = BrowserEaselItem(kind: .text, frame: frame, color: color, text: "")
+        changeStart = document
         document.items.append(item)
         tool = .select
         beginEditing(item)
@@ -194,6 +211,7 @@ struct BrowserEaselView: View {
 
     private func beginEditing(_ item: BrowserEaselItem) {
         guard item.kind == .text else { return }
+        if changeStart == nil { changeStart = document }
         selection = item.id
         editingText = item.id
         // The field appears with this change, so focus moves on the next turn.
@@ -210,6 +228,7 @@ struct BrowserEaselView: View {
             if selection == id { selection = nil }
         }
         if focus == .text(id) { focus = .canvas }
+        finishChange("Typing")
     }
 
     private func textBinding(for id: UUID) -> Binding<String> {
@@ -230,17 +249,22 @@ struct BrowserEaselView: View {
     }
 
     private func resize(_ id: UUID, to frame: CGRect) {
+        if changeStart == nil { changeStart = document }
         update(id) { $0.resized(to: frame) }
     }
 
     private func deleteSelection() {
         guard editingText == nil, let id = selection else { return }
+        let before = document
         document.items.removeAll { $0.id == id }
         selection = nil
+        record(before, "Delete")
     }
 
     private func recolorSelection(_ color: BrowserEaselColor) {
         guard let id = selection else { return }
+        let before = document
+        defer { record(before, "Change Color") }
         update(id) { item in
             var edited = item
             edited.color = color
@@ -277,9 +301,27 @@ struct BrowserEaselView: View {
         let size = BrowserEaselDocument.placedSize(for: image.size)
         let origin = location ?? document.nextFreeOrigin
         let item = BrowserEaselItem(kind: .image, frame: CGRect(origin: origin, size: size), image: id)
+        let before = document
         document.items.append(item)
+        record(before, "Add Image")
         tool = .select
         selection = item.id
+    }
+
+    // MARK: - Actions - Undo
+
+    /// Lets one undo put `before` back, named for what changed it, when the
+    /// canvas changed.
+    private func record(_ before: BrowserEaselDocument, _ name: LocalizedStringResource) {
+        guard before != document else { return }
+        undoTarget.register(restoring: before, named: String(localized: name))
+    }
+
+    /// Ends a change that took more than one step, which one undo now puts back.
+    private func finishChange(_ name: LocalizedStringResource) {
+        guard let before = changeStart else { return }
+        changeStart = nil
+        record(before, name)
     }
 
     // MARK: - Actions - Saving
@@ -298,6 +340,36 @@ struct BrowserEaselView: View {
     private struct Snapshot: Equatable {
         let title: String
         let document: BrowserEaselDocument
+    }
+}
+
+// MARK: - Undo
+
+/// What the window's undo manager restores an easel through: the canvas
+/// the view keeps. Undoing a change registers its redo, and redoing it its
+/// undo, so Edit › Undo and Redo, ⌘Z and ⇧⌘Z step through the canvas.
+@MainActor
+final class BrowserEaselUndoTarget: NSObject {
+    private var document: Binding<BrowserEaselDocument>?
+    private weak var undoManager: UndoManager?
+
+    func attach(_ document: Binding<BrowserEaselDocument>, undoManager: UndoManager?) {
+        self.document = document
+        self.undoManager = undoManager
+    }
+
+    /// Registers putting `restored` back, named `name`.
+    func register(restoring restored: BrowserEaselDocument, named name: String) {
+        guard let undoManager else { return }
+        undoManager.registerUndo(withTarget: self) { target in
+            MainActor.assumeIsolated {
+                guard let document = target.document else { return }
+                let current = document.wrappedValue
+                document.wrappedValue = restored
+                target.register(restoring: current, named: name)
+            }
+        }
+        undoManager.setActionName(name)
     }
 }
 
